@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+        integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="/public/css/style.css">
+    <!------ Include the above in your HEAD tag ---------->
+
+    <title>Juego X-0</title>
+</head>
+
+<body>
+
+    <div class="container login" id="contenido_login" style="display: block;">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="contact-info">
+                    <h2 style="text-align: center;">Juego de X-0</h2>
+                    <h4>Bienvenidos al mejor juego de mesa</h4>
+                    <form>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10s">
+                                <button type="button" onclick="motrarF_Registro()"
+                                    class="btn btn-dark">Registrarse</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6" id="F_login" class="registro">
+                <h4 style="text-align: center;">Incia Sesión</h4>
+                <form id="form_login">
+                    <div class="contact-form">
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Usuario:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="l_user" placeholder="Usuario" name="l_user">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Contraseña:</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="l_pass" placeholder="Contraseña"
+                                    name="l_pass">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" name="login" id="login" class=" btn btn-dark">Iniciar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-6" id="F_Registro" style="display: none;">
+                <h4 style="text-align: center;">Registrar</h4>
+                <form id="Frm_registro">
+                    <div class="contact-form">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Nombre:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name_user" name="name_user"
+                                    placeholder="Nombre Completo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Usuario:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="user" name="user" placeholder="Usuario">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Contraseña:</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="pass" name="pass"
+                                    placeholder="Contraseña">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-10">Confirma Contraseña:</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="confi_pass" placeholder="Contraseña">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" name="registro" id="registro"
+                                    class="btn btn-dark">Registra Datos</button>
+                                    <button type="submit"  class=" btn btn-dark">ya estoy registrado</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar" style="display: none;">
+            <div class="sidebar-header">
+                <h3 style="text-align: center;">Juego X-O</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p style="text-align: center;">Bienvenido Jugador:</p>
+                <p style="text-align: center;" id="jugador"></p>
+                <li class="active">
+                    <a style="cursor: pointer;" onclick="sala_juego()" aria-expanded="false"><i class="fas fa-play"></i>
+                        Sala de Juego</a>
+
+                </li>
+                <li>
+                    <a style="cursor: pointer;" onclick="mostrar_miperfil()"><i class="fas fa-user"></i> Mi Perfil</a>
+
+                </li>
+                <li>
+                    <a style="cursor: pointer;" onclick="mostrar_carreras()"><i class="fas fa-flag"></i> Mi Carrera</a>
+                </li>
+                <li>
+                    <a href="/usuarios/salir"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                </li>
+            </ul>
+
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="datos_desarrollador">
+                        <!-- <img src="https://e7.pngegg.com/pngimages/1008/16/png-clipart-alkoholove-pi%C5%A1kvorky-game-tic-tac-toe-%D0%97%D0%B0%D0%B2%D0%B5%D1%82%D0%BD%D1%8B%D0%B9-%D1%82%D0%98%D0%A6-10-tic-tac-toe-logo-game-computer-network.png" alt="image" /> -->
+                        <p style="text-align: center;">Datos</p>
+                        <p>Nombre: Karla Flores</p>
+                        <p>Telefono: 32090019</p>
+                        <p>Correo: kwflores06@gmail.com</p>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </nav>
+
+        <!-- <!-- Page Content Holder -->
+        <div id="content" style="display: none;">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                </div>
+            </nav>
+
+            <table id="carrera" class="table" style="display: none;">
+                <thead class="thead-dark">
+                    <tr>
+
+                        <th scope="col">Oponentes</th>
+                        <th scope="col">Tus Puntos</th>
+                        <th scope="col">Puntos del Oponente</th>
+
+                    </tr>
+                </thead>
+                <tbody id="carreras_jugadas">
+
+                </tbody>
+            </table>
+
+            <table id="lista_jugadores" class="table" style="display: none;">
+                <thead class="thead-dark">
+                    <tr>
+
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Retar</th>
+
+                    </tr>
+                </thead>
+                <tbody id="jugadores">
+
+                </tbody>
+            </table>
+            <div class="container " id="contador" style="display: none;">
+                <div class="row">
+                    <section id="boxscore">
+                        <table class="tablita">
+                            <tr>
+                                <th>Jugador</th>
+                                <th>Ganadas</th>
+                                <th>Empates</th>
+                                <th>Perdidas</th>
+                                <th> Ronda</th>
+                            </tr>
+                            <tr>
+                                <td id="jugador1"></td>
+                                <td id="ganada1">0</td>
+                                <td id="empates1">0</td>
+                                <td id="perdidas1">0</td>
+                                <td id="ronda1">0</td>
+                            </tr>
+                            <tr>
+                                <td id="jugador2"></td>
+                                <td id="ganada2">0</td>
+                                <td id="empates2">0</td>
+                                <td id="perdidas2">0</td>
+                                <td id="ronda2">0</td>
+                            </tr>
+                        </table>
+                    </section>
+
+
+
+                </div>
+                <br> <br> <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn_jugador" id="Turno"><i class="fas fa-fire"></i>Tu
+                            Turno</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn_rendirse" onclick="rendirce()"><i class="fas fa-flag"></i>
+                            Rendirse</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6" id="perfil_usuario" style="display: none;">
+                <h4 style="text-align: center;">Mi Perfil</h4>
+                <form id="Frm_actualizar">
+                    <div class="contact-form">
+
+                        <div class="form-group">
+                            <label>Usuario:</label>
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="user" name="U_user"
+                                        placeholder="Usuario">
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="button" onclick="actualizar_datos()"
+                                        class="btn btn-dark">Cambiar</button>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-sm-10">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Contraseña:</label>
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="U_pass" name="U_pass"
+                                        placeholder="Contraseña">
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="button" onclick="actualizar_contra()"
+                                        class="btn btn-dark">Cambiar</button>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-sm-10">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Cambiar Contraseña:</label>
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="conf_pass" name="conf_pass"
+                                        placeholder="Contraseña">
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="col-sm-10">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="container " id="contador" style="display: none;">
+                <div class="row">
+                    <section id="boxscore">
+                        <table class="tablita">
+                            <tr>
+                                <th>Jugador</th>
+                                <th>Ganadas</th>
+                                <th>Empates</th>
+                                <th>Perdidas</th>
+                                <th> Ronda</th>
+                            </tr>
+                            <tr>
+                                <td id="jugador1"></td>
+                                <td id="ganada1">0</td>
+                                <td id="empates1">0</td>
+                                <td id="perdidas1">0</td>
+                                <td id="ronda1">0</td>
+                            </tr>
+                            <tr>
+                                <td id="jugador2"></td>
+                                <td id="ganada2">0</td>
+                                <td id="empates2">0</td>
+                                <td id="perdidas2">0</td>
+                                <td id="ronda2">0</td>
+                            </tr>
+                        </table>
+                    </section>
+
+
+
+                </div>
+                <br> <br> <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn_jugador" id="Turno"><i class="fas fa-fire"></i>Tu
+                            Turno</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn_rendirse" onclick="rendirce()"><i class="fas fa-flag"></i>
+                            Rendirse</button>
+                    </div>
+                </div>
+
+            </div>
+            <br><br>
+            <div class="game" id="juego" style="display: none;">
+                <div class="player" contenteditable="true">
+                    Jugador
+                    <div style="font-size:30pt;" id="Jugador1" class="selected" contenteditable="true">
+                        0
+                    </div>
+                </div>
+
+                <table id="game" class="tictactoe" style="float:left;width:45%;" contenteditable="true">
+                </table>
+
+                <div class="player" contenteditable="true">
+                    Oponente
+                    <div id="Jugador2" style="font-size:30pt;" contenteditable="true">0</div>
+                </div>
+
+                <div class="clear" contenteditable="true"></div>
+            </div>
+
+
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+    </div>
+    </div>
+
+
+
+</body>
+<script src="/public/jquery/jquery/jquery.min.js"></script>
+<script src="/public/js/main.js"></script>
+<script src="/public/js/game.js"></script>
+
+</html>
