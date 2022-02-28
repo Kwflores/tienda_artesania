@@ -1,13 +1,13 @@
 {
   "name": "tienda-artesania",
   "version": "1.0.0",
-  "description": "Juego de X 0",
+  "description": "tienda de venta de artesania",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Karla Waleska Flores",
+  "author": "tienda-artesania",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
