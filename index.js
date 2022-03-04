@@ -4,6 +4,11 @@ const jwt = require("jsonwebtoken");
 var router = express.Router();
 const RutaUsuarios = require("./routers/usuarios");
 const RutaContacto = require("./routers/contacto");
+const RutaRoles= require("./routers/roles");
+const RutaPermiso= require("./routers/permisos");
+const RutaModulo= require("./routers/modulos");
+const RutaCategoria= require("./routers/categorias");
+const RutaProductos= require("./routers/productos");
 const app = express();
 require('dotenv').config();
 //ultilizo el urlencoded con la propiedad extended para que el servidor pueda entender los datos del htmls
@@ -61,9 +66,12 @@ function generarAccessToken(user){
 
 //Ruta Usuarios
 app.use("/usuarios",validartoken, RutaUsuarios);
-app.use("/contactos",validartoken, RutaContacto);
-
-
+app.use("/contactos", RutaContacto);
+app.use("/roles",validartoken,RutaRoles);
+app.use("/permisos",validartoken,RutaPermiso);
+app.use("/modulos",validartoken,RutaModulo);
+app.use("/categorias",validartoken,RutaCategoria);
+app.use("/productos",validartoken,RutaProductos)
 
 app.listen(process.env.PUERTO, () => {
     console.log('Servidor corriendo con exito!');
