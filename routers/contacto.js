@@ -60,6 +60,8 @@ app.post("/nuevo", (req, res) => {
 // Registro actualizar datos de usuarios
 app.put('/actualizar', (req, res) => {
     try {
+
+        
         const { COD_CONTACTO, TIP_ASUNTO, USER_EMAIL, NUM_CEL, DES_MENSAJE, NOM_USUARIO, COD_MODULO, COD_USUARIO } = req.body;
         const consulta = `call 	ACTUALIZAR_CONTACTO(${COD_CONTACTO},'${TIP_ASUNTO}','${USER_EMAIL}',${NUM_CEL},'${DES_MENSAJE}','${NOM_USUARIO}',${COD_MODULO},${COD_USUARIO})`;
 
@@ -90,26 +92,28 @@ app.put('/actualizar', (req, res) => {
 app.delete('/eliminar', async (req, res) => {
    try {
     const { COD_CONTACTO, NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
-    const consulta = `call 	ELIMINAR_CONTACTO(${COD_CONTACTO},'${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
-    conn.query(consulta, error => {
+    const consulta = `call 	OBTENER_REGISTRO_CONTACTOS('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+    conn.query(consulta, (error, results) => {
         if (error) throw error;
-        res.json({
-            message : "Registro Eliminado",
-        })
-    });
+        if (results[0][0].COD_CONTACTO  == COD_CONTACTO) {
+            console.log(results[0][0].COD_CONTACTO)
+            const consulta = `call 	ELIMINAR_CONTACTO(${COD_CONTACTO},'${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+            conn.query(consulta, error => {
+                if (error) throw error;
+                res.json({
+                    message : "Registro Eliminado",
+                })
+            });
+
+        } else {
+            res.json({
+                message: "Registro No Eliminado, introduzca un COD_CONTACTO valido",
+                COD_CONTACTO: COD_CONTACTO
+            })
+        }
+    })
    } catch (error) {
-       res.json({
-            message: "Verificar los parametros solicitados",
-            parametros_solicitados: {
-                "COD_CONTACTO": "",
-                "TIP_ASUNTO": "",
-                "USER_EMAIL": "",
-                "NUM_CEL": "",
-                "DES_MENSAJE": "",
-                "COD_USUARIO": "",
-                "COD_MODULO": "",
-            }
-        });
+       res.send(0);
    }
 });
 

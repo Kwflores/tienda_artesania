@@ -12,7 +12,7 @@ var conn = conexion.createConnection(
         database: process.env.DB,
     }
 );
-
+ 
 // Obenter todo los roles 
 app.get("/", (req, res) => {
   try {

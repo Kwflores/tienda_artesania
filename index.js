@@ -9,13 +9,17 @@ const RutaPermiso= require("./routers/permisos");
 const RutaModulo= require("./routers/modulos");
 const RutaCategoria= require("./routers/categorias");
 const RutaProductos= require("./routers/productos");
+const RutaProveedores= require("./routers/proveedores");
+const RutaPagos= require("./routers/metodo_pago");
+const RutaFacturacion= require("./routers/facturacion");
+const validartoken = require("./Middleware/validar_token");
 const app = express();
 require('dotenv').config();
 //ultilizo el urlencoded con la propiedad extended para que el servidor pueda entender los datos del htmls
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 //requerimos o importamos el validar_token y admin para poder hacer uso de las funciones y rutas creadas en los mismos. 
-const validartoken = require("./Middleware/validar_token");
+
 
 var conn = conexion.createConnection(
     {
@@ -25,7 +29,6 @@ var conn = conexion.createConnection(
         database: process.env.DB,
     }
 );
-
 
 app.use("/public", express.static(__dirname + "/public"))
 
@@ -55,8 +58,6 @@ app.post('/login', async (req, res) => {
     } catch (e) {
         res.send("0");
     }
-
-
 });
 
 function generarAccessToken(user){
@@ -64,17 +65,22 @@ function generarAccessToken(user){
      return jwt.sign({user}, process.env.TOKEN_SECRET,{expiresIn:'10m'})
 }
 
-//Ruta Usuarios
-app.use("/usuarios",validartoken, RutaUsuarios);
-app.use("/contactos", RutaContacto);
+//Rutas
+app.use("/usuarios",validartoken,RutaUsuarios);
+app.use("/contactos",validartoken, RutaContacto);
 app.use("/roles",validartoken,RutaRoles);
-app.use("/permisos",validartoken,RutaPermiso);
+app.use("/permisos",validartoken, RutaPermiso);
 app.use("/modulos",validartoken,RutaModulo);
 app.use("/categorias",validartoken,RutaCategoria);
-app.use("/productos",validartoken,RutaProductos)
+app.use("/productos",validartoken,RutaProductos);
+app.use("/proveedores",validartoken,RutaProveedores);
+app.use("/pagos",validartoken,RutaPagos);
+app.use("/pedidos",validartoken,RutaFacturacion);
+
 
 app.listen(process.env.PUERTO, () => {
     console.log('Servidor corriendo con exito!');
 });
+
 
 //Run app, then load http://localhost:3000 in a browser to see the output.
