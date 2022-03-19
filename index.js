@@ -35,47 +35,42 @@ app.use("/public", express.static(__dirname + "/public"))
 //Ruta Raiz
 app.use(express.static(__dirname + '/views'));
 
-
 //ruta login permite acceder a la aplicacion 
 app.post('/login', async (req, res) => {
     // 
     try {
         const { NOM_USUARIO, CLAVE, COD_USUARIO, COD_MODULO } = req.body;
         var existe = false;
-          var conteoExistencia = `call OBTENER_USUARIOS('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+        var conteoExistencia = `call BUSCAR_USUARIOS('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
         conn.query(conteoExistencia, (error, results) => {
             if (error) throw error;
-            if (results.length > 0) {
-                if (results.length > 0) {
-                    if (results[0][0].Usuario == NOM_USUARIO && results[0][0].clave == CLAVE ) {
-                        existe = true;
-                        const consulta = `call LOGIN('${NOM_USUARIO}','${CLAVE}',${COD_USUARIO},${COD_MODULO})`;
-                        conn.query(consulta, (error, results) => {
-                            if (results.length > 0) {
-                                let user = results[0];
-                                const accesstoken = generarAccessToken(user)
-                                //le enviamos al usuario un mensaje y el token, el cual sera utilizado para logearse
-                                res.header('authorization', accesstoken).json({
-                                    message: "Bienvenido: " + NOM_USUARIO,
-                                    token: accesstoken
-                                });
-                            }
-                        });
-                    }
-                    else{
-                         res.send("0");
-                    }
+            if (results[0][0]) {
+              //  console.log(results[0][0].Clave===CLAVE && results[0][0].Clave===CLAVE);
+                if (results[0][0].Clave===CLAVE && results[0][0].Clave===CLAVE) {
+                    const consulta = `call LOGIN('${NOM_USUARIO}','${CLAVE}',${COD_USUARIO},${COD_MODULO})`;
+                    conn.query(consulta, (error, results) => {
+                        if (results.length > 0) {
+                            let user = results[0];
+                            const accesstoken = generarAccessToken(user)
+                            //le enviamos al usuario un mensaje y el token, el cual sera utilizado para logearse
+                            res.header('authorization', accesstoken).json({
+                                message: "Bienvenido: " + NOM_USUARIO,
+                                token: accesstoken
+                            });
+                        }
+                    });
                   
+                } else {
+                    res.send("0")
                 }
-            }
-           
+            } else {
+                res.send("0")
+            }          
         });
     } catch (e) {
         res.send("0");
     }
 });
-
-
 
 function generarAccessToken(user) {
     //se crea un token y por medio del sing enviamos un objeto de usuario
@@ -83,7 +78,7 @@ function generarAccessToken(user) {
 }
 
 //Rutas
-app.use("/usuarios",validartoken, RutaUsuarios);
+app.use("/usuarios", validartoken, RutaUsuarios);
 app.use("/contactos", validartoken, RutaContacto);
 app.use("/roles", validartoken, RutaRoles);
 app.use("/permisos", validartoken, RutaPermiso);

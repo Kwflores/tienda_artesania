@@ -113,27 +113,43 @@ app.put('/actualizar', (req, res) => {
 //eliminar Categoria 
 app.delete('/eliminar', async (req, res) => {
     try {
-        const { NOM_CATEGORIA, NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
-        if (NOM_CATEGORIA) {
-            const consulta = `call 	OBTENER_PRODUCTO('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
-            conn.query(consulta, (error, results) => {
-                if (results[0][0].NOM_CATEGORIA == NOM_CATEGORIA) {
-                            return res.json({
-                                message: "Registro No puede eliminarse, contiene productos asociados",
-                                NOM_CATEGORIA: NOM_CATEGORIA
+        const { COD_CATEGORIA, NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
+        var existe = false;
+        var conteoExistencia = `call OBTENER_PRODUCTOS_CATEGORIA(${COD_CATEGORIA},${COD_USUARIO},${COD_MODULO})`;
+        conn.query(conteoExistencia, (error, results) => {
+            if (error) throw error;
+            if (results[0][0]) {
+                console.log(results[0][0].COD_CATEGORIA == COD_CATEGORIA);
+                if (results[0][0].COD_CATEGORIA == COD_CATEGORIA) {
+                    return res.json({
+                        message: "Registro No puede eliminarse, contiene productos asociados",
+                        COD_CATEGORIA: COD_CATEGORIA
 
-                            });
+                    });
                 }
-                else{
-                    res.json({ message: "Categoria No valida" });
-                }
-            });
-        }
+            } else {
+                const consulta = `call 	OBTENER_CATEGORIAS_CODIGO(${COD_CATEGORIA},'${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+                conn.query(consulta, (error, results) => {
+                    if (results[0][0]) {
+                        console.log(results[0][0].COD_CATEGORIA == COD_CATEGORIA)
+                        if (results[0][0].COD_CATEGORIA == COD_CATEGORIA) {
+                            const consulta = `call 	ELIMINAR_CATEGORIA(${COD_CATEGORIA},'${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+                            conn.query(consulta, (error, results) => {
+                                res.json({
+                                    message: "Registro se elimino correctamente",
+                                    COD_CATEGORIA: COD_CATEGORIA
+                                });
+                            })
+                        }
 
+                    } else {
+                        res.json({ message: "Categoria No valida" });
+                    }
 
-
-    } catch (error) {
-        console.log(error)
+                })
+            }
+        });
+    } catch (e) {
         res.send("0");
     }
 });

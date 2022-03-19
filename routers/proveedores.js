@@ -102,59 +102,50 @@ app.put('/actualizar', (req, res) => {
 
 });
 
+
 //eliminar proveedor
 app.delete('/eliminar', async (req, res) => {
     try {
         const { COD_PROVEEDOR, NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
-        const productos = `call 	OBTENER_PRODUCTO('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
-        conn.query(productos, (error, results) => {
-            // console.log(results[0][0].COD_PROVEEDORES);
-            if (results[0][0].COD_PROVEEDORES == COD_PROVEEDOR) {
-                res.json({
-                    message: "Registro No Eliminado, este proveedor esta asociado con productos de inventario",
-                    NOM_PROVEEDOR: results[0][0].NOM_PROVEEDOR
+        var existe = false;
+        var conteoExistencia = `call OBTENER_PRODUCTO_PROVEEDOR(${COD_PROVEEDOR},'${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+        conn.query(conteoExistencia, (error, results) => {
+            if (error) throw error;
+            if (results[0][0]) {
+                console.log(results[0][0].COD_PROVEEDORES);
+                if (results[0][0].COD_PROVEEDORES == COD_PROVEEDOR) {
+                    return res.json({
+                        message: "Registro No puede eliminarse, contiene productos asociados",
+                        COD_PROVEEDOR: COD_PROVEEDOR
+
+                    });
+                }
+            } else {
+                const consulta = `call 	OBTENER_PROVEEDORES_NOMBRE(${COD_PROVEEDOR},'${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+                conn.query(consulta, (error, results) => {
+                    if (results[0][0]) {
+                        console.log(results[0][0].COD_PROVEEDORES)
+                        if (results[0][0].COD_PROVEEDORES == COD_PROVEEDOR) {
+                            const consulta = `call 	ELIMINAR_PROVEEDOR(${COD_PROVEEDOR},'${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+                            conn.query(consulta, (error, results) => {
+                                res.json({
+                                    message: "Registro se elimino correctamente",
+                                    COD_PROVEEDOR: COD_PROVEEDOR
+                                });
+                            })
+                        }
+
+                    } else {
+                        res.json({ message: "Categoria No valida" });
+                    }
+
                 })
             }
-
-            // else if (COD_PROVEEDOR) {
-            //     const proveedores = `call OBTENER_PROVEEDORES('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
-            //     conn.query(proveedores, (error, results) => {
-            //        try {
-            //         for (const p of results[0]) {
-            //             console.log(p.COD_PROVEEDORES)
-            //             if (p.COD_PROVEEDORES == COD_PROVEEDOR) {
-            //                 console.log(p.COD_PROVEEDORES)
-            //                 console.log("si es igual")
-            //                 const consulta = `call 	ELIMINAR_PROVEEDOR(${COD_PROVEEDOR},'${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
-            //                 conn.query(consulta, () => {
-            //                     res.json({
-            //                         message: "Registro Eliminado",
-
-            //                     });
-            //                     return;
-            //                 });
-            //             }
-                     
-                    
-            //         }
-            //        } catch (error) {
-            //         console.log(error)
-            //        }
-                    
-            //     });
-            // }   
-             else {
-                console.log("no existe")
-                console.log("no es igual")
-                res.send( "Registro no Eliminado, ingrese un COD_PROVEEDOR valido");
-                return;
-            }        
-        })
-
-        } catch (error) {
-            res.send("0")
-        }
-    });
+        });
+    } catch (e) {
+        res.send("0");
+    }
+});
 
 
 module.exports = app;

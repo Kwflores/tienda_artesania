@@ -25,8 +25,9 @@ $(document).ready(function () {
             })
             .then(function (data) {
                 console.log(data)
-                localStorage.setItem('token', data.token);
+                
                 if (data != 0) {
+                    localStorage.setItem('token', data.token);
                     let timerInterval
                     Swal.fire({
                         title: 'BIENVENIDO!',
