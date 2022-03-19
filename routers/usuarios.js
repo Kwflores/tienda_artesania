@@ -55,7 +55,7 @@ app.post("/nuevo", (req, res) => {
     try {
         const { NOM_PERSONA, USER_EMAIL, NUM_CEL, NOM_USUARIO, CLAVE, NOM_IDENTIFICACION, COD_IDENTIFICACION, DIRECCION, COD_ROL,
             COD_MODULO } = req.body;
-        var conteoExistencia = `call CONTEO_USUARIO('${NOM_USUARIO}');`;
+        var conteoExistencia = `call CONTEO_USUARIO('${NOM_USUARIO}','${USER_EMAIL}');`;
         conn.query(conteoExistencia, (error, results) => {
             if (error) throw error;
             if (results.length > 0) {
@@ -104,7 +104,23 @@ app.put('/actualizar_clave', (req, res) => {
         const consulta = `call ACTUALIZAR_CLAVE('${CLAVE}','${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
         conn.query(consulta, error => {
             if (error) throw error;
-            res.send("1");
+            res.send("Actualizacio de Clave por medio del nombre de usuario");
+        });
+    } catch (error) {
+        res.send("0");
+
+    }
+
+});
+
+// Registro actualizar clave por correo
+app.put('/actualizar_clave_correo', (req, res) => {
+    try {
+        const { CLAVE, CORREO, COD_USUARIO, COD_MODULO } = req.body;
+        const consulta = `call 	ACTUALIZAR_CLAVE_CORREO('${CLAVE}','${CORREO}',${COD_USUARIO},${COD_MODULO})`;
+        conn.query(consulta, error => {
+            if (error) throw error;
+            res.send("Actualizacio de Clave por medio de Correo");
         });
     } catch (error) {
         res.send("0");
