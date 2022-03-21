@@ -3,6 +3,7 @@ const conexion = require("mysql");
 const jwt = require("jsonwebtoken");
 var router = express.Router();
 const RutaUsuarios = require("./routers/usuarios");
+const RutaPass = require("./routers/reset_pass");
 const RutaContacto = require("./routers/contacto");
 const RutaRoles = require("./routers/roles");
 const RutaPermiso = require("./routers/permisos");
@@ -37,7 +38,7 @@ app.use(express.static(__dirname + '/views'));
 
 //ruta login permite acceder a la aplicacion 
 app.post('/login', async (req, res) => {
-    // 
+     
     try {
         const { NOM_USUARIO, CLAVE, COD_USUARIO, COD_MODULO } = req.body;
         var existe = false;
@@ -45,20 +46,26 @@ app.post('/login', async (req, res) => {
         conn.query(conteoExistencia, (error, results) => {
             if (error) throw error;
             if (results[0][0]) {
-              //  console.log(results[0][0].Clave===CLAVE && results[0][0].Clave===CLAVE);
-                if (results[0][0].Clave===CLAVE && results[0][0].Clave===CLAVE) {
+               //console.log(results[0][0]);
+               pass = results[0][0].Clave
+               var clave = pass.toString('utf8');
+               codigo = results[0][0].COD_USUARIO;
+                if (results[0][0].Usuario ===NOM_USUARIO && clave ===CLAVE) {
                     const consulta = `call LOGIN('${NOM_USUARIO}','${CLAVE}',${COD_USUARIO},${COD_MODULO})`;
                     conn.query(consulta, (error, results) => {
                         if (results.length > 0) {
+                           
                             let user = results[0];
                             const accesstoken = generarAccessToken(user)
                             //le enviamos al usuario un mensaje y el token, el cual sera utilizado para logearse
                             res.header('authorization', accesstoken).json({
                                 message: "Bienvenido: " + NOM_USUARIO,
+                                cod_usuario: codigo,
                                 token: accesstoken
                             });
                         }
                     });
+
                   
                 } else {
                     res.send("0")
@@ -71,6 +78,8 @@ app.post('/login', async (req, res) => {
         res.send("0");
     }
 });
+ 
+
 
 function generarAccessToken(user) {
     //se crea un token y por medio del sing enviamos un objeto de usuario
@@ -88,6 +97,7 @@ app.use("/productos", validartoken, RutaProductos);
 app.use("/proveedores", validartoken, RutaProveedores);
 app.use("/pagos", validartoken, RutaPagos);
 app.use("/pedidos", validartoken, RutaFacturacion);
+app.use("/send-email",RutaPass)
 
 
 app.listen(process.env.PUERTO, () => {
