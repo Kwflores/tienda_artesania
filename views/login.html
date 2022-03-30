@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -105,7 +105,7 @@
                                     <div class="p-lg-4 mb-4 mb-xl-5">
 
                                         <div class="mb-4 text-center">
-                                            <img src="../../assets/svg/upload/login-03.svg" alt="Login"
+                                            <img src="/public/assets/svg/upload/login-03.svg" alt="Login"
                                                 data-width="64px" data-height="64px">
                                         </div>
 
@@ -130,9 +130,8 @@
                                                     <input type="text" class="form-control form-control-lg"
                                                         placeholder="Usuario" name="NOM_USUARIO" id="NOM_USUARIO"
                                                         onkeyup="javascript:this.value=this.value.toUpperCase();"
-                                                        required  onkeypress="return soloLetras(event)"
-                                                        value="ADMINISTRADOR">
-                                                       
+                                                        required onkeypress="soloLetras(event)">
+
                                                     <div class="input-focus-bg"></div>
                                                 </div>
                                             </div>
@@ -141,18 +140,20 @@
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <label class="text-uppercase px-3">Contraseña</label>
                                                     <label class="px-3">
-                                                        <a href="../../templates/pages/password-reset-02.html"
-                                                            class="text-reset">¿Se te olvidó tu contraseña?</a>
+                                                        <a href="#" class="text-reset"
+                                                            onclick="mostrar_reset_clave()">¿Se te olvidó tu
+                                                            contraseña?</a>
                                                     </label>
                                                 </div>
                                                 <div class="input-group-inner">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text input-group-icon"><i
-                                                                class="far fa-eye-slash" onclick="mostrarContrasena()"></i></span>
+                                                                class="far fa-eye-slash"
+                                                                onclick="mostrarContrasena()"></i></span>
                                                     </div>
                                                     <input type="password" name="CLAVE" id="CLAVE" class="form-control"
-                                                        placeholder="Contraseña" value="Baleada" onkeypress="return soloLetras(event)" required >
-                                                        
+                                                        placeholder="Contraseña" required>
+
                                                     <div class="input-focus-bg"></div>
                                                 </div>
                                             </div>
@@ -161,7 +162,7 @@
                                             <div id="inicio">
                                                 <button type="button"
                                                     class="btn btn-lg btn-round btn-primary btn-block mb-0"><i
-                                                        class="fas fa-sign-in-alt" ></i>Iniciar Sesión</button>
+                                                        class="fas fa-sign-in-alt"></i>Iniciar Sesión</button>
                                             </div>
 
                                             <br>
@@ -186,14 +187,14 @@
                                     <div class="p-lg-4 mb-4 mb-xl-5">
 
                                         <div class="mb-4 text-center">
-                                            <img src="../../assets/svg/upload/register-03.svg" alt="Register"
+                                            <img src="/public/assets/svg/upload/register-03.svg" alt="Register"
                                                 data-width="64px" data-height="64px">
                                         </div>
 
                                         <div class="pb-1"></div>
 
                                         <h3 class="section-title-4 text-center font-weight-800 mb-4">
-                                            Register
+                                            Registro de Usuarios
                                             <div class="title-divider-round"></div>
                                         </h3>
 
@@ -262,6 +263,139 @@
                                             <label class="w-100 text-center py-2 mb-0">
                                                 Already have an account? <a href="#" onclick="mostrarlogin()">Login</a>
                                             </label>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" id="resetear-clave">
+                        <div class="container">
+                            <div class="row mb-5">
+                                <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3">
+                                    <div class="p-lg-4 mb-4 mb-xl-5">
+
+                                        <div class="mb-4 text-center">
+                                            <img src="/public//assets/svg/upload/reset-01.svg" alt="Password reset"
+                                                data-width="64px" data-height="64px">
+                                        </div>
+
+                                        <div class="pb-1"></div>
+
+                                        <h3 class="section-title-4 text-center font-weight-800 mb-4">
+                                            Restablecer la contraseña
+                                            <div class="title-divider-round"></div>
+                                        </h3>
+
+                                        <form>
+
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <label class="text-uppercase px-3">Nombre de Usuario</label>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-user"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control form-control-lg"
+                                                        placeholder="Usuario" name="USUARIO" id="USUARIO"
+                                                        onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                                        required onkeypress="return soloLetras(event)">
+
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                            </div>
+
+                                            <div id="reset-pass">
+                                                <button type="button"
+                                                    class="btn btn-lg btn-round btn-primary btn-block"><i
+                                                        class="fas fa-unlock-alt"></i>Restablecer la contraseña</button>
+                                            </div>
+
+                                            <label class="w-100 text-center py-2 mb-0">
+                                                ¿Recuerdas tu contraseña? <a href="#"
+                                                    onclick=" mostrarlogin()">Login</a>
+                                            </label>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" id="clave">
+                        <div class="container">
+                            <div class="row mb-5">
+                                <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3">
+                                    <div class="p-lg-4 mb-4 mb-xl-5">
+
+                                        <div class="mb-4 text-center">
+                                            <img src="/public//assets/svg/upload/reset-01.svg" alt="Password reset"
+                                                data-width="64px" data-height="64px">
+                                        </div>
+
+                                        <div class="pb-1"></div>
+
+                                        <h3 class="section-title-4 text-center font-weight-800 mb-4">
+                                            Actualziar contraseña
+                                            <div class="title-divider-round"></div>
+                                        </h3>
+
+                                        <form  >
+
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Contraseña</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"  
+                                                                onclick="mostrarContrasenapass()" ></i></span>
+                                                    </div>
+                                                    <input type="password" name="pass" id="pass"   class="form-control"
+                                                        placeholder="Contraseña" required >
+                                                   
+                                                    <div class="input-focus-bg"></div>
+                                                    <div class="col-lg-3" style="vertical-align:middle;margin-top:7px">
+                                                        <span id="passstrength"></span>
+                                                    </div>
+                                                   
+                                                </div>
+                                                <span style="color: brown;" id="campoOK"></span>
+                                            </div>
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Confirmar Contraseña</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"
+                                                                onclick="mostrarContrasenapass_confi()"></i></span>
+
+                                                    </div>
+                                                    <input type="password" name="pass_conf" id="pass_conf"
+                                                        class="form-control" placeholder="Confirmar Contraseña"
+                                                        required required >
+
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                            </div>
+
+                                            <div id="modificar-clave">
+                                                <button type="button"
+                                                    class="btn btn-lg btn-round btn-primary btn-block"><i
+                                                        class="fas fa-unlock-alt" ></i>Restablecer la contraseña</button>
+                                            </div>
+
+                                            <label class="w-100 text-center py-2 mb-0">
+                                                ¿Recuerdas tu contraseña? <a href="#"
+                                                    onclick=" mostrarlogin()">Login</a>
+                                            </label>
+
 
                                         </form>
 

@@ -13,9 +13,60 @@ $(document).ready(function () {
         ta.val(letras)
     });
 })
+$('#pass').keyup(function(e) {
+    var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+    var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+    var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+    if (false == enoughRegex.test($(this).val())) {
+            $('#passstrength').html('Más caracteres.');
+    } else if (strongRegex.test($(this).val())) {
+            $('#passstrength').className = 'ok';
+            $('#passstrength').html('Fuerte!');
+    } else if (mediumRegex.test($(this).val())) {
+            $('#passstrength').className = 'alert';
+            $('#passstrength').html('Media!');
+    } else {
+            $('#passstrength').className = 'error';
+            $('#passstrength').html('Débil!');
+    }
+    return true;
+});
+
+document
+  .getElementById('pass')
+  .addEventListener('input', function(evt) {
+    const campo = evt.target,
+          valido = document.getElementById('campoOK'),
+        
+          regex = /^(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ]/;
+
+    //Se muestra un texto válido/inválido a modo de ejemplo
+    if (regex.test(campo.value)) {
+      valido.innerText = "";
+    } else {
+      valido.innerText = "Debe tener al menos una mayúscula, una minúscula y un dígito";
+    }
+  });
 
 function mostrarContrasena() {
     var tipo = document.getElementById("CLAVE");
+    if (tipo.type == "password") {
+        tipo.type = "text";
+    } else {
+        tipo.type = "password";
+    }
+}
+
+function mostrarContrasenapass() {
+    var tipo = document.getElementById("pass");
+    if (tipo.type == "password") {
+        tipo.type = "text";
+    } else {
+        tipo.type = "password";
+    }
+}
+function mostrarContrasenapass_confi() {
+    var tipo = document.getElementById("pass_conf");
     if (tipo.type == "password") {
         tipo.type = "text";
     } else {
@@ -41,5 +92,10 @@ function soloLetras(e){
          return false;
      }
  }
+ 
+
+
+
 
  
+
