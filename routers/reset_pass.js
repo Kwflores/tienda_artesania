@@ -64,13 +64,13 @@ app.post('/', (req, res) => {
             if (results[0][0]) {
                 if (results[0][0].Usuario === USUARIO) {
                     var TOKEN = crypto.randomBytes(4).toString("hex");
-
+                    var USUARIO_ID = results[0][0].COD_USUARIO
+                    console.log(results[0][0]);
                     var today = new Date();
                     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
                     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                     var FECHA = date + ' ' + time;
-
-                    const consulta = `call 	CLAVE_TEMPORAL('${TOKEN}','${FECHA}','${USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+                    const consulta = `call 	CLAVE_TEMPORAL('${TOKEN}','${FECHA}','${USUARIO}',${USUARIO_ID},${COD_MODULO})`;
                     conn.query(consulta, (error, results) => {
 
                     })

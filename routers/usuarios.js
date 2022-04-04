@@ -67,7 +67,7 @@ app.post("/nuevo", (req, res) => {
                     res.send(`El usuario ${NOM_USUARIO} ya existe, favor registra uno nuevo.!`);
                 }
                 else {
-                    const consulta = `call NUEVO_USUARIO('${NOM_PERSONA}','${USER_EMAIL}',${NUM_CEL},'${NOM_USUARIO}','${CLAVE}','${NOM_IDENTIFICACION}','${COD_IDENTIFICACION}','${DIRECCION}',${COD_ROL},1,${COD_MODULO})`;
+                    const consulta = `call NUEVO_USUARIO('${NOM_PERSONA}','${USER_EMAIL}',${NUM_CEL},'${NOM_USUARIO}','${CLAVE}','${NOM_IDENTIFICACION}','${COD_IDENTIFICACION}','${DIRECCION}',${COD_ROL},${COD_MODULO})`;
                     conn.query(consulta, (error, nuevo_usuario) => {
                         if (error) throw error;
                         if (nuevo_usuario.length > 0) {
@@ -83,7 +83,6 @@ app.post("/nuevo", (req, res) => {
 
 });
 
-
 // Registro actualizar datos de usuarios
 app.put('/actualizar', (req, res) => {
     try {
@@ -98,7 +97,7 @@ app.put('/actualizar', (req, res) => {
     } catch (error) {
         res.send("0");
     }
-
+              
 });
 
 
