@@ -13,6 +13,7 @@ const RutaProductos = require("./routers/productos");
 const RutaProveedores = require("./routers/proveedores");
 const RutaPagos = require("./routers/metodo_pago");
 const RutaFacturacion = require("./routers/facturacion");
+const RutaCliente = require("./routers/clientes");
 const validartoken = require("./Middleware/validar_token");
 const app = express();
 require('dotenv').config();
@@ -20,8 +21,6 @@ require('dotenv').config();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 //requerimos o importamos el validar_token y admin para poder hacer uso de las funciones y rutas creadas en los mismos. 
-
-
 var conn = conexion.createConnection(
     {
         host: process.env.SERVER,
@@ -46,22 +45,23 @@ app.post('/login', async (req, res) => {
         conn.query(conteoExistencia, (error, results) => {
             if (error) throw error;
             if (results[0][0]) {
-               //console.log(results[0][0]);
                pass = results[0][0].Clave
                var clave = pass.toString('utf8');
                codigo = results[0][0].COD_USUARIO;
+               rol = results[0][0].Rol;
                 if (results[0][0].Usuario ===NOM_USUARIO && clave ===CLAVE) {
                     const consulta = `call LOGIN('${NOM_USUARIO}','${CLAVE}',${COD_USUARIO},${COD_MODULO})`;
                     conn.query(consulta, (error, results) => {
                         if (results.length > 0) {
-                           
+                          
                             let user = results[0];
                             const accesstoken = generarAccessToken(user)
                             //le enviamos al usuario un mensaje y el token, el cual sera utilizado para logearse
                             res.header('authorization', accesstoken).json({
                                 message: "Bienvenido: " + NOM_USUARIO,
                                 cod_usuario: codigo,
-                                token: accesstoken
+                                token: accesstoken,
+                                rol:rol
                             });
                         }
                     });
@@ -80,11 +80,11 @@ app.post('/login', async (req, res) => {
 });
  
 
-
 function generarAccessToken(user) {
     //se crea un token y por medio del sing enviamos un objeto de usuario
     return jwt.sign({ user }, process.env.TOKEN_SECRET, { expiresIn: '30m' })
 }
+
 
 //Rutas
 app.use("/usuarios", validartoken, RutaUsuarios);
@@ -98,7 +98,7 @@ app.use("/proveedores", validartoken, RutaProveedores);
 app.use("/pagos", validartoken, RutaPagos);
 app.use("/pedidos", validartoken, RutaFacturacion);
 app.use("/send-email",RutaPass)
-
+app.use("/clientes",RutaCliente)
 
 app.listen(process.env.PUERTO, () => {
     console.log('Servidor corriendo con exito!');

@@ -36,7 +36,7 @@ $(document).ready(function () {
                         body: raw,
                         redirect: 'follow'
                     };
-
+                    //restablecer contrase;a
                     fetch(url_tokens, requestOptions)
                         .then(function (response) {
                             return response.json();
@@ -73,12 +73,11 @@ $(document).ready(function () {
                         })
 
                 }
-
-
                 if (data != 0) {
 
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('id_usuario', data.cod_usuario);
+                    rol= data.rol;
                     let timerInterval
                     Swal.fire({
                         title: 'BIENVENIDO!',
@@ -103,7 +102,6 @@ $(document).ready(function () {
                         }
                     })
                     localStorage.setItem('usuario', username);
-                    window.location.href = "/";
                 }
                 if (data == 0) {
                     Swal.fire({
@@ -135,10 +133,21 @@ $(document).ready(function () {
                             return response.json();
                         })
                         .then(function (data) {
-                            console.log(data[0])
+                           
                             data[0].forEach(user => {
                                 if (user.Usuario != username) {
                                     existe = true;
+                                }
+                                if(user.Rol == 'ADMINISTRADOR'){
+                                    window.location.href = "/admin/dash.html";
+                                    sessionStorage.setItem('token',token)
+                                    sesion = sessionStorage.getItem('token');
+                                    if(sesion){
+                                        window.location.href = "/admin/dash.html";
+                                        sessionStorage.setItem('token',token)
+                                    } 
+                                }else  if(user.Rol == 'CLIENTE'){
+                                    window.location.href = "/";
                                 }
                                 if (existe) {
 
@@ -154,11 +163,10 @@ $(document).ready(function () {
                         .catch(function (err) {
                             console.log(err);
                         });
+
                 }
             })
-
     });
-
     //envia una contrasena temporal via correo al usuario
     $("#reset-pass").click(function () {
         user = $("#USUARIO").val();
@@ -168,8 +176,9 @@ $(document).ready(function () {
         var MyHeaders = new Headers({
             'Authorization': token
         });
+        
         MyHeaders.append("Content-Type", "application/json",);
-        raw = JSON.stringify({ "USUARIO": user, "COD_USUARIO": id_user, "COD_MODULO": 1, })
+        raw = JSON.stringify({ "USUARIO": user, "COD_USUARIO": 1, "COD_MODULO": 1, })
         var settings = {
             method: 'POST',
             headers: MyHeaders,
@@ -206,7 +215,6 @@ $(document).ready(function () {
 
 
     });
-
     //actualiza la nueva contrasena del usuario
     $("#modificar-clave").click(function () {
         password = $("#pass").val();
@@ -261,8 +269,84 @@ $(document).ready(function () {
         }
 
     });
+    //registro de clientes 
+    $("#registro-clientes").click(function () {
+        cliente = $("#NOM_CLIENTE").val();
+        correo = $("#CORREO").val();
+        usuario = $("#USER").val();
+        clave = $("#Password").val();
+        confi_clave = $("#conf_pass").val();
+        telefono = "0";
+        valido= document.getElementById("campoOK").val 
 
+        if(valido == ""){
 
+        }
+        if(cliente=="" || correo == "" || usuario=="" || clave==""){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Debe completar todo los campos.!',
+               
+            })
+            return;
+        }
+        if (clave != confi_clave ) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡La Contraseña no Coinciden o no es Valida.!',
+            })  
+            return;
+        }  
+        var settings = {
+            "url": api + "clientes",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({ "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": 0 , "NOM_USUARIO": usuario, "CLAVE": clave, "NOM_IDENTIFICACION": "NULL",  "COD_IDENTIFICACION":"NULL", "DIRECCION": "NULL", "COD_ROL": 2, "COD_MODULO": 1  }),
+        };  
+        $.ajax(settings).done(function (response) {
+            if(response == 0){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '¡No se Registro, Favor verificar los datos introducidos!',
+                })  
+                return; 
+            }
+            if(response.Message){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '¡Usuario ya Existe pruebe con otro!',
+                })  
+                return;
+            }else{
+                Swal.fire(
+                    'Registro Completo!',
+                    'Se registro correctamente!',
+                    'success'
+                )
+                document.getElementById("clave").style.display = "none";
+                document.getElementById("login").style.display = "block";
+                document.getElementById("registro").style.display = "none";
+                document.getElementById("resetear-clave").style.display = "none";
+            }
+          
+        });    
+        
+    });
+
+    $("#cerrar_sesion").click(function(){
+        sessionStorage.removeItem('token');
+        window.close()
+        window.location.href = "/";
+       
+   
+    })
 
 });
 

@@ -149,10 +149,11 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text input-group-icon"><i
                                                                 class="far fa-eye-slash"
-                                                                onclick="mostrarContrasena()"></i></span>
+                                                                onclick="mostrarContrasenas()"></i></span>
                                                     </div>
                                                     <input type="password" name="CLAVE" id="CLAVE" class="form-control"
                                                         placeholder="Contraseña" required>
+                                                        
 
                                                     <div class="input-focus-bg"></div>
                                                 </div>
@@ -199,69 +200,84 @@
                                         </h3>
 
                                         <form>
-
                                             <div class="input-group input-group-lg input-group-round mb-4">
-                                                <label class="text-uppercase px-3">Username</label>
+                                                <label class="text-uppercase px-3">Nombre Completo</label>
                                                 <div class="input-group-inner">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text input-group-icon"><i
                                                                 class="far fa-user"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control form-control-lg"
-                                                        placeholder="Username">
+                                                        placeholder="Nombre" name="NOM_CLIENTE" id="NOM_CLIENTE">
                                                     <div class="input-focus-bg"></div>
                                                 </div>
                                             </div>
-
                                             <div class="input-group input-group-lg input-group-round mb-4">
-                                                <label class="text-uppercase px-3">Email address</label>
+                                                <label class="text-uppercase px-3">Correo Electronico</label>
                                                 <div class="input-group-inner">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text input-group-icon"><i
                                                                 class="far fa-envelope"></i></span>
                                                     </div>
                                                     <input type="email" class="form-control form-control-lg"
-                                                        placeholder="Email address">
+                                                        placeholder="Correo" name="CORREO" id="CORREO">
                                                     <div class="input-focus-bg"></div>
                                                 </div>
+                                                <span style="color: brown;" id="emailOK"></span>
                                             </div>
-
                                             <div class="input-group input-group-lg input-group-round mb-4">
-                                                <label class="text-uppercase px-3">Password</label>
+                                                <label class="text-uppercase px-3">Usuario</label>
                                                 <div class="input-group-inner">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text input-group-icon"><i
-                                                                class="far fa-eye-slash"></i></span>
+                                                                class="far fa-user"></i></span>
                                                     </div>
-                                                    <input type="password" class="form-control form-control-lg"
-                                                        placeholder="Password">
+                                                    <input type="text" class="form-control form-control-lg"
+                                                        placeholder="Usuario" name="USER" id="USER" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                                        required onkeypress="soloLetras(event)">
                                                     <div class="input-focus-bg"></div>
                                                 </div>
                                             </div>
-
-                                            <div class="px-3">
-                                                <div class="form-group custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="agreeTerms">
-                                                    <label class="custom-control-label" for="agreeTerms">I agree to the
-                                                        <a href="#" target="_blank"
-                                                            class="text-dark font-weight-500">Terms and
-                                                            Conditions</a>.</label>
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <label class="text-uppercase px-3">Contraseña</label>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"  onclick="mostrarContrasena()"></i></span>
+                                                    </div>
+                                                    <input type="password" class="form-control form-control-lg"
+                                                        placeholder="Contraseña" name="Password" id="Password" maxlength="8">
+                                                    <div class="input-focus-bg"></div>
+                                                    <div class="col-lg-3" style="vertical-align:middle;margin-top:7px">
+                                                        <span id="passstrength"></span>
+                                                    </div>
+                                                </div>
+                                                <span style="color: brown;" id="campoOK"></span>
+                                            </div>
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <label class="text-uppercase px-3">Confirmar Contraseña</label>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"  onclick="mostrarContrasenapassconfi()"></i></span>
+                                                    </div>
+                                                    <input type="password" class="form-control form-control-lg"
+                                                        placeholder="Confirmar Contraseña" name="conf_pass" id="conf_pass">
+                                                    <div class="input-focus-bg"></div>
                                                 </div>
                                             </div>
-
-                                            <button type="submit"
+                                            <div id="registro-clientes">
+                                                <button type="button"
                                                 class="btn btn-lg btn-round btn-primary btn-block mb-0"><i
-                                                    class="fas fa-edit"></i>Create my account</button>
-
-                                            <div class="text-center my-3">
-                                                <small>OR</small>
+                                                    class="fas fa-edit"></i>Crear mi cuenta</button>
                                             </div>
+                                          
 
-                                            <button type="submit" class="btn btn-lg btn-round btn-indigo btn-block"><i
-                                                    class="fab fa-facebook-square"></i>Register with Facebook</button>
+                                           
+                                            
 
                                             <label class="w-100 text-center py-2 mb-0">
-                                                Already have an account? <a href="#" onclick="mostrarlogin()">Login</a>
+                                                ¿Ya tienes una cuenta? <a href="#" onclick="mostrarlogin()">Login</a>
                                             </label>
 
                                         </form>
@@ -356,7 +372,7 @@
                                                                 onclick="mostrarContrasenapass()" ></i></span>
                                                     </div>
                                                     <input type="password" name="pass" id="pass"   class="form-control"
-                                                        placeholder="Contraseña" required >
+                                                        placeholder="Contraseña" required maxlength="8" >
                                                    
                                                     <div class="input-focus-bg"></div>
                                                     <div class="col-lg-3" style="vertical-align:middle;margin-top:7px">

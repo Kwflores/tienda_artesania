@@ -31,6 +31,24 @@ $('#pass').keyup(function(e) {
     }
     return true;
 });
+$('#Password').keyup(function(e) {
+    var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+    var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+    var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+    if (false == enoughRegex.test($(this).val())) {
+            $('#passstrength').html('Más caracteres.');
+    } else if (strongRegex.test($(this).val())) {
+            $('#passstrength').className = 'ok';
+            $('#passstrength').html('Fuerte!');
+    } else if (mediumRegex.test($(this).val())) {
+            $('#passstrength').className = 'alert';
+            $('#passstrength').html('Media!');
+    } else {
+            $('#passstrength').className = 'error';
+            $('#passstrength').html('Débil!');
+    }
+    return true;
+});
 
 document
   .getElementById('pass')
@@ -47,9 +65,32 @@ document
       valido.innerText = "Debe tener al menos una mayúscula, una minúscula y un dígito";
     }
   });
+  document
+  .getElementById('Password')
+  .addEventListener('input', function(evt) {
+    const campo = evt.target,
+          valido = document.getElementById('campoOK'),
+        
+          regex = /^(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ]/;
 
-function mostrarContrasena() {
+    //Se muestra un texto válido/inválido a modo de ejemplo
+    if (regex.test(campo.value)) {
+      valido.innerText = "";
+    } else {
+      valido.innerText = "Debe tener al menos una mayúscula, una minúscula y un dígito";
+    }
+  });
+
+function mostrarContrasenas() {
     var tipo = document.getElementById("CLAVE");
+    if (tipo.type == "password") {
+        tipo.type = "text";
+    } else {
+        tipo.type = "password";
+    }
+}
+function mostrarContrasena() {
+    var tipo = document.getElementById("Password");
     if (tipo.type == "password") {
         tipo.type = "text";
     } else {
@@ -59,6 +100,14 @@ function mostrarContrasena() {
 
 function mostrarContrasenapass() {
     var tipo = document.getElementById("pass");
+    if (tipo.type == "password") {
+        tipo.type = "text";
+    } else {
+        tipo.type = "password";
+    }
+}
+function mostrarContrasenapassconfi() {
+    var tipo = document.getElementById("conf_pass");
     if (tipo.type == "password") {
         tipo.type = "text";
     } else {
@@ -93,6 +142,22 @@ function soloLetras(e){
      }
  }
  
+
+document
+.getElementById('CORREO')
+.addEventListener('input', function(evt) {
+  const campo = evt.target,
+        valido = document.getElementById('emailOK'),
+      
+        expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+  //Se muestra un texto válido/inválido a modo de ejemplo
+  if (expr.test(campo.value)) {
+    valido.innerText = "";
+  } else {
+    valido.innerText =  "Error: La dirección de correo es incorrecta.";
+  }
+});
 
 
 
