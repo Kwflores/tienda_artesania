@@ -2,6 +2,7 @@ const express = require('express');
 const conexion = require("mysql");
 const jwt = require("jsonwebtoken");
 var router = express.Router();
+var cors = require('cors');
 const RutaUsuarios = require("./routers/usuarios");
 const RutaPass = require("./routers/reset_pass");
 const RutaContacto = require("./routers/contacto");
@@ -29,6 +30,9 @@ var conn = conexion.createConnection(
         database: process.env.DB,
     }
 );
+
+
+app.use(cors({origin:'http://localhost:3000', credentials : true}));
 
 app.use("/public", express.static(__dirname + "/public"))
 

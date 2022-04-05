@@ -18,16 +18,16 @@ $('#pass').keyup(function(e) {
     var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
     var enoughRegex = new RegExp("(?=.{6,}).*", "g");
     if (false == enoughRegex.test($(this).val())) {
-            $('#passstrength').html('Más caracteres.');
+            $('#passstrengths').html('Más caracteres.');
     } else if (strongRegex.test($(this).val())) {
-            $('#passstrength').className = 'ok';
-            $('#passstrength').html('Fuerte!');
+            $('#passstrengths').className = 'ok';
+            $('#passstrengths').html('Fuerte!');
     } else if (mediumRegex.test($(this).val())) {
-            $('#passstrength').className = 'alert';
-            $('#passstrength').html('Media!');
+            $('#passstrengths').className = 'alert';
+            $('#passstrengths').html('Media!');
     } else {
-            $('#passstrength').className = 'error';
-            $('#passstrength').html('Débil!');
+            $('#passstrengths').className = 'error';
+            $('#passstrengths').html('Débil!');
     }
     return true;
 });
@@ -54,7 +54,7 @@ document
   .getElementById('pass')
   .addEventListener('input', function(evt) {
     const campo = evt.target,
-          valido = document.getElementById('campoOK'),
+          valido = document.getElementById('passOK'),
         
           regex = /^(?=.*\d)(?=.*[a-záéíóúüñ]).*[A-ZÁÉÍÓÚÜÑ]/;
 
