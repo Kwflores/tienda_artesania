@@ -65,7 +65,7 @@ $(document).ready(function () {
                                 data[0].forEach(element => {
                                     fecha_vencimiento = element.FECHA_VENCIMIENTO
                                     tokens = element.TOKEN
-                                    if (password = element.TOKEN && fecha_vencimiento <= fecha_actual) {
+                                    if (password = element.TOKEN && fecha_vencimiento >= fecha_actual) {
                                         username = "";
                                         password = "";
                                         Swal.fire(
