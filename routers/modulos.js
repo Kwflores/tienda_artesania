@@ -13,8 +13,11 @@ var conn = conexion.createConnection(
     }
 );
 
+
+
+
 // Obenter todo los Modulos 
-app.get("/", (req, res) => {
+app.post("/", (req, res) => {
   try {
     const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
     const consulta = `call 	OBTENER_MODULOS('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;

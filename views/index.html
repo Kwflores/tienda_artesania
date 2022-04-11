@@ -36,7 +36,8 @@
     <link
         href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i&amp;subset=latin-ext"
         rel="stylesheet">
-
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -1693,10 +1694,11 @@
                                                         <span class="input-group-text input-group-icon"><i
                                                                 class="far fa-user"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control form-control-lg"
-                                                        placeholder="Usuario" name="NOM_USUARIO" id="NOM_USUARIO"
+                                                    <input   type="text"
+                                                        class="form-control form-control-lg" placeholder="Usuario"
+                                                        name="NOM_USUARIO" id="NOM_USUARIO"
                                                         onkeyup="javascript:this.value=this.value.toUpperCase();"
-                                                        required onkeypress="soloLetras(event)">
+                                                        required>
 
                                                     <div class="input-focus-bg"></div>
                                                 </div>
@@ -1727,7 +1729,7 @@
 
                                             <div data-height="5px"></div>
                                             <div id="inicio">
-                                                <button type="button"
+                                                <button type="button"  
                                                     class="btn btn-lg btn-round btn-primary btn-block mb-0"><i
                                                         class="fas fa-sign-in-alt"></i>Iniciar Sesión</button>
                                             </div>
@@ -1801,7 +1803,7 @@
                                                     <input type="text" class="form-control form-control-lg"
                                                         placeholder="Usuario" name="USER" id="USER"
                                                         onkeyup="javascript:this.value=this.value.toUpperCase();"
-                                                        required onkeypress="soloLetras(event)">
+                                                        required>
                                                     <div class="input-focus-bg"></div>
                                                 </div>
                                             </div>
@@ -1888,7 +1890,7 @@
                                                     <input type="text" class="form-control form-control-lg"
                                                         placeholder="Usuario" name="USUARIO" id="USUARIO"
                                                         onkeyup="javascript:this.value=this.value.toUpperCase();"
-                                                        required onkeypress="return soloLetras(event)">
+                                                        required>
 
                                                     <div class="input-focus-bg"></div>
                                                 </div>
@@ -1966,8 +1968,8 @@
 
                                                     </div>
                                                     <input type="password" name="pass_conf" id="pass_conf"
-                                                        class="form-control" placeholder="Confirmar Contraseña" required
-                                                        >
+                                                        class="form-control" placeholder="Confirmar Contraseña"
+                                                        required>
 
                                                     <div class="input-focus-bg"></div>
                                                 </div>
@@ -2003,7 +2005,7 @@
 
 
     <!--Administrador del sistema-->
-    <div id="dash" style="display: none;" >
+    <div id="dash" style="display: none;">
 
         <!-- Preloader -->
         <div class="preloader-container">
@@ -2026,13 +2028,16 @@
                     <!--Navigation menu-->
                     <nav class="navik-menu menu-hover-3 menu-caret submenu-top-border submenu-scale">
                         <ul>
-
+                            <li><a href="#" onclick="mostrar_tienda()"><i class="fas fa-angle-left mr-2"></i>Ir a la
+                                    Tienda</a></a>
                             <li><a href="#">Perfil</a>
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-user-circle" aria-hidden="true"></i> Perfil</a></li>
-                                    <li><a href="#"><i class="fa fa-key" aria-hidden="true"></i> Cambiar Contraseña</a></li>
-                                    <li><a href="#" onclick="cerrar_sesion()"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Cerrar Sesión</a></li>
-                                </ul>
+                                    <li><a href="#" onclick="mostrar_perfl()"><i class="fa fa-user-circle"
+                                                aria-hidden="true"></i> Perfil</a></li>
+                            </li>
+                            <li><a href="#" onclick="cerrar_sesion()"><i class="fas fa-sign-in-alt"
+                                        aria-hidden="true"></i> Cerrar Sesión</a></li>
+                        </ul>
 
                         </ul>
                     </nav>
@@ -2063,22 +2068,11 @@
 
                 <nav class="navik-menu-fixed">
                     <ul>
-                        <li><a href="#GestionUsuarios"><i class="fa fa-users" aria-hidden="true"></i> Usuarios</a>
-                            <ul>
-                                <li><a href="#Nuevo" onclick="mostrar_registro()"><i class="fa fa-user-plus"
-                                            aria-hidden="true"></i> NUEVO</a></li>
-                                <li><a href="#Editar"><i class="fa fa-users" aria-hidden="true"></i> USUARIOS</a></li>
-                                <li><a href="#Editar"><i class="fa fa-list" aria-hidden="true"></i> Roles</a></li>
-                                <li><a href="#Editar"><i class="fa fa-key" aria-hidden="true"></i> Permisos</a></li>
-                            </ul>
+                        <li><a href="#GestionUsuarios" id="ver_usuarios" onclick=" mostrar_usuarios()"><i class="fa fa-users"
+                                    aria-hidden="true"></i> Usuarios</a>
+
                         </li>
-                        <li><a href="#GestionCategorias">Categorias</a>
-                            <ul>
-                                <li><a href="#Nuevo" onclick="mostrar_registro()">- Nueva</a></li>
-                                <li><a href="#Editar">- Editar</a></li>
-                                <li><a href="#Lista">- Lista </a></li>
-                            </ul>
-                        </li>
+                        <li><a href="#GestionCategorias" onclick="mostrar_categorias()">Categorias</a></li>
                         <li><a href="#GestionCategorias">Inventario</a>
                             <ul>
                                 <li><a href="#Nuevo" onclick="mostrar_registro()">-Productos</a></li>
@@ -2098,7 +2092,8 @@
                             <ul>
                                 <li><a href="#Nuevo" onclick="mostrar_registro()">Crear Backup</a></li>
                                 <li><a href="#Editar">Restaurar Base de Datos</a></li>
-                                <li><a href="#Lista">Modulos del Sistema</a></li>
+                                <li><a href="#Roles" id="ver_usuario" onclick="mostrar_roles()"><i class="fa fa-list" aria-hidden="true"></i> Roles</a></li>
+                                <li><a href="#Permisos" id="ver_permisos" onclick="mostrar_permisos()"><i class="fa fa-key" aria-hidden="true"></i> Permisos</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -2115,129 +2110,1102 @@
         <div class="navik-side-content">
             <!-- Content body -->
             <div class="content-body">
-                <div class="container">
-                    <div class="px-5">
+                <div class="container-fluid">
+                    <div>
                         <br>
-                        <section id="nuevo_usuario" class="rounded-ultra shadow px-4 py-5" style="display: none; ">
-                            <h1 class="h1 section-title-3 font-weight-700 text-left">Registro de Usuarios</h1>
-                            <br>
-                            <form>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Nombre Completo:</label>
-                                            <input type="text" class="form-control" id="nom_usuario"
-                                                placeholder="Nombre Completo">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="exampleFormControlInput1">Dirección:</label>
-                                                <input type="text" class="form-control" id="direccion"
-                                                    placeholder="Dirección">
+                        <div id="gestion_usuarios" >
+                            <section id="nuevo_usuario" class="rounded-ultra shadow px-4 py-5" style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Registro de Usuarios</h1>
+                                <br>
+                                <form>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Nombre Completo:</label>
+                                                <input type="text" class="form-control" id="nom_usuario" maxlength="50"
+                                                    placeholder="Nombre Completo">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlInput1">Dirección:</label>
+                                                    <input type="text" class="form-control" id="direccion" maxlength="100"
+                                                        placeholder="Dirección">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="exampleFormControlInput1">Correo Electronico:</label>
-                                            <input type="email" class="form-control" id="email"
-                                                placeholder="Correo Electronico">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="exampleFormControlInput1">Telefono:</label>
-                                            <input type="number" class="form-control" id="telefono"
-                                                placeholder="Numero de Telefono">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="exampleFormControlSelect1">Tipo de Identificacion:</label>
-                                            <select class="form-control" id="identificacion">
-                                                <option>DNI</option>
-                                                <option>Pasaporte</option>
-                                                <option>RTN</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="exampleFormControlInput1">Número de Indentificacion:</label>
-                                            <input type="text" class="form-control" id="cod_identificacion"
-                                                placeholder="Número de Indentificacion">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="exampleFormControlInput1">Correo Electronico:</label>
+                                                <input type="email" class="form-control" id="email"
+                                                    placeholder="Correo Electronico">
+                                                <span style="color: brown;" id="correoOK"></span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="exampleFormControlInput1">Telefono:</label>
+                                                <input type="number" class="form-control" id="telefono" maxlength="8"
+                                                    placeholder="Numero de Telefono">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlInput1">Usuario:</label>
-                                    <input type="text" class="form-control" id="usuario" placeholder="usuario">
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="exampleFormControlInput1">Contraseña:</label>
-                                            <input type="text" class="form-control" id="contraseña"
-                                                placeholder="Contraseña">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="exampleFormControlInput1">Confirmar Contraseña:</label>
-                                            <input type="text" class="form-control" id="confirmar_contraseña"
-                                                placeholder="Confirmar Contraseña">
+    
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="exampleFormControlSelect1">Tipo de Identificacion:</label>
+                                                <select class="form-control" id="identificacion">
+                                                    <option value="DNI">DNI</option>
+                                                    <option value="Pasaporte">Pasaporte</option>
+                                                    <option value="RTN">RTN</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="exampleFormControlInput1">Número de Indentificacion:</label>
+                                                <input type="number" class="form-control" id="cod_identificacion"
+                                                    maxlength="16" placeholder="Número de Indentificacion">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-
-
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">Usuario:</label>
+                                        <input type="text" class="form-control" id="usuario"
+                                            placeholder="Usuario del sistema"
+                                            onkeyup="javascript:this.value=this.value.toUpperCase();" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="exampleFormControlInput1">Contraseña:</label> <br>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"
+                                                                onclick="mostrarContrasena_registro()"></i></span>
+                                                    </div>
+                                                    <input type="password" name="Contraseña" id="Contraseña"
+                                                        class="form-control" placeholder="Contraseña" required
+                                                        maxlength="8">
+    
+    
+                                                    <div class="input-focus-bg"></div>
+                                                    <div class="col-lg-3" style="vertical-align:middle;margin-top:7px">
+                                                        <span id="passstrength1"></span>
+                                                    </div>
+                                                </div>
+                                                <span style="color: brown;" id="contraseñaOK"></span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="exampleFormControlInput1">Confirmar Contraseña:</label> <br>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"
+                                                                onclick=" mostrarConfiContrasena_registro()"></i></span>
+                                                    </div>
+                                                    <input type="password" name="confirmar_contraseña"
+                                                        id="confirmar_contraseña" class="form-control"
+                                                        placeholder="Confirmar Contraseña" required maxlength="8">
+    
+    
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                            </div>
+    
+                                        </div>
+                                    </div>
+    
+    
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Rol de Usuario:</label>
+                                        <select class="form-control" id="rol">
+                                            <option value="">Seleccione Un Rol</option>
+                                        </select>
+                                    </div>
+                                    <br>
+    
+                                    <center>
+                                        <div>
+                                            <button id="registro-usuarios" type="button"
+                                                class="btn btn-primary mb-2">Guardar Datos</button>
+                                            <button type="button" class="btn btn-danger mb-2"
+                                                onclick=" cancelar()">Cancelar</button>
+                                        </div>
+    
+                                    </center>
+    
+    
+    
+                                </form>
+    
+                            </section>
+                            <section id="actualizar_usuario" class="rounded-ultra shadow px-4 py-5" style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Editar Datos del Usuario</h1>
+                                <div id="id_usuario_sistema" ></div>
+                                <input type="text" class="form-control" id="cod_persona" style="display: none;">
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect2">Rol de Usuario:</label>
-                                    <select class="form-control" id="rol">
-                                        <option>DNI</option>
-                                        <option>Pasaporte</option>
-                                        <option>RTN</option>
-                                    </select>
+                                    <input type="text" class="form-control" id="A_Usuario" disabled
+                                        placeholder="Usuario del sistema"
+                                        onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                                 </div>
                                 <br>
-                                <center>
-                                    <button type="button" class="btn btn-primary mb-2">Guardar Datos</button>
-                                </center>
-                            </form>
-
-                        </section>
+                                <form>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Nombre Completo:</label>
+                                                <input type="text" class="form-control" id="A_nom_usuario"
+                                                    placeholder="Nombre Completo" required maxlength="50">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlInput1">Dirección:</label>
+                                                    <input type="text" class="form-control" id="A_direccion" required
+                                                        maxlength="100" placeholder="Dirección">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="exampleFormControlInput1">Correo Electronico:</label>
+                                                <input type="email" class="form-control" id="A_email" required
+                                                    maxlength="30" placeholder="Correo Electronico">
+                                                <span style="color: brown;" id="AcorreoOK"></span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="exampleFormControlInput1">Telefono:</label>
+                                                <input type="number" class="form-control" id="A_telefono" required
+                                                    maxlength="8" placeholder="Numero de Telefono">
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="exampleFormControlSelect1">Tipo de Identificacion:</label>
+                                                <select class="form-control" id="A_identificacion">
+                                                    <option value="DNI">DNI</option>
+                                                    <option value="Pasaporte">Pasaporte</option>
+                                                    <option value="RTN">RTN</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="exampleFormControlInput1">Número de Indentificacion:</label>
+                                                <input type="number" class="form-control" id="A_cod_identificacion" required
+                                                    minlength="13" maxlength="16" placeholder="Número de Indentificacion">
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Rol de Usuario:</label>
+                                        <select class="form-control" id="A_rol">
+                                            <option value="">Seleccione Un Rol</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="display: none;">
+                                        <label for="exampleFormControlSelect2">Estado:</label>
+                                        <select class="form-control" id="A_estado">
+                                            <option value="">Seleccione Un Estado</option>
+                                            <option value="1">Activo</option>
+                                            <option value="2">Inactivo</option>
+                                        </select>
+                                    </div>
+                                    <br>
+    
+                                    <center>
+                                        <div>
+                                            <button type="button" class="btn btn-primary mb-2" onclick="actualizar_datos() "location.reload()"/ "
+                                                >Guardar Cambios</button>
+                                            <button type="button" class="btn btn-danger mb-2"
+                                                onclick=" cancelar()">Cancelar</button>
+                                        </div>
+    
+                                    </center>
+    
+    
+    
+                                </form>
+    
+                            </section>
+                            <section id="actualizar_pass_user" class="rounded-ultra shadow px-4 py-5"
+                                style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Editar Contraseña del Usuario</h1>
+                                <div class="col-md-6 form-group">
+                                    <input type="text" class="form-control" id="AP_Usuario" disabled
+                                        placeholder="Usuario del sistema"
+                                        onkeyup="javascript:this.value=this.value.toUpperCase();" required>
+                                </div>
+                                <br>
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Contraseña</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"
+                                                                onclick="mostrarContrasena_Actualizar()"></i></span>
+                                                    </div>
+                                                    <input type="password" name="pass" id="A_pass" class="form-control"
+                                                        placeholder="Contraseña" required maxlength="8">
+                                                      
+                                                    <div class="input-focus-bg"></div>
+                                                    <div class="col-lg-3" style="vertical-align:middle;margin-top:7px">
+                                                        <span id="Apassstrengths"></span>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <span style="color: brown;" id="ApassOK"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Confirmar Contraseña</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"
+                                                                onclick="mostrarConfiContrasena_Actualizar()"></i></span>
+    
+                                                    </div>
+                                                    <input type="password" name="pass_conf" id="A_pass_conf"
+                                                        class="form-control" placeholder="Confirmar Contraseña" required>
+    
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <center>
+                                        <br><br>
+                                        <div>
+                                            <button type="button" class="btn btn-primary mb-2"
+                                                onclick="actualizar_contraseña_user()">Guardar Cambios</button>
+                                            <button type="button" class="btn btn-danger mb-2"
+                                                onclick=" cancelar()">Cancelar</button>
+                                        </div>
+    
+                                    </center>
+    
+    
+    
+    
+                                </form>
+                            </section>
+                            <section id="usuarios" style="display: none;">
+                                <div id="id_estado_usuario" style="display: none;"></div>
+                                <div id="id_es_usuario"style="display: none; "></div>
+                                <div row>
+                                    <div class="col-md-3">
+                                        <br>
+                                        <button type="button" class="btn btn-primary mb-2" onclick="mostrar_registro()"><i
+                                                class="fa fa-user-plus" aria-hidden="true"></i> Nuevo Usuario</button>
+                                        <br><br>
+                                    </div>
+    
+                                </div>
+                                <div  id="alerta_usuarios" style="display: none; " class="alert alert-warning alert-icon alert-dismissible fade show mb-5" role="alert">
+                                    <i class="far fa-question-circle"></i>
+                                    <center>
+                                        <strong>Se Realizaron Cambios en la Informacion, favor dar click en Actualizar Tabla, para ver los Cambios</strong> <br>
+                                         <button type="button" id="refresh" class="btn btn-lg btn-light mx-2 mb-4"  > Actualizar Tabla </button>
+                                    </center>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                
+                                <div class="container-fluid">
+                                    <table id="table_id" class="display" style="width:100%">
+                                            <thead>
+                                              <tr>
+                                                <th >Acción</th>
+                                                <th>Nombre Completo</th>
+                                                <th>Correo</th>
+                                                <th>Telefono</th>
+                                                <th>Dirección</th>
+                                                <th>Tipo IDe</th>
+                                                <th>Identificación</th>
+                                                <th>Nombre Usuario</th>
+                                                <th>Rol</th>
+                                                <th>Estado</th>
+                                                <th style="display: none;">CRol</th>
+                                                <th style="display: none;">CEstado</th>
+                                                <th style="display: none;">CEstado</th>
+                                                <th style="display: none;">CEstado</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody id="contenido_usuarios">
+                                  
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                            <section id="perfil_usuario" style="display: none; ">
+                                <br><br><br><br><br>
+                                <div class="section mt-up75">
+                                    <div class="container">
+                                        <div class="row">
+    
+                                            <!-- Sidebar -->
+                                            <div class="col-lg-4">
+                                                <div class="pb-3 mb-3">
+                                                    <div class="bg-white rounded-xl shadow-sm py-5">
+    
+                                                        <div class="text-center px-4 px-md-5 px-lg-4 px-xl-5">
+    
+                                                            <div data-height="1px"></div>
+    
+                                                            <div class="pb-2 mb-4">
+                                                                <img src="../public/assets/images/upload/account-avatar.jpg"
+                                                                    alt="author" class="rounded-circle shadow">
+                                                            </div>
+    
+                                                            <h5 class="font-weight-700 mb-0" id="usuario_sistema"> </h5>
+                                                            <h5 class="p font-weight-700 mb-0" id="usuario_sistema"> </h5>
+    
+                                                            <small class="font-weight-200 mb-0" id="rol_user"></small>
+    
+                                                        </div>
+    
+                                                        <div class="text-center d-lg-none">
+                                                            <button class="navbar-toggler collapsed" type="button"
+                                                                data-toggle="collapse" data-target="#sidebarMenu"
+                                                                aria-controls="sidebarMenu" aria-expanded="false"
+                                                                aria-label="Toggle navigation">
+                                                                <i class="fas fa-bars fa-lg text-dark mt-4"></i>
+                                                            </button>
+                                                        </div>
+    
+                                                        <div id="sidebarMenu" class="d-lg-block collapse">
+    
+                                                            <h5
+                                                                class="font-weight-700 px-4 px-md-5 px-lg-4 px-xl-5 pt-3 mt-4 mb-3">
+                                                                Cuenta</h5>
+    
+                                                            <ul class="list-group list-group-flush pt-0">
+                                                                <a href="#" onclick="perfil_user()"
+                                                                    class="list-group-item list-group-item-action active d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5">
+                                                                    <img src="../public/assets/svg/upload/account-user-info.svg"
+                                                                        alt="icon" class="mr-2" data-width="16px"
+                                                                        data-height="16px">
+                                                                    <span>Información Personal</span>
+                                                                </a>
+                                                                <a href="#" onclick="mostrar_pass_perfil()"
+                                                                    class="list-group-item list-group-item-action  d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5">
+                                                                    <img src="../public/assets/svg/upload/account-preferences.svg"
+                                                                        alt="icon" class="mr-2" data-width="16px"
+                                                                        data-height="16px">
+                                                                    <span>Modificar Contraseña</span>
+                                                                </a>
+    
+                                                            </ul>
+                                                        </div>
+    
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <!-- Content body -->
+                                            <div class="col-lg-8">
+    
+                                                <div class="pb-3 mb-3" id="perfil_data" style="display: block;">
+                                                    <div class="bg-white rounded-xl shadow-sm px-4 py-5 p-md-5">
+    
+                                                        <h5 class="font-weight-700 section-title-4 text-left pb-2 mb-4">
+                                                            Información del Perfil
+                                                            <div class="title-divider-round mt-3"></div>
+                                                        </h5>
+    
+                                                        <form>
+                                                            <div class="form-row">
+    
+                                                                <div class="col-md-6">
+                                                                    <div
+                                                                        class="input-group input-group-lg input-group-round mb-4 pr-md-2">
+                                                                        <label class="text-uppercase">Nombre del
+                                                                            Usuario</label>
+                                                                        <div class="input-group-inner">
+                                                                            <div class="input-group-prepend">
+                                                                                <span
+                                                                                    class="input-group-text input-group-icon"><i
+                                                                                        class="fas fa-user-circle"></i></span>
+                                                                            </div>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-lg"
+                                                                                id="Perfil_Usuario" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="50">
+                                                                            <div class="input-focus-bg"   ></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+    
+                                                                <div class="col-md-6">
+                                                                    <div
+                                                                        class="input-group input-group-lg input-group-round mb-4 pl-md-2">
+                                                                        <label class="text-uppercase">Correo</label>
+                                                                        <div class="input-group-inner">
+                                                                            <div class="input-group-prepend">
+                                                                                <span
+                                                                                    class="input-group-text input-group-icon"><i
+                                                                                        class="fas fa-envelope-open-text"></i></span>
+                                                                            </div>
+                                                                            <input type="email"
+                                                                                class="form-control form-control-lg"
+                                                                                id="Perfil_Correo" maxlength="30"  onkeyup="javascript:this.value=this.value.toUpperCase();" >
+                                                                            <span style="color: brown;"
+                                                                                id="PcorreoOK"></span>
+                                                                            <div class="input-focus-bg"></div>
+    
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+    
+                                                                <div class="col-md-6">
+                                                                    <div
+                                                                        class="input-group input-group-lg input-group-round mb-4 pr-md-2">
+                                                                        <label class="text-uppercase">Telefono</label>
+                                                                        <div class="input-group-inner">
+                                                                            <div class="input-group-prepend">
+                                                                                <span
+                                                                                    class="input-group-text input-group-icon"><i
+                                                                                        class="fas fa-mobile-alt" ></i></span>
+                                                                            </div>
+                                                                            <input type="number"
+                                                                                class="form-control form-control-lg"
+                                                                                id="Perfil_telefono" maxlength="8">
+                                                                            <div class="input-focus-bg"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+    
+                                                                <div class="col-md-6">
+                                                                    <div
+                                                                        class="input-group input-group-lg input-group-round mb-4 pl-md-2">
+                                                                        <label class="text-uppercase">Direccion</label>
+                                                                        <div class="input-group-inner">
+                                                                            <div class="input-group-prepend">
+                                                                                <span
+                                                                                    class="input-group-text input-group-icon"><i
+                                                                                        class="fas fa-map-marker-alt"></i></span>
+                                                                            </div>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-lg"
+                                                                                id="Perfil_Direccion"  onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="100">
+                                                                            <div class="input-focus-bg"  ></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div
+                                                                        class="input-group input-group-lg input-group-round mb-4 pr-md-2">
+                                                                        <label for="text-uppercase">Tipo de IDE</label>
+                                                                        <div class="input-group-inner">
+                                                                            <div class="form-group col ">
+                                                                                <select
+                                                                                    class="form-control  form-round custom-select form-control-lg"
+                                                                                    id="Perfil_id_tipo_ide">
+                                                                                    <option value="">Seleccione Un Tipo
+                                                                                    </option>
+                                                                                    <option value="ID">ID</option>
+                                                                                    <option value="Pasaporte">Pasaporte
+                                                                                    </option>
+                                                                                    <option value="RTN">RTN</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+    
+    
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+    
+                                                                    <div
+                                                                        class="input-group input-group-lg input-group-round mb-4 pl-md-2">
+                                                                        <label class="text-uppercase">Identificacion</label>
+                                                                        <div class="input-group-inner">
+                                                                            <div class="input-group-prepend">
+                                                                                <span
+                                                                                    class="input-group-text input-group-icon"><i
+                                                                                        class="fas fa-map-marker-alt"></i></span>
+                                                                            </div>
+                                                                            <input type="number"
+                                                                                class="form-control form-control-lg"
+                                                                                id="Perfil_idenficacion" minlength="13" maxlength="16">
+                                                                            <div class="input-focus-bg"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+    
+                                                            </div>
+                                                            <div id="Perfil_id_rol" style="display: none;"></div>
+                                                            <div id="estado_perfil" style="display: none;"></div>
+                                                            <div id="persona_perfil" style="display: none;"></div>
+    
+    
+                                                            <div class="col-12">
+                                                                <div class="text-md-right">
+                                                                    <a href="#"
+                                                                        class="btn btn-lg btn-round btn-primary ml-2"
+                                                                        onclick="actualizar_perfil()">Guardar Cambios</a>
+                                                                </div>
+                                                            </div>
+    
+                                                    </div>
+                                                    </form>
+    
+                                                </div>
+    
+                                                <div class="pb-3 mb-3" id="perfil_data_contraseña" style="display: none;">
+                                                    <div class="bg-white rounded-xl shadow-sm px-4 py-5 p-md-5">
+    
+                                                        <h5 class="font-weight-700 section-title-4 text-left pb-2 mb-4">
+                                                            Actualizar Contraseña
+                                                            <div class="title-divider-round mt-3"></div>
+                                                        </h5>
+    
+                                                        <form>
+                                                            <div class="form-row">
+    
+                                                                <div class="col-12">
+    
+                                                                    <div
+                                                                        class="input-group input-group-lg input-group-round mb-4">
+                                                                        <label class="text-uppercase">Contraseña
+                                                                            Actual</label>
+                                                                        <div id="clave_actual" style="display: none;"></div>
+                                                                        <div class="input-group-inner">
+                                                                            <div class="input-group-prepend">
+                                                                                <span
+                                                                                    class="input-group-text input-group-icon"><i
+                                                                                        class="fas fa-unlock-alt"></i></span>
+                                                                            </div>
+                                                                            <input type="password"
+                                                                                class="form-control form-control-lg"
+                                                                                id="contraseña_actual"
+                                                                                placeholder="Contraseña Actual">
+                                                                            <div class="input-focus-bg"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+    
+                                                                <div class="col-12">
+                                                                    <div
+                                                                        class="input-group input-group-lg input-group-round mb-4">
+                                                                        <label class="text-uppercase">Nueva
+                                                                            Contraseña</label>
+                                                                        <div class="input-group-inner">
+                                                                            <div class="input-group-prepend">
+                                                                                <span
+                                                                                    class="input-group-text input-group-icon"><i
+                                                                                        class="fas fa-lock"></i></span>
+                                                                            </div>
+                                                                            <input type="password"
+                                                                                class="form-control form-control-lg"
+                                                                                id="nueva_contraseña_perfil"
+                                                                                placeholder="Nueva Contraseña">
+                                                                            <span id="Apassstrengths"></span>
+                                                                            <div class="input-focus-bg"></div>
+    
+                                                                        </div>
+                                                                        <span style="color: brown;" id="ApassOK"></span>
+                                                                    </div>
+                                                                </div>
+    
+    
+                                                                <div class="col-12">
+                                                                    <div
+                                                                        class="input-group input-group-lg input-group-round mb-4">
+                                                                        <label class="text-uppercase">Confirmar nueva
+                                                                            Contraseña</label>
+                                                                        <div class="input-group-inner">
+                                                                            <div class="input-group-prepend">
+                                                                                <span
+                                                                                    class="input-group-text input-group-icon"><i
+                                                                                        class="fas fa-lock"></i></span>
+                                                                            </div>
+                                                                            <input type="password"
+                                                                                class="form-control form-control-lg"
+                                                                                id="confirmar_contraseña_perfil"
+                                                                                placeholder="Confirmar nueva Contraseña">
+                                                                            <div class="input-focus-bg"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+    
+                                                                <div class="col-12">
+                                                                    <div class="text-md-right">
+                                                                        <a href="#" class="btn btn-lg btn-round btn-primary"
+                                                                            onclick="actualizar_contraseña_perfil()">Actualizar
+                                                                            Contraseña</a>
+                                                                    </div>
+                                                                </div>
+    
+                                                            </div>
+                                                        </form>
+    
+                                                    </div>
+                                                </div>
+    
+                                                <div class="pb-3 mb-3" style="display: none;">
+                                                    <div
+                                                        class="d-md-flex align-items-xl-center text-center text-md-left bg-white rounded-xl shadow-sm px-4 py-5 p-md-5">
+    
+                                                        <div class="pr-md-3 mb-5 mb-md-0">
+                                                            <img src="../public/assets/images/upload/avatar-upload.jpg"
+                                                                alt="author" class="rounded-circle shadow">
+                                                        </div>
+    
+                                                        <div class="w-100 pl-md-3 mb-1">
+    
+                                                            <h5 class="font-weight-700 mb-4">Your Avatar</h5>
+    
+                                                            <div class="row align-items-center justify-content-between">
+                                                                <div class="col-xl-7 mb-4 mb-xl-0">
+                                                                    <a href="#"
+                                                                        class="btn btn-lg btn-round btn-primary mr-2 mb-0">Upload
+                                                                        Photo</a>
+                                                                    <a href="#"
+                                                                        class="btn btn-lg btn-round btn-outline-primary mb-0">Delete</a>
+                                                                </div>
+                                                                <div class="col-xl-5">
+                                                                    <p class="mb-0">PNG or JPG maximum upload file size: 10
+                                                                        MB.</p>
+                                                                </div>
+                                                            </div>
+    
+                                                        </div>
+    
+                                                    </div>
+                                                </div>
+    
+                                            </div>
+    
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div id="gestion_permiso" >
+                            <section id="permisos" style="display: none; ">
+                                <div row>
+                                    <div class="col-md-3">
+                                        <br>
+                                        <button type="button" class="btn btn-primary mb-2" onclick="registro_permisos()"><i
+                                                class="fa fa-user-plus" aria-hidden="true"></i> Nuevo Permiso</button>
+                                        <br><br>
+                                    </div>
+    
+                                </div>
+                                
+                                <div class="container-fluid">
+                                    <table id="table_Permiso" class="display" style="width:100%">
+                                            <thead>
+                                              <tr>
+                                                <th>Leer</th>
+                                                <th>Crear</th>
+                                                <th>Modificar</th>
+                                                <th>Eliminar</th>
+                                                <th>Modulo</th>
+                                                <th>Rol</th>
+                                                <th style="display: none; ">permiso</th>
+                                                <th style="display: none; "> codrol</th>
+                                                <th style="display: none; ">codmodulo</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody id="container_contacts">
+                                  
+                                            </tbody>
+                                    </table>
+                                </div>
+    
+                            </section>
+                            <section id="nuevo_permiso" class="rounded-ultra shadow px-4 py-5" style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Permisos de Usuarios</h1>
+                                <br>
+                                <form>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="exampleFormControlSelect2">Rol de Usuario:</label>
+                                                <select class="form-control" id="roles">
+                                                    <option value="">Seleccione Un Rol</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="exampleFormControlSelect2">Modulos del Sistema:</label>
+                                                <select class="form-control" id="modulos">
+                                                    <option value="">Seleccione Un Modulo</option>
+                                                </select>
+                                            </div>
+                                        </div>  
+                                    <br><br>
+                                    <p>Seleccione los Permisos</p>
+                                    <div class="container-fluid">
+                                        <table id="table_crear_permiso" class="display" style="width:100%">
+                                                <thead>
+                                                  <tr>
+                                                    <th>Leer</th>
+                                                    <th>Crear</th>
+                                                    <th>Modificar</th>
+                                                    <th>Eliminar</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody id="container_permiso" >
+                                                    <td>
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="leer_permiso" checked>
+                                                            <label class="custom-control-label" for="leer_permiso"></label>
+                                                            <div id="leer_id" style="display: none; "></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="crear_permiso" checked>
+                                                            <label class="custom-control-label" for="crear_permiso"></label>
+                                                            <div id="crear_id" style="display: none; "></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="modificar_permiso" checked>
+                                                            <label class="custom-control-label" for="modificar_permiso"></label>
+                                                            <div id="modificar_id" style="display: none; "></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="eliminar_permiso" checked>
+                                                            <label class="custom-control-label" for="eliminar_permiso"></label>
+                                                            <div id="eliminar_id" style="display: none; "></div>
+                                                        </div>
+                                                    </td>
+                                      
+                                                </tbody>
+                                        </table>
+                                    </div>
+                                        
+                                    </div>
+                                    <br>
+                                    <center>
+                                        <div>
+                                            <button id="registro_permiso" type="button"
+                                                class="btn btn-primary mb-2">Guardar Datos</button>
+                                            <button type="button" class="btn btn-danger mb-2"
+                                                onclick="cancerlar_permisos()">Cancelar</button>
+                                        </div>
+    
+                                    </center>
+    
+    
+    
+                                </form>
+                            </section>
+                            <section id="editar_permisos"style="display: none; " >
+                                <div  id="leer" ></div>
+                                <div  id="crear" ></div>
+                                <div  id="modificar" ></div>
+                                <div  id="eliminar" ></div>
+                                <div  id="id_permiso" ></div>
+                                <div  id="id_modulo" ></div>
+                                <div  id="id_rol" ></div>
+                                
+                            </section>
+                        </div>
+                        <div id="gestion_roles" >
+                            <section id="roles_sistema" style="display: none; ">
+                                <div row>
+                                    <div class="col-md-3">
+                                        <br>
+                                        <button type="button" class="btn btn-primary mb-2" onclick=" mostrar_registro_rol()"><i
+                                                class="fa fa-user-plus" aria-hidden="true"></i> Nuevo Rol</button>
+                                        <br><br>
+                                        
+                                    </div>
+    
+                                </div>
+                                  <div  id="alerta" style="display: none; " class="alert alert-warning alert-icon alert-dismissible fade show mb-5" role="alert">
+                                    <i class="far fa-question-circle"></i>
+                                    <center>
+                                        <strong>Se Realizaron Cambios en la Informacion, favor dar click en Actualizar Tabla, para ver los Cambios</strong> <br>
+                                         <button type="button" id="refresh"class="btn btn-lg btn-light mx-2 mb-4"  > Actualizar Tabla </button>
+                                    </center>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                <div class="container-fluid">
+                                    <table id="table_rol" class="display" style="width:100%">
+                                            <thead>
+                                              <tr>
+                                                <th >Acción</th>
+                                                <th>Nombre del Rol</th>
+                                                <th>Estado</th>
+                                                <th style="display: none; ">id_estado</th>
+                                                <th style="display: none; ">id_ROL</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody id="contenido_roles">
+                                  
+                                            </tbody>
+                                    </table>
+                                </div>
+    
+                            </section>
+                            <section id="editar_estado_rol"style="display: none; " >
+                                <div  id="estado" ></div>
+                            </section>
+                            <section id="actualizar_roles" style="display: none; " class="rounded-ultra shadow px-4 py-5"
+                                style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Editar Nombre de Rol</h1>
+                                 <div id="id_rol" style="display: none; "></div>
+                                 <div id="id_estado"style="display: none; "></div>
+                                 <div id="id_boton"style="display: none; "></div>
+                                <br>
+    
+                               
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Nombre Rol</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="text" name="Anom_rol" id="Anom_rol" class="form-control"
+                                                        placeholder="Nombre Rol" required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                         
+                                    </div>
+                                    <center>
+                                        <br><br>
+                                        <div>
+                                            <button type="button" class="btn btn-primary mb-2"
+                                                onclick="actualizar_rol(); ">Guardar Cambios</button>
+                                            <button type="button" class="btn btn-danger mb-2"
+                                                onclick=" cancelar_rol()">Cancelar</button>
+                                        </div>
+    
+                                    </center>
+    
+    
+    
+    
+                                </form>
+                            </section>
+                            <section id="Nuevo_rol" style="display: none; " class="rounded-ultra shadow px-4 py-5"
+                                style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Registro de  Roles</h1>
+                                <br>
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Nombre Rol</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="text" name="Anom_rol" id="R_Rol_Nom" class="form-control"
+                                                        placeholder="Nombre Rol"  onkeyup="javascript:this.value=this.value.toUpperCase();"  required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <center>
+                                        <br><br>
+                                        <div>
+                                            <button id="registro_roles" type="button" class="btn btn-primary mb-2" >Guardar</button>
+                                            <button type="button" class="btn btn-danger mb-2"
+                                                onclick="cancelar_registro()">Cancelar</button>
+                                        </div>
+    
+                                    </center>
+    
+    
+    
+    
+                                </form>
+                            </section>
+                        </div>
+                        <div id="gestion_categorias" >
+                            <section id="categorias_sistema" style="display: none; ">
+                                <div row>
+                                    <div class="col-md-3">
+                                        <br>
+                                        <button type="button" class="btn btn-primary mb-2" onclick=" mostrar_registro_rol()"><i
+                                                class="fa fa-user-plus" aria-hidden="true"></i> Nueva Categoría</button>
+                                        <br><br>
+                                    </div>
+    
+                                </div>
+                                  <div  id="alerta" style="display: none; " class="alert alert-warning alert-icon alert-dismissible fade show mb-5" role="alert">
+                                    <i class="far fa-question-circle"></i>
+                                    <center>
+                                        <strong>Se Realizaron Cambios en la Informacion, favor dar click en Actualizar Tabla, para ver los Cambios</strong> <br>
+                                         <button type="button" id="refresh"class="btn btn-lg btn-light mx-2 mb-4"  > Actualizar Tabla </button>
+                                    </center>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                <div class="container-fluid">
+                                    <table id="table_rol" class="display" style="width:100%">
+                                            <thead>
+                                              <tr>
+                                                <th >Acción</th>
+                                                <th>Imagen</th>
+                                                <th>Nombre de la Categoría</th>
+                                                <th>Estado</th>
+                                                <th style="display: none; ">id_estado</th>
+                                                <th style="display: none; ">id_ROL</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody id="contenido_roles">
+                                  
+                                            </tbody>
+                                    </table>
+                                </div>
+    
+                            </section>
+                            <section id="editar_estado_rol"style="display: none; " >
+                                <div  id="estado" ></div>
+                            </section>
+                            <section id="actualizar_roles" style="display: none; " class="rounded-ultra shadow px-4 py-5"
+                                style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Editar Nombre de Rol</h1>
+                                 <div id="id_rol" style="display: none; "></div>
+                                 <div id="id_estado"style="display: none; "></div>
+                                 <div id="id_boton"style="display: none; "></div>
+                                <br>
+    
+                               
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Nombre Rol</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="text" name="Anom_rol" id="Anom_rol" class="form-control"
+                                                        placeholder="Nombre Rol" required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                         
+                                    </div>
+                                    <center>
+                                        <br><br>
+                                        <div>
+                                            <button type="button" class="btn btn-primary mb-2"
+                                                onclick="actualizar_rol(); ">Guardar Cambios</button>
+                                            <button type="button" class="btn btn-danger mb-2"
+                                                onclick=" cancelar_rol()">Cancelar</button>
+                                        </div>
+    
+                                    </center>
+    
+    
+    
+    
+                                </form>
+                            </section>
+                            <section id="Nuevo_rol" style="display: none; " class="rounded-ultra shadow px-4 py-5"
+                                style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Registro de  Roles</h1>
+                                <br>
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Nombre Rol</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="text" name="Anom_rol" id="R_Rol_Nom" class="form-control"
+                                                        placeholder="Nombre Rol"  onkeyup="javascript:this.value=this.value.toUpperCase();"  required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <center>
+                                        <br><br>
+                                        <div>
+                                            <button id="registro_roles" type="button" class="btn btn-primary mb-2" >Guardar</button>
+                                            <button type="button" class="btn btn-danger mb-2"
+                                                onclick="cancelar_registro()">Cancelar</button>
+                                        </div>
+    
+                                    </center>
+    
+    
+    
+    
+                                </form>
+                            </section>
+                        </div>
+                        
+                       
+                        
+                       
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-        <!-- jQuery -->
-        <script src="/public/assets/js/vendor/jquery-3.5.1.min.js"></script>
+    <!-- jQuery -->
+    <script src="/public/assets/js/vendor/jquery-3.5.1.min.js"></script>
 
-        <!-- Bootstrap js -->
-        <script src="/public/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="/public/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Navik Menu js -->
-        <script src="/public/components/navik-navigation-menu/dist/js/navik.menu.js"></script>
+    <!-- Navik Menu js -->
+    <script src="/public/components/navik-navigation-menu/dist/js/navik.menu.js"></script>
 
-        <!-- Isotope and imagesloaded js -->
-        <script src="/public/node_modules/isotope-layout/dist/isotope.pkgd.min.js"></script>
-        <script src="/public/node_modules/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <!-- Isotope and imagesloaded js -->
+    <script src="/public/node_modules/isotope-layout/dist/isotope.pkgd.min.js"></script>
+    <script src="/public/node_modules/imagesloaded/imagesloaded.pkgd.min.js"></script>
 
-        <!-- Fancybox js -->
-        <script src="/public/node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
+    <!-- Fancybox js -->
+    <script src="/public/node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
 
-        <!-- OWL carousel js -->
-        <script src="/public/node_modules/owl.carousel/dist/owl.carousel.min.js"></script>
+    <!-- OWL carousel js -->
+    <script src="/public/node_modules/owl.carousel/dist/owl.carousel.min.js"></script>
 
-        <!-- Progress Circle js -->
-        <script src="/public/node_modules/jquery-circle-progress/dist/circle-progress.min.js"></script>
-        <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
-        <!-- Custom js -->
-        <script src="/public/assets/js/custom.js"></script>
-        <script src="/public/js/main.js"></script>
-        <script src="/public/js/usuarios/login.js"></script>
-        <script src="/public/js/validaciones/validaciones.js"></script>
+    <!-- Progress Circle js -->
+    <script src="/public/node_modules/jquery-circle-progress/dist/circle-progress.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- Custom js -->
+    <script src="/public/assets/js/custom.js"></script>
+    <script src="/public/js/main.js"></script>
+    <script src="/public/js/usuarios/login.js"></script>
+    <script src="/public/js/usuarios/usuarios.js"></script>
+    <script src="/public/js/seguridad/permisos.js"></script>
+    <script src="/public/js/seguridad/roles.js"></script>
+    <script src="/public/js/validaciones/validaciones.js"></script>
+    
 
 </body>
 

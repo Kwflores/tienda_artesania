@@ -59,7 +59,7 @@ app.post("/nuevo", (req, res) => {
             if (error) throw error;
             if (results.length > 0) {
                 if (results[0][0].numero_rol > 0) {
-                    res.send(`El Rol: ${NOM_ROL} ya existe, favor registra uno nuevo.!`);
+                    res.json({rol_existe: "El Rol: ${NOM_ROL} ya existe, favor registra uno nuevo.!"});
                 }
                 else {
                     const consulta = `call 	NUEVO_ROL('${NOM_ROL}',1,${COD_USUARIO},${COD_MODULO})`;

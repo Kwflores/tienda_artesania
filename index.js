@@ -69,8 +69,7 @@ app.post('/login', async (req, res) => {
                             });
                         }
                     });
-
-                  
+                                      
                 } else {
                     res.send("0")
                 }
@@ -86,7 +85,7 @@ app.post('/login', async (req, res) => {
 
 function generarAccessToken(user) {
     //se crea un token y por medio del sing enviamos un objeto de usuario
-    return jwt.sign({ user }, process.env.TOKEN_SECRET, { expiresIn: '30m' })
+    return jwt.sign({ user }, process.env.TOKEN_SECRET, { expiresIn: '60000m' })
 }
 
 

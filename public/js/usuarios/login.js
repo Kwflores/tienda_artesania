@@ -61,27 +61,36 @@ $(document).ready(function () {
                                 })
                             } else {
                                 hoy = new Date()
-                                fecha_actual = hoy.toISOString()
+                                let dia = hoy.getDate();
+                                let mes = hoy.getMonth() + 1;
+                                let ano = hoy.getFullYear();
+                                dia = ('0' + dia).slice(-2);
+                                mes = ('0' + mes).slice(-2);
+                                fecha_actual = ano + '-' + mes + '-' + dia
+
+                                console.log("Fecha Actual"+fecha_actual)
                                 data[0].forEach(element => {
                                     fecha_vencimiento = element.FECHA_VENCIMIENTO
+                                  
+                                    console.log(fecha_vencimiento)
                                     tokens = element.TOKEN
                                     if (password = element.TOKEN && fecha_vencimiento >= fecha_actual) {
-                                        username = "";
-                                        password = "";
+
                                         Swal.fire(
                                             'Datos Correctos!',
                                             'Favor Modificar Contraseña, y volver a Iniciar Sesión!',
                                             'success'
                                         )
-                                        password_login = $("#CLAVE").val();
-                                        password_login = ""
+
+
                                         localStorage.setItem('id_user', element.COD_USUARIO);
                                         localStorage.setItem('usuario_reset_clave', username)
                                         document.getElementById("clave").style.display = "block";
                                         document.getElementById("login").style.display = "none";
                                         document.getElementById("registro").style.display = "none";
                                         document.getElementById("resetear-clave").style.display = "none";
-
+                                        password_login = $("#CLAVE").val();
+                                        password_login = ""
                                     }
                                     else {
                                         Swal.fire({
@@ -99,13 +108,13 @@ $(document).ready(function () {
 
                         })
                     return;
-
                 }
                 if (data != 0) {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('id_usuario', data.cod_usuario);
                     localStorage.setItem('logeado', 1);
-                    
+                    localStorage.setItem('usuario', username);
+                    localStorage.setItem('rol', data.rol);
                     rol_usuario = data.rol;
                     let timerInterval
                     Swal.fire({
@@ -121,7 +130,7 @@ $(document).ready(function () {
                     var myHeader = new Headers({
                         'Authorization': token
                     });
-                    url_roles= api + "roles";
+                    url_roles = api + "roles";
                     myHeader.append("Content-Type", "application/json",);
                     var raw = JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9, });
                     var requestOptions = {
@@ -136,17 +145,17 @@ $(document).ready(function () {
                         })
                         .then(function (data) {
                             data[0].forEach(rol => {
-                                 if(rol.NOM_ROL == rol_usuario){
+                                if (rol.NOM_ROL == rol_usuario) {
                                     document.getElementById("dash").style.display = "block"
                                     document.getElementById("tiendita").style.display = "none"
                                     document.getElementById("inicio_sesion").style.display = "none";
-                                 }
-                             });
+                                }
+                            });
                         })
                         .catch(function (err) {
                             console.log(err);
                         });
- 
+
 
                 }
                 else {
@@ -269,9 +278,15 @@ $(document).ready(function () {
             body: raw,
             redirect: 'follow'
         };
-        valido = document.getElementById("campoOK").val
-        if (valido == "") {
+        valido = document.getElementById("campoOK").textContent
 
+        if (valido != "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Debe Proporcionar una contraseña valida.!',
+            })
+            return;
         }
         if (password == confi_password) {
             fetch(url_pass, settings)
@@ -313,10 +328,25 @@ $(document).ready(function () {
         clave = $("#Password").val();
         confi_clave = $("#conf_pass").val();
         telefono = "0";
-        valido = document.getElementById("campoOK").val
+        valido = document.getElementById("campoOK").textContent
 
-        if (valido == "") {
+        if (valido != "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Debe Proporcionar una contraseña valida.!',
+            })
+            return;
+        }
+        valido = document.getElementById("campoOK").textContent
 
+        if (valido != "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Debe Proporcionar una contraseña valida.!',
+            })
+            return;
         }
         if (cliente == "" || correo == "" || usuario == "" || clave == "") {
             Swal.fire({
@@ -335,6 +365,7 @@ $(document).ready(function () {
             })
             return;
         }
+
         var settings = {
             "url": api + "clientes",
             "method": "POST",

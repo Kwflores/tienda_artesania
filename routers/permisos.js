@@ -14,7 +14,7 @@ var conn = conexion.createConnection(
 );
 
 // Obenter todo los roles 
-app.get("/", (req, res) => {
+app.post("/", (req, res) => {
   try {
     const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
     const consulta = `call 	OBTENER_PERMISOS('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
 app.post("/nuevo", (req, res) => {
     try {
         const { CREAR,LEER, EDITAR,BORRAR,COD_ROL, COD_MODULO  } = req.body;
-        const consulta = `call 	NUEVO_PERMISO(${CREAR},${LEER},${EDITAR},${BORRAR},1,${COD_ROL},${COD_MODULO})`;
+        const consulta = `call 	NUEVO_PERMISO(${CREAR},${LEER},${EDITAR},${BORRAR},${COD_ROL},${COD_MODULO})`;
         conn.query(consulta, error => {
             if (error) throw error;
             res.json({
@@ -71,12 +71,11 @@ app.post("/nuevo", (req, res) => {
 });
 
 
-
 // Registro actualizar datos del rol
 app.put('/actualizar', (req, res) => {
     try {
-        const { CREAR,LEER, EDITAR,BORRAR,COD_ESTADO,COD_ROL, COD_MODULO,COD_PERMISO,COD_USUARIO,NOM_USUARIO } = req.body;
-        const consulta = `call ACTUALIZAR_PERMISO(${CREAR},${LEER},${EDITAR},${BORRAR},${COD_ESTADO},${COD_ROL},${COD_MODULO},${COD_PERMISO},${COD_USUARIO},'${NOM_USUARIO}')`;
+        const { CREAR,LEER, EDITAR,BORRAR,COD_ROL, COD_MODULO,COD_PERMISO,COD_USUARIO,NOM_USUARIO,_CODMODULO } = req.body;
+        const consulta = `call ACTUALIZAR_PERMISO(${CREAR},${LEER},${EDITAR},${BORRAR},${COD_ROL},${COD_MODULO},${COD_PERMISO},${COD_USUARIO},'${NOM_USUARIO}',${_CODMODULO})`;
     
         conn.query(consulta, error => {
             if (error) throw error;
