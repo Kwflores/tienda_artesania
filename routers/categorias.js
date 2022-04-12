@@ -14,7 +14,7 @@ var conn = conexion.createConnection(
 );
 
 // Obenter todo las categorias 
-app.get("/", (req, res) => {
+app.post("/", (req, res) => {
     try {
         const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
         const consulta = `call 	OBTENER_CATEGORIAS('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
@@ -55,30 +55,18 @@ app.post("/nuevo", (req, res) => {
             if (error) throw error;
             if (results.length > 0) {
                 if (results[0][0].numero_categoria > 0) {
-                    res.send(`La categoria: ${NOM_CATEGORIA} ya existe, favor registra una nueva.!`);
+                    res.json({categoria:`La categoria: ${NOM_CATEGORIA} ya existe, favor registra una nueva.!`});
                 }
                 else {
                     const consulta = `call NUEVA_CATEGORIA('${NOM_CATEGORIA}','${DES_CATEGORIA}','${URL_IMG}',1,${COD_MODULO},${COD_USUARIO})`;
                     conn.query(consulta, (error) => {
-                        if (error) {
-                            res.json({
-                                message: "Verificar los parametros solicitados",
-                                parametros_solicitados: {
-                                    "NOM_CATEGORIA": "",
-                                    "DES_CATEGORIA": "",
-                                    "URL_IMG": "",
-                                    "COD_MODULO": "",
-                                    "COD_USUARIO": ""
-
-                                }
-                            });
-                        }
-                        else {
+                        if (error)  throw error;
+                       
                             res.json({
                                 message: "Categoría creada Con Exito",
                                 Categoría: NOM_CATEGORIA
                             })
-                        }
+                     
 
                     });
                 }
@@ -89,6 +77,9 @@ app.post("/nuevo", (req, res) => {
         res.send("0")
     }
 });
+
+
+
 
 
 // Actualizar Categoria
@@ -103,10 +94,12 @@ app.put('/actualizar', (req, res) => {
                 message: "Categoría actualizada Con Exito",
                 Categoría: NOM_CATEGORIA
             })
+
         });
     } catch (error) {
         res.send("0")
     }
+
 
 });
 
@@ -122,7 +115,7 @@ app.delete('/eliminar', async (req, res) => {
                 console.log(results[0][0].COD_CATEGORIA == COD_CATEGORIA);
                 if (results[0][0].COD_CATEGORIA == COD_CATEGORIA) {
                     return res.json({
-                        message: "Registro No puede eliminarse, contiene productos asociados",
+                        Message: "Registro No puede eliminarse, contiene productos asociados",
                         COD_CATEGORIA: COD_CATEGORIA
 
                     });

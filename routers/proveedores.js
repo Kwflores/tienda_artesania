@@ -14,7 +14,7 @@ var conn = conexion.createConnection(
 );
 
 // Obenter todo las proveedors 
-app.get("/", (req, res) => {
+app.post("/", (req, res) => {
     try {
         const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
         const consulta = `call  OBTENER_PROVEEDORES	('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
@@ -85,7 +85,6 @@ app.put('/actualizar', (req, res) => {
                         "COD_MODULO": "",
                         "COD_USUARIO": "",
                         "COD_PROVEEDOR": ""
-
                     }
                 });
             }

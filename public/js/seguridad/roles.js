@@ -77,7 +77,7 @@ function cargar_roles_sys() {
     };
 
     $.ajax(settings).done(function (response) {
-        console.log(response);
+       // console.log(response);
 
         $.each(response[0], function (key, val) {
             var estado
@@ -86,8 +86,8 @@ function cargar_roles_sys() {
             } else {
                 estado = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="estado' + val.COD_ROL + '"  ><label class="custom-control-label" for="estado' + val.COD_ROL + '"></label></div>'
             }
-            console.log(val.NOM_ROL)
-            editar = "<button type='input' id='editar" + val.COD_ROL + "' onclick='mostrar_formu_actualizar()' class='btn btn-success'  data-toggle='tooltip' data-placement='left' title='Editar Rol'><i class='fas fa-pencil-alt' aria-hidden='true'></i>"
+           // console.log(val.NOM_ROL)
+            editar = "<button type='input' id='editar" + val.COD_ROL + "' onclick='mostrar_formu_actualizar()' class='btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Rol'><i class='fas fa-pencil-alt' aria-hidden='true'></i>"
             $("#contenido_roles").append("<tr><td>" + editar + "</td><td>" + val.NOM_ROL + "</td><td>" + estado + "</td><td style='display: none; '>" + val.COD_ESTADO + "</td><td style='display: none; '>" + val.COD_ROL + "</td></tr>");
         });
         $('#table_rol').dataTable().fnDestroy();
@@ -243,6 +243,9 @@ refresh.addEventListener('click', _ => {
             location.reload();
             document.getElementById("roles_sistema").style.display = "block"
 })
+
+
+
 
 cargar_roles_sys();
  

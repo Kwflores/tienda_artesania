@@ -15,8 +15,10 @@ const RutaProveedores = require("./routers/proveedores");
 const RutaPagos = require("./routers/metodo_pago");
 const RutaFacturacion = require("./routers/facturacion");
 const RutaCliente = require("./routers/clientes");
+const rutaimg = require('./routers/img');
 const validartoken = require("./Middleware/validar_token");
 const app = express();
+
 require('dotenv').config();
 //ultilizo el urlencoded con la propiedad extended para que el servidor pueda entender los datos del htmls
 app.use(express.urlencoded({ extended: false }));
@@ -102,7 +104,7 @@ app.use("/pagos", validartoken, RutaPagos);
 app.use("/pedidos", validartoken, RutaFacturacion);
 app.use("/send-email",RutaPass)
 app.use("/clientes",RutaCliente)
-
+app.use("/img",rutaimg);
 app.listen(process.env.PUERTO, () => {
     console.log('Servidor corriendo con exito!');
 });

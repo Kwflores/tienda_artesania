@@ -119,7 +119,7 @@ function cargar_permisos() {
     };
 
     $.ajax(settings).done(function (response) {
-        console.log(response);
+       // console.log(response);
 
         $.each(response[0], function (key, val) {
             var leer
