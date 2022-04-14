@@ -287,11 +287,43 @@ document
     valido.innerText =  "Error: La dirección de correo es incorrecta.";
   }
 });
+
+document
+.getElementById('RCorreo_proveedor')
+.addEventListener('input', function(evt) {
+  const campo = evt.target,
+        valido = document.getElementById('Correo_proveedor'),
+      
+        expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+  //Se muestra un texto válido/inválido a modo de ejemplo
+  if (expr.test(campo.value)) {
+    valido.innerText = "";
+  } else {
+    valido.innerText =  "Error: La dirección de correo es incorrecta.";
+  }
+});
+
+document
+.getElementById('ACorreo_proveedor')
+.addEventListener('input', function(evt) {
+  const campo = evt.target,
+        valido = document.getElementById('A_Correo_proveedor'),
+      
+        expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+  //Se muestra un texto válido/inválido a modo de ejemplo
+  if (expr.test(campo.value)) {
+    valido.innerText = "";
+  } else {
+    valido.innerText =  "Error: La dirección de correo es incorrecta.";
+  }
+});
 document
 .getElementById('email')
 .addEventListener('input', function(evt) {
   const campo = evt.target,
-        valido = document.getElementById('correoOK'),
+        valido = document.getElementById('UcorreoOK'),
       
         expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 

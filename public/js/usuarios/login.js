@@ -329,12 +329,12 @@ $(document).ready(function () {
         confi_clave = $("#conf_pass").val();
         telefono = "0";
         valido = document.getElementById("campoOK").textContent
-
+      
         if (valido != "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: '¡Debe Proporcionar una contraseña valida.!',
+                text: '¡Debe Proporcionar un correo valid.!',
             })
             return;
         }

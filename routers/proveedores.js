@@ -69,10 +69,10 @@ app.post("/nuevo", (req, res) => {
 app.put('/actualizar', (req, res) => {
     try {
         const { NOM_USUARIO, NOM_PROVEEDOR, DIRECCION, NUM_CEL, USER_EMAIL, COD_ESTADO, COD_MODULO, COD_USUARIO, COD_PROVEEDOR } = req.body;
-        const consulta = `call 	ACTUALIZAR_PROVEEDOR(${NOM_USUARIO},'${NOM_PROVEEDOR}','${DIRECCION}',${NUM_CEL},'${USER_EMAIL}',${COD_ESTADO},${COD_MODULO},${COD_USUARIO},${COD_PROVEEDOR})`;
+        const consulta = `call 	ACTUALIZAR_PROVEEDOR('${NOM_USUARIO}','${NOM_PROVEEDOR}','${DIRECCION}',${NUM_CEL},'${USER_EMAIL}',${COD_ESTADO},${COD_MODULO},${COD_USUARIO},${COD_PROVEEDOR})`;
 
         conn.query(consulta, error => {
-            if (error) {
+            if (error)  {
                 res.json({
                     message: "Verificar los parametros solicitados",
                     parametros_solicitados: {

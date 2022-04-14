@@ -14,7 +14,7 @@ var conn = conexion.createConnection(
 );
 
 // Obenter todo los productos
-app.get("/", (req, res) => {
+app.post("/", (req, res) => {
     try {
         const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
         const consulta = `call 	OBTENER_PRODUCTO('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
 
 
 // Obenter inventario de productos
-app.get("/inventario", (req, res) => {
+app.post("/inventario", (req, res) => {
     try {
         const { NOM_CATEGORIA, COD_USUARIO, COD_MODULO } = req.body;
         const consulta = `call 	OBTENER_INVENTARIO('${NOM_CATEGORIA}',${COD_USUARIO},${COD_MODULO})`;
@@ -68,6 +68,8 @@ app.get("/inventario", (req, res) => {
     }
 });
 
+
+
 // Agregar nueva producto
 app.post("/nuevo", (req, res) => {
     try {
@@ -78,11 +80,10 @@ app.post("/nuevo", (req, res) => {
             if (error) throw error;
             if (results.length > 0) {
                 if (results[0][0].numero_sku > 0) {
-                    res.send(`EL SKU: ${SKU} ya existe, favor registra uno nuevo.!`);
+                    res.json({Message:`EL SKU: ${SKU} ya existe, favor registra uno nuevo.!`});
                 }
-
                 else {
-                    const consulta = `call 	NUEVO_INVENTARIO_PRODUCTOS(${SKU},'${NOM_PRODUCTO}','${DES_PRODUCTO}','${URL_IMG}',1,${COD_CATEGORIA},${COD_PROVEEDOR},${CAN_INICIAL},${CAN_ENTRADAS},${CAN_SALIDAS},${STOCK},${PR_PRODUCTO},${COD_MODULO},${COD_USUARIO})`;
+                    const consulta = `call 	NUEVO_INVENTARIO_PRODUCTOS(${SKU},'${NOM_PRODUCTO}','${DES_PRODUCTO}','${URL_IMG}',${COD_CATEGORIA},${COD_PROVEEDOR},${CAN_INICIAL},${CAN_ENTRADAS},${CAN_SALIDAS},${STOCK},${PR_PRODUCTO},${COD_USUARIO},${COD_MODULO})`;
                     conn.query(consulta, (error) => {
                         if (error) {
                             res.json({
@@ -105,7 +106,7 @@ app.post("/nuevo", (req, res) => {
                                 }
                             });
                         }
-                                                else{
+                        else{
                                 res.json({
                                     message: "Inventario de Producto creado Con Exito",
                                     SKU: SKU
@@ -121,12 +122,33 @@ app.post("/nuevo", (req, res) => {
 });
 
 
+
+
+app.put("/productos_estado", (req, res) => {
+    try {
+        const {NOM_USUARIO,COD_ESTADO, COD_USUARIO, COD_MODULO,COD_PRODUCTO } = req.body;
+        console.log(COD_ESTADO)
+        
+            const consulta = `call 	ACTUALIZAR_ESTADO_PRODUCTOS('${NOM_USUARIO}',${COD_ESTADO},${COD_USUARIO},${COD_MODULO},${COD_PRODUCTO})`;
+            conn.query(consulta, error => {
+                if (error) throw error;
+                res.send("Inactivo");
+            });
+        
+    } catch (error) {
+        res.send("0")
+    }
+
+});
+
+
 // Actualizar producto inventariado 
 app.put('/actualizar', (req, res) => {
     try {
-        const { SKU, NOM_USUARIO, NOM_PRODUCTO, DES_PRODUCTO, URL_IMG, COD_ESTADO, COD_CATEGORIA, COD_PROVEEDOR, CAN_INICIAL, CAN_ENTRADAS, CAN_SALIDAS, STOCK,
+        const { SKU, NOM_USUARIO, NOM_PRODUCTO, DES_PRODUCTO, URL_IMG,  COD_CATEGORIA, COD_PROVEEDOR, 
             PR_PRODUCTO, COD_USUARIO, COD_MODULO, COD_INVENTARIO, COD_PRODUCTO } = req.body;
-        const consulta = `call 	ACTUALIZAR_INVENTARIO_PRODUCTOS('${SKU}','${NOM_USUARIO}','${NOM_PRODUCTO}','${DES_PRODUCTO}','${URL_IMG}',${COD_ESTADO},${COD_CATEGORIA},${COD_PROVEEDOR},${CAN_INICIAL},${CAN_ENTRADAS},${CAN_SALIDAS},${STOCK},${PR_PRODUCTO},${COD_MODULO},${COD_USUARIO},${COD_INVENTARIO},${COD_PRODUCTO})`;
+        const consulta = `call 	ACTUALIZAR_DATOS_PRODUCTOS('${SKU}','${NOM_USUARIO}','${NOM_PRODUCTO}','${DES_PRODUCTO}',
+        '${URL_IMG}',${COD_CATEGORIA},${COD_PROVEEDOR},${PR_PRODUCTO},${COD_USUARIO},${COD_MODULO},${COD_INVENTARIO},${COD_PRODUCTO})`;
 
         conn.query(consulta, error => {
             if (error) throw error;
@@ -141,6 +163,23 @@ app.put('/actualizar', (req, res) => {
 
 });
 
+//actualizar inventario 
+app.put('/actualizar_inventario',(req,res)=>{
+    
+    try {
+        const {  COD_INVENTARIO,ENTRADAS,SALIDAS,STOCK,COD_MODULO,COD_USUARIO } = req.body;
+        const consulta = `call 	ACTUALIZAR_INVENTARIO(${COD_INVENTARIO},${ENTRADAS},${SALIDAS},${STOCK},${COD_MODULO},${COD_USUARIO})`;
+
+        conn.query(consulta, error => {
+            if (error) throw error;
+            res.json({
+                message: "Inventario actualizado Con Exito",
+            })
+        });
+    } catch (error) {
+        res.send(0);
+    }
+})
 //eliminar producto 
 app.delete('/eliminar', async (req, res) => {
     try {
@@ -154,7 +193,7 @@ app.delete('/eliminar', async (req, res) => {
                     conn.query(consulta, (error, results) => {
                         if (error) {
                             res.json({
-                                message: "Verificar los parametros solicitados",
+                                error: "Verificar los parametros solicitados",
                                 parametros_solicitados: {
                                     "COD_PRODUCTO": "",
                                     "NOM_USUARIO": "",

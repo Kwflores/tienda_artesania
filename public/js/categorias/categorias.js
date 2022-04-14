@@ -219,8 +219,7 @@ function eliminar(cod_categoria) {
             fetch(url_eliminar, requestOptions)
                 .then(response => response.text())
                 .then(result => {
-                    console.log( result=='{"Message":"Registro No puede eliminarse, contiene productos asociados","COD_CATEGORIA":2}')
-                    if (result=='{"Message":"Registro No puede eliminarse, contiene productos asociados","COD_CATEGORIA":2}') {
+                    if (result=='{"Message":"Registro No puede eliminarse, contiene productos asociados"}') {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
@@ -228,6 +227,7 @@ function eliminar(cod_categoria) {
 
                         })
                     }
+
                     else{
                         Swal.fire(
                             'Registro Eliminado!',
@@ -307,6 +307,7 @@ function cancelar_actualizacion_categorias() {
     document.getElementById("actualizar_categorias").style.display = "none"
     document.getElementById("categorias_sistema").style.display = "block"
 }
+
 
 function mostrar_actualizar() {
     document.getElementById("actualizar_categorias").style.display = "block"

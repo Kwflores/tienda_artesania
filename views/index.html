@@ -53,6 +53,10 @@
     background-color:white;
     border-color: white;
 }
+.dt-buttons a:nth-child(4){
+    background-color:white;
+    border-color: white;
+}
 button.hover.dt-button,button.dt-button, div.dt-button, a.dt-button
 {background-image:none;
 border-color: none;
@@ -2094,8 +2098,8 @@ border-color: none;
                         <li><a href="#GestionInventario" id="ver_gestion_inventario"  ><i class="fa fa-cube" aria-hidden="true"></i> Inventario</a>
                             <ul>
                                 <li><a href="#Proveedores" id="ver_proveedores"  onclick="mostrar_proveedores()"><i class="fa fa-users" aria-hidden="true"></i> Proveedores </a></li>
-                                <li><a href="#Productos" id="ver_productos" onclick="mostrar_registro()"><i class="fa fa-briefcase" aria-hidden="true"></i> Productos</a></li>
-                                <li><a href="#Inventario" id="ver_inventario" ><i class="fa fa-cube" aria-hidden="true"></i> Inventario</a></li>
+                                <li><a href="#Productos" id="ver_productos" onclick=" mostrar_productos()"><i class="fa fa-briefcase" aria-hidden="true"></i> Productos</a></li>
+                                <li><a href="#Inventario" id="ver_inventario" onclick="mostrar_inventario()"><i class="fa fa-cube" aria-hidden="true"></i> Inventario</a></li>
                             </ul>
                         </li>
                         <li><a href="#GestionCategorias">Pedidos</a>
@@ -2158,7 +2162,7 @@ border-color: none;
                                                 <label for="exampleFormControlInput1">Correo Electronico:</label>
                                                 <input type="email" class="form-control" id="email"
                                                     placeholder="Correo Electronico">
-                                                <span style="color: brown;" id="correoOK"></span>
+                                                <span style="color: brown;" id="UcorreoOK"></span>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleFormControlInput1">Telefono:</label>
@@ -2581,8 +2585,7 @@ border-color: none;
                                                                             <input type="email"
                                                                                 class="form-control form-control-lg"
                                                                                 id="Perfil_Correo" maxlength="30"  onkeyup="javascript:this.value=this.value.toUpperCase();" >
-                                                                            <span style="color: brown;"
-                                                                                id="PcorreoOK"></span>
+                                                                            <span style="color: brown;" id="PcorreoOK"></span>
                                                                             <div class="input-focus-bg"></div>
     
                                                                         </div>
@@ -2816,6 +2819,8 @@ border-color: none;
                         </div>
                         <div id="gestion_permiso" >
                             <section id="permisos" style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Gestión de Permisos</h1>
+
                                 <div row>
                                     <div class="col-md-3">
                                         <br>
@@ -2942,6 +2947,8 @@ border-color: none;
                         </div>
                         <div id="gestion_roles" >
                             <section id="roles_sistema" style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Gestión de Roles</h1>
+
                                 <div row>
                                     <div class="col-md-3">
                                         <br>
@@ -2956,7 +2963,7 @@ border-color: none;
                                     <i class="far fa-question-circle"></i>
                                     <center>
                                         <strong>Se Realizaron Cambios en la Informacion, favor dar click en Actualizar Tabla, para ver los Cambios</strong> <br>
-                                         <button type="button" id="refresh"class="btn btn-lg btn-light mx-2 mb-4"  > Actualizar Tabla </button>
+                                         <button type="button" id="refresh_roles"class="btn btn-lg btn-light mx-2 mb-4"  > Actualizar Tabla </button>
                                     </center>
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true"></span>
@@ -3233,7 +3240,6 @@ border-color: none;
                         <div id="gestion_proveedores" >
                             <section id="proveedores_sistema" style="display: none; ">
                                 <h1 class="h1 section-title-3 font-weight-700 text-left">Gestión de Proveedores</h1>
-
                                 <div row style="display: none;">
                                     <div class="col-md-3">
                                         <br>
@@ -3243,16 +3249,18 @@ border-color: none;
                                     </div>
     
                                 </div>
-                                  <div  id="alerta" style="display: none; " class="alert alert-warning alert-icon alert-dismissible fade show mb-5" role="alert">
+                                  <div  id="alerta_proveedores" style="display: none; " class="alert alert-warning alert-icon alert-dismissible fade show mb-5" role="alert">
                                     <i class="far fa-question-circle"></i>
                                     <center>
                                         <strong>Se Realizaron Cambios en la Informacion, favor dar click en Actualizar Tabla, para ver los Cambios</strong> <br>
-                                         <button type="button" id="refresh"class="btn btn-lg btn-light mx-2 mb-4"  > Actualizar Tabla </button>
+                                         <button type="button" id="refresh_proveedores"class="btn btn-lg btn-light mx-2 mb-4"  > Actualizar Tabla </button>
                                     </center>
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true"></span>
                                     </button>
                                 </div>
+
+                                
                                 <div  id="estado_proveedor" style="display: none;" ></div>
                                 <div class="container-fluid">
                                     <table id="table_proveedores" class="display" style="width:100%">
@@ -3275,25 +3283,51 @@ border-color: none;
                                 </div>
     
                             </section>
-                            <section id="actualizar_categorias" style="display: none; " class="rounded-ultra shadow px-4 py-5"
+                            <section id="actualizar_proveedor" style="display: none; " class="rounded-ultra shadow px-4 py-5"
                                 style="display: none; ">
-                                <h1 class="h1 section-title-3 font-weight-700 text-left">Actualizar Datos de Categorias</h1>
-                                 <div id="url_img" style="display: none; "></div>
-                                 <div id="id_estado_categoria"style="display: none; "></div>
-                                 <div id="id_categoria"style="display: none; "></div>
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Actualizar Datos del Proveedor</h1>
+                                <div id="cod_proveedor"style="display: block; "></div>
+                                 <div id="id_estado_proveedor"style="display: none; "></div>
                                 <br>
-                                <form  name="frm_Acategoria" action="/img" enctype ="multipart/form-data" method="post">
+                                <form  name="frm_AProveedores"   enctype ="multipart/form-data" method="post">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="d-flex w-100 justify-content-between">
-                                                    <label class="text-uppercase px-3">Nombre Categoría</label>
+                                                    <label class="text-uppercase px-3">Nombre del Proveedor</label>
                                                 </div>
                                                 <div class="input-group-inner">
-                                                    <input type="text" name="ANom_categoria" id="ANom_categoria" class="form-control"
-                                                        placeholder="Nombre Categoría"  onkeyup="javascript:this.value=this.value.toUpperCase();"  required maxlength="50">
+                                                    <input type="text" name="ANom_proveedor" id="ANom_proveedor" class="form-control"
+                                                        placeholder="Nombre del Proveedor"  onkeyup="javascript:this.value=this.value.toUpperCase();"  required maxlength="50">
                                                     <div class="input-focus-bg"></div>
                                                 </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Dirección de Correo</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="email" name="ACorreo_proveedor" id="ACorreo_proveedor" class="form-control"
+                                                        placeholder="Correo"  required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                <span style="color: brown;" id="A_Correo_proveedor"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Teléfono</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="number" name="ATelefono_proveedor" id="ATelefono_proveedor" class="form-control"
+                                                        placeholder="Correo"  required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
                                                 
                                             </div>
                                         </div>
@@ -3301,58 +3335,74 @@ border-color: none;
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="d-flex w-100 justify-content-between">
-                                                    <label class="text-uppercase px-3">Descripción</label>
+                                                    <label class="text-uppercase px-3">Direccion</label>
                                                 </div>
                                                 <div class="input-group-inner">
-                                                    <input type="text" name="Ades_categoria" id="Ades_categoria" class="form-control"
-                                                        placeholder="Nombre Categoría"  onkeyup="javascript:this.value=this.value.toUpperCase();"  required maxlength="50">
+                                                    <input type="text" name="Adireccion_proveedor" id="Adireccion_proveedor" class="form-control"
+                                                        placeholder="Dirección"  onkeyup="javascript:this.value=this.value.toUpperCase();"  required maxlength="50">
                                                     <div class="input-focus-bg"></div>
                                                 </div>
                                                 
                                             </div>
                                         </div>
                             
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                    <label class="text-uppercase px-3">Imagen de la Categoría</label>
-                                                </div>
-                                                    <input class="form-control" type="file" id="url_img"  name="img" onChange="actualiza_cat(this.files[0].name)" >
-                                                    <input type="text" id="Am1" value="ruta" class="form-control" style="display: none;">
-                                            </div>
-                                        </div>
                                         
 
                                     </div>
                                     <center>
                                         <br><br>
                                         <div>
-                                            <button id="actualizar_categorias" onclick="actualizar_categoria()" type="button" class="btn btn-primary mb-2" >Guardar</button>
-                                            <button type="button" class="btn btn-danger mb-2"
-                                                onclick=" cancelar_actualizacion_categorias()">Cancelar</button>
+                                            <button   onclick="actualizar_proveedor()" type="button" class="btn btn-primary mb-2" >Guardar</button>
+                                            <button id="refresh" type="button" class="btn btn-danger mb-2"
+                                                onclick=" cancelar_actu_proveedor()">Cancelar</button>
                                         </div>
     
                                     </center>
     
-    
-    
-    
                                 </form>
+
                             </section>
-                            <section id="nueva_categoria" style="display: none; " class="rounded-ultra shadow px-4 py-5"
+                            <section id="nuevo_proveedor" style="display: none; " class="rounded-ultra shadow px-4 py-5"
                                 style="display: none; ">
-                                <h1 class="h1 section-title-3 font-weight-700 text-left">Registro de  Categorías</h1>
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Registro de  Proveedores</h1>
                                 <br>
-                                <form  name="frm_categoria" action="/img" enctype ="multipart/form-data" method="post">
+                                <form  enctype ="multipart/form-data" method="post">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="d-flex w-100 justify-content-between">
-                                                    <label class="text-uppercase px-3">Nombre Categoría</label>
+                                                    <label class="text-uppercase px-3">Nombre del Proveedor</label>
                                                 </div>
                                                 <div class="input-group-inner">
-                                                    <input type="text" name="Anom_rol" id="Nom_categoria" class="form-control"
-                                                        placeholder="Nombre Categoría"  onkeyup="javascript:this.value=this.value.toUpperCase();"  required maxlength="50">
+                                                    <input type="text" name="RNom_proveedor" id="RNom_proveedor" class="form-control"
+                                                        placeholder="Nombre del Proveedor"  onkeyup="javascript:this.value=this.value.toUpperCase();"  required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Dirección de Correo</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="email" name="RCorreo_proveedor" id="RCorreo_proveedor" class="form-control"
+                                                        placeholder="Correo"  required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                <span style="color: brown;" id="Correo_proveedor"></span>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Teléfono</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="number" name="RTelefono_proveedor" id="RTelefono_proveedor" class="form-control"
+                                                        placeholder="Telefono"  required maxlength="50">
                                                     <div class="input-focus-bg"></div>
                                                 </div>
                                                 
@@ -3362,41 +3412,573 @@ border-color: none;
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="d-flex w-100 justify-content-between">
-                                                    <label class="text-uppercase px-3">Descripción</label>
+                                                    <label class="text-uppercase px-3">Direccion</label>
                                                 </div>
                                                 <div class="input-group-inner">
-                                                    <input type="text" name="Anom_rol" id="des_categoria" class="form-control"
-                                                        placeholder="Nombre Categoría"  onkeyup="javascript:this.value=this.value.toUpperCase();"  required maxlength="50">
+                                                    <input type="text" name="Rdireccion_proveedor" id="Rdireccion_proveedor" class="form-control"
+                                                        placeholder="Dirección"  onkeyup="javascript:this.value=this.value.toUpperCase();"  required maxlength="50">
                                                     <div class="input-focus-bg"></div>
                                                 </div>
                                                 
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                    <label class="text-uppercase px-3">Imagen de la Categoría</label>
-                                                </div>
-                                                    <input class="form-control" type="file" id="url_img"  name="img" onChange="actualiza(this.files[0].name)" >
-                                                    <input type="text" id="m1" value="ruta" class="form-control" style="display: none;">
-                                            </div>
-                                        </div>
+                            
                                         
+
                                     </div>
                                     <center>
                                         <br><br>
                                         <div>
-                                            <button id="registro_categorias" type="button" class="btn btn-primary mb-2" >Guardar</button>
-                                            <button type="button" class="btn btn-danger mb-2"
-                                                onclick=" cancelar_categorias()">Cancelar</button>
+                                            <button  id="registro_proveedor" type="button" class="btn btn-primary mb-2" >Guardar</button>
+                                            <button id="refresh" type="button" class="btn btn-danger mb-2"
+                                                onclick=" cancelar_rproveedor()">Cancelar</button>
                                         </div>
     
                                     </center>
     
+                                </form>
+                            </section>
+                        </div>
+                        <div id="gestion_productos" >
+                            <section id="productos_sistema" style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Gestión de Productos</h1>
+                                <div row style="display: none;">
+                                    <div class="col-md-3">
+                                        <br>
+                                        <button type="button" class="btn btn-primary mb-2" onclick=" mostrar_registro_categoria()"><i
+                                                class="fa fa-user aria-hidden="true"></i> Nuevo Producto</button>
+                                        <br><br>
+                                    </div>
     
+                                </div>
+                                  <div  id="alerta_proveedores" style="display: none; " class="alert alert-warning alert-icon alert-dismissible fade show mb-5" role="alert">
+                                    <i class="far fa-question-circle"></i>
+                                    <center>
+                                        <strong>Se Realizaron Cambios en la Informacion, favor dar click en Actualizar Tabla, para ver los Cambios</strong> <br>
+                                         <button type="button" id="refresh_productos"class="btn btn-lg btn-light mx-2 mb-4"  > Actualizar Tabla </button>
+                                    </center>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true"></span>
+                                    </button>
+                                </div>
+
+                                
+                                <div  id="estado_productos" style="display: none;" ></div>
+                                <div class="container-fluid">
+                                    <table id="table_productos" class="display" style="width:100%">
+                                            <thead>
+                                              <tr>
+                                                <th >Acción</th>
+                                                <th>Imagen</th>
+                                                <th>SKU</th>
+                                                <th>Producto</th>
+                                                <th>Descripción</th>
+                                                <th>Precio</th>
+                                                <th>Categoría</th>
+                                                <th>Proveedor</th>
+                                                <th>Estado</th>
+                                                <th style="display: none; ">id_producto</th>
+                                                <th style="display: none; ">id_proveedor</th>
+                                                <th style="display: none; ">id_categoria/th>
+                                                <th style="display: none; ">id_inventario</th>
+                                                <th style="display: none; ">id_inventario</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody id="contenido_productos">
+                                  
+                                            </tbody>
+                                    </table>
+                                </div>
     
+                            </section>
+                            <section id="nuevo_producto" style="display: none; " class="rounded-ultra shadow px-4 py-5"
+                                style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Registro de  Producto</h1>
+                                <br>
+                                <form name="frm_producto" action="/img" enctype ="multipart/form-data" method="post">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <p>Datos de Producto:</p>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">SKU</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="number" name="RSKU" id="RSKU" class="form-control"
+                                                        placeholder="Código Producto"   required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Nombre del Producto</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="email" name="Rnom_producto" id="Rnom_producto" class="form-control"
+                                                        placeholder="Nombre del Producto"  onkeyup="javascript:this.value=this.value.toUpperCase();" required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Descripción</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="text" name="Rdescripcion" id="Rdescripcion" class="form-control"
+                                                        placeholder="Descripción"  onkeyup="javascript:this.value=this.value.toUpperCase();" required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">PRECIO</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="number" name="Rprecio" id="Rprecio" class="form-control"
+                                                        placeholder="Precio"  onkeyup="javascript:this.value=this.value.toUpperCase();" required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Imagen del Producto</label>
+                                                </div>
+                                                    <input class="form-control" type="file" id="Rurl_img"  name="img" onChange="actualiza_producto(this.files[0].name)" >
+                                                    <input type="text" id="Rm1" value="ruta" class="form-control" style="display: none;">
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label  class="text-uppercase px-3" for="exampleFormControlSelect2">Categoría </label>
+                                                <select class="form-control" id="Rcategoria">
+                                                    <option value="">Seleccione Una Categoría</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="text-uppercase px-3" for="exampleFormControlSelect2">Proveedor </label>
+                                                <select class="form-control" id="Rproveedores">
+                                                    <option value="">Seleccione Un Proveedor</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="col-md-9">
+                                           <br>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <p>Datos de Inventario:</p>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            
+                                                <button onclick="operacion_inventario()" type="button" class="btn btn-warning  mb-2" >Generar Nuevo STOCK</button>
+                                                <button onclick="limpiar_dataInventario()" type="button" class="btn btn-secondary  mb-2" >Limpiar Datos de Inventario</button>
+                                        <br><br>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Catidad Inicial</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="number" name="Rcinicial" id="Rcinicial" class="form-control"
+                                                        placeholder="Inicial" required maxlength="50" ">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Catidad Entrada</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="number" name="Rcentrada" id="Rcentrada" class="form-control"
+                                                        placeholder="Entradas" required maxlength="50"">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Catidad Salida</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="number" name="Rsalida" id="Rsalida" class="form-control"
+                                                        placeholder="Salidas" required maxlength="50"">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">STOCK</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="number" name="Rstock" id="Rstock" class="form-control"
+                                                        placeholder="STOCK" required maxlength="50" disabled>
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                            
+                                        
+
+
+                                    </div>
+                                    <center>
+                                        <br><br>
+                                        <div>
+                                            <button disabled  id="registro_productos" type="button" class="btn btn-primary mb-2" >Guardar</button>
+                                            <button id="refresh" type="button" class="btn btn-danger mb-2"
+                                                onclick=" cancelar_rproductos()">Cancelar</button>
+                                        </div>
+    
+                                    </center>
     
                                 </form>
+                                
+                            </section>
+                            <br><br>
+                            <section id="actualizar_producto" style="display: none; " class="rounded-ultra shadow px-4 py-5"
+                                style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Actualizar Datos de  Producto</h1>
+                                <br>
+                                <div id="id_inventario" style="display: none;" ></div>
+                                <div id="id_producto"  style="display: none; " ></div>
+                                <form name="Afrm_producto" action="/img" enctype ="multipart/form-data" method="post">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <p>Datos de Producto:</p>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">SKU</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="number" name="ASKU" id="ASKU" class="form-control"
+                                                        placeholder="Código Producto"   required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Nombre del Producto</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="text" name="Anom_producto" id="Anom_producto" class="form-control"
+                                                        placeholder="Nombre del Producto"  onkeyup="javascript:this.value=this.value.toUpperCase();" required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Descripción</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="text" name="Adescripcion" id="Adescripcion" class="form-control"
+                                                        placeholder="Descripción"  onkeyup="javascript:this.value=this.value.toUpperCase();" required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">PRECIO</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="number" name="Aprecio" id="Aprecio" class="form-control"
+                                                        placeholder="Precio"  onkeyup="javascript:this.value=this.value.toUpperCase();" required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Imagen del Producto</label>
+                                                </div>
+                                                    <input class="form-control" type="file" id="Aurl_img"  name="img" onChange="actualiza_producto_A(this.files[0].name)" >
+                                                    <input type="text" id="Am1" value="ruta" class="form-control" style="display: none;">
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label  class="text-uppercase px-3" for="exampleFormControlSelect2">Categoría </label>
+                                                <select class="form-control" id="Apcategoria">
+                                                    <option value="">Seleccione Una Categoría</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="text-uppercase px-3" for="exampleFormControlSelect2">Proveedor </label>
+                                                <select class="form-control" id="Approveedores">
+                                                    <option value="">Seleccione Un Proveedor</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="col-md-9">
+                                           
+                                        </div>
+                                        <div style="display: none;" >
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <p>Datos de Inventario:</p>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <button onclick="limpiar_dataInventario()" type="button" class="btn btn-secondary  mb-2" >Limpiar Datos de Inventario</button>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <label class="text-uppercase px-3">Catidad Inicial</label>
+                                                    </div>
+                                                    <div class="input-group-inner">
+                                                        <input type="number" name="Acinicial" id="Acinicial" class="form-control"
+                                                            placeholder="Inicial" required maxlength="50"">
+                                                        <div class="input-focus-bg"></div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <label class="text-uppercase px-3">Catidad Entrada</label>
+                                                    </div>
+                                                    <div class="input-group-inner">
+                                                        <input type="number" name="Acentrada" id="Acentrada" class="form-control"
+                                                            placeholder="Entradas" required maxlength="50"">
+                                                        <div class="input-focus-bg"></div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <label class="text-uppercase px-3">Catidad Salida</label>
+                                                    </div>
+                                                    <div class="input-group-inner">
+                                                        <input type="number" name="Asalida" id="Asalida" class="form-control"
+                                                            placeholder="Salidas" required maxlength="50"">
+                                                        <div class="input-focus-bg"></div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <label class="text-uppercase px-3">STOCK</label>
+                                                    </div>
+                                                    <div class="input-group-inner">
+                                                        <input type="number" name="Astock" id="Astock" class="form-control"
+                                                            placeholder="STOCK" required maxlength="50" disabled>
+                                                        <div class="input-focus-bg"></div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                            
+                                        
+
+
+                                    </div>
+                                    <center>
+                                        <br><br>
+                                        <div>
+                                            <button  onclick="actualizar_productos()" type="button" class="btn btn-primary mb-2" >Guardar Cambios</button>
+                                            <button type="button" class="btn btn-danger mb-2"
+                                                onclick=" cancelar_Aproductos()">Cancelar</button>
+                                        </div>
+    
+                                    </center>
+    
+                                </form>
+                                
+                            </section>
+                        </div>
+                        <div id="gestion_inventario" >
+                            <section id="inventario_sistema" style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Gestión de Inventario de Productos</h1>
+                                
+                                <div  id="id_inventario" style="display: none;" ></div>
+                                <div class="container-fluid">
+                                    <table id="table_inventario" class="display" style="width:100%">
+                                            <thead>
+                                              <tr>
+                                                <th>Acción</th>
+                                                <th>SKU</th>
+                                                <th>Producto</th>
+                                                <th>Cantidad Inicial</th>
+                                                <th>Entradas</th>
+                                                <th>Salidas</th>
+                                                <th>STOK</th>
+                                                <th>Precio</th>
+                                                <th>Total</th>
+                                                <th style="display: none; ">id_inventario</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody id="contenido_inventario">
+                                  
+                                            </tbody>
+                                    </table>
+                                </div>
+    
+                            </section>
+                            <section id="actualizar_inventario" style="display: none; " class="rounded-ultra shadow px-4 py-5"
+                                style="display: none; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Registrar Nuevo Movimiento</h1>
+                                <br>
+                                <div id="cod_inventario" style="display: none;" ></div>
+
+                                <form name="Afrm_inventario"   enctype ="multipart/form-data" method="post">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">SKU</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <input type="number" name="RSKU" id="ISKU" class="form-control"
+                                                        placeholder="Código Producto" disabled  required maxlength="50">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9"></div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <p>Datos de Inventario:</p>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <button onclick="operacion()" type="button" class="btn btn-warning  mb-2" >Generar Nuevo STOCK</button>
+
+                                                    <button onclick="limpiar_data_Inventario()" type="button" class="btn btn-secondary  mb-2" >Limpiar Datos de Inventario</button>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <label class="text-uppercase px-3">Catidad Inicial</label>
+                                                    </div>
+                                                    <div class="input-group-inner">
+                                                        <input type="number" name="Icinicial" id="Icinicial" disabled class="form-control"
+                                                            placeholder="Inicial" required maxlength="50"  >
+                                                        <div class="input-focus-bg"></div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <label class="text-uppercase px-3">Catidad Entrada</label>
+                                                    </div>
+                                                    <div class="input-group-inner">
+                                                        <input type="number" name="Acentrada" id="IAcentrada" class="form-control"
+                                                            placeholder="Entradas" required maxlength="50" >
+                                                        <div class="input-focus-bg"></div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <label class="text-uppercase px-3">Catidad Salida</label>
+                                                    </div>
+                                                    <div class="input-group-inner">
+                                                        <input type="number" name="IAsalida" id="IAsalida" class="form-control"
+                                                            placeholder="Salidas" required maxlength="50" >
+                                                        <div class="input-focus-bg"></div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <label class="text-uppercase px-3">STOCK</label>
+                                                    </div>
+                                                    <div class="input-group-inner">
+                                                        <input type="number" name="IAstock" id="IAstock" class="form-control"
+                                                            placeholder="STOCK" required maxlength="50" disabled>
+                                                        <div class="input-focus-bg"></div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <center>
+                                        <br><br>
+                                        <div>
+
+                                            <input id="habilitar_guardar"  onclick="actualizar_inventario()" type="button" value="Guardar Cambios " class="btn btn-primary mb-2" disabled > 
+                                            <button type="button" class="btn btn-danger mb-2"
+                                                onclick=" cancelar_actualizacion_inventario()">Cancelar</button>
+                                        </div>
+    
+                                    </center>
+    
+                                </form>
+                                
                             </section>
                         </div>
                         
@@ -3446,6 +4028,8 @@ border-color: none;
     <script src="/public/js/seguridad/permisos.js"></script>
     <script src="/public/js/seguridad/roles.js"></script>
     <script src="/public/js/productos/proveedores.js"></script>
+    <script src="/public/js/productos/productos.js"></script>
+    <script src="/public/js/productos/inventario.js"></script>
     <script src="/public/js/categorias/categorias.js"></script>
     <script src="/public/js/validaciones/validaciones.js"></script>
     

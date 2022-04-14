@@ -114,9 +114,8 @@ app.delete('/eliminar', async (req, res) => {
             if (results[0][0]) {
                 console.log(results[0][0].COD_CATEGORIA == COD_CATEGORIA);
                 if (results[0][0].COD_CATEGORIA == COD_CATEGORIA) {
-                    return res.json({
+                    res.json({
                         Message: "Registro No puede eliminarse, contiene productos asociados",
-                        COD_CATEGORIA: COD_CATEGORIA
 
                     });
                 }

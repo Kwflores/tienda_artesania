@@ -20,16 +20,32 @@ $(document).ready(function () {
         no_identificacion = $("#cod_identificacion").val();
         direccion = $("#direccion").val();
         rol = $("#rol").val();
-        valido = document.getElementById("campoOK").val
-        if (valido == "") {
-
-        }
+        valido = document.getElementById("contraseñaOK").textContent
+        correovalido = document.getElementById("UcorreoOK").textContent
+      
 
         if (cliente == "" || correo == "" || usuario == "" || clave == "" || telefono == "" || idenficacion == "" || no_identificacion == "" || direccion == "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: '¡Debe completar todo los campos.!',
+            })
+            return;
+        }
+        if (valido != "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Debe Proporcionar una contraseña Valida.!',
+            })
+            return;
+        }
+
+        if (correovalido != "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Debe Proporcionar un correo valido.!',
             })
             return;
         }
@@ -366,6 +382,7 @@ function actualizar_datos() {
                 cancelar()
                 get_lista_usuarios()
 
+
             }
         })
         .catch(error => console.log('error', error));
@@ -654,5 +671,10 @@ function obtener_Roles_A() {
 
 }
 
+let refresh = document.getElementById('refresh');
+refresh.addEventListener('click', _ => {
+            location.reload();
+            document.getElementById("roles_sistema").style.display = "block"
+})
 obtener_Roles_A();
 cargar_usuarios();

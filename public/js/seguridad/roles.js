@@ -238,11 +238,12 @@ function cancelar_registro(){
 }
 
 
-let refresh = document.getElementById('refresh');
-refresh.addEventListener('click', _ => {
+let refresh_roles = document.getElementById('refresh_roles');
+refresh_roles.addEventListener('click', _ => {
             location.reload();
             document.getElementById("roles_sistema").style.display = "block"
 })
+
 
 
 
