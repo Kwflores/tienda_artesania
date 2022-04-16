@@ -39,7 +39,21 @@ app.post("/", (req, res) => {
 
 });
 
+app.post("/sku", (req, res) => {
+    try {
+        const { NOM_USUARIO, COD_USUARIO, COD_MODULO,SKU } = req.body;
+        const consulta = `call 	BUSCAR_PRODUCTO_SKU('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO},${SKU})`;
+        conn.query(consulta, (error, results) => {
+            if (error) throw error;
+            if (results.length > 0) {
+                res.json(results);
+            }
+        })
+    } catch (error) {
+        res.send(0);
+    }
 
+});
 
 
 // Obenter inventario de productos
@@ -167,8 +181,8 @@ app.put('/actualizar', (req, res) => {
 app.put('/actualizar_inventario',(req,res)=>{
     
     try {
-        const {  COD_INVENTARIO,ENTRADAS,SALIDAS,STOCK,COD_MODULO,COD_USUARIO } = req.body;
-        const consulta = `call 	ACTUALIZAR_INVENTARIO(${COD_INVENTARIO},${ENTRADAS},${SALIDAS},${STOCK},${COD_MODULO},${COD_USUARIO})`;
+        const {  COD_INVENTARIO,ENTRADAS,STOCK,COD_MODULO,COD_USUARIO } = req.body;
+        const consulta = `call 	ACTUALIZAR_INVENTARIO(${COD_INVENTARIO},${ENTRADAS},${STOCK},${COD_MODULO},${COD_USUARIO})`;
 
         conn.query(consulta, error => {
             if (error) throw error;

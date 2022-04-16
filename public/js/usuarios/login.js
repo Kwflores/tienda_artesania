@@ -68,7 +68,7 @@ $(document).ready(function () {
                                 mes = ('0' + mes).slice(-2);
                                 fecha_actual = ano + '-' + mes + '-' + dia
 
-                                console.log("Fecha Actual"+fecha_actual)
+                                //console.log("Fecha Actual"+fecha_actual)
                                 data[0].forEach(element => {
                                     fecha_vencimiento = element.FECHA_VENCIMIENTO
                                   
@@ -187,6 +187,7 @@ $(document).ready(function () {
                                     existe = true;
                                 }
                             })
+                            
                             if (existe) {
                                 Swal.fire({
                                     icon: 'error',

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="/public/assets/favicon.ico">
+    <title>Tienda Artesania la Bendición</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="/public/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="/public/node_modules/animate.css/animate.min.css">
+
+    <!-- Fancybox CSS -->
+    <link rel="stylesheet" href="/public/node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css">
+
+    <!-- OWL carousel CSS -->
+    <link rel="stylesheet" href="/public/node_modules/owl.carousel/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/public/node_modules/owl.carousel/dist/assets/owl.theme.default.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/public/assets/css/style.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/css/custom.css">
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i&amp;subset=latin-ext"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader-container">
+        <div class="preloader-wrapper">
+            <div class="preloader-border"></div>
+            <div class="preloader-line-mask">
+                <div class="preloader-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+
+            <div class="col-lg-4 bg-image order-2 order-lg-1"
+                data-img-src="/public/assets/images/upload/access-page-bg-02.jpg">
+                <div class="row h-100 align-content-between">
+
+                    <div class="col-12 d-none d-lg-block">
+                        <div class="px-3 py-4 p-xl-4">
+                            <a href="/"><img src="/public/assets/svg/upload/logo-white.svg" alt="logo"
+                                    data-width="146px" data-height="42px"></a>
+                        </div>
+                    </div>
+
+                    <div class="col-12 pt-lg-3">
+                        <div class="text-white-75 px-3 py-4 p-xl-4 mt-lg-1">
+                            <small>Copyright @ <a href="#" class="text-light font-weight-600">yourdomain.com</a>. All
+                                Rights Reserved.</small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-8 order-1 order-lg-2">
+                <div class="row h-100 align-content-between">
+
+                    <div class="col-12">
+                        <div class="row align-items-center py-4 mb-4 mb-lg-0">
+
+                            <div class="col-6 d-lg-none">
+                                <div class="px-3">
+                                    <a href="/"><img src="../../assets/svg/upload/logo-dark.svg" alt="logo"
+                                            data-width="146px" data-height="42px"></a>
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-lg-12">
+                                <div class="text-right px-3 px-xl-4 mt-xl-2">
+                                    <a href="/" class="text-dark font-weight-600 text-uppercase"><i
+                                            class="fas fa-angle-left mr-2"></i>Regresar a la Tienda</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12" id="login">
+                        <div class="container">
+                            <div class="row mb-5">
+                                <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3">
+                                    <div class="p-lg-4 mb-4 mb-xl-5">
+
+                                        <div class="mb-4 text-center">
+                                            <img src="/public/assets/svg/upload/login-03.svg" alt="Login"
+                                                data-width="64px" data-height="64px">
+                                        </div>
+
+                                        <div class="pb-1"></div>
+
+                                        <h3 class="section-title-4 text-center font-weight-800 mb-4">
+
+                                            Inicio de sesión de usuario
+                                            <div class="title-divider-round"></div>
+                                        </h3>
+
+
+                                        <form id="Frm_login">
+
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <label class="text-uppercase px-3">Nombre de Usuario</label>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-user"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control form-control-lg"
+                                                        placeholder="Usuario" name="NOM_USUARIO" id="NOM_USUARIO"
+                                                        onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                                        required onkeypress="soloLetras(event)">
+
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Contraseña</label>
+                                                    <label class="px-3">
+                                                        <a href="#" class="text-reset"
+                                                            onclick="mostrar_reset_clave()">¿Se te olvidó tu
+                                                            contraseña?</a>
+                                                    </label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"
+                                                                onclick="mostrarContrasenas()"></i></span>
+                                                    </div>
+                                                    <input type="password" name="CLAVE" id="CLAVE" class="form-control"
+                                                        placeholder="Contraseña" required>
+                                                        
+
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                            </div>
+
+                                            <div data-height="5px"></div>
+                                            <div id="inicio">
+                                                <button type="button"
+                                                    class="btn btn-lg btn-round btn-primary btn-block mb-0"><i
+                                                        class="fas fa-sign-in-alt"></i>Iniciar Sesión</button>
+                                            </div>
+
+                                            <br>
+
+                                            <label class="w-100 text-center py-2 mb-0">
+
+                                                ¿No tienes una cuenta?<a href="#" onclick="mostrar_registro()">
+                                                    Crear Cuenta</a>
+                                            </label>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" id="registro">
+                        <div class="container">
+                            <div class="row mb-5">
+                                <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3">
+                                    <div class="p-lg-4 mb-4 mb-xl-5">
+
+                                        <div class="mb-4 text-center">
+                                            <img src="/public/assets/svg/upload/register-03.svg" alt="Register"
+                                                data-width="64px" data-height="64px">
+                                        </div>
+
+                                        <div class="pb-1"></div>
+
+                                        <h3 class="section-title-4 text-center font-weight-800 mb-4">
+                                            Registro de Usuarios
+                                            <div class="title-divider-round"></div>
+                                        </h3>
+
+                                        <form>
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <label class="text-uppercase px-3">Nombre Completo</label>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-user"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control form-control-lg"
+                                                        placeholder="Nombre" name="NOM_CLIENTE" id="NOM_CLIENTE">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                            </div>
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <label class="text-uppercase px-3">Correo Electronico</label>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-envelope"></i></span>
+                                                    </div>
+                                                    <input type="email" class="form-control form-control-lg"
+                                                        placeholder="Correo" name="CORREO" id="CORREO">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                                <span style="color: brown;" id="emailOK"></span>
+                                            </div>
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <label class="text-uppercase px-3">Usuario</label>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-user"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control form-control-lg"
+                                                        placeholder="Usuario" name="USER" id="USER" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                                        required onkeypress="soloLetras(event)">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                            </div>
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <label class="text-uppercase px-3">Contraseña</label>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"  onclick="mostrarContrasena()"></i></span>
+                                                    </div>
+                                                    <input type="password" class="form-control form-control-lg"
+                                                        placeholder="Contraseña" name="Password" id="Password" maxlength="8">
+                                                    <div class="input-focus-bg"></div>
+                                                    <div class="col-lg-3" style="vertical-align:middle;margin-top:7px">
+                                                        <span id="passstrength"></span>
+                                                    </div>
+                                                </div>
+                                                <span style="color: brown;" id="campoOK"></span>
+                                            </div>
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <label class="text-uppercase px-3">Confirmar Contraseña</label>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"  onclick="mostrarContrasenapassconfi()"></i></span>
+                                                    </div>
+                                                    <input type="password" class="form-control form-control-lg"
+                                                        placeholder="Confirmar Contraseña" name="conf_pass" id="conf_pass">
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                            </div>
+                                            <div id="registro-clientes">
+                                                <button type="button"
+                                                class="btn btn-lg btn-round btn-primary btn-block mb-0"><i
+                                                    class="fas fa-edit"></i>Crear mi cuenta</button>
+                                            </div>
+                                          
+
+                                           
+                                            
+
+                                            <label class="w-100 text-center py-2 mb-0">
+                                                ¿Ya tienes una cuenta? <a href="#" onclick="mostrarlogin()">Login</a>
+                                            </label>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" id="resetear-clave">
+                        <div class="container">
+                            <div class="row mb-5">
+                                <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3">
+                                    <div class="p-lg-4 mb-4 mb-xl-5">
+
+                                        <div class="mb-4 text-center">
+                                            <img src="/public//assets/svg/upload/reset-01.svg" alt="Password reset"
+                                                data-width="64px" data-height="64px">
+                                        </div>
+
+                                        <div class="pb-1"></div>
+
+                                        <h3 class="section-title-4 text-center font-weight-800 mb-4">
+                                            Restablecer la contraseña
+                                            <div class="title-divider-round"></div>
+                                        </h3>
+
+                                        <form>
+
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <label class="text-uppercase px-3">Nombre de Usuario</label>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-user"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control form-control-lg"
+                                                        placeholder="Usuario" name="USUARIO" id="USUARIO"
+                                                        onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                                        required onkeypress="return soloLetras(event)">
+
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                            </div>
+
+                                            
+                                            <div id="reset-pass">
+                                                <button type="button"
+                                                    class="btn btn-lg btn-round btn-primary btn-block"><i
+                                                        class="fas fa-unlock-alt"></i>Restablecer la contraseña</button>
+                                            </div>
+
+                                            <label class="w-100 text-center py-2 mb-0">
+                                                ¿Recuerdas tu contraseña? <a href="#"
+                                                    onclick=" mostrarlogin()">Login</a>
+                                            </label>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" id="clave">
+                        <div class="container">
+                            <div class="row mb-5">
+                                <div class="col-md-8 offset-md-2 col-xl-6 offset-xl-3">
+                                    <div class="p-lg-4 mb-4 mb-xl-5">
+
+                                        <div class="mb-4 text-center">
+                                            <img src="/public//assets/svg/upload/reset-01.svg" alt="Password reset"
+                                                data-width="64px" data-height="64px">
+                                        </div>
+
+                                        <div class="pb-1"></div>
+
+                                        <h3 class="section-title-4 text-center font-weight-800 mb-4">
+                                            Actualziar contraseña
+                                            <div class="title-divider-round"></div>
+                                        </h3>
+
+                                        <form  >
+
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Contraseña</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"  
+                                                                onclick="mostrarContrasenapass()" ></i></span>
+                                                    </div>
+                                                    <input type="password" name="pass" id="pass"   class="form-control"
+                                                        placeholder="Contraseña" required maxlength="8" >
+                                                   
+                                                    <div class="input-focus-bg"></div>
+                                                    <div class="col-lg-3" style="vertical-align:middle;margin-top:7px">
+                                                        <span id="passstrength"></span>
+                                                    </div>
+                                                   
+                                                </div>
+                                                <span style="color: brown;" id="campoOK"></span>
+                                            </div>
+                                            <div class="input-group input-group-lg input-group-round mb-4">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Confirmar Contraseña</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"
+                                                                onclick="mostrarContrasenapass_confi()"></i></span>
+
+                                                    </div>
+                                                    <input type="password" name="pass_conf" id="pass_conf"
+                                                        class="form-control" placeholder="Confirmar Contraseña"
+                                                        required required >
+
+                                                    <div class="input-focus-bg"></div>
+                                                </div>
+                                            </div>
+
+                                            <div id="modificar-clave">
+                                                <button type="button"
+                                                    class="btn btn-lg btn-round btn-primary btn-block"><i
+                                                        class="fas fa-unlock-alt" ></i>Restablecer la contraseña</button>
+                                            </div>
+
+                                            <label class="w-100 text-center py-2 mb-0">
+                                                ¿Recuerdas tu contraseña? <a href="#"
+                                                    onclick=" mostrarlogin()">Login</a>
+                                            </label>
+
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12"></div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="/public/assets/js/vendor/jquery-3.5.1.min.js"></script>
+
+    <!-- Bootstrap js -->
+    <script src="/public/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Navik Menu js -->
+    <script src="/public/components/navik-navigation-menu/dist/js/navik.menu.js"></script>
+
+    <!-- Isotope and imagesloaded js -->
+    <script src="/public/node_modules/isotope-layout/dist/isotope.pkgd.min.js"></script>
+    <script src="/public/node_modules/imagesloaded/imagesloaded.pkgd.min.js"></script>
+
+    <!-- Fancybox js -->
+    <script src="/public/node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
+
+    <!-- OWL carousel js -->
+    <script src="/public/node_modules/owl.carousel/dist/owl.carousel.min.js"></script>
+
+    <!-- Progress Circle js -->
+    <script src="/public/node_modules/jquery-circle-progress/dist/circle-progress.min.js"></script>
+
+    <!-- Custom js -->
+    <script src="/public/assets/js/custom.js"></script>
+    <script src="/public/js/main.js"></script>
+    <script src="/public/js/usuarios/login.js"></script>
+    <script src="/public/js/validaciones/validaciones.js"></script>
+
+</body>
+
+</html>
