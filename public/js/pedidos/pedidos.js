@@ -38,7 +38,7 @@ function cargar_pedidos() {
 
             "buttons": [
                 {
-                    text: '<button class="btn btn-primary"><i class="fas fa-dollar"></i>FACTURAS</button>',
+                    text: '<button id="Mostrar_inventarios_I" class="btn btn-primary"><i class="fas fa-dollar"></i>FACTURAS</button>',
                     action: function (e, dt, node, config) {
                         mostrar_facturas();
                     },

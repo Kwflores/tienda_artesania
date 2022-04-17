@@ -101,9 +101,10 @@ function cargar_categorias_sys() {
                 estado = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="estado_categoria' + val.COD_CATEGORIA + '"  ><label class="custom-control-label" for="estado_categoria' + val.COD_CATEGORIA + '"></label></div>'
             }
             // console.log(val.NOM_ROL)
-            editar = "<button type='input' id='editar" + val.COD_CATEGORIA + "' onclick='mostrar_actualizar()' class='btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Categoria'><i class='fas fa-pencil-alt' aria-hidden='true'></i> <button type='input' id='refresh" + val.COD_CATEGORIA + "' onclick='eliminar(" + val.COD_CATEGORIA + ")' class='btn btn-round btn-lg btn-icon-only btn-danger mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Eliminar Categoria'><i class='fa fa-trash' aria-hidden='true'></i>"
+            editar = "<div  id='mostrar_editar'> <button type='input' id='editar" + val.COD_CATEGORIA + "' onclick='mostrar_actualizar()' class='btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Categoria'><i class='fas fa-pencil-alt' aria-hidden='true'></i> </div>"
+            eliminar_c = "<div  id='mostrar_eliminar'> <button type='input' id='refresh" + val.COD_CATEGORIA + "' onclick='eliminar(" + val.COD_CATEGORIA + ")' class='btn btn-round btn-lg btn-icon-only btn-danger mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Eliminar Categoria'><i class='fa fa-trash' aria-hidden='true'></i></div>"
             img = "<img src='/public/img/categorias/" + val.URL_IMG + "' height='100'  alt='" + val.NOM_CATEGORIA + "'>"
-            $("#contenido_categorias").append("<tr><td>" + editar + "</td><td>" + img + "</td><td>" + val.NOM_CATEGORIA + "</td><td>" + val.DES_CATEGORIA + "</td><td>" + estado + "</td><td style='display: none; '>" + val.COD_CATEGORIA + "</td><td style='display: none; '>" + val.URL_IMG + "</td></tr>");
+            $("#contenido_categorias").append("<tr><td>" + editar + "</td><td>" + eliminar_c + "</td><td>" + img + "</td><td>" + val.NOM_CATEGORIA + "</td><td>" + val.DES_CATEGORIA + "</td><td>" + estado + "</td><td style='display: none; '>" + val.COD_CATEGORIA + "</td><td style='display: none; '>" + val.URL_IMG + "</td></tr>");
         });
         $('#table_categoria').dataTable().fnDestroy();
         var table = $('#table_categoria').DataTable({
@@ -115,12 +116,27 @@ function cargar_categorias_sys() {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             },
             "dom": 'Blfrtip',
-            
+           
             "buttons": [
                 {
-                    text: '<button class="btn btn-primary"><i class="fa fa-archive"></i> Nueva Categoría</button>',
+                    text: '<button id="Mostrar_registro_C"  class="btn btn-primary" ><i class="fa fa-archive"></i> Nueva Categoría</button>',
                     action: function (e, dt, node, config) {
                         mostrar_registro_categoria();
+                    },
+                    
+                } ,
+                {
+                    text: '<button id="Mostrar_registro_editar"  class="btn btn-secondary" ><i class="fas fa-pencil-alt"></i>Editar Categorias</button>',
+                    action: function (e, dt, node, config) {
+                        permiso_editar();
+                    },
+                    
+                } ,
+                ,
+                {
+                    text: '<button id="Mostrar_registros_eliminar"  class="btn btn-danger" ><i class="fa fa-trash"></i>Accion Eliminar</button>',
+                    action: function (e, dt, node, config) {
+                        permiso_eliminar();
                     },
                     
                 } ,
@@ -134,7 +150,7 @@ function cargar_categorias_sys() {
                 //Aquí es donde generas el botón personalizado
                 text: '<button class="btn btn-success"><i class="fas fa-file-excel"></i> Exportar a Excel </button>',
                 exportOptions: {
-                    columns: [2,3]
+                    columns: [3,4]
                 }
                
             },
@@ -147,7 +163,7 @@ function cargar_categorias_sys() {
                 pageSize: 'A4',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))
                 text: '<button class="btn btn-danger"><i class="far fa-file-pdf"></i> Exportar a PDF </button>',
                 exportOptions: {
-                    columns: [2, 3]
+                    columns: [3, 4]
                 },
                 customize: function(doc) {
                     doc.content.splice(1, 0, {
@@ -165,6 +181,19 @@ function cargar_categorias_sys() {
                     });
                   }
             },
+            ],
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [1],
+                    "visible": false,
+                    "searchable": false
+                },
+
             ]
 
         });
@@ -174,7 +203,7 @@ function cargar_categorias_sys() {
             console.log(data)
             nom_rol = data[1];
             id_rol = data[4]
-            id_estado_categoria = document.getElementById("estado_categoria" + data[5])
+            id_estado_categoria = document.getElementById("estado_categoria" + data[6])
             var estado
             if (id_estado_categoria.checked) {
                 estado = 1
@@ -191,13 +220,13 @@ function cargar_categorias_sys() {
 
             // document.getElementById("id_rol").innerHTML = id_rol
             document.getElementById("estado_categoria").innerHTML = estado
-            actualizar_permiso_estado(data[5], data[2], data[3], data[6], estado);
+            actualizar_permiso_estado(data[6], data[3], data[4], data[7], estado);
             document.getElementById("id_estado_categoria").innerHTML = estado;
-            document.getElementById("id_categoria").innerHTML = data[5];
-            $("#ANom_categoria").val(data[2]);
-            $("#Ades_categoria").val(data[3]);
-            $("#Am1").val(data[6]);
-            $("#url_img").val(data[6]);
+            document.getElementById("id_categoria").innerHTML = data[6];
+            $("#ANom_categoria").val(data[3]);
+            $("#Ades_categoria").val(data[4]);
+            $("#Am1").val(data[7]);
+            $("#url_img").val(data[7]);
         });
 
 
@@ -345,5 +374,81 @@ function actualiza(nombre) {
 function actualiza_cat(nombre) {
     console.log(nombre);
     document.getElementById('Am1').value = nombre;
+}
+
+
+function permiso_editar(){
+    $('#table_categoria').dataTable().fnDestroy();
+    $(document).ready(function () {
+        var dt = $('#table_categoria').dataTable({
+            "bLengthChange": false,
+            "bInfo": true,
+            "pageLength": 10,
+            "orderable": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            },
+            "dom": 'Blfrtip',
+            "buttons": [
+                {
+                    text: '<button id="Volver_Lista"  class="btn btn-primary" ><i class="fa fa-archive"></i> Volver a Categoría</button>',
+                    action: function (e, dt, node, config) {
+                        document.frm_categoria.submit();
+                    },
+                    
+                } ,
+                
+            ],
+            "columnDefs": [
+                {
+                    "targets": [1],
+                    "visible": false,
+                    "searchable": false
+                },
+
+            ]
+        });
+
+
+    });              
+
+}
+function permiso_eliminar(){
+    $('#table_categoria').dataTable().fnDestroy();
+    $(document).ready(function () {
+        var dt = $('#table_categoria').dataTable({
+            "bLengthChange": false,
+            "bInfo": true,
+            "pageLength": 10,
+            "orderable": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            },
+            "dom": 'Blfrtip',
+
+            "buttons": [
+                {
+                    text: '<button id="Volver_Lista"  class="btn btn-primary" ><i class="fa fa-archive"></i> Volver a Categoría</button>',
+                    action: function (e, dt, node, config) {
+                        document.frm_categoria.submit();
+                    },
+                    
+                } ,
+
+                
+            ],
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+
+            ]
+        });
+
+
+    });              
+
 }
 cargar_categorias_sys();

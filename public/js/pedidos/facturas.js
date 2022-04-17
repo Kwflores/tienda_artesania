@@ -7,9 +7,11 @@ $(document).ready(function () {
     $("#registro_factura").click(function () {
         cliente = $("#RCliente").val();
         sku = $("#FSKU").val();
+        direccion= $("#FDireccionEntrega").val();
         pago = $("#forma_pago").val();
         cod_persona = document.getElementById("Fcod_persona");
         cod_direccion = document.getElementById("cod_direccion");
+        
         detallefactura = get_detalle_factura()
         if (pago == "") {
             Swal.fire({
@@ -27,7 +29,7 @@ $(document).ready(function () {
                 "Content-Type": "application/json",
                 'Authorization': token
             },
-            "data": JSON.stringify({ "COD_PERSONA": cod_persona.innerHTML, "COD_USUARIO": id_user, "COD_DIRECCION": cod_direccion.innerHTML, "COD_MODULO": 8 }),
+            "data": JSON.stringify({ "COD_PERSONA": cod_persona.innerHTML, "COD_USUARIO": id_user, "DIRECCION": direccion, "COD_MODULO": 8 }),
         };
         $.ajax(settings).done(function (response) {
             console.log(response[0][0].COD_ENCABEZADO)
@@ -65,7 +67,7 @@ $(document).ready(function () {
                             },
 
                             "data": JSON.stringify({
-                                "CANT_PRODUCTO": cantidad, "PR_PRODUCTO": precio, "MON_PEDIDO": costo_envio, "COS_ENVIO": monto_envio, "COD_PRODUCTO": cod_producto, "COD_PAGO": cod_pago,
+                                "CANT_PRODUCTO": cantidad, "PR_PRODUCTO": precio, "MON_PEDIDO":monto_envio , "COS_ENVIO": costo_envio, "COD_PRODUCTO": cod_producto, "COD_PAGO": cod_pago,
                                 "COD_MODULO": 8, "COD_USUARIO": id_user, "COD_ENCABEZADO": encabezado, "COD_INVENTARIO": val.COD_INVENTARIO, "STOCK": stock
                             }),
                         };
@@ -79,9 +81,10 @@ $(document).ready(function () {
                                     'Se registro correctamente!',
                                     'success'
                                 )
-                                $('#table_facturas').dataTable().fnDestroy();
                                 limpiar();
-                                cargar_categorias_sys();
+                              //  document.frm_categoria.submit()
+                                $('#table_facturas').dataTable().fnDestroy();
+                                cargar_facturas();
                                 localStorage.removeItem("detalle_factura");
                                 document.getElementById("nuevo_factura").style.display = "none"
                                 document.getElementById("facturas_sistema").style.display = "block"
@@ -112,6 +115,9 @@ function limpiar() {
     $("#FCOD_PRODUCTO").val("")
     $("#RCliente").val("");
     $("#FSKU").val("");
+    $("#FDireccionEntrega").val("");
+    total =  document.getElementById("detalle_total")
+    total.innerHTML = ""
 }
 function get_detalle_factura() {
     var lista_registros = [];
@@ -157,10 +163,10 @@ function cargar_facturas() {
         console.log(response);
 
         $.each(response[0], function (key, val) {
-            botones = "<button type='input' id='editar" + val.COD_CATEGORIA + "' onclick=' mostrar_actualizacion_factura()' class='btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Factura'><i class='fas fa-pencil-alt' aria-hidden='true'></i> <button type='input' id='refresh' onclick='generar_pdf()' class='btn btn-round btn-lg btn-icon-only btn-dark  mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Generar Factura'><i class='fa fa-file-pdf' aria-hidden='true'></i>"
+            botones = "<button type='input' id='editar_factura' onclick=' mostrar_actualizacion_factura()' class='btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Factura'><i class='fas fa-pencil-alt' aria-hidden='true'></i> <button type='input' id='generar_pdf' onclick='generar_pdf()' class='btn btn-round btn-lg btn-icon-only btn-dark  mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Generar Factura'><i class='fa fa-file-pdf' aria-hidden='true'></i>"
 
             fecha = moment(val.FEC_PEDIDO).format('DD-MM-YYYY')
-            $("#contenido_facturas").append("<tr><td>" + botones + "</td><td>" + fecha + "</td><td>" + val.NOM_PERSONA + "</td><td>" + val.DIRECCION + "</td><td>" + val.USER_EMAIL + "</td><td>" + val.TIP_PAGO + "</td><td style='display: none;'>" + val.COD_ENCABEZADO + "</td><td style='display: none;'>" + val.COD_DIRECCION + "</td><td style='display: none;'>" + val.NOM_IDENTIFICACION + "</td><td style='display: none;'>" + val.COD_IDENTIFICACION + "</td><td style='display: none;'>" + val.NUM_CEL + "</td><td style='display: none;'>" + val.COD_PAGO + "</td><td style='display: none;'>" + val.COD_PERSONA + "</td></tr>");
+            $("#contenido_facturas").append("<tr><td>" + botones + "</td><td>" + fecha + "</td><td> 000" + val.COD_ENCABEZADO + "</td><td>" + val.NOM_PERSONA + "</td><td>"  + val.DIRECCION + "</td><td>" + val.USER_EMAIL + "</td><td>" + val.TIP_PAGO + "</td><td style='display: none;'>" + val.COD_ENCABEZADO + "</td><td style='display: none;'>" + val.COD_DIRECCION + "</td><td style='display: none;'>" + val.NOM_IDENTIFICACION + "</td><td style='display: none;'>" + val.COD_IDENTIFICACION + "</td><td style='display: none;'>" + val.NUM_CEL + "</td><td style='display: none;'>" + val.COD_PAGO + "</td><td style='display: none;'>" + val.COD_PERSONA + "</td></tr>");
         });
         $('#table_facturas').dataTable().fnDestroy();
         var table = $('#table_facturas').DataTable({
@@ -175,7 +181,7 @@ function cargar_facturas() {
 
             "buttons": [
                 {
-                    text: '<button class="btn btn-primary"><i class="fa fa-plus-circle"></i>NUEVA FACTURA</button>',
+                    text: '<button id="Mostrar_registro_I"  class="btn btn-primary"><i class="fa fa-plus-circle"></i>NUEVA FACTURA</button>',
                     action: function (e, dt, node, config) {
                         mostrar_nueva_factura();
                     },
@@ -230,22 +236,21 @@ function cargar_facturas() {
             var data = table.row(this).data();
             console.log(data)
             $("#Fnom_completo").val(data[2])
-            $("#FTIdentificacion").val(data[8])
-            $("#FIdentificacion").val(data[9])
-            $("#Fcorreo").val(data[4])
-            $("#FTelefono").val(data[10])
-            $("#FDireccion").val(data[3])
-            $("#forma_pago").val(data[11]);
-            document.getElementById("Fcod_persona").innerHTML = data[12];
-            document.getElementById("cod_direccion").innerHTML = data[7];
-            document.getElementById("cod_encabezado").innerHTML = data[6];
+            $("#FTIdentificacion").val(data[9])
+            $("#FIdentificacion").val(data[10])
+            $("#Fcorreo").val(data[5])
+            $("#FTelefono").val(data[11])
+            $("#FDireccion").val(data[4])
+            $("#forma_pago").val(data[12]);
+            document.getElementById("Fcod_persona").innerHTML = data[13];
+            document.getElementById("cod_direccion").innerHTML = data[8];
+            document.getElementById("cod_encabezado").innerHTML = data[2];
             document.getElementById("fecha").innerHTML = data[1];
-            document.getElementById("cliente").innerHTML = data[2];
-            document.getElementById("identificacion").innerHTML = data[8];
-            document.getElementById("codigo_identificacion").innerHTML = data[9];
-
-            obtener_pedidos(data[6]);
-            
+            document.getElementById("cliente").innerHTML = data[3];
+            document.getElementById("identificacion").innerHTML = data[9];
+            document.getElementById("codigo_identificacion").innerHTML = data[10];
+            $("#FDireccionEntrega").val(data[4]);
+            obtener_pedidos(data[2])
         });
 
 
@@ -276,7 +281,18 @@ function mostrar_actualizacion_factura() {
     document.getElementById("Adetalle_factura").style.display = null;
     document.getElementById("detalle_factura").style.display = "none"
     document.getElementById("btn_agregar").style.display = "none"
-    document.getElementById("btn_actualizar_pedido").style.display = "block"
+    document.getElementById("dato_1").style.display = "none"
+    document.getElementById("dato_2").style.display = "none"
+    document.getElementById("dato_3").style.display = "none"
+    document.getElementById("dato_4").style.display = "none"
+    document.getElementById("dato_5").style.display = "none"
+    document.getElementById("dato_6").style.display = "none"
+    document.getElementById("dato_7").style.display = "none"
+    document.getElementById("dato_8").style.display = "none"
+    document.getElementById("dato_9").style.display = "none"
+    document.getElementById("dato_10").style.display = "none"
+    document.getElementById("dato_11").style.display = "none"
+    document.getElementById("btn_actualizar_pedido").style.display = "none"
 
 
 }
@@ -495,7 +511,7 @@ function agregar() {
     Cod_producto = $("#FCOD_PRODUCTO").val()
 
 
-    subtotal = (parseInt(cantidad) * parseInt(precio) + parseInt(costo_envio))
+    subtotal = ((parseInt(cantidad) * parseInt(precio)) + parseInt(costo_envio))
 
 
     if (stock == "" || cantidad == "" || producto == "" || precio == "" || costo_envio == "") {
@@ -553,7 +569,7 @@ function actualizar_factura() {
     cod_persona = document.getElementById("Fcod_persona");
     cod_direccion = document.getElementById("cod_direccion");
     cod_encabezado = document.getElementById("cod_encabezado");
-
+    direccion =  $("#FDireccionEntrega").val();
     if (pago == "") {
         Swal.fire({
             icon: 'error',
@@ -569,7 +585,7 @@ function actualizar_factura() {
     url_actualizar_permisos = api + "pedidos/encabezado";
     myHeader.append("Content-Type", "application/json",);
     var raw = JSON.stringify({
-        "COD_USUARIO": id_user, "COD_PERSONA": cod_persona.innerHTML, "COD_DIRECCION": cod_direccion.innerHTML, "COD_ENCABEZADO": cod_encabezado.innerHTML, "COD_MODULO": 8
+        "COD_USUARIO": id_user, "COD_PERSONA": cod_persona.innerHTML, "COD_DIRECCION": cod_direccion.innerHTML, "COD_ENCABEZADO": cod_encabezado.innerHTML, "COD_MODULO": 8, "DIRECCION":direccion
     });
     var requestOptions = {
         method: 'PUT',
@@ -601,7 +617,7 @@ function actualizar_pedido() {
     cod_direccion = document.getElementById("cod_direccion");
     cod_encabezado = document.getElementById("cod_encabezado");
     cod_producto = document.getElementById("cod_producto");
-
+    obtener_pedidos() 
     if (pago == "") {
         Swal.fire({
             icon: 'error',
@@ -643,32 +659,29 @@ function actualizar_pedido() {
 }
 
 function obtener_pedidos(encabezado) {
-
-    var myHeader = new Headers({
-        'Authorization': token
-    });
-    pedidos = api + "pedidos/pedidos_facturados";
-    myHeader.append("Content-Type", "application/json",);
-    var raw = JSON.stringify({ "ENCABEZADO": encabezado });
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeader,
-        body: raw,
-        redirect: 'follow'
+    $("#Acontenido_detalle").empty();
+    var settings = {
+        "url": api + "pedidos/pedidos_facturados",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            'Authorization': token
+        },
+        "data": JSON.stringify({ "ENCABEZADO": encabezado}),
     };
-    fetch(pedidos, requestOptions)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data)
-            data[0].forEach(Element => {
-                $("#Acontenido_detalle").append("<tr><td>" + Element.NOM_PRODUCTO + "</td><td>" + Element.DES_PRODUCTO + "</td><td>" + Element.CANT_PRODUCTO + "</td><td>" + Element.PR_PRODUCTO + "</td><td >" + Element.COS_ENVIO + "</td><td class='subtotal'>" + Element.MON_PEDIDO + "</td><td style='display: none;'>" + Element.STOCK + "</td><td style='display: none;'>" + Element.COD_PRODUCTO + "</td><td style='display: none;'>" + Element.COD_PEDIDO + "</td><td style='display: none;'>" + Element.COD_INVENTARIO + "</td></tr>");
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+
+        $.each(response[0], function (key, val) {
+                $("#Acontenido_detalle").append("<tr><td>" + val.NOM_PRODUCTO + "</td><td>" + val.DES_PRODUCTO + "</td><td>" + val.CANT_PRODUCTO + "</td><td>" + val.PR_PRODUCTO + "</td><td >" + val.COS_ENVIO + "</td><td class='subtotal'>" + val.MON_PEDIDO + "</td><td style='display: none;'>" + val.STOCK + "</td><td style='display: none;'>" + val.COD_PRODUCTO + "</td><td style='display: none;'>" + val.COD_PEDIDO + "</td><td style='display: none;'>" + val.COD_INVENTARIO + "</td></tr>");
                 var data = [];
                 $("td.subtotal").each(function () {
                     data.push(parseFloat($(this).text()));
                 });
                 var suma = data.reduce(function (a, b) { return a + b; }, 0);
+                
                 $("#detalle_total").html(suma);
                 $('#Adetalle_factura tbody').on('click', 'tr', function () {
                     var data = $(this).children()
@@ -749,7 +762,7 @@ function actualizar_pedido_factura() {
 }
 
 
-
+obtener_pedidos();
 function generar_pdf() {
 
     var doc = new jsPDF();

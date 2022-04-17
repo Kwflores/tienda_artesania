@@ -76,7 +76,7 @@ function cargar_roles_sys() {
         "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 11 }),
     };
 
-    $.ajax(settings).done(function (response) {
+    $.ajax(settings).done(function (response) { 
        // console.log(response);
 
         $.each(response[0], function (key, val) {
@@ -94,6 +94,7 @@ function cargar_roles_sys() {
         var table = $('#table_rol').DataTable({
             "bLengthChange": false,
             "bInfo": false,
+            "pageLength": 5,
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             },

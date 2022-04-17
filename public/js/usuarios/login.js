@@ -71,7 +71,7 @@ $(document).ready(function () {
                                 //console.log("Fecha Actual"+fecha_actual)
                                 data[0].forEach(element => {
                                     fecha_vencimiento = element.FECHA_VENCIMIENTO
-                                  
+
                                     console.log(fecha_vencimiento)
                                     tokens = element.TOKEN
                                     if (password = element.TOKEN && fecha_vencimiento >= fecha_actual) {
@@ -115,7 +115,28 @@ $(document).ready(function () {
                     localStorage.setItem('logeado', 1);
                     localStorage.setItem('usuario', username);
                     localStorage.setItem('rol', data.rol);
+                    localStorage.setItem("mostrar_modulo_usuario", 10);
+                    localStorage.setItem("mostrar_moduloCategoria", 6);
+                    rol_cliente = localStorage.getItem("rol_logeado")
                     rol_usuario = data.rol;
+
+                   
+
+                    if (rol_usuario == rol_cliente) {
+                        localStorage.setItem('tiendita', 1)
+                        localStorage.removeItem("logeado")
+                        document.getElementById("inicio_sesion").style.display = "none"
+                        document.getElementById("tiendita").style.display = "block"
+                        document.getElementById("cerrar_sesion").style.display = "block"
+                        document.getElementById("iniciar_sesion").style.display = "none"
+                        document.getElementById("bienvenido_usuario").style.display = "block"
+                    } else {
+                        localStorage.setItem('logeado', 1);
+                        localStorage.removeItem("tiendita")
+                        document.getElementById("dash").style.display = "block"
+                        document.getElementById("tiendita").style.display = "none"
+                        document.getElementById("inicio_sesion").style.display = "none";
+                    }
                     let timerInterval
                     Swal.fire({
                         icon: 'success',
@@ -124,6 +145,7 @@ $(document).ready(function () {
                         showConfirmButton: false,
                         timer: 2000
                     })
+                    document.frm_categoria.submit();
                     //consultar Roles de usuarios
                     var id_user = localStorage.getItem("id_usuario");
                     var token = localStorage.getItem("token");
@@ -145,11 +167,12 @@ $(document).ready(function () {
                         })
                         .then(function (data) {
                             data[0].forEach(rol => {
-                                if (rol.NOM_ROL == rol_usuario) {
-                                    document.getElementById("dash").style.display = "block"
-                                    document.getElementById("tiendita").style.display = "none"
-                                    document.getElementById("inicio_sesion").style.display = "none";
+
+                                if (rol.COD_ROL == '4') {
+                                    localStorage.setItem('rol_logeado', rol.NOM_ROL)
                                 }
+
+
                             });
                         })
                         .catch(function (err) {
@@ -187,7 +210,7 @@ $(document).ready(function () {
                                     existe = true;
                                 }
                             })
-                            
+
                             if (existe) {
                                 Swal.fire({
                                     icon: 'error',
@@ -330,7 +353,7 @@ $(document).ready(function () {
         confi_clave = $("#conf_pass").val();
         telefono = "0";
         valido = document.getElementById("campoOK").textContent
-      
+
         if (valido != "") {
             Swal.fire({
                 icon: 'error',

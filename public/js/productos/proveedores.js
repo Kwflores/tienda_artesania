@@ -98,14 +98,15 @@ function cargar_proveedores_sys() {
                 estado = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="estado_proveedor' + val.COD_PROVEEDORES + '"  ><label class="custom-control-label" for="estado_proveedor' + val.COD_PROVEEDORES + '"></label></div>'
             }
             // console.log(val.NOM_ROL)
-            editar = "<button type='input' id='editar" + val.COD_PROVEEDORES + "' onclick='mostrar_actualizar_proveedores()' class='btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Proveedor'><i class='fas fa-pencil-alt' aria-hidden='true'></i> <button type='input' id='refresh" + val.COD_PROVEEDORES + "' onclick='eliminar_proveedor(" + val.COD_PROVEEDORES + ")' class='btn btn-round btn-lg btn-icon-only btn-danger mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Eliminar Proveedores'><i class='fa fa-trash' aria-hidden='true'></i>"
-            $("#contenido_proveedores").append("<tr><td>" + editar + "</td><td>" + val.proveedor + "</td><td>" + val.correo + "</td><td>" + val.telefono + "</td><td>" + val.DIRECCION + "</td><td>" + estado + "</td><td style='display: none; '>" + val.COD_PROVEEDORES + "</td></tr>");
+            editar = "<div id='mostrar_editar_proveedores'><button type='input' id='editar" + val.COD_PROVEEDORES + "' onclick='mostrar_actualizar_proveedores()' class='btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Proveedor'><i class='fas fa-pencil-alt' aria-hidden='true'></i></div>"
+            eliminar = "<div id='mostrar_eliminar_proveedores'> <button type='input' id='refresh" + val.COD_PROVEEDORES + "' onclick='eliminar_proveedor(" + val.COD_PROVEEDORES + ")' class='btn btn-round btn-lg btn-icon-only btn-danger mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Eliminar Proveedores'><i class='fa fa-trash' aria-hidden='true'></i></div>"
+            $("#contenido_proveedores").append("<tr><td>" + editar + "</td><td>"  + eliminar + "</td><td>" + val.proveedor + "</td><td>" + val.correo + "</td><td>" + val.telefono + "</td><td>" + val.DIRECCION + "</td><td>" + estado + "</td><td style='display: none; '>" + val.COD_PROVEEDORES + "</td></tr>");
         });
         $('#table_proveedores').dataTable().fnDestroy();
         var table = $('#table_proveedores').DataTable({
             "bLengthChange": false,
             "bInfo": true,
-            "pageLength": 5,
+            "pageLength": 10,
             "orderable": true,
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
@@ -114,12 +115,20 @@ function cargar_proveedores_sys() {
 
             "buttons": [
                 {
-                    text: '<button class="btn btn-primary"><i class="fa fa-user"></i> Nuevo Proveedor</button>',
+                    text: '<button id="Mostrar_registro_Proveedores" class="btn btn-primary"><i class="fa fa-user"></i> Nuevo Proveedor</button>',
                     action: function (e, dt, node, config) {
                         mostrar_registro_proveedores();
                     },
 
                 },
+                {
+                    text: '<button id="Mostrar_proveedor_eliminar"  class="btn btn-danger" ><i class="fa fa-trash"></i>Eliminar Productos</button>',
+                    action: function (e, dt, node, config) {
+                        permiso_eliminarProveedores();
+                    },
+                    
+                } ,
+                
 
                 {
                     //Botón para Excel
@@ -162,6 +171,20 @@ function cargar_proveedores_sys() {
 
 
                 },
+                
+            ],
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [1],
+                    "visible": false,
+                    "searchable": false
+                },
+
             ]
 
         });
@@ -170,7 +193,7 @@ function cargar_proveedores_sys() {
             var data = table.row(this).data();
             console.log(data)
 
-            id_estado_proveedor = document.getElementById("estado_proveedor" + data[6])
+            id_estado_proveedor = document.getElementById("estado_proveedor" + data[7])
             var estado
             if (id_estado_proveedor.checked) {
                 estado = 1
@@ -187,13 +210,13 @@ function cargar_proveedores_sys() {
 
             document.getElementById("estado_proveedor").innerHTML = estado
 
-            actualizar_proveedor_estado(data[1], data[4], data[3], data[4], estado, data[6]);
-            document.getElementById("cod_proveedor").innerHTML = data[6]
+            actualizar_proveedor_estado(data[2], data[5], data[4], data[3], estado, data[7]);
+            document.getElementById("cod_proveedor").innerHTML = data[7]
             document.getElementById("id_estado_proveedor").innerHTML = estado
-            $("#ANom_proveedor").val(data[1]);
-            $("#ACorreo_proveedor").val(data[2]);
-            $("#Adireccion_proveedor").val(data[4]);
-            $("#ATelefono_proveedor").val(data[3]);
+            $("#ANom_proveedor").val(data[2]);
+            $("#ACorreo_proveedor").val(data[3]);
+            $("#Adireccion_proveedor").val(data[5]);
+            $("#ATelefono_proveedor").val(data[4]);
 
         });
 
@@ -359,6 +382,79 @@ refresh_proveedores.addEventListener('click', _ => {
     location.reload();
 })
 
+function permiso_editar(){
+    $('#table_proveedores').dataTable().fnDestroy();
+    $(document).ready(function () {
+        var dt = $('#table_proveedores').dataTable({
+            "bLengthChange": false,
+            "bInfo": true,
+            "pageLength": 10,
+            "orderable": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            },
+            "dom": 'Blfrtip',
+            "buttons": [
+                {
+                    text: '<button id="Volver_Lista"  class="btn btn-primary" ><i class="fa fa-archive"></i> Volver a Categoría</button>',
+                    action: function (e, dt, node, config) {
+                        document.frm_categoria.submit();
+                    },
+                    
+                } ,
+                
+            ],
+            "columnDefs": [
+                {
+                    "targets": [1],
+                    "visible": false,
+                    "searchable": false
+                },
 
+            ]
+        });
+
+
+    });              
+
+}
+function permiso_editarProveedores(){
+    $('#table_proveedores').dataTable().fnDestroy();
+    $(document).ready(function () {
+        var dt = $('#table_proveedores').dataTable({
+            "bLengthChange": false,
+            "bInfo": true,
+            "pageLength": 10,
+            "orderable": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            },
+            "dom": 'Blfrtip',
+
+            "buttons": [
+                {
+                    text: '<button id="Volver_Lista"  class="btn btn-primary" ><i class="fa fa-archive"></i> Volver a Categoría</button>',
+                    action: function (e, dt, node, config) {
+                        document.frm_categoria.submit();
+                    },
+                    
+                } ,
+
+                
+            ],
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+
+            ]
+        });
+
+
+    });              
+
+}
 
 cargar_proveedores_sys();
