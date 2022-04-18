@@ -557,6 +557,7 @@ function permisos_roles() {
                     document.getElementById("mostrar_movimiento_productos").style.display = "none"
 
                 }
+                
                 //proveedores
 
                 if (rol.LEER == 1 && rol.COD_MODULO == 4) {
@@ -590,15 +591,15 @@ function permisos_roles() {
 
                 }
 
-                //  //proveedores
+                 //pedidos
 
-                //  if (rol.LEER == 1 && rol.COD_MODULO == 5) {
-                //     document.getElementById("ver_pedidos").style.display = "block"
+                if (rol.LEER == 1 && rol.COD_MODULO == 5) {
+                    document.getElementById("ver_pedidos").style.display = "block"
 
-                // } if (rol.LEER == 0 && rol.COD_MODULO == 5) {
-                //     document.getElementById("ver_pedidos").style.display = "none"
+                } if (rol.LEER == 0 && rol.COD_MODULO == 5) {
+                    document.getElementById("ver_pedidos").style.display = "none"
 
-                // }
+                }
 
                 //facturas
 

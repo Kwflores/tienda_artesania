@@ -112,7 +112,7 @@ $(document).ready(function () {
                 if (data != 0) {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('id_usuario', data.cod_usuario);
-                  //  localStorage.setItem('logeado', 1);
+                
                     localStorage.setItem('usuario', username);
                     localStorage.setItem('rol', data.rol);
                     localStorage.setItem("mostrar_modulo_usuario", 10);
@@ -120,7 +120,7 @@ $(document).ready(function () {
                     rol_cliente = localStorage.getItem("rol_logeado")
                     rol_usuario = data.rol;
 
-                    if (rol_usuario == rol_cliente) {
+                    if (rol_usuario == 'CLIENTE') {
                         localStorage.setItem('tiendita', 1)
                         localStorage.removeItem("logeado")
                         document.getElementById("inicio_sesion").style.display = "none"
@@ -128,14 +128,14 @@ $(document).ready(function () {
                         document.getElementById("cerrar_sesion").style.display = "block"
                         document.getElementById("iniciar_sesion").style.display = "none"
                         document.getElementById("bienvenido_usuario").style.display = "block"
-
-                    } else {
+                        return;
+                    }else{
                         localStorage.setItem('logeado', 1);
                         localStorage.removeItem("tiendita")
                         document.getElementById("dash").style.display = "block"
                         document.getElementById("tiendita").style.display = "none"
                         document.getElementById("inicio_sesion").style.display = "none";
-                        document.frm_categoria.submit();
+                      
                     }
                     let timerInterval
                     Swal.fire({
@@ -145,7 +145,7 @@ $(document).ready(function () {
                         showConfirmButton: false,
                         timer: 2000
                     })
-                   
+                    document.frm_categoria.submit();
                     //consultar Roles de usuarios
                     var id_user = localStorage.getItem("id_usuario");
                     var token = localStorage.getItem("token");
