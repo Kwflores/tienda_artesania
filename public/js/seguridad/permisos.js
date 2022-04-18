@@ -386,22 +386,7 @@ function permisos_roles() {
             console.log(data)
             data[0].forEach(rol => {
                 console.log(rol.LEER)
-                 //modulo inventario 
-                 if (rol.LEER == 1 && rol.COD_MODULO == 3) {
-                    document.getElementById("ver_inventarios").style.display = "block"
 
-                } if (rol.LEER == 0 && rol.COD_MODULO == 3) {
-                    document.getElementById("ver_inventarios").style.display = "none"
-
-                }
-                if (rol.MODIFICAR == 1 &&  rol.COD_MODULO == 3) {
-                    document.getElementById("mostrar_movimiento_productos").style.display = "block"
-
-                }
-                if (rol.MODIFICAR == 0 && rol.COD_MODULO == 3) {
-                    document.getElementById("mostrar_movimiento_productos").style.display = "none"
-
-                }
                 //modulo_usuario
                 if (rol.LEER == 1 && rol.COD_MODULO == 10) {
                     document.getElementById("ver_usuarios").style.display = "block"
@@ -411,10 +396,9 @@ function permisos_roles() {
                 if (rol.MODIFICAR == 1 && rol.COD_MODULO == 10) {
 
 
-                } if (rol.MODIFICAR == 0 && rol.COD_MODULO == 10) {
+                }
+                if (rol.MODIFICAR == 0 && rol.COD_MODULO == 10) {
                     $('#table_id').dataTable().fnDestroy();
-
-
 
                     $(document).ready(function () {
                         var dt = $('#table_id').dataTable({
@@ -428,13 +412,7 @@ function permisos_roles() {
                             "dom": 'Blfrtip',
 
                             "buttons": [
-                                {
-                                    text: '<button  id="Mostrar_registro_U_M" class="btn btn-primary"><i class="fa fa-user-plus"></i> Nuevo Usuario</button>',
-                                    action: function (e, dt, node, config) {
-                                        mostrar_registro();
-                                    },
-
-                                },
+                                
 
                                 {
                                     //Botón para Excel
@@ -489,19 +467,21 @@ function permisos_roles() {
 
                     });
                 }
+
                 if (rol.CREAR == 1 && rol.COD_MODULO == 10) {
                     document.getElementById("Mostrar_registro_U").style.display = "block"
+                }
 
-
-                } if (rol.CREAR == 0 && rol.COD_MODULO == 10) {
+                if (rol.CREAR == 0 && rol.COD_MODULO == 10) {
                     document.getElementById("Mostrar_registro_U").style.display = "none"
                 }
 
+                
 
                 //modulo_categoria
                 if (rol.LEER == 1 && rol.COD_MODULO == 13) {
                     document.getElementById("ver_categorias").style.display = "block"
-                } 
+                }
                 if (rol.LEER == 0 && rol.COD_MODULO == 13) {
                     document.getElementById("ver_categorias").style.display = "none"
                 }
@@ -509,10 +489,10 @@ function permisos_roles() {
                     document.getElementById("Mostrar_registro_C").style.display = "block"
 
                 }
-                 if (rol.CREAR == 0 && rol.COD_MODULO == 13) {
+                if (rol.CREAR == 0 && rol.COD_MODULO == 13) {
                     document.getElementById("Mostrar_registro_C").style.display = "none"
                 }
-                if (rol.MODIFICAR == 1 &&  rol.COD_MODULO == 13) {
+                if (rol.MODIFICAR == 1 && rol.COD_MODULO == 13) {
                     document.getElementById("Mostrar_registro_editar").style.display = "block"
 
                 }
@@ -520,7 +500,7 @@ function permisos_roles() {
                     document.getElementById("Mostrar_registro_editar").style.display = "none"
 
                 }
-                if (rol.ELIMINAR == 1 &&  rol.COD_MODULO == 13) {
+                if (rol.ELIMINAR == 1 && rol.COD_MODULO == 13) {
                     document.getElementById("Mostrar_registros_eliminar").style.display = "block"
 
                 }
@@ -528,10 +508,10 @@ function permisos_roles() {
                     document.getElementById("Mostrar_registros_eliminar").style.display = "none"
 
                 }
-                
+
 
                 //modulo_productos
-                
+
                 if (rol.LEER == 1 && rol.COD_MODULO == 1) {
                     document.getElementById("ver_productos").style.display = "block"
                 } if (rol.LEER == 0 && rol.COD_MODULO == 1) {
@@ -539,13 +519,13 @@ function permisos_roles() {
                 }
                 if (rol.CREAR == 1 && rol.COD_MODULO == 1) {
                     document.getElementById("Mostrar_registro_P").style.display = "block"
-                    
+
 
                 } if (rol.CREAR == 0 && rol.COD_MODULO == 1) {
                     document.getElementById("Mostrar_registro_P").style.display = "none"
-               
+
                 }
-                if (rol.MODIFICAR == 1 &&  rol.COD_MODULO == 1) {
+                if (rol.MODIFICAR == 1 && rol.COD_MODULO == 1) {
                     document.getElementById("Mostrar_productos_editar").style.display = "block"
 
                 }
@@ -553,7 +533,7 @@ function permisos_roles() {
                     document.getElementById("Mostrar_productos_editar").style.display = "none"
 
                 }
-                if (rol.ELIMINAR == 1 &&  rol.COD_MODULO == 1) {
+                if (rol.ELIMINAR == 1 && rol.COD_MODULO == 1) {
                     document.getElementById("Mostrar_producto_eliminar").style.display = "block"
 
                 }
@@ -561,26 +541,39 @@ function permisos_roles() {
                     document.getElementById("Mostrar_producto_eliminar").style.display = "none"
 
                 }
+                //modulo inventario 
+                 if (rol.LEER == 1 && rol.COD_MODULO == 3) {
+                    document.getElementById("ver_inventarios").style.display = "block"
 
+                } if (rol.LEER == 0 && rol.COD_MODULO == 3) {
+                    document.getElementById("ver_inventarios").style.display = "none"
+
+                }
+                if (rol.MODIFICAR == 1 &&  rol.COD_MODULO == 3) {
+                    document.getElementById("mostrar_movimiento_productos").style.display = "block"
+
+                }
+                if (rol.MODIFICAR == 0 && rol.COD_MODULO == 3) {
+                    document.getElementById("mostrar_movimiento_productos").style.display = "none"
+
+                }
                 //proveedores
-               
+
                 if (rol.LEER == 1 && rol.COD_MODULO == 4) {
                     document.getElementById("ver_proveedores").style.display = "block"
-                    document.getElementById("Mostrar_productos_I").style.display="block"
 
                 } if (rol.LEER == 0 && rol.COD_MODULO == 4) {
                     document.getElementById("ver_proveedores").style.display = "none"
-                    document.getElementById("Mostrar_productos_I").style.display="none"
 
                 }
-                if (rol.CREAR == 1 && rol.COD_MODULO ==4 ) {
+                if (rol.CREAR == 1 && rol.COD_MODULO == 4) {
                     document.getElementById("Mostrar_registro_Proveedores").style.display = "block"
-                    
+
 
                 } if (rol.CREAR == 0 && rol.COD_MODULO == 4) {
                     document.getElementById("Mostrar_registro_Proveedores").style.display = "none"
                 }
-                if (rol.MODIFICAR == 1 &&  rol.COD_MODULO == 1) {
+                if (rol.MODIFICAR == 1 && rol.COD_MODULO == 1) {
                     document.getElementById("Mostrar_proveedor_eliminar").style.display = "block"
 
                 }
@@ -588,32 +581,32 @@ function permisos_roles() {
                     document.getElementById("Mostrar_proveedor_eliminar").style.display = "none"
 
                 }
-                if (rol.ELIMINAR == 1 &&  rol.COD_MODULO == 1) {
+                if (rol.ELIMINAR == 1 && rol.COD_MODULO == 1) {
                     document.getElementById("Mostrar_proveedor_eliminar").style.display = "block"
 
                 }
                 if (rol.ELIMINAR == 0 && rol.COD_MODULO == 1) {
                     document.getElementById("Mostrar_proveedor_eliminar").style.display = "none"
 
-                } 
-
-                 //proveedores
-               
-                 if (rol.LEER == 1 && rol.COD_MODULO == 5) {
-                    document.getElementById("ver_pedidos").style.display = "block"
-
-                } if (rol.LEER == 0 && rol.COD_MODULO == 5) {
-                    document.getElementById("ver_pedidos").style.display = "none"
-
                 }
 
+                //  //proveedores
+
+                //  if (rol.LEER == 1 && rol.COD_MODULO == 5) {
+                //     document.getElementById("ver_pedidos").style.display = "block"
+
+                // } if (rol.LEER == 0 && rol.COD_MODULO == 5) {
+                //     document.getElementById("ver_pedidos").style.display = "none"
+
+                // }
+
                 //facturas
-               
-                
 
 
-               
-             
+
+
+
+
 
 
 

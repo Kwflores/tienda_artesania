@@ -142,14 +142,7 @@ function cargar_usuarios() {
             "dom": 'Blfrtip',
 
             "buttons": [
-                {
-                    text: '<button  id="Mostrar_registro_U" class="btn btn-primary"><i class="fa fa-user-plus"></i> Nuevo Usuario</button>',
-                    action: function (e, dt, node, config) {
-                        mostrar_registro();
-                    },
-
-                },
-
+               
                 {
                     //Botón para Excel
                     extend: 'excel',

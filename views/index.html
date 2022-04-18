@@ -1690,8 +1690,8 @@
                         </li>
                         <li><a href="#Sugerencias" id="sugerencias" onclick="mostrar_sugerencias()"><i
                                     class="fas fa-smile" aria-hidden="true"></i> Sugenrencias</a></li>
-                        <li><a href="#Reportes" id="reportes">Reportes</a></li>
-                        <li><a href="#Seguridad" id="segurdidad">Seguridad</a>
+                        <li><a href="#Reportes" id="reportes"><i class="fa  fa-chart-line"></i> Reportes</a></li>
+                        <li><a href="#Seguridad" id="segurdidad"><i class="fa fa-cog"></i> Seguridad</a>
                             <ul>
                                 <li><a href="#Nuevo" id="Crear_respaldo" onclick="mostrar_registro()">Crear Backup</a>
                                 </li>
@@ -2016,10 +2016,10 @@
                                 <div id="id_estado_usuario" style="display: none;"></div>
                                 <div id="id_es_usuario" style="display: none; "></div>
                                 <h1 class="h1 section-title-3 font-weight-700 text-left">Gestión de Usuarios</h1>
-                                <div row style="display: none;">
+                                <div row style="display: block;">
                                     <div class="col-md-3">
                                         <br>
-                                        <button type="button" class="btn btn-primary mb-2"
+                                        <button  id="Mostrar_registro_U" type="button" class="btn btn-primary mb-2"
                                             onclick="mostrar_registro()"><i class="fa fa-user-plus"
                                                 aria-hidden="true"></i> Nuevo Usuario</button>
                                         <br><br>
@@ -4188,7 +4188,6 @@
     <script src="/public/js/main.js"></script>
     <script src="/public/js/usuarios/login.js"></script>
     <script src="/public/js/usuarios/usuarios.js"></script>
-    <script src="/public/js/seguridad/roles.js"></script>
     <script src="/public/js/productos/proveedores.js"></script>
     <script src="/public/js/productos/productos.js"></script>
     <script src="/public/js/productos/inventario.js"></script>
@@ -4196,9 +4195,9 @@
     <script src="/public/js/pedidos/pedidos.js"></script>
     <script src="/public/js/pedidos/facturas.js"></script>
     <script src="/public/js/sugerencias/sugerencias.js"></script>
-    <script src="/public/js/seguridad/permisos.js"></script>
     <script src="/public/js/validaciones/validaciones.js"></script>
-   
+    <script src="/public/js/seguridad/roles.js"></script>
+    <script src="/public/js/seguridad/permisos.js"></script>
 
 </body>
 
