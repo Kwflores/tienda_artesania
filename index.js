@@ -15,6 +15,7 @@ const RutaProveedores = require("./routers/proveedores");
 const RutaPagos = require("./routers/metodo_pago");
 const RutaFacturacion = require("./routers/facturacion");
 const RutaCliente = require("./routers/clientes");
+const RutaReporte = require("./routers/reportes");
 const rutaimg = require('./routers/img');
 const validartoken = require("./Middleware/validar_token");
 const app = express();
@@ -105,6 +106,7 @@ app.use("/pedidos", validartoken, RutaFacturacion);
 app.use("/send-email",RutaPass)
 app.use("/clientes",RutaCliente)
 app.use("/img",rutaimg);
+app.use("/reportes",RutaReporte)
 app.listen(process.env.PUERTO, () => {
     console.log('Servidor corriendo con exito!');
 });

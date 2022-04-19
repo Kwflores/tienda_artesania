@@ -163,10 +163,11 @@ function cargar_facturas() {
         console.log(response);
 
         $.each(response[0], function (key, val) {
-            botones = "<button type='input' id='editar_factura' onclick=' mostrar_actualizacion_factura()' class='btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Factura'><i class='fas fa-pencil-alt' aria-hidden='true'></i> <button type='input' id='generar_pdf' onclick='generar_pdf()' class='btn btn-round btn-lg btn-icon-only btn-dark  mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Generar Factura'><i class='fa fa-file-pdf' aria-hidden='true'></i>"
+            botones = "<button type='input' id='editar_factura' onclick=' mostrar_actualizacion_factura()' class='btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Factura'><i class='fas fa-pencil-alt' aria-hidden='true'></i>"
+            imprimir = " <button type='input' id='generar_pdf' onclick='generar_pdf()' class='btn btn-round btn-lg btn-icon-only btn-dark  mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Generar Factura'><i class='fa fa-file-pdf' aria-hidden='true'></i>"
 
             fecha = moment(val.FEC_PEDIDO).format('DD-MM-YYYY')
-            $("#contenido_facturas").append("<tr><td>" + botones + "</td><td>" + fecha + "</td><td> 000" + val.COD_ENCABEZADO + "</td><td>" + val.NOM_PERSONA + "</td><td>"  + val.DIRECCION + "</td><td>" + val.USER_EMAIL + "</td><td>" + val.TIP_PAGO + "</td><td style='display: none;'>" + val.COD_ENCABEZADO + "</td><td style='display: none;'>" + val.COD_DIRECCION + "</td><td style='display: none;'>" + val.NOM_IDENTIFICACION + "</td><td style='display: none;'>" + val.COD_IDENTIFICACION + "</td><td style='display: none;'>" + val.NUM_CEL + "</td><td style='display: none;'>" + val.COD_PAGO + "</td><td style='display: none;'>" + val.COD_PERSONA + "</td></tr>");
+            $("#contenido_facturas").append("<tr><td>" + botones + "</td><td>" + imprimir + "</td><td>" + fecha + "</td><td> 000" + val.COD_ENCABEZADO + "</td><td>" + val.NOM_PERSONA + "</td><td>"  + val.DIRECCION + "</td><td>" + val.USER_EMAIL + "</td><td>" + val.TIP_PAGO + "</td><td style='display: none;'>" + val.COD_ENCABEZADO + "</td><td style='display: none;'>" + val.COD_DIRECCION + "</td><td style='display: none;'>" + val.NOM_IDENTIFICACION + "</td><td style='display: none;'>" + val.COD_IDENTIFICACION + "</td><td style='display: none;'>" + val.NUM_CEL + "</td><td style='display: none;'>" + val.COD_PAGO + "</td><td style='display: none;'>" + val.COD_PERSONA + "</td></tr>");
         });
         $('#table_facturas').dataTable().fnDestroy();
         var table = $('#table_facturas').DataTable({
@@ -187,6 +188,13 @@ function cargar_facturas() {
                     },
 
                 },
+                {
+                    text: '<button id="Mostrar_registro_editar_facturas"  class="btn btn-secondary" ><i class="fas fa-pencil-alt"></i>Editar Facturas</button>',
+                    action: function (e, dt, node, config) {
+                        permiso_editar_facturas();
+                    },
+                    
+                } ,
 
                 {
                     //Botón para Excel
@@ -228,6 +236,14 @@ function cargar_facturas() {
                         });
                       }
                 },
+                
+            ], "columnDefs": [
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+
             ]
 
         });
@@ -235,22 +251,22 @@ function cargar_facturas() {
         $('#table_facturas tbody').on('click', 'tr', function () {
             var data = table.row(this).data();
             console.log(data)
-            $("#Fnom_completo").val(data[2])
-            $("#FTIdentificacion").val(data[9])
-            $("#FIdentificacion").val(data[10])
-            $("#Fcorreo").val(data[5])
-            $("#FTelefono").val(data[11])
-            $("#FDireccion").val(data[4])
-            $("#forma_pago").val(data[12]);
-            document.getElementById("Fcod_persona").innerHTML = data[13];
-            document.getElementById("cod_direccion").innerHTML = data[8];
-            document.getElementById("cod_encabezado").innerHTML = data[2];
-            document.getElementById("fecha").innerHTML = data[1];
-            document.getElementById("cliente").innerHTML = data[3];
-            document.getElementById("identificacion").innerHTML = data[9];
-            document.getElementById("codigo_identificacion").innerHTML = data[10];
-            $("#FDireccionEntrega").val(data[4]);
-            obtener_pedidos(data[2])
+            $("#Fnom_completo").val(data[4])
+            $("#FTIdentificacion").val(data[10])
+            $("#FIdentificacion").val(data[11])
+            $("#Fcorreo").val(data[6])
+            $("#FTelefono").val(data[12])
+            $("#FDireccion").val(data[5])
+            $("#forma_pago").val(data[13]);
+            document.getElementById("Fcod_persona").innerHTML = data[14];
+            document.getElementById("cod_direccion").innerHTML = data[9];
+            document.getElementById("cod_encabezado").innerHTML = data[3];
+            document.getElementById("fecha").innerHTML = data[2];
+            document.getElementById("cliente").innerHTML = data[4];
+            document.getElementById("identificacion").innerHTML = data[10];
+            document.getElementById("codigo_identificacion").innerHTML = data[11];
+            $("#FDireccionEntrega").val(data[5]);
+            obtener_pedidos(data[3]) 
         });
 
 
@@ -259,6 +275,35 @@ function cargar_facturas() {
     });
 
 
+}
+
+function permiso_editar_facturas(){
+    $('#table_facturas').dataTable().fnDestroy();
+    $(document).ready(function () {
+        var dt = $('#table_facturas').dataTable({
+            "bLengthChange": false,
+            "bInfo": true,
+            "pageLength": 10,
+            "orderable": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            },
+            "dom": 'Blfrtip',
+            "buttons": [
+                {
+                    text: '<button id="Volver_Lista"  class="btn btn-primary" ><i class="fa fa-archive"></i> Volver a Facturas</button>',
+                    action: function (e, dt, node, config) {
+                        document.frm_categoria.submit();
+                    },
+                    
+                } ,
+                
+            ],
+           
+        });
+
+
+    });   
 }
 
 function mostrar_nueva_factura() {
@@ -659,6 +704,7 @@ function actualizar_pedido() {
 }
 
 function obtener_pedidos(encabezado) {
+   // encabezado =document.getElementById("cod_encabezado")
     $("#Acontenido_detalle").empty();
     var settings = {
         "url": api + "pedidos/pedidos_facturados",
@@ -762,7 +808,7 @@ function actualizar_pedido_factura() {
 }
 
 
-obtener_pedidos();
+ 
 function generar_pdf() {
 
     var doc = new jsPDF();

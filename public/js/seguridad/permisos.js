@@ -602,6 +602,44 @@ function permisos_roles() {
                 }
 
                 //facturas
+                if (rol.LEER == 1 && rol.COD_MODULO == 8) {
+                    document.getElementById("ver_facturas").style.display = "block"
+
+                } if (rol.LEER == 0 && rol.COD_MODULO == 8) {
+                    document.getElementById("ver_facturas").style.display = "none"
+
+                }
+                if (rol.CREAR == 1 && rol.COD_MODULO == 8) {
+                    document.getElementById("Mostrar_registro_I").style.display = "block"
+
+
+                } if (rol.CREAR == 0 && rol.COD_MODULO == 8) {
+                    document.getElementById("Mostrar_registro_I").style.display = "none"
+                }
+                if (rol.MODIFICAR == 1 && rol.COD_MODULO == 8) {
+                    document.getElementById("Mostrar_registro_editar_facturas").style.display = "block"
+
+                }
+                if (rol.MODIFICAR == 0 && rol.COD_MODULO == 8) {
+                    document.getElementById("Mostrar_registro_editar_facturas").style.display = "none"
+
+                }
+                 //sugerencias
+                 if (rol.LEER == 1 && rol.COD_MODULO == 6) {
+                    document.getElementById("sugerencias").style.display = "block"
+
+                } if (rol.LEER == 0 && rol.COD_MODULO == 6) {
+                    document.getElementById("sugerencias").style.display = "none"
+
+                }
+                   //Reportes
+                   if (rol.LEER == 1 && rol.COD_MODULO == 7) {
+                    document.getElementById("reportes").style.display = "block"
+
+                } if (rol.LEER == 0 && rol.COD_MODULO == 7) {
+                    document.getElementById("reportes").style.display = "none"
+
+                }
 
 
 
@@ -621,5 +659,5 @@ function permisos_roles() {
 }
 
 cargar_permisos()
-
-setTimeout("permisos_roles();", 5000);
+//permisos_roles()
+setTimeout("permisos_roles();", 1000);

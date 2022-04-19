@@ -134,7 +134,7 @@ function cargar_categorias_sys() {
                 } ,
                 ,
                 {
-                    text: '<button id="Mostrar_registros_eliminar"  class="btn btn-danger" ><i class="fa fa-trash"></i>Accion Eliminar</button>',
+                    text: '<button id="Mostrar_registros_eliminar"  class="btn btn-danger" ><i class="fa fa-trash"></i> Eliminar Categorias</button>',
                     action: function (e, dt, node, config) {
                         permiso_eliminar();
                     },

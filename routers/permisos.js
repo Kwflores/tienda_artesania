@@ -39,6 +39,30 @@ app.post("/", (req, res) => {
 });
 
 
+app.post("/roles", (req, res) => {
+    try {
+      const {ROL } = req.body;
+      const consulta = `call 	OBTENER_PERMISOS_ROLES('${ROL}' )`;
+      conn.query(consulta, (error, results) => {
+          if (error) throw error;
+          if (results.length > 0) {
+              res.json(results);
+          }  
+      })
+    } catch (error) {
+        console.log(error);
+      res.json({
+          message : "Verificar los parametros solicitados",
+          parametros_solicitados: {
+              "NOM_USUARIO":"",
+              "COD_USUARIO":"",
+              "COD_MODULO":"",
+          }
+      });
+    }
+  
+  });
+
 //nuevo Permiso
 app.post("/nuevo", (req, res) => {
     try {

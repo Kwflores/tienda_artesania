@@ -90,8 +90,8 @@ app.post("/nuevo", (req, res) => {
 //nueva facturacion de pedido 
 app.post("/nuevo_encabezado", (req, res) => {
     try {
-        const { COD_PERSONA, COD_USUARIO, COD_DIRECCION, COD_MODULO } = req.body;
-        const consulta = `call 	NUEVO_ENCABEZADO('${COD_PERSONA}',${COD_USUARIO},${COD_DIRECCION},${COD_MODULO})`;
+        const { COD_PERSONA, COD_USUARIO, DIRECCION, COD_MODULO } = req.body;
+        const consulta = `call 	NUEVO_ENCABEZADO('${COD_PERSONA}',${COD_USUARIO},'${DIRECCION}',${COD_MODULO})`;
         conn.query(consulta, error => {
             if (error) throw error;
             const consulta = `call 	ULTIMO_REGISTRO()`;
@@ -139,8 +139,8 @@ app.put('/actualizar', (req, res) => {
 // Registro actualizar datos del rol
 app.put('/encabezado', (req, res) => {
     try {
-        const {COD_USUARIO, COD_PERSONA, COD_DIRECCION, COD_ENCABEZADO,COD_MODULO} = req.body;
-        const consulta = `call 	ACTUALIZAR_ENCABEZADO(${COD_USUARIO},${COD_PERSONA},${COD_DIRECCION},${COD_ENCABEZADO},${COD_MODULO})`;
+        const {COD_USUARIO, COD_PERSONA, COD_DIRECCION, COD_ENCABEZADO,COD_MODULO,DIRECCION} = req.body;
+        const consulta = `call 	ACTUALIZAR_ENCABEZADO(${COD_USUARIO},${COD_PERSONA},${COD_DIRECCION},${COD_ENCABEZADO},${COD_MODULO},'${DIRECCION}')`;
         conn.query(consulta, error => {
             if (error) throw error;
                

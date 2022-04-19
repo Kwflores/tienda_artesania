@@ -397,7 +397,7 @@ $(document).ready(function () {
             "headers": {
                 "Content-Type": "application/json"
             },
-            "data": JSON.stringify({ "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": 0, "NOM_USUARIO": usuario, "CLAVE": clave, "NOM_IDENTIFICACION": "NULL", "COD_IDENTIFICACION": "NULL", "DIRECCION": "NULL", "COD_ROL": 2, "COD_MODULO": 1 }),
+            "data": JSON.stringify({ "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": 0, "NOM_USUARIO": usuario, "CLAVE": clave, "NOM_IDENTIFICACION": "NULL", "COD_IDENTIFICACION": "NULL", "DIRECCION": "NULL", "COD_ROL": 4, "COD_MODULO": 1 }),
         };
         $.ajax(settings).done(function (response) {
             if (response == 0) {

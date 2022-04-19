@@ -1662,6 +1662,10 @@
 
                 <nav class="navik-menu-fixed">
                     <ul>
+                        <li><a href="#Administrador" id="ver_usuarios" onclick="mostra_reportes()"><i   class="fa fa-dashboard" aria-hidden="true"></i> DASHBOARD</a>
+
+                        </li>
+                       
                         <li><a href="#GestionUsuarios" id="ver_usuarios" onclick=" mostrar_usuarios()"><i
                                     class="fa fa-users" aria-hidden="true"></i> Usuarios</a>
 
@@ -1688,9 +1692,9 @@
                                             aria-hidden="true"></i> Facturar</a></li>
                             </ul>
                         </li>
-                        <li><a href="#Sugerencias" id="sugerencias" onclick="mostrar_sugerencias()"><i
-                                    class="fas fa-smile" aria-hidden="true"></i> Sugenrencias</a></li>
-                        <li><a href="#Reportes" id="reportes"><i class="fa  fa-chart-line"></i> Reportes</a></li>
+                        <li><a href="#Opiniones" id="sugerencias" onclick="mostrar_sugerencias()"><i
+                                    class="fas fa-smile" aria-hidden="true"></i> Opiniones</a></li>
+                        <li><a href="#Reportes" id="reportes" onclick="mostra_reportes()"><i class="fa  fa-chart-line"></i> Reportes</a></li>
                         <li><a href="#Seguridad" id="segurdidad"><i class="fa fa-cog"></i> Seguridad</a>
                             <ul>
                                 <li><a href="#Nuevo" id="Crear_respaldo" onclick="mostrar_registro()">Crear Backup</a>
@@ -3718,6 +3722,7 @@
                     <thead>
                         <tr>
                             <th>Acciones</th>
+                            <th>Acciones</th>
                             <th>Fecha</th>
                             <th>No.Factura</th>
                             <th>Cliente</th>
@@ -4144,6 +4149,16 @@
 
         </section>
     </div>
+    <div id="gestion_reportes">
+        <section id="mostra_reportes" style="display: block; ">
+            <button type="button" class="btn btn-lg btn-primary mx-2 mx-lg-3 mb-4">Total Clientes <span id="clientes_t" class="badge badge-light ml-1"></span></button>
+            <button type="button" class="btn btn-lg btn-secondary mx-2 mx-lg-3 mb-4">Total Usuarios <span id="usuarios_t" class="badge badge-light ml-1"></span></button>
+            <button type="button" class="btn btn-lg btn-danger mx-2 mx-lg-3 mb-4">Total de Productos <span id="productos_t" class="badge badge-light ml-1"></span></button>
+            <button type="button" class="btn btn-lg btn-warning mx-2 mx-lg-3 mb-4">Total de Categorias <span id="categorias_t" class="badge badge-light ml-1"></span></button>
+            <button type="button" class="btn btn-lg btn-dark mx-2 mx-lg-3 mb-4">Total de Ventas <span id="ventas_t" class="badge badge-light ml-1"></span></button>
+
+        </section>
+    </div>
 
 
 
@@ -4186,7 +4201,7 @@
     <!-- Custom js -->
     <script src="/public/assets/js/custom.js"></script>
     <script src="/public/js/main.js"></script>
-    <script src="/public/js/usuarios/login.js"></script>
+    <script src="/public/js/reportes/reportes.js"></script>
     <script src="/public/js/usuarios/usuarios.js"></script>
     <script src="/public/js/productos/proveedores.js"></script>
     <script src="/public/js/productos/productos.js"></script>
@@ -4198,7 +4213,9 @@
     <script src="/public/js/validaciones/validaciones.js"></script>
     <script src="/public/js/seguridad/roles.js"></script>
     <script src="/public/js/seguridad/permisos.js"></script>
-
+   
+    
+    <script src="/public/js/usuarios/login.js"></script>
 </body>
 
 </html>
