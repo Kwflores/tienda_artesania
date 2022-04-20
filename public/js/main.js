@@ -11,41 +11,64 @@ function logeado(){
     }else{
         document.getElementById("perfil_data").style.display="none"
         document.getElementById("perfil_data_contraseña").style.display="none"
+        document.getElementById("mostra_reportes").style.display="none";
+
     }
     
     if(localStorage.getItem("mostrar_roles")== "1"){
         document.getElementById("roles_sistema").style.display="block";
+        document.getElementById("mostra_reportes").style.display="none";
+
     }
     if(localStorage.getItem("mostrar_login")== "1"){
         document.getElementById("login").style.display="block";
+        
     }
     if(localStorage.getItem("mostrar_categprias")== "1"){
         document.getElementById("categorias_sistema").style.display="block";
+        document.getElementById("mostra_reportes").style.display="none";
+
     }
     if(localStorage.getItem("mostrar_usuarios")== "1"){
         document.getElementById("usuarios").style.display="block";
+        document.getElementById("mostra_reportes").style.display="none";
+
     }
     if(localStorage.getItem("mostrarr_proveedores")== "1"){
         document.getElementById("proveedores_sistema").style.display="block";
+        document.getElementById("mostra_reportes").style.display="none";
+
     }
     if(localStorage.getItem("productos_sistema")== "1"){
         document.getElementById("productos_sistema").style.display="block";
+        document.getElementById("mostra_reportes").style.display="none";
+
     }
     if(localStorage.getItem("inventario_sistema")== "1"){
         document.getElementById("inventario_sistema").style.display="block";
+        document.getElementById("mostra_reportes").style.display="none";
+
     }
     
     if(localStorage.getItem("pedidos_sistema")== "1"){
         document.getElementById("pedidos_sistema").style.display="block";
+        document.getElementById("mostra_reportes").style.display="none";
+
     }
     if(localStorage.getItem("facturas_sistema")== "1"){
         document.getElementById("facturas_sistema").style.display="block";
+        document.getElementById("mostra_reportes").style.display="none";
+
     }
     if(localStorage.getItem("sugerencias")== "1"){
         document.getElementById("sugerencias").style.display="block";
+        document.getElementById("mostra_reportes").style.display="none";
+
     }
     if(localStorage.getItem("permisos_sys")== "1"){
         document.getElementById("permisos").style.display="block";
+        document.getElementById("mostra_reportes").style.display="none";
+
     } 
     if(localStorage.getItem("mostra_reportes")== "1"){
         document.getElementById("mostra_reportes").style.display="block";
@@ -254,6 +277,7 @@ function mostrar_perfl(){
     document.getElementById("sugerencias").style.display="none"
     localStorage.removeItem("permisos_sys");
     document.getElementById("mostra_reportes").style.display = "none"
+    localStorage.removeItem("mostra_reportes");
 
     document.getElementById("perfil_usuario").style.display="block"
     document.getElementById("usuarios").style.display="none"
@@ -603,7 +627,7 @@ function mostra_reportes(){
     document.getElementById("usuarios").style.display="none"
     document.getElementById("roles_sistema").style.display="none";
     document.getElementById("categorias_sistema").style.display="none"
-    document.getElementById("sugerencias").style.display="block"
+    document.getElementById("sugerencias").style.display="none"
     localStorage.removeItem("permisos_sys");
     localStorage.removeItem("pedidos_sistema");
 }

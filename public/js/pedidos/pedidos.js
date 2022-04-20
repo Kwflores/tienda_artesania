@@ -108,4 +108,43 @@ function cargar_pedidos() {
 
 }
 
+function cargar_pedidos_sys() {
+    var settings = {
+        "url": api + "pedidos",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            'Authorization': token
+        },
+        "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 3 }),
+    };
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+
+        $.each(response[0], function (key, val) {
+            
+           fecha =  moment(val.FEC_PEDIDO ).format('DD-MM-YYYY')
+            $("#contenido_pedidos_sys").append("<tr><td>" + fecha+ "</td><td>" + val.SKU + "</td><td>" + val.NOM_PRODUCTO + "</td><td>" + val.CANT_PRODUCTO + "</td><td>" + val.PR_PRODUCTO + "</td><td>" + val.MON_PEDIDO + "</td><td>" + val.COS_ENVIO + "</td><td>" + val.TIP_PAGO + "</td><td>" + val.DESCRIPCION + "</td></tr>");
+        });
+        var table = $('#table_pedidos_Sys').DataTable({
+            "bLengthChange": false,
+            "bInfo": true,
+            "pageLength": 10,
+            "orderable": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            },
+           
+ 
+
+        });
+        $('.dataTables_filter input').attr("placeholder", "Buscar datos en la tabla")
+
+    });
+
+
+}
+cargar_pedidos_sys() 
 cargar_pedidos();

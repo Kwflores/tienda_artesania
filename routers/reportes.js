@@ -93,4 +93,21 @@ app.get("/total_categoria", (req, res) => {
 
 });
 
+app.get("/producto_vendidos", (req, res) => {
+    try {
+       
+        const consulta = `call PRODUCTO_VENDIDO()`;
+        conn.query(consulta, (error, results) => {
+            if (error) throw error;
+            if (results.length > 0) {
+                res.json(results);
+                 
+            }
+        })
+    } catch (error) {
+        res.send("0")
+    }
+
+});
+
 module.exports = app;

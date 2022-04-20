@@ -10,9 +10,9 @@ $(document).ready(function () {
     });
     //registro de usuarios 
     $("#registro-usuarios").click(function () {
-        cliente = $("#nom_usuario").val();
+        cliente = $("#Rnom_usuario").val();
         correo = $("#email").val();
-        usuario = $("#usuario").val();
+        usuario = $("#Rusuario").val();
         clave = $("#Contraseña").val();
         confi_clave = $("#confirmar_contraseña").val();
         telefono = $("#telefono").val();
@@ -24,7 +24,7 @@ $(document).ready(function () {
         correovalido = document.getElementById("UcorreoOK").textContent
 
 
-        if (cliente == "" || correo == "" || usuario == "" || clave == "" || telefono == "" || idenficacion == "" || no_identificacion == "" || direccion == "") {
+        if (cliente == "" || correo == "" || usuario == "" || clave == "" || telefono == "" || idenficacion == "" || no_identificacion == "" || direccion == ""|| rol == "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -90,7 +90,7 @@ $(document).ready(function () {
                     'Se registro correctamente!',
                     'success'
                 )
-                get_lista_usuarios()
+                cargar_usuarios()
                 limpiar();
                 document.getElementById("nuevo_usuario").style.display = "none"
                 document.getElementById("usuarios").style.display = "block"
@@ -142,7 +142,13 @@ function cargar_usuarios() {
             "dom": 'Blfrtip',
 
             "buttons": [
-               
+                { 
+                    text: '<button  id="Mostrar_registro_U" class="btn btn-primary"><i class="fa fa-user-plus"></i> Nuevo Usuario</button>',
+                    action: function (e, dt, node, config) {
+                        mostrar_registro();
+                    },
+
+                },
                 {
                     //Botón para Excel
                     extend: 'excel',
@@ -399,7 +405,7 @@ function actualizar_datos() {
                 )
                 document.getElementById("alerta_usuarios").style.display = "block"
                 cancelar()
-                get_lista_usuarios()
+                cargar_usuarios()
 
 
             }

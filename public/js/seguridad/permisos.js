@@ -626,10 +626,10 @@ function permisos_roles() {
                 }
                  //sugerencias
                  if (rol.LEER == 1 && rol.COD_MODULO == 6) {
-                    document.getElementById("sugerencias").style.display = "block"
+                    document.getElementById("ver_Opiniones").style.display = "block"
 
                 } if (rol.LEER == 0 && rol.COD_MODULO == 6) {
-                    document.getElementById("sugerencias").style.display = "none"
+                    document.getElementById("ver_Opiniones").style.display = "none"
 
                 }
                    //Reportes

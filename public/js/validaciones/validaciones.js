@@ -7,8 +7,8 @@ $(document).ready(function () {
         letras = ta.val().replace(/ /g, "");
         ta.val(letras)
     });
-    $("#usuario").keyup(function () {
-        var ta = $("#usuario");
+    $("#Rusuario").keyup(function () {
+        var ta = $("#Rusuario");
         letras = ta.val().replace(/ /g, "");
         ta.val(letras)
     });
@@ -53,7 +53,7 @@ $(document).ready(function () {
     $('#NOM_CLIENTE').on('input', function () { 
         this.value = this.value.replace(/\d/g,'');
     });
-    $('#usuario').on('input', function () { 
+    $('#Rusuario').on('input', function () { 
         this.value = this.value.replace(/\d/g,'');
     });
 })  
