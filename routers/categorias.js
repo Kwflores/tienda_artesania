@@ -31,7 +31,7 @@ app.post("/", (req, res) => {
 });
 
 // Obenter productos por categoria
-app.get("/productos_categoria", (req, res) => {
+app.post("/productos_categoria", (req, res) => {
     try {
         const { COD_CATEGORIA, COD_USUARIO, COD_MODULO } = req.body;
         const consulta = `call OBTENER_PRODUCTOS_CATEGORIA(${COD_CATEGORIA},${COD_USUARIO},${COD_MODULO})`;

@@ -32,10 +32,10 @@ $(document).ready(function () {
             "data": JSON.stringify({ "COD_PERSONA": cod_persona.innerHTML, "COD_USUARIO": id_user, "DIRECCION": direccion, "COD_MODULO": 8 }),
         };
         $.ajax(settings).done(function (response) {
-            console.log(response[0][0].COD_ENCABEZADO)
+          //  console.log(response[0][0].COD_ENCABEZADO)
             encabezado = response[0][0].COD_ENCABEZADO
             detallefactura.forEach(element => {
-                console.log(element.code)
+              //  console.log(element.code)
                 cantidad = element.q;
                 precio = element.p;
                 costo_envio = element.envio;
@@ -74,7 +74,7 @@ $(document).ready(function () {
 
 
                         $.ajax(settings).done(function (response) {
-                            console.log(response)
+                         //   console.log(response)
                             if (response) {
                                 Swal.fire(
                                     'Cambios Completados!',
@@ -160,7 +160,7 @@ function cargar_facturas() {
     };
 
     $.ajax(settings).done(function (response) {
-        console.log(response);
+       // console.log(response);
 
         $.each(response[0], function (key, val) {
             botones = "<button type='input' id='editar_factura' onclick=' mostrar_actualizacion_factura()' class='btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Factura'><i class='fas fa-pencil-alt' aria-hidden='true'></i>"
@@ -250,7 +250,7 @@ function cargar_facturas() {
         $('.dataTables_filter input').attr("placeholder", "Buscar datos en la tabla")
         $('#table_facturas tbody').on('click', 'tr', function () {
             var data = table.row(this).data();
-            console.log(data)
+         //   console.log(data)
             $("#Fnom_completo").val(data[4])
             $("#FTIdentificacion").val(data[10])
             $("#FIdentificacion").val(data[11])
@@ -358,7 +358,7 @@ function buscar_usuario(cliente) {
     };
 
     $.ajax(settings).done(function (response) {
-        console.log(response.data[0]);
+       // console.log(response.data[0]);
         $("#Fnom_completo").val(response.data[0].Nombre)
         $("#FTIdentificacion").val(response.data[0].identificacion)
         $("#FIdentificacion").val(response.data[0].num_identificacion)
@@ -402,7 +402,7 @@ function obtener_usuarios() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data[0])
+           // console.log(data[0])
             data[0].forEach(element => {
                 //  console.log(element.Usuario!= cliente)
 
@@ -444,9 +444,9 @@ function buscar_producto(sku) {
 
     $.ajax(settings).done(function (response) {
 
-        console.log(response[0][0].COD_PRODUCTO)
+      //  console.log(response[0][0].COD_PRODUCTO)
 
-        console.log(response[0][0].SKU);
+       // console.log(response[0][0].SKU);
         $("#Fproducto").val(response[0][0].NOM_PRODUCTO)
         $("#Fstock").val(0 + response[0][0].STOCK)
         $("#Fprecio").val(response[0][0].PR_PRODUCTO)
@@ -485,9 +485,9 @@ function obtener_producto() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data[0][0])
+         //   console.log(data[0][0])
             data[0].forEach(element => {
-                console.log(element)
+                //console.log(element)
                 if (element.SKU == sku) {
                     existe = false;
                     buscar_producto(sku)
@@ -533,7 +533,7 @@ function obtener_pagos() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data)
+           // console.log(data)
             data[0].forEach(Element => {
                 var opcion = document.createElement("option");
                 opcion.value = Element.COD_PAGO;
@@ -642,7 +642,7 @@ function actualizar_factura() {
         .then(response => response.text())
         .then(result => {
             if (result) {
-                console.log(result)
+               // console.log(result)
                 Swal.fire(
                     'Cambios Completados!',
                     'Se modificaron los datos correctamente!',
@@ -690,7 +690,7 @@ function actualizar_pedido() {
         .then(response => response.text())
         .then(result => {
             if (result) {
-                console.log(result)
+             //   console.log(result)
                 Swal.fire(
                     'Cambios Completados!',
                     'Se modificaron los datos correctamente!',
@@ -718,7 +718,7 @@ function obtener_pedidos(encabezado) {
     };
 
     $.ajax(settings).done(function (response) {
-        console.log(response);
+       // console.log(response);
 
         $.each(response[0], function (key, val) {
                 $("#Acontenido_detalle").append("<tr><td>" + val.NOM_PRODUCTO + "</td><td>" + val.DES_PRODUCTO + "</td><td>" + val.CANT_PRODUCTO + "</td><td>" + val.PR_PRODUCTO + "</td><td >" + val.COS_ENVIO + "</td><td class='subtotal'>" + val.MON_PEDIDO + "</td><td style='display: none;'>" + val.STOCK + "</td><td style='display: none;'>" + val.COD_PRODUCTO + "</td><td style='display: none;'>" + val.COD_PEDIDO + "</td><td style='display: none;'>" + val.COD_INVENTARIO + "</td></tr>");
@@ -731,7 +731,7 @@ function obtener_pedidos(encabezado) {
                 $("#detalle_total").html(suma);
                 $('#Adetalle_factura tbody').on('click', 'tr', function () {
                     var data = $(this).children()
-                    console.log($(data[7]).text())
+                    //($(data[7]).text())
                     $("#Fstock").val($(data[6]).text())
                     $("#Fcantidad").val($(data[2]).text())
                     $("#Fproducto").val($(data[0]).text())

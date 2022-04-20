@@ -102,7 +102,7 @@ function cargar_categorias_sys() {
             }
             // console.log(val.NOM_ROL)
             editar = "<div  id='mostrar_editar'> <button type='input' id='editar" + val.COD_CATEGORIA + "' onclick='mostrar_actualizar()' class='btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Categoria'><i class='fas fa-pencil-alt' aria-hidden='true'></i> </div>"
-            eliminar_c = "<div  id='mostrar_eliminar'> <button type='input' id='refresh_eliminar" + val.COD_CATEGORIA + "' onclick='eliminar_categorias(" + val.COD_CATEGORIA + ")' class='btn btn-round btn-lg btn-icon-only btn-danger mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Eliminar Categoria'><i class='fa fa-trash' aria-hidden='true'></i></div>"
+            eliminar_c = "<div  id='mostrar_eliminar'> <button type='input' id='refresh" + val.COD_CATEGORIA + "' onclick='eliminar_categorias(" + val.COD_CATEGORIA + ")' class='btn btn-round btn-lg btn-icon-only btn-danger mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Eliminar Categoria'><i class='fa fa-trash' aria-hidden='true'></i></div>"
             img = "<img src='/public/img/categorias/" + val.URL_IMG + "' height='100'  alt='" + val.NOM_CATEGORIA + "'>"
             $("#contenido_categorias").append("<tr><td>" + editar + "</td><td>" + eliminar_c + "</td><td>" + img + "</td><td>" + val.NOM_CATEGORIA + "</td><td>" + val.DES_CATEGORIA + "</td><td>" + estado + "</td><td style='display: none; '>" + val.COD_CATEGORIA + "</td><td style='display: none; '>" + val.URL_IMG + "</td></tr>");
         });
@@ -201,7 +201,8 @@ function cargar_categorias_sys() {
         $('#table_categoria tbody').on('click', 'tr', function () {
             var data = table.row(this).data();
             console.log(data)
-           
+            nom_rol = data[1];
+            id_rol = data[4]
             id_estado_categoria = document.getElementById("estado_categoria" + data[6])
             var estado
             if (id_estado_categoria.checked) {
@@ -219,7 +220,7 @@ function cargar_categorias_sys() {
 
             // document.getElementById("id_rol").innerHTML = id_rol
             document.getElementById("estado_categoria").innerHTML = estado
-            actualizar_permiso_estado_categoria(data[6], data[3], data[4], data[7], estado);
+            actualizar_permiso_estado(data[6], data[3], data[4], data[7], estado);
             document.getElementById("id_estado_categoria").innerHTML = estado;
             document.getElementById("id_categoria").innerHTML = data[6];
             $("#ANom_categoria").val(data[3]);
@@ -290,7 +291,7 @@ function eliminar_categorias(cod_categoria) {
 
 }
 
-function actualizar_permiso_estado_categoria(cod_categoria, categoria, descripcion, url, cod_estado) {
+function actualizar_permiso_estado(cod_categoria, categoria, descripcion, url, cod_estado) {
     var myHeader = new Headers({
         'Authorization': token
     });

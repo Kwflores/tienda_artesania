@@ -106,7 +106,7 @@ app.use("/pedidos", validartoken, RutaFacturacion);
 app.use("/send-email",RutaPass)
 app.use("/clientes",RutaCliente)
 app.use("/img",rutaimg);
-app.use("/reportes",RutaReporte)
+app.use("/reportes",validartoken,RutaReporte)
 app.listen(process.env.PUERTO, () => {
     console.log('Servidor corriendo con exito!');
 });

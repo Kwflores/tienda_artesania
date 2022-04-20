@@ -18,7 +18,7 @@ function cargar_sugerencias() {
     };
 
     $.ajax(settings).done(function (response) {
-        console.log(response);
+     //   console.log(response);
 
         $.each(response[0], function (key, val) {
             
@@ -79,7 +79,7 @@ function cargar_sugerencias() {
         $('.dataTables_filter input').attr("placeholder", "Buscar datos en la tabla")
         $('#table_sugerencias tbody').on('click', 'tr', function () {
             var data = table.row(this).data();
-            console.log(data)
+           // console.log(data)
             
 
 

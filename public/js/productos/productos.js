@@ -102,7 +102,7 @@ $(document).ready(function () {
 });
 
 function actualiza_producto(nombre) {
-    console.log(nombre);
+   // console.log(nombre);
     document.getElementById('Rm1').value = nombre;
 }
 
@@ -274,20 +274,20 @@ function cargar_productos_sys() {
         $('.dataTables_filter input').attr("placeholder", "Buscar datos en la tabla")
         $('#table_productos tbody').on('click', 'tr', function () {
             var data = table.row(this).data();
-            console.log(data)
+            //console.log(data)
 
             id_estado_producto = document.getElementById("estado_producto" + data[10])
             var estado
             if (id_estado_producto.checked) {
                 estado = 1
                 document.getElementById("estado_productos").innerHTML = estado
-                console.log(estado);
+               // console.log(estado);
 
             }
             else {
                 estado = 2
                 document.getElementById("estado_productos").innerHTML = estado
-                console.log(estado);
+               // console.log(estado);
 
             }
 
@@ -328,7 +328,7 @@ function permiso_editarProductos(){
             "dom": 'Blfrtip',
             "buttons": [
                 {
-                    text: '<button id="Volver_Lista"  class="btn btn-primary" ><i class="fa fa-archive"></i> Volver a Categoría</button>',
+                    text: '<button id="Volver_Lista"  class="btn btn-primary" ><i class="fa fa-archive"></i> Volver a Productos</button>',
                     action: function (e, dt, node, config) {
                         document.frm_categoria.submit();
                     },
@@ -452,7 +452,7 @@ function actualizar_productos() {
         .then(response => response.text())
         .then(result => {
             if (result) {
-                console.log(result)
+                //console.log(result)
                 Swal.fire(
                     'Cambios Completados!',
                     'Se modificaron los datos correctamente!',
@@ -559,7 +559,7 @@ function eliminar_producto(sku) {
             fetch(url_eliminar, requestOptions)
                 .then(response => response.text())
                 .then(result => {
-                    console.log(result)
+                    //console.log(result)
                     if (result) {
                         Swal.fire(
                             'Registro Eliminado!',

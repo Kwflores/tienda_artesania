@@ -24,7 +24,7 @@ function cargar_inventario_sys() {
     
     
     $.ajax(settings).done(function (response) {
-        console.log(response);
+       // console.log(response);
 
         $.each(response[0], function (key, val) {
             nuevo_movimiento = "<button type='input' id='crear_nuevo_moviemiento' id='editar" + val.COD_INVENTARIO + "' onclick='mostrar_actualizar_inventario()' class='btn btn-round btn-lg btn-icon-only btn-primary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Nuevo Movimiento'><i class='fa fa-plus-circle' aria-hidden='true'></i> "
@@ -112,7 +112,7 @@ function cargar_inventario_sys() {
         $('.dataTables_filter input').attr("placeholder", "Buscar datos en la tabla")
         $('#table_inventario tbody').on('click', 'tr', function () {
             var data = table.row(this).data();
-            console.log(data)
+            //console.log(data)
             $("#ISKU").val(data[1]);
             $("#Icinicial").val(data[3]);
           

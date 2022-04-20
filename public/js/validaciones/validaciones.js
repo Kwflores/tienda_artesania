@@ -13,7 +13,11 @@ $(document).ready(function () {
         letras = ta.val().replace(/ /g, "");
         ta.val(letras)
     });
-
+    $("#RCliente").keyup(function () {
+      var ta = $("#RCliente");
+      letras = ta.val().replace(/ /g, "");
+      ta.val(letras)
+  });
     $("#CLAVE").keyup(function () {
         var ta = $("#CLAVE");
         letras = ta.val().replace(/ /g, "");
@@ -35,7 +39,15 @@ $(document).ready(function () {
         ta.val(letras)
     });
     //validar solo letras 
-    
+    $('#RNom_proveedor').on('input', function () { 
+      this.value = this.value.replace(/\d/g,'');
+  });
+  $('#RCliente').on('input', function () { 
+    this.value = this.value.replace(/\d/g,'');
+});
+  $('#ANom_proveedor').on('input', function () { 
+    this.value = this.value.replace(/\d/g,'');
+});
     $('#A_nom_usuario').on('input', function () { 
         this.value = this.value.replace(/\d/g,'');
     });
@@ -83,8 +95,26 @@ $(document).ready(function () {
     $('#NOM_CLIENTE').on('keyup', function(){
       $(this).val(validarTexto($('#NOM_CLIENTE').val()));
     });
+    $('#RNom_proveedor').on('keyup', function(){
+      $(this).val(validarTexto($('#RNom_proveedor').val()));
+    });
+    $('#ANom_proveedor').on('keyup', function(){
+      $(this).val(validarTexto($('#ANom_proveedor').val()));
+    });
+    $('#RCliente').on('keyup', function(){
+      $(this).val(validarTexto($('#RCliente').val()));
+    });
+    $('#Nom_categoria').on('keyup', function(){
+      $(this).val(validarTexto($('#Nom_categoria').val()));
+    });
+    $('#FDireccionEntrega').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#FDireccionEntrega').val()));
+    });
     function validarTexto(texto) {
       return texto.replace(/[^A-Z]+/g, "");
+    }
+    function validarTexto_may_min(texto) {
+      return texto.replace(/[^A-Z-a-z-0-99]+/g, " ");
     }
 })  
 $('#Contraseña').keyup(function(e) {
@@ -454,8 +484,8 @@ contenedor1.addEventListener('keydown', function(evento) {
     }
   }
 });
-const contenedor2 = document.getElementById('FEnvio');
 
+const contenedor2 = document.getElementById('FEnvio');
 contenedor2.addEventListener('keydown', function(evento) {
   const elemento = evento.target;
   if (elemento.className === 'campo-numerico') {
@@ -482,9 +512,9 @@ contenedor2.addEventListener('keydown', function(evento) {
   }
 });
 
-const contenedor3 = document.getElementById('Rprecio');
+const contenedor10 = document.getElementById('Rprecio');
 
-contenedor3.addEventListener('keydown', function(evento) {
+contenedor10.addEventListener('keydown', function(evento) {
   const elemento = evento.target;
   if (elemento.className === 'campo-numerico') {
     const teclaPresionada = evento.key;
@@ -510,9 +540,36 @@ contenedor3.addEventListener('keydown', function(evento) {
   }
 });
 
-const contenedor4 = document.getElementById('Rcinicial');
+const contenedor7 = document.getElementById('Rcentrada');
 
-contenedor4.addEventListener('keydown', function(evento) {
+contenedor7.addEventListener('keydown', function(evento) {
+  const elemento = evento.target;
+  if (elemento.className === 'campo-numerico') {
+    const teclaPresionada = evento.key;
+    const teclaPresionadaEsUnNumero =
+      Number.isInteger(parseInt(teclaPresionada));
+
+    const sePresionoUnaTeclaNoAdmitida = 
+      teclaPresionada != 'ArrowDown' &&
+      teclaPresionada != 'ArrowUp' &&
+      teclaPresionada != 'ArrowLeft' &&
+      teclaPresionada != 'ArrowRight' &&
+      teclaPresionada != 'Backspace' &&
+      teclaPresionada != 'Delete' &&
+      teclaPresionada != 'Enter' &&
+      !teclaPresionadaEsUnNumero;
+    const comienzaPorCero = 
+      elemento.value.length === 0 &&
+      teclaPresionada == 0;
+
+    if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+      evento.preventDefault(); 
+    }
+  }
+});
+const contenedor6 = document.getElementById('Rcinicial');
+
+contenedor6.addEventListener('keydown', function(evento) {
   const elemento = evento.target;
   if (elemento.className === 'campo-numerico') {
     const teclaPresionada = evento.key;
@@ -579,5 +636,29 @@ A_telefono.oninput = function () {
 A_cod_identificacion.oninput = function () {
   if (this.value.length > 13) {
       this.value = this.value.slice(0,13); 
+  }
+}
+
+Rprecio.oninput = function () {
+  if (this.value.length > 4) {
+      this.value = this.value.slice(0,4); 
+  }
+}
+
+Rcinicial.oninput = function () {
+  if (this.value.length > 4) {
+      this.value = this.value.slice(0,4); 
+  }
+}
+
+Rcentrada.oninput = function () {
+  if (this.value.length > 4) {
+      this.value = this.value.slice(0,4); 
+  }
+}
+
+FSKU.oninput = function () {
+  if (this.value.length > 4) {
+      this.value = this.value.slice(0,4); 
   }
 }

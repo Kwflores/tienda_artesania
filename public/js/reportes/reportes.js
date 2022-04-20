@@ -216,14 +216,14 @@ function obtener_tipos_categorias() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data)
+           // console.log(data)
             data[0].forEach(element => {
-                console.log(element.NOM_CATEGORIA)
+               // console.log(element.NOM_CATEGORIA)
                 oilData['labels'].push(element.NOM_CATEGORIA)
                 oilData['datasets'][0].data.push(element.COD_CATEGORIA)
 
             });
-            console.log(oilData)
+          //  console.log(oilData)
         })
         .catch(function (err) {
             console.log(err);
@@ -276,7 +276,7 @@ function obtener_tipos_pagos() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data)
+           // console.log(data)
             data[0].forEach(element => {
               
                 barChart.data['labels'].push(element.TIP_PAGO)

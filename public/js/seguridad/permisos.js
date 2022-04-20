@@ -383,9 +383,9 @@ function permisos_roles() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data)
+           // console.log(data)
             data[0].forEach(rol => {
-                console.log(rol.LEER)
+                //console.log(rol.LEER)
 
                 //modulo_usuario
                 if (rol.LEER == 1 && rol.COD_MODULO == 10) {
@@ -575,11 +575,11 @@ function permisos_roles() {
                     document.getElementById("Mostrar_registro_Proveedores").style.display = "none"
                 }
                 if (rol.MODIFICAR == 1 && rol.COD_MODULO == 1) {
-                    document.getElementById("Mostrar_proveedor_eliminar").style.display = "block"
+                    document.getElementById("Mostrar_proveedor_editar").style.display = "block"
 
                 }
                 if (rol.MODIFICAR == 0 && rol.COD_MODULO == 1) {
-                    document.getElementById("Mostrar_proveedor_eliminar").style.display = "none"
+                    document.getElementById("Mostrar_proveedor_editar").style.display = "none"
 
                 }
                 if (rol.ELIMINAR == 1 && rol.COD_MODULO == 1) {

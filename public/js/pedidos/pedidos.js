@@ -18,7 +18,7 @@ function cargar_pedidos() {
     };
 
     $.ajax(settings).done(function (response) {
-        console.log(response);
+        //console.log(response);
 
         $.each(response[0], function (key, val) {
             
@@ -90,7 +90,7 @@ function cargar_pedidos() {
         $('.dataTables_filter input').attr("placeholder", "Buscar datos en la tabla")
         $('#table_pedidos tbody').on('click', 'tr', function () {
             var data = table.row(this).data();
-            console.log(data)
+           // console.log(data)
             $("#ISKU").val(data[1]);
             $("#Icinicial").val(data[3]);
             $("#IAcentrada").val(data[4]);
@@ -121,7 +121,7 @@ function cargar_pedidos_sys() {
     };
 
     $.ajax(settings).done(function (response) {
-        console.log(response);
+        //console.log(response);
 
         $.each(response[0], function (key, val) {
             

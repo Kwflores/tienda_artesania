@@ -110,4 +110,39 @@ app.get("/producto_vendidos", (req, res) => {
 
 });
 
+app.get("/categorias", (req, res) => {
+    try {
+       
+        const consulta = `call 	TIPO_CATEGORIA()`;
+        conn.query(consulta, (error, results) => {
+            if (error) throw error;
+            if (results.length > 0) {
+                res.json(results);
+                 
+            }
+        })
+    } catch (error) {
+        res.send("0")
+    }
+
+});
+
+
+app.get("/pagos", (req, res) => {
+    try {
+       
+        const consulta = `call 	TIPO_PAGO()`;
+        conn.query(consulta, (error, results) => {
+            if (error) throw error;
+            if (results.length > 0) {
+                res.json(results);
+                 
+            }
+        })
+    } catch (error) {
+        res.send("0")
+    }
+
+});
+
 module.exports = app;

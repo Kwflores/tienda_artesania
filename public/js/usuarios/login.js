@@ -128,6 +128,7 @@ $(document).ready(function () {
                         document.getElementById("cerrar_sesion").style.display = "block"
                         document.getElementById("iniciar_sesion").style.display = "none"
                         document.getElementById("bienvenido_usuario").style.display = "block"
+                        document.frm_categoria.submit();
                         return;
                     }else{
                         localStorage.setItem('logeado', 1);

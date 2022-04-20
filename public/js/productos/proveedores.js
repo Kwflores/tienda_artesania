@@ -122,9 +122,16 @@ function cargar_proveedores_sys() {
 
                 },
                 {
+                    text: '<button id="Mostrar_proveedor_editar" class="btn btn-secondary" ><i class="fas fa-pencil-alt"></i>Editar Productos</button>',
+                    action: function (e, dt, node, config) {
+                        permiso_editarProveedores();
+                    },
+                    
+                } ,
+                {
                     text: '<button id="Mostrar_proveedor_eliminar"  class="btn btn-danger" ><i class="fa fa-trash"></i>Eliminar Productos</button>',
                     action: function (e, dt, node, config) {
-                        permiso_eliminarProveedores();
+                        permiso_elimiarProveedores();
                     },
                     
                 } ,
@@ -139,7 +146,7 @@ function cargar_proveedores_sys() {
                     //Aquí es donde generas el botón personalizado
                     text: '<button class="btn btn-success"><i class="fas fa-file-excel"></i> Exportar a Excel </button>',
                     exportOptions: {
-                        columns: [1, 2, 3, 4]
+                        columns: [ 2, 3, 4]
                     }
                 },
                 //Botón para PDF
@@ -151,7 +158,7 @@ function cargar_proveedores_sys() {
                     pageSize: 'A4',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))
                     text: '<button class="btn btn-danger"><i class="far fa-file-pdf"></i> Exportar a PDF </button>',
                     exportOptions: {
-                        columns: [1,2, 3,4]
+                        columns: [2, 3,4]
                     },
                     customize: function(doc) {
                         doc.content.splice(1, 0, {
@@ -418,6 +425,7 @@ function permiso_editar(){
     });              
 
 }
+
 function permiso_editarProveedores(){
     $('#table_proveedores').dataTable().fnDestroy();
     $(document).ready(function () {
@@ -433,7 +441,46 @@ function permiso_editarProveedores(){
 
             "buttons": [
                 {
-                    text: '<button id="Volver_Lista"  class="btn btn-primary" ><i class="fa fa-archive"></i> Volver a Categoría</button>',
+                    text: '<button id="Volver_Lista"  class="btn btn-primary" ><i class="fa fa-archive"></i> Volver a Proveedores</button>',
+                    action: function (e, dt, node, config) {
+                        document.frm_categoria.submit();
+                    },
+                    
+                } ,
+
+                
+            ],
+            "columnDefs": [
+                {
+                    "targets": [1],
+                    "visible": false,
+                    "searchable": false
+                },
+
+            ]
+        });
+
+
+    });              
+
+}
+
+function permiso_elimiarProveedores(){
+    $('#table_proveedores').dataTable().fnDestroy();
+    $(document).ready(function () {
+        var dt = $('#table_proveedores').dataTable({
+            "bLengthChange": false,
+            "bInfo": true,
+            "pageLength": 10,
+            "orderable": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            },
+            "dom": 'Blfrtip',
+
+            "buttons": [
+                {
+                    text: '<button id="Volver_Lista"  class="btn btn-primary" ><i class="fa fa-archive"></i> Volver a Proveedores</button>',
                     action: function (e, dt, node, config) {
                         document.frm_categoria.submit();
                     },
