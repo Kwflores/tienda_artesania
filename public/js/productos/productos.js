@@ -70,7 +70,7 @@ $(document).ready(function () {
                     'Se registro correctamente!',
                     'success'
                 )
-                document.frm_producto.submit();
+                document.frm_productos.submit();
                 $('#table_productos').dataTable().fnDestroy();
                 cargar_productos_sys();
                 sku = ""

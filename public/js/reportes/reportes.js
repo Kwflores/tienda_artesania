@@ -150,21 +150,21 @@ function obtener_productos_vendidos() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data)
+            //console.log(data)
             data[0].forEach(element => {
                 myChart.data['labels'].push(element.producto)
                 myChart.data['datasets'][0].data.push(element.num_productos)
 
-            }); 
-            console.log(myChart.data)
+            });
+            // console.log(myChart.data)
         })
         .catch(function (err) {
             console.log(err);
         });
 
 }
- 
-obtener_productos_vendidos() 
+
+obtener_productos_vendidos()
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'bar',
@@ -199,10 +199,154 @@ const myChart = new Chart(ctx, {
     }
 });
 
+function obtener_tipos_categorias() {
+
+    var myHeader = new Headers({
+        'Authorization': token
+    });
+    url = api + "reportes/categorias";
+    myHeader.append("Content-Type", "application/json",);
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeader,
+        redirect: 'follow'
+    };
+    fetch(url, requestOptions)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data)
+            data[0].forEach(element => {
+                console.log(element.NOM_CATEGORIA)
+                oilData['labels'].push(element.NOM_CATEGORIA)
+                oilData['datasets'][0].data.push(element.COD_CATEGORIA)
+
+            });
+            console.log(oilData)
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+
+}
+
+obtener_tipos_categorias()
+ 
+ 
+var oilCanvas = document.getElementById("oilChart");
+Chart.defaults.global.defaultFontFamily = "Lato";
+Chart.defaults.global.defaultFontSize = 12;
  
 
+var oilData = {
+    
+    datasets: [
+        {   
+            data:[],
+            backgroundColor: [
+                "#FF6384",
+                "#63FF84",
+                "#84FF63",
+                "#8463FF",
+                "#6384FF"
+            ]
+        }]
+};
 
+var pieChart = new Chart(oilCanvas, {
+  type: 'pie',
+  data: oilData
+});
 
+function obtener_tipos_pagos() {
+
+    var myHeader = new Headers({
+        'Authorization': token
+    });
+    url = api + "reportes/pagos";
+    myHeader.append("Content-Type", "application/json",);
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeader,
+        redirect: 'follow'
+    };
+    fetch(url, requestOptions)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data)
+            data[0].forEach(element => {
+              
+                barChart.data['labels'].push(element.TIP_PAGO)
+                densityData.data.push(element.pago)
+
+            });
+           
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+
+}
+
+obtener_tipos_pagos()
+var densityCanvas = document.getElementById("densityChart");
+
+Chart.defaults.global.defaultFontFamily = "Lato";
+Chart.defaults.global.defaultFontSize = 12;
+
+var densityData = {
+  label: 'Tipo de Pagos',
+  data: [],
+  backgroundColor: [
+    'rgba(0, 99, 132, 0.6)',
+    'rgba(30, 99, 132, 0.6)',
+    'rgba(60, 99, 132, 0.6)',
+    'rgba(90, 99, 132, 0.6)',
+    'rgba(120, 99, 132, 0.6)',
+    'rgba(150, 99, 132, 0.6)',
+    'rgba(180, 99, 132, 0.6)',
+    'rgba(210, 99, 132, 0.6)',
+    'rgba(240, 99, 132, 0.6)'
+  ],
+  borderColor: [
+    'rgba(0, 99, 132, 1)',
+    'rgba(30, 99, 132, 1)',
+    'rgba(60, 99, 132, 1)',
+    'rgba(90, 99, 132, 1)',
+    'rgba(120, 99, 132, 1)',
+    'rgba(150, 99, 132, 1)',
+    'rgba(180, 99, 132, 1)',
+    'rgba(210, 99, 132, 1)',
+    'rgba(240, 99, 132, 1)'
+  ],
+  borderWidth: 2,
+  hoverBorderWidth: 0
+};
+
+var chartOptions = {
+  scales: {
+    yAxes: [{
+      barPercentage: 0.10
+    }]
+  },
+  elements: {
+    rectangle: {
+      borderSkipped: 'left',
+    }
+  }
+};
+
+var barChart = new Chart(densityCanvas, {
+  type: 'horizontalBar',
+  data: {
+    labels: [],
+    datasets: [densityData],
+  },
+  options: chartOptions
+});
 obtener_total_clientes()
 obtener_total_usuarios()
 obtener_total_categorias()

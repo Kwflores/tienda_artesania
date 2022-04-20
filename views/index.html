@@ -1759,7 +1759,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleFormControlInput1">Telefono:</label>
-                                                <input type="number" class="form-control" id="telefono" required minlength="8"
+                                                <input type="number" class="form-control" id="telefono"  
                                                     placeholder="Numero de Telefono">
                                             </div>
                                         </div>
@@ -1777,7 +1777,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleFormControlInput1">Número de Indentificacion:</label>
-                                                <input type="number" class="form-control" id="cod_identificacion"required minlength="16" placeholder="Número de Indentificacion">
+                                                <input type="number" class="form-control" id="cod_identificacion"  placeholder="Número de Indentificacion"  >
                                             </div>
                                         </div>
                                     </div>
@@ -1785,7 +1785,7 @@
                                         <label for="exampleFormControlInput1">Usuario:</label>
                                         <input type="text" class="form-control" id="Rusuario"
                                             placeholder="Usuario del sistema"
-                                            onkeyup="javascript:this.value=this.value.toUpperCase();" required >
+                                            onkeyup="javascript:this.value=this.value.toUpperCase();" required maxlength="10" >
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
@@ -3179,7 +3179,7 @@
                                 style="display: none; ">
                                 <h1 class="h1 section-title-3 font-weight-700 text-left">Registro de Producto</h1>
                                 <br>
-                                <form name="frm_producto" action="/img" enctype="multipart/form-data" method="post">
+                                <form name="frm_productos" action="/img" enctype="multipart/form-data" method="post">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -4166,35 +4166,50 @@
                     id="categorias_t" class="badge badge-light ml-1"></span></button>
             <button type="button" class="btn btn-lg btn-dark mx-2 mx-lg-3 mb-4">Total de Ventas <span id="ventas_t"
                     class="badge badge-light ml-1"></span></button>
+                    <br>
+                    <br><br>   
+                    <div class="col-md-12"> 
+                        <h1 class="p section-title-3 font-weight-700 text-left">Ventas</h1>
+                        <div class="container-fluid">
+                            <table id="table_pedidos_Sys" class="display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>SKU</th>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio</th>
+                                        <th>Costo de Envio</th>
+                                        <th>Monto</th>
+                                        <th>Tipo de Pago</th>
+                                        <th>Detalle de la Entrega</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contenido_pedidos_sys">
+            
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                      
+                        <div class="col-md-4">
+                            <canvas id="myChart" width="400" height="400"></canvas>
+                        </div>
+                        <div class="col-md-4">
+                            <canvas id="oilChart" width="200" height="200"></canvas>
+                          
 
-            <div class="col-md-12"> 
-                <h1 class="p section-title-3 font-weight-700 text-left">Ventas</h1>
-                <div class="container-fluid">
-                    <table id="table_pedidos_Sys" class="display" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>SKU</th>
-                                <th>Producto</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th>Costo de Envio</th>
-                                <th>Monto</th>
-                                <th>Tipo de Pago</th>
-                                <th>Detalle de la Entrega</th>
-                            </tr>
-                        </thead>
-                        <tbody id="contenido_pedidos_sys">
-    
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <br><br><br>
-            <div class="col-md-6">
-                <canvas id="myChart" width="400" height="400"></canvas>
-            </div>
-            <br><br>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <canvas id="densityChart" width="400" height="400"></canvas>
+                        </div>
+                     
+                    </div>
+                    <br><br>   
+             
   
         </section>
     </div>
@@ -4243,7 +4258,7 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     
     <!-- Custom js -->
     <script src="/public/assets/js/custom.js"></script>

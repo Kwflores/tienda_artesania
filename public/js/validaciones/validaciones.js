@@ -7,6 +7,7 @@ $(document).ready(function () {
         letras = ta.val().replace(/ /g, "");
         ta.val(letras)
     });
+   
     $("#Rusuario").keyup(function () {
         var ta = $("#Rusuario");
         letras = ta.val().replace(/ /g, "");
@@ -51,8 +52,8 @@ $(document).ready(function () {
         this.value = this.value.replace(/\d/g,'');
     });
     $('#NOM_CLIENTE').on('input', function () { 
-        this.value = this.value.replace(/\d/g,'');
-    });
+      this.value = this.value.replace(/\d/g,'');
+  });
     
     $('#Rusuario').on('input', function () { 
         this.value = this.value.replace(/\d/g,'');
@@ -75,7 +76,10 @@ $(document).ready(function () {
     $('#USER').on('keyup', function(){
       $(this).val(validarTexto($('#USER').val()));
     });
-    
+ 
+    $('#Rnom_producto').on('keyup', function(){
+      $(this).val(validarTexto($('#Rnom_producto').val()));
+    });
     $('#NOM_CLIENTE').on('keyup', function(){
       $(this).val(validarTexto($('#NOM_CLIENTE').val()));
     });
@@ -477,6 +481,62 @@ contenedor2.addEventListener('keydown', function(evento) {
     }
   }
 });
+
+const contenedor3 = document.getElementById('Rprecio');
+
+contenedor3.addEventListener('keydown', function(evento) {
+  const elemento = evento.target;
+  if (elemento.className === 'campo-numerico') {
+    const teclaPresionada = evento.key;
+    const teclaPresionadaEsUnNumero =
+      Number.isInteger(parseInt(teclaPresionada));
+
+    const sePresionoUnaTeclaNoAdmitida = 
+      teclaPresionada != 'ArrowDown' &&
+      teclaPresionada != 'ArrowUp' &&
+      teclaPresionada != 'ArrowLeft' &&
+      teclaPresionada != 'ArrowRight' &&
+      teclaPresionada != 'Backspace' &&
+      teclaPresionada != 'Delete' &&
+      teclaPresionada != 'Enter' &&
+      !teclaPresionadaEsUnNumero;
+    const comienzaPorCero = 
+      elemento.value.length === 0 &&
+      teclaPresionada == 0;
+
+    if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+      evento.preventDefault(); 
+    }
+  }
+});
+
+const contenedor4 = document.getElementById('Rcinicial');
+
+contenedor4.addEventListener('keydown', function(evento) {
+  const elemento = evento.target;
+  if (elemento.className === 'campo-numerico') {
+    const teclaPresionada = evento.key;
+    const teclaPresionadaEsUnNumero =
+      Number.isInteger(parseInt(teclaPresionada));
+
+    const sePresionoUnaTeclaNoAdmitida = 
+      teclaPresionada != 'ArrowDown' &&
+      teclaPresionada != 'ArrowUp' &&
+      teclaPresionada != 'ArrowLeft' &&
+      teclaPresionada != 'ArrowRight' &&
+      teclaPresionada != 'Backspace' &&
+      teclaPresionada != 'Delete' &&
+      teclaPresionada != 'Enter' &&
+      !teclaPresionadaEsUnNumero;
+    const comienzaPorCero = 
+      elemento.value.length === 0 &&
+      teclaPresionada == 0;
+
+    if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+      evento.preventDefault(); 
+    }
+  }
+});
  
 
 function soloLetras(e){
@@ -496,4 +556,28 @@ function soloLetras(e){
    if(letras.indexOf(tecla)==-1 && !tecla_especial){
        return false;
    }
+}
+
+telefono.oninput = function () {
+  if (this.value.length > 8) {
+      this.value = this.value.slice(0,8); 
+  }
+}
+
+cod_identificacion.oninput = function () {
+  if (this.value.length > 13) {
+      this.value = this.value.slice(0,13); 
+  }
+}
+
+A_telefono.oninput = function () {
+  if (this.value.length > 8) {
+      this.value = this.value.slice(0,8); 
+  }
+}
+
+A_cod_identificacion.oninput = function () {
+  if (this.value.length > 13) {
+      this.value = this.value.slice(0,13); 
+  }
 }
