@@ -641,6 +641,22 @@ function permisos_roles() {
 
                 }
 
+                   //Segurida
+                   if (rol.LEER == 1 && rol.COD_MODULO == 11) {
+                    document.getElementById("segurdidad").style.display = "block"
+
+                    
+                } if (rol.LEER == 0 && rol.COD_MODULO == 11) {
+                    document.getElementById("segurdidad").style.display = "none"
+                    document.getElementById("Crear_respaldo").style.display = "none"
+                    document.getElementById("crear_restaurar").style.display = "none"
+                    document.getElementById("ver_roles").style.display = "none"
+                    document.getElementById("ver_permisos").style.display = "none"
+
+
+                }
+
+
 
 
 

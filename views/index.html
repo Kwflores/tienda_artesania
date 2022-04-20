@@ -1700,8 +1700,8 @@
                                     class="fas fa-smile" aria-hidden="true"></i> Opiniones</a></li>
                         <li><a href="#Reportes" id="reportes" onclick="mostra_reportes()"><i
                                     class="fa  fa-chart-line"></i> Reportes</a></li>
-                        <li><a href="#Seguridad" id="segurdidad"><i class="fa fa-cog"></i> Seguridad</a>
-                            <ul>
+                        <li ><a href="#Seguridad" id="segurdidad" ><i class="fa fa-cog"></i> Seguridad</a>
+                            <ul  >
                                 <li><a href="#Nuevo" id="Crear_respaldo" onclick="mostrar_registro()">Crear Backup</a>
                                 </li>
                                 <li><a href="#Editar" id="crear_restaurar">Restaurar Base de Datos</a></li>
@@ -1737,14 +1737,14 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Nombre Completo:</label>
-                                                <input type="text" class="form-control" id="Rnom_usuario" maxlength="50"
+                                                <input type="text" class="form-control" id="Rnom_usuario" required maxlength="50"
                                                     placeholder="Nombre Completo">
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="exampleFormControlInput1">Dirección:</label>
                                                     <input type="text" class="form-control" id="direccion"
-                                                        maxlength="100" placeholder="Dirección">
+                                                    required  maxlength="100" placeholder="Dirección">
                                                 </div>
                                             </div>
                                         </div>
@@ -1759,7 +1759,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleFormControlInput1">Telefono:</label>
-                                                <input type="number" class="form-control" id="telefono" maxlength="8"
+                                                <input type="number" class="form-control" id="telefono" required minlength="8"
                                                     placeholder="Numero de Telefono">
                                             </div>
                                         </div>
@@ -1777,8 +1777,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="exampleFormControlInput1">Número de Indentificacion:</label>
-                                                <input type="number" class="form-control" id="cod_identificacion"
-                                                    maxlength="16" placeholder="Número de Indentificacion">
+                                                <input type="number" class="form-control" id="cod_identificacion"required minlength="16" placeholder="Número de Indentificacion">
                                             </div>
                                         </div>
                                     </div>
@@ -1786,7 +1785,7 @@
                                         <label for="exampleFormControlInput1">Usuario:</label>
                                         <input type="text" class="form-control" id="Rusuario"
                                             placeholder="Usuario del sistema"
-                                            onkeyup="javascript:this.value=this.value.toUpperCase();" required>
+                                            onkeyup="javascript:this.value=this.value.toUpperCase();" required >
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
@@ -3628,7 +3627,7 @@
                             </div>
                             <div class="input-group-inner">
                                 <input type="number" name="Icinicial" id="Icinicial" disabled class="form-control"
-                                    placeholder="Inicial" required maxlength="50">
+                                    placeholder="Inicial" required maxlength="50" >
                                 <div class="input-focus-bg"></div>
                             </div>
 
@@ -3641,7 +3640,7 @@
                             </div>
                             <div class="input-group-inner">
                                 <input type="number" name="Acentrada" id="IAcentrada" class="form-control"
-                                    placeholder="Entradas" required maxlength="50">
+                                    placeholder="Entradas" required maxlength="50"  min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off>
                                 <div class="input-focus-bg"></div>
                             </div>
 
@@ -3985,7 +3984,7 @@
             </div>
             <div class="input-group-inner">
                 <input type="number" name="Fcantidad" id="Fcantidad" class="form-control" placeholder="Cantidad"
-                    required maxlength="50">
+                    required maxlength="50" min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off>
                 <div class="input-focus-bg"></div>
             </div>
 
@@ -4012,7 +4011,7 @@
             </div>
             <div class="input-group-inner">
                 <input type="number" name="FEnvio" id="FEnvio" class="form-control" placeholder="Costo de Envio"
-                    required maxlength="50">
+                    required maxlength="50" min="1" pattern="^[0-9]+" onpaste="return false;" onDrop="return false;" autocomplete=off>
                 <div class="input-focus-bg"></div>
             </div>
 
@@ -4245,6 +4244,7 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <!-- Custom js -->
     <script src="/public/assets/js/custom.js"></script>
     <script src="/public/js/main.js"></script>

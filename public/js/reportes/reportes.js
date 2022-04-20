@@ -164,7 +164,7 @@ function obtener_productos_vendidos() {
 
 }
  
- 
+obtener_productos_vendidos() 
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'bar',
@@ -208,4 +208,3 @@ obtener_total_usuarios()
 obtener_total_categorias()
 obtener_total_productos()
 obtener_total_ventas()
-obtener_productos_vendidos() 

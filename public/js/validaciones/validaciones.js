@@ -38,7 +38,7 @@ $(document).ready(function () {
     $('#A_nom_usuario').on('input', function () { 
         this.value = this.value.replace(/\d/g,'');
     });
-    $('#nom_usuario').on('input', function () { 
+    $('#Rnom_usuario').on('input', function () { 
         this.value = this.value.replace(/\d/g,'');
     });
     $('#USUARIO').on('input', function () { 
@@ -53,9 +53,35 @@ $(document).ready(function () {
     $('#NOM_CLIENTE').on('input', function () { 
         this.value = this.value.replace(/\d/g,'');
     });
+    
     $('#Rusuario').on('input', function () { 
         this.value = this.value.replace(/\d/g,'');
     });
+    $('#Rusuario').on('keyup', function(){
+      $(this).val(validarTexto($('#Rusuario').val()));
+    });
+    $('#NOM_USUARIO').on('keyup', function(){
+      $(this).val(validarTexto($('#NOM_USUARIO').val()));
+    });
+    $('#A_nom_usuario').on('keyup', function(){
+      $(this).val(validarTexto($('#A_nom_usuario').val()));
+    });
+    $('#Rnom_usuario').on('keyup', function(){
+      $(this).val(validarTexto($('#Rnom_usuario').val()));
+    });
+    $('#USUARIO').on('keyup', function(){
+      $(this).val(validarTexto($('#USUARIO').val()));
+    });
+    $('#USER').on('keyup', function(){
+      $(this).val(validarTexto($('#USER').val()));
+    });
+    
+    $('#NOM_CLIENTE').on('keyup', function(){
+      $(this).val(validarTexto($('#NOM_CLIENTE').val()));
+    });
+    function validarTexto(texto) {
+      return texto.replace(/[^A-Z]+/g, "");
+    }
 })  
 $('#Contraseña').keyup(function(e) {
     var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
@@ -369,6 +395,105 @@ document
 });
  
 
+const contenedor = document.getElementById('IAcentrada');
 
+contenedor.addEventListener('keydown', function(evento) {
+  const elemento = evento.target;
+  if (elemento.className === 'campo-numerico') {
+    const teclaPresionada = evento.key;
+    const teclaPresionadaEsUnNumero =
+      Number.isInteger(parseInt(teclaPresionada));
+
+    const sePresionoUnaTeclaNoAdmitida = 
+      teclaPresionada != 'ArrowDown' &&
+      teclaPresionada != 'ArrowUp' &&
+      teclaPresionada != 'ArrowLeft' &&
+      teclaPresionada != 'ArrowRight' &&
+      teclaPresionada != 'Backspace' &&
+      teclaPresionada != 'Delete' &&
+      teclaPresionada != 'Enter' &&
+      !teclaPresionadaEsUnNumero;
+    const comienzaPorCero = 
+      elemento.value.length === 0 &&
+      teclaPresionada == 0;
+
+    if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+      evento.preventDefault(); 
+    }
+  }
+});
+
+const contenedor1 = document.getElementById('Fcantidad');
+
+contenedor1.addEventListener('keydown', function(evento) {
+  const elemento = evento.target;
+  if (elemento.className === 'campo-numerico') {
+    const teclaPresionada = evento.key;
+    const teclaPresionadaEsUnNumero =
+      Number.isInteger(parseInt(teclaPresionada));
+
+    const sePresionoUnaTeclaNoAdmitida = 
+      teclaPresionada != 'ArrowDown' &&
+      teclaPresionada != 'ArrowUp' &&
+      teclaPresionada != 'ArrowLeft' &&
+      teclaPresionada != 'ArrowRight' &&
+      teclaPresionada != 'Backspace' &&
+      teclaPresionada != 'Delete' &&
+      teclaPresionada != 'Enter' &&
+      !teclaPresionadaEsUnNumero;
+    const comienzaPorCero = 
+      elemento.value.length === 0 &&
+      teclaPresionada == 0;
+
+    if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+      evento.preventDefault(); 
+    }
+  }
+});
+const contenedor2 = document.getElementById('FEnvio');
+
+contenedor2.addEventListener('keydown', function(evento) {
+  const elemento = evento.target;
+  if (elemento.className === 'campo-numerico') {
+    const teclaPresionada = evento.key;
+    const teclaPresionadaEsUnNumero =
+      Number.isInteger(parseInt(teclaPresionada));
+
+    const sePresionoUnaTeclaNoAdmitida = 
+      teclaPresionada != 'ArrowDown' &&
+      teclaPresionada != 'ArrowUp' &&
+      teclaPresionada != 'ArrowLeft' &&
+      teclaPresionada != 'ArrowRight' &&
+      teclaPresionada != 'Backspace' &&
+      teclaPresionada != 'Delete' &&
+      teclaPresionada != 'Enter' &&
+      !teclaPresionadaEsUnNumero;
+    const comienzaPorCero = 
+      elemento.value.length === 0 &&
+      teclaPresionada == 0;
+
+    if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+      evento.preventDefault(); 
+    }
+  }
+});
  
 
+function soloLetras(e){
+  key = e.keyCode || e.which;
+  tecla = String.fromCharCode(key).toLowerCase();
+  letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+  especiales = "8-37-39-46";
+
+  tecla_especial = false
+  for(var i in especiales){
+       if(key == especiales[i]){
+           tecla_especial = true;
+           break;
+       }
+   }
+
+   if(letras.indexOf(tecla)==-1 && !tecla_especial){
+       return false;
+   }
+}
