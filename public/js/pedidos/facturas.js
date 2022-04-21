@@ -546,6 +546,8 @@ function obtener_pagos() {
         });
 
 }
+
+
 function agregar() {
     stock = $("#Fstock").val()
     cantidad = $("#Fcantidad").val()

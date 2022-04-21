@@ -175,7 +175,7 @@ function cargar_categorias_sys() {
                         height: 100
                       }, {
                         margin: [80, 15],
-                        text: 'Reporte de Facturas',
+                        text: 'Reporte de Categorias',
                         fontSize: 15
                       }]
                     });

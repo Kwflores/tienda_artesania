@@ -48,9 +48,7 @@ $(document).ready(function () {
   $('#ANom_proveedor').on('input', function () { 
     this.value = this.value.replace(/\d/g,'');
 });
-    $('#A_nom_usuario').on('input', function () { 
-        this.value = this.value.replace(/\d/g,'');
-    });
+    
     $('#Rnom_usuario').on('input', function () { 
         this.value = this.value.replace(/\d/g,'');
     });
@@ -77,10 +75,10 @@ $(document).ready(function () {
       $(this).val(validarTexto($('#NOM_USUARIO').val()));
     });
     $('#A_nom_usuario').on('keyup', function(){
-      $(this).val(validarTexto($('#A_nom_usuario').val()));
+      $(this).val(validarTexto_sin_carateres($('#A_nom_usuario').val()));
     });
     $('#Rnom_usuario').on('keyup', function(){
-      $(this).val(validarTexto($('#Rnom_usuario').val()));
+      $(this).val(validarTexto_sin_carateres($('#Rnom_usuario').val()));
     });
     $('#USUARIO').on('keyup', function(){
       $(this).val(validarTexto($('#USUARIO').val()));
@@ -110,8 +108,29 @@ $(document).ready(function () {
     $('#FDireccionEntrega').on('keyup', function(){
       $(this).val(validarTexto_may_min($('#FDireccionEntrega').val()));
     });
+    $('#Rdireccion_proveedor').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#Rdireccion_proveedor').val()));
+    });
+    $('#Adireccion_proveedor').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#Adireccion_proveedor').val()));
+    });
+    $('#Adescripcion').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#Adescripcion').val()));
+    });
+    $('#Rdescripcion').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#Rdescripcion').val()));
+    });
+    $('#des_categoria').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#des_categoria').val()));
+    });
+    $('#Ades_categoria').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#Ades_categoria').val()));
+    });
     function validarTexto(texto) {
       return texto.replace(/[^A-Z]+/g, "");
+    }
+    function validarTexto_sin_carateres(texto) {
+      return texto.replace(/[^A-Z-a-z]+/g, " ");
     }
     function validarTexto_may_min(texto) {
       return texto.replace(/[^A-Z-a-z-0-99]+/g, " ");
@@ -594,7 +613,60 @@ contenedor6.addEventListener('keydown', function(evento) {
     }
   }
 });
- 
+
+const contenedor5 = document.getElementById('Aprecio');
+
+contenedor5.addEventListener('keydown', function(evento) {
+  const elemento = evento.target;
+  if (elemento.className === 'campo-numerico') {
+    const teclaPresionada = evento.key;
+    const teclaPresionadaEsUnNumero =
+      Number.isInteger(parseInt(teclaPresionada));
+
+    const sePresionoUnaTeclaNoAdmitida = 
+      teclaPresionada != 'ArrowDown' &&
+      teclaPresionada != 'ArrowUp' &&
+      teclaPresionada != 'ArrowLeft' &&
+      teclaPresionada != 'ArrowRight' &&
+      teclaPresionada != 'Backspace' &&
+      teclaPresionada != 'Delete' &&
+      teclaPresionada != 'Enter' &&
+      !teclaPresionadaEsUnNumero;
+    const comienzaPorCero = 
+      elemento.value.length === 0 &&
+      teclaPresionada == 0;
+
+    if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+      evento.preventDefault(); 
+    }
+  }
+});
+const contenedor11 = document.getElementById('RSKU');
+contenedor11.addEventListener('keydown', function(evento) {
+  const elemento = evento.target;
+  if (elemento.className === 'campo-numerico') {
+    const teclaPresionada = evento.key;
+    const teclaPresionadaEsUnNumero =
+      Number.isInteger(parseInt(teclaPresionada));
+
+    const sePresionoUnaTeclaNoAdmitida = 
+      teclaPresionada != 'ArrowDown' &&
+      teclaPresionada != 'ArrowUp' &&
+      teclaPresionada != 'ArrowLeft' &&
+      teclaPresionada != 'ArrowRight' &&
+      teclaPresionada != 'Backspace' &&
+      teclaPresionada != 'Delete' &&
+      teclaPresionada != 'Enter' &&
+      !teclaPresionadaEsUnNumero;
+    const comienzaPorCero = 
+      elemento.value.length === 0 &&
+      teclaPresionada == 0;
+
+    if (sePresionoUnaTeclaNoAdmitida || comienzaPorCero) {
+      evento.preventDefault(); 
+    }
+  }
+});
 
 function soloLetras(e){
   key = e.keyCode || e.which;
@@ -660,5 +732,35 @@ Rcentrada.oninput = function () {
 FSKU.oninput = function () {
   if (this.value.length > 4) {
       this.value = this.value.slice(0,4); 
+  }
+}
+
+Aprecio.oninput = function () {
+  if (this.value.length > 4) {
+      this.value = this.value.slice(0,4); 
+  }
+}
+
+RSKU.oninput = function () {
+  if (this.value.length > 4) {
+      this.value = this.value.slice(0,4); 
+  }
+}
+
+RTelefono_proveedor.oninput = function () {
+  if (this.value.length > 8) {
+      this.value = this.value.slice(0,8); 
+  }
+}
+
+Perfil_telefono.oninput = function () {
+  if (this.value.length > 8) {
+      this.value = this.value.slice(0,8); 
+  }
+}
+
+Perfil_idenficacion.oninput = function () {
+  if (this.value.length > 13) {
+      this.value = this.value.slice(0,13); 
   }
 }

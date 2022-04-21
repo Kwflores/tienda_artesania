@@ -122,14 +122,14 @@ function cargar_proveedores_sys() {
 
                 },
                 {
-                    text: '<button id="Mostrar_proveedor_editar" class="btn btn-secondary" ><i class="fas fa-pencil-alt"></i>Editar Productos</button>',
+                    text: '<button id="Mostrar_proveedor_editar" class="btn btn-secondary" ><i class="fas fa-pencil-alt"></i>Editar Proveedores</button>',
                     action: function (e, dt, node, config) {
                         permiso_editarProveedores();
                     },
                     
                 } ,
                 {
-                    text: '<button id="Mostrar_proveedor_eliminar"  class="btn btn-danger" ><i class="fa fa-trash"></i>Eliminar Productos</button>',
+                    text: '<button id="Mostrar_proveedor_eliminar"  class="btn btn-danger" ><i class="fa fa-trash"></i>Eliminar Proveedores</button>',
                     action: function (e, dt, node, config) {
                         permiso_elimiarProveedores();
                     },

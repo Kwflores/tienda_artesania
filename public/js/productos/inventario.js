@@ -67,7 +67,7 @@ function cargar_inventario_sys() {
                     //Aquí es donde generas el botón personalizado
                     text: '<button class="btn btn-success"><i class="fas fa-file-excel"></i> Exportar a Excel </button>',
                     exportOptions: {
-                        columns: [1, 2, 3, 4]
+                        columns:  [1,2, 3,4,5,6,7,8]
                     }
                 },
                 //Botón para PDF
@@ -79,7 +79,7 @@ function cargar_inventario_sys() {
                     pageSize: 'A4',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))
                     text: '<button class="btn btn-danger"><i class="far fa-file-pdf"></i> Exportar a PDF </button>',
                     exportOptions: {
-                        columns: [2, 3]
+                        columns: [1,2, 3,4,5,6,7,8]
                     },
                     customize: function(doc) {
                         doc.content.splice(1, 0, {

@@ -74,6 +74,9 @@ function logeado() {
     if (localStorage.getItem("mostra_reportes") == "1") {
         document.getElementById("mostra_reportes").style.display = "block";
     }
+    if (localStorage.getItem("mostrar_carrito") == "1") {
+        document.getElementById("carrito_detalle_compra").style.display = 'block'
+    }
     if (localStorage.getItem("tiendita") == "1") {
         document.getElementById("tiendita").style.display = "block";
         document.getElementById("iniciar_sesion").style.display = "none"
@@ -331,7 +334,7 @@ function perfil_user() {
     document.getElementById("categorias_sistema").style.display = "none"
     document.getElementById("proveedores_sistema").style.display = "none"
     document.getElementById("facturas_sistema").style.display = "none"
-
+    document.getElementById("mostra_reportes").style.display = "none"
 
 }
 
@@ -355,7 +358,7 @@ function mostrar_pass_perfil() {
     document.getElementById("inventario_sistema").style.display = "none"
 
     document.getElementById("facturas_sistema").style.display = "none"
-
+    document.getElementById("mostra_reportes").style.display = "none"
 }
 
 function mostrar_permisos() {
@@ -369,7 +372,7 @@ function mostrar_permisos() {
     localStorage.removeItem("Mostrar_Modulo_sugerencia");
     localStorage.removeItem("productos_sistema");
     localStorage.removeItem("pedidos_sistema");
-
+    document.getElementById("perfil_usuario").style.display = "none"
     document.getElementById("sugerencias").style.display = "none"
     document.getElementById("permisos").style.display = "block"
     document.getElementById("usuarios").style.display = "none"
@@ -429,6 +432,7 @@ function mostrar_roles() {
     localStorage.removeItem("pedidos_sistema");
     localStorage.removeItem("mostra_reportes");
     document.getElementById("mostra_reportes").style.display = "none"
+    document.getElementById("perfil_usuario").style.display = "none"
 
     localStorage.removeItem("permisos_sys");
 
@@ -472,6 +476,7 @@ function mostrar_proveedores() {
     localStorage.removeItem("permisos_sys");
     localStorage.removeItem("pedidos_sistema");
     document.getElementById("mostra_reportes").style.display = "none"
+    document.getElementById("perfil_usuario").style.display = "none"
 
     localStorage.removeItem("mostra_reportes");
 
@@ -500,6 +505,7 @@ function mostrar_productos() {
     localStorage.removeItem("inventario_sistema");
     localStorage.removeItem("permisos_sys");
     localStorage.removeItem("pedidos_sistema");
+    document.getElementById("perfil_usuario").style.display = "none"
 
     document.getElementById("productos_sistema").style.display = "block"
     document.getElementById("proveedores_sistema").style.display = "none"
@@ -537,6 +543,7 @@ function mostrar_inventario() {
     localStorage.removeItem("pedidos_sistema");
     localStorage.removeItem("mostra_reportes");
     document.getElementById("mostra_reportes").style.display = "none"
+    document.getElementById("perfil_usuario").style.display = "none"
 
     document.getElementById("sugerencias").style.display = "none"
 }
@@ -571,6 +578,7 @@ function mostrar_pedidos() {
     localStorage.removeItem("permisos_sys");
     localStorage.removeItem("mostra_reportes");
     document.getElementById("mostra_reportes").style.display = "none"
+    document.getElementById("perfil_usuario").style.display = "none"
 
 }
 
@@ -625,6 +633,7 @@ function mostrar_sugerencias() {
     localStorage.removeItem("pedidos_sistema");
     localStorage.removeItem("mostra_reportes");
     document.getElementById("mostra_reportes").style.display = "none"
+    document.getElementById("perfil_usuario").style.display = "none"
 
 }
 
@@ -652,6 +661,8 @@ function mostra_reportes() {
     document.getElementById("sugerencias").style.display = "none"
     localStorage.removeItem("permisos_sys");
     localStorage.removeItem("pedidos_sistema");
+    document.getElementById("perfil_usuario").style.display = "none"
+
 }
 logeado();
 
