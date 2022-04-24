@@ -49,9 +49,7 @@ $(document).ready(function () {
     this.value = this.value.replace(/\d/g,'');
 });
     
-    $('#Rnom_usuario').on('input', function () { 
-        this.value = this.value.replace(/\d/g,'');
-    });
+   
     $('#USUARIO').on('input', function () { 
         this.value = this.value.replace(/\d/g,'');
     });
@@ -61,9 +59,7 @@ $(document).ready(function () {
     $('#USER').on('input', function () { 
         this.value = this.value.replace(/\d/g,'');
     });
-    $('#NOM_CLIENTE').on('input', function () { 
-      this.value = this.value.replace(/\d/g,'');
-  });
+   
     
     $('#Rusuario').on('input', function () { 
         this.value = this.value.replace(/\d/g,'');
@@ -91,7 +87,7 @@ $(document).ready(function () {
       $(this).val(validarTexto($('#Rnom_producto').val()));
     });
     $('#NOM_CLIENTE').on('keyup', function(){
-      $(this).val(validarTexto($('#NOM_CLIENTE').val()));
+      $(this).val(validarTexto_may_min($('#NOM_CLIENTE').val()));
     });
     $('#RNom_proveedor').on('keyup', function(){
       $(this).val(validarTexto($('#RNom_proveedor').val()));
@@ -126,14 +122,62 @@ $(document).ready(function () {
     $('#Ades_categoria').on('keyup', function(){
       $(this).val(validarTexto_may_min($('#Ades_categoria').val()));
     });
+    $('#direccion').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#direccion').val()));
+    });
+    $('#A_direccion').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#A_direccion').val()));
+    });
+    $('#direccion_entrega_cliente').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#direccion_entrega_cliente').val()));
+    });
+    $('#perfil_Cliente').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#perfil_Cliente').val()));
+    });
+    $('#Perfil_Direccion_cliente').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#Perfil_Direccion_cliente').val()));
+    });
+    
+    $('#mensaje_contacto').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#mensaje_contacto').val()));
+    });
+    $('#Rcinicial').on('keyup', function(){
+      $(this).val(validarTexto_may_min($('#Rcinicial').val()));
+    });
+    $('#Rprecio').on('keyup', function(){
+      $(this).val(validarNUmeros($('#Rprecio').val()));
+    });
+    $('#Rprecio').on('keyup', function(){
+      $(this).val(validarNUmeros($('#Rprecio').val()));
+    });
+    $('#Rcinicial').on('keyup', function(){
+      $(this).val(validarNUmeros($('#Rcinicial').val()));
+    });
+    $('#RSKU').on('keyup', function(){
+      $(this).val(validarNUmeros($('#RSKU').val()));
+    });
+    $('#R_Rol_Nom').on('keyup', function(){
+      $(this).val(validarTexto ($('#R_Rol_Nom').val()));
+    });
+    
+    $('#Aprecio').on('keyup', function(){
+      $(this).val(validarNUmeros($('#Aprecio').val()));
+    });
+    $('#Anom_producto').on('keyup', function(){
+      $(this).val(validarTexto ($('#Anom_producto').val()));
+    });
     function validarTexto(texto) {
       return texto.replace(/[^A-Z]+/g, "");
     }
     function validarTexto_sin_carateres(texto) {
       return texto.replace(/[^A-Z-a-z]+/g, " ");
     }
+    
     function validarTexto_may_min(texto) {
       return texto.replace(/[^A-Z-a-z-0-99]+/g, " ");
+    }
+    function validarNUmeros(texto) {
+      return texto.replace(/[^0-99]+/g, "");
     }
 })  
 $('#Contraseña').keyup(function(e) {
@@ -446,7 +490,54 @@ document
     valido.innerText =  "Error: La dirección de correo es incorrecta.";
   }
 });
- 
+
+document
+.getElementById('nueva_contraseña_perfil_actual')
+.addEventListener('input', function(evt) {
+  const campo = evt.target,
+        valido = document.getElementById('A_C_passOK'),
+      
+        expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+  //Se muestra un texto válido/inválido a modo de ejemplo
+  if (expr.test(campo.value)) {
+    valido.innerText = "";
+  } else {
+    valido.innerText =  "Error: La dirección de correo es incorrecta.";
+  }
+});
+
+document
+.getElementById('Perfil_Correo_cliente')
+.addEventListener('input', function(evt) {
+  const campo = evt.target,
+        valido = document.getElementById('P_CcorreoOK'),
+      
+        expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+  //Se muestra un texto válido/inválido a modo de ejemplo
+  if (expr.test(campo.value)) {
+    valido.innerText = "";
+  } else {
+    valido.innerText =  "Error: La dirección de correo es incorrecta.";
+  }
+});
+
+document
+.getElementById('correo_contacto')
+.addEventListener('input', function(evt) {
+  const campo = evt.target,
+        valido = document.getElementById('OKcorreo_contacto'),
+      
+        expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+  //Se muestra un texto válido/inválido a modo de ejemplo
+  if (expr.test(campo.value)) {
+    valido.innerText = "";
+  } else {
+    valido.innerText =  "Error: La dirección de correo es incorrecta.";
+  }
+});
 
 const contenedor = document.getElementById('IAcentrada');
 
@@ -762,5 +853,29 @@ Perfil_telefono.oninput = function () {
 Perfil_idenficacion.oninput = function () {
   if (this.value.length > 13) {
       this.value = this.value.slice(0,13); 
+  }
+}
+
+Perfil_telefono_cliente.oninput = function () {
+  if (this.value.length > 8) {
+      this.value = this.value.slice(0,8); 
+  }
+}
+
+Perfil_idenficacion_cliente.oninput = function () {
+  if (this.value.length > 13) {
+      this.value = this.value.slice(0,13); 
+  }
+}
+
+telefono_contacto.oninput = function () {
+  if (this.value.length > 8) {
+      this.value = this.value.slice(0,8); 
+  }
+}
+
+ATelefono_proveedor.oninput = function () {
+  if (this.value.length > 8) {
+      this.value = this.value.slice(0,8); 
   }
 }

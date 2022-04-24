@@ -16,6 +16,7 @@ $(document).ready(function () {
         descripcion = $("#Rdescripcion").val();
         precio = $("#Rprecio").val();
         url = $("#Rm1").val();
+        Rurl_img = $("#Rurl_img").val()
         categoria = $("#Rcategoria").val();
         proveedor = $("#Rproveedores").val();
         c_inicial = $("#Rcinicial").val();
@@ -23,7 +24,7 @@ $(document).ready(function () {
         c_salida = $("#Rsalida").val();
         stock = $("#Rstock").val();
 
-        if (sku == "" || producto == "" || descripcion == "" || url == "" || categoria == "" || proveedor == "" || precio == ""
+        if (sku == "" || producto == "" || descripcion == "" || url == "" || categoria == "" || proveedor == "" || precio == ""|| Rurl_img == ""  
             || c_inicial == "" || c_entrada == "" || c_salida == "" || stock == "") {
             Swal.fire({
                 icon: 'error',
@@ -160,7 +161,7 @@ function cargar_productos_sys() {
 
         $.each(response[0], function (key, val) {
             var estado
-            if (val.ESTADO == 1) {
+            if (val.COD_ESTADO == 1) {
                 estado = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input" id="estado_producto' + val.COD_PRODUCTO + '" checked><label class="custom-control-label" for="estado_producto' + val.COD_PRODUCTO + '"></label></div>'
             } else {
                 estado = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="estado_producto' + val.COD_PRODUCTO + '"  ><label class="custom-control-label" for="estado_producto' + val.COD_PRODUCTO + '"></label></div>'
@@ -229,7 +230,7 @@ function cargar_productos_sys() {
                 //Botón para PDF
                 {
                     extend: 'pdf',
-                    title: 'Tienda de Artesania la Bendicion',
+                    title: 'TIENDA ARTESANÍA FUENTE DE BENDICIÓN',
                     filename: 'Reporte de Productos',
                     //orientation: 'landscape',//landscape give you more space
                     pageSize: 'A4',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))
@@ -470,7 +471,7 @@ function obtener_categorias() {
     var myHeader = new Headers({
         'Authorization': token
     });
-    url_categorias = api + "categorias";
+    url_categorias = api + "categorias/activas";
     myHeader.append("Content-Type", "application/json",);
     var raw = JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9, });
     var requestOptions = {
@@ -559,11 +560,21 @@ function eliminar_producto(sku) {
             fetch(url_eliminar, requestOptions)
                 .then(response => response.text())
                 .then(result => {
-                    //console.log(result)
-                    if (result) {
+                    console.log(result)
+                    if (result == '{"message":"Registro Eliminado"}') {
                         Swal.fire(
                             'Registro Eliminado!',
                             'Registro Eliminado, correctamente.',
+                            'success'
+                          )
+                       
+                        
+                    }
+                    
+                     else {
+                        Swal.fire(
+                            'Registro No Eliminado!',
+                            'El Registro que desea eliminar, contiene un historial de pedido.',
                             'success'
                           )
                     }
@@ -577,12 +588,13 @@ function eliminar_producto(sku) {
 
 }
 
+
 function obtener_categorias_A() {
     var categorias = document.getElementById("Apcategoria");
     var myHeader = new Headers({
         'Authorization': token
     });
-    url_categorias = api + "categorias";
+    url_categorias = api + "categorias/activas";
     myHeader.append("Content-Type", "application/json",);
     var raw = JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9, });
     var requestOptions = {

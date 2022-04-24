@@ -14,8 +14,9 @@ $(document).ready(function () {
         categoria = $("#Nom_categoria").val();
         descripcion = $("#des_categoria").val();
         url = $("#m1").val();
+        url_img = $("#url_img_categoria").val();
         console.log(url)
-        if (descripcion == "" || descripcion == "" || url == "") {
+        if (descripcion == "" || descripcion == "" || url == ""|| url_img == "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -95,7 +96,7 @@ function cargar_categorias_sys() {
 
         $.each(response[0], function (key, val) {
             var estado
-            if (val.ESTADO == 1) {
+            if (val.COD_ESTADO == 1) {
                 estado = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input" id="estado_categoria' + val.COD_CATEGORIA + '" checked><label class="custom-control-label" for="estado_categoria' + val.COD_CATEGORIA + '"></label></div>'
             } else {
                 estado = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="estado_categoria' + val.COD_CATEGORIA + '"  ><label class="custom-control-label" for="estado_categoria' + val.COD_CATEGORIA + '"></label></div>'
@@ -220,7 +221,7 @@ function cargar_categorias_sys() {
 
             // document.getElementById("id_rol").innerHTML = id_rol
             document.getElementById("estado_categoria").innerHTML = estado
-            actualizar_permiso_estado(data[6], data[3], data[4], data[7], estado);
+            actualizar_permiso_estado_categoria(data[6], data[3], data[4], data[7], estado);
             document.getElementById("id_estado_categoria").innerHTML = estado;
             document.getElementById("id_categoria").innerHTML = data[6];
             $("#ANom_categoria").val(data[3]);
@@ -291,7 +292,7 @@ function eliminar_categorias(cod_categoria) {
 
 }
 
-function actualizar_permiso_estado(cod_categoria, categoria, descripcion, url, cod_estado) {
+function actualizar_permiso_estado_categoria(cod_categoria, categoria, descripcion, url, cod_estado) {
     var myHeader = new Headers({
         'Authorization': token
     });

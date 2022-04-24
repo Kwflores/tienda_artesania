@@ -30,6 +30,24 @@ app.post("/", (req, res) => {
 
 });
 
+
+// Obenter todo las categorias 
+app.post("/activas", (req, res) => {
+    try {
+        const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
+        const consulta = `call 	OBTENER_CATEGORIAS_ACTIVAS('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+        conn.query(consulta, (error, results) => {
+            if (error) throw error;
+            if (results.length > 0) {
+                res.json(results);
+            }
+        })
+    } catch (error) {
+        res.send("0")
+    }
+
+});
+
 // Obenter productos por categoria
 app.post("/productos_categoria", (req, res) => {
     try {
@@ -37,8 +55,10 @@ app.post("/productos_categoria", (req, res) => {
         const consulta = `call OBTENER_PRODUCTOS_CATEGORIA(${COD_CATEGORIA},${COD_USUARIO},${COD_MODULO})`;
         conn.query(consulta, (error, results) => {
             if (error) throw error;
-            if (results.length > 0) {
+            if (results[0].length > 0) {
                 res.json(results);
+            }else{
+                res.json(0)
             }
         })
     } catch (error) {

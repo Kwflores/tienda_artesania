@@ -115,6 +115,7 @@ $(document).ready(function () {
                 
                     localStorage.setItem('usuario', username);
                     localStorage.setItem('rol', data.rol);
+                    localStorage.setItem('nombre_usuario', data.Nombre);
                     localStorage.setItem("mostrar_modulo_usuario", 10);
                     localStorage.setItem("mostrar_moduloCategoria", 6);
                     rol_cliente = localStorage.getItem("rol_logeado")
@@ -128,6 +129,7 @@ $(document).ready(function () {
                         document.getElementById("cerrar_sesion").style.display = "block"
                         document.getElementById("iniciar_sesion").style.display = "none"
                         document.getElementById("bienvenido_usuario").style.display = "block"
+                        $("#nombre_cliente").val( data.Nombre);
                         document.frm_categoria.submit();
                         return;
                     }else{
@@ -171,6 +173,7 @@ $(document).ready(function () {
 
                                 if (rol.COD_ROL == '4') {
                                     localStorage.setItem('rol_logeado', rol.NOM_ROL)
+                                    
                                 }
 
 
@@ -205,8 +208,8 @@ $(document).ready(function () {
                         .then(function (data) {
                             data[0].forEach(user => {
                                 console.log(user);
-                                sesion = sessionStorage.getItem('token');
-                                localStorage.setItem("rol", user.Rol)
+                                //localStorage.setItem("rol", user.Rol)
+                              
                                 if (user.Usuario != username) {
                                     existe = true;
                                 }
@@ -353,13 +356,13 @@ $(document).ready(function () {
         clave = $("#Password").val();
         confi_clave = $("#conf_pass").val();
         telefono = "0";
-        valido = document.getElementById("campoOK").textContent
+        valido_correo = document.getElementById("emailOK").textContent
 
-        if (valido != "") {
+        if (valido_correo != "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: '¡Debe Proporcionar un correo valid.!',
+                text: '¡Debe Proporcionar un correo valido.!',
             })
             return;
         }

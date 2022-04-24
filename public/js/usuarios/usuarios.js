@@ -164,7 +164,7 @@ function cargar_usuarios() {
                 //Botón para PDF
                 {
                     extend: 'pdf',
-                    title: 'TIENDA DE ARTESANIA LA BENDICION',
+                    title: 'TIENDA ARTESANÍA FUENTE DE BENDICIÓN',
                     filename: 'Reporte de Usuarios del Sistema',
                     //orientation: 'landscape',//landscape give you more space
                     pageSize: 'A3',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))
@@ -386,7 +386,7 @@ function actualizar_datos() {
     var raw = JSON.stringify({
         "COD_PERSONA": persona, "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": telefono, "NOM_USUARIO": usuario,
         "NOM_IDENTIFICACION": idenficacion, "COD_IDENTIFICACION": no_identificacion,
-        "DIRECCION": direccion, "COD_ROL": rol, "COD_ESTADO": rol, "COD_USUARIO": estado, "COD_MODULO": 9
+        "DIRECCION": direccion, "COD_ROL": rol, "COD_ESTADO": estado, "COD_USUARIO":id_user , "COD_MODULO": 9
     });
     var requestOptions = {
         method: 'PUT',
@@ -403,7 +403,8 @@ function actualizar_datos() {
                     'Se Modifico correctamente!',
                     'success'
                 )
-                document.getElementById("alerta_usuarios").style.display = "block"
+                document.frm_categoria.submit();
+                document.getElementById("alerta_usuarios").style.display = "none"
                 cancelar()
                 cargar_usuarios()
 

@@ -429,7 +429,7 @@ function permisos_roles() {
                                 //Botón para PDF
                                 {
                                     extend: 'pdf',
-                                    title: 'TIENDA DE ARTESANIA LA BENDICION',
+                                    title: 'TIENDA ARTESANÍA FUENTE DE BENDICIÓN',
                                     filename: 'Reporte de Usuarios del Sistema',
                                     //orientation: 'landscape',//landscape give you more space
                                     pageSize: 'A3',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))

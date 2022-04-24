@@ -83,6 +83,7 @@ $(document).ready(function () {
                                 )
                                 limpiar();
                               //  document.frm_categoria.submit()
+                                 document.frm_categoria.submit();
                                 $('#table_facturas').dataTable().fnDestroy();
                                 cargar_facturas();
                                 localStorage.removeItem("detalle_factura");
@@ -211,7 +212,7 @@ function cargar_facturas() {
                 //Botón para PDF
                 {
                     extend: 'pdf',
-                    title: 'TIENDA DE ARTESANIA LA BENDICION',
+                    title: 'TIENDA ARTESANÍA FUENTE DE BENDICIÓN',
                     filename: 'Reporte de Factura',
                     //orientation: 'landscape',//landscape give you more space
                     pageSize: 'A4',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))
@@ -829,7 +830,7 @@ function generar_pdf() {
     let pdfName = 'FACTURA' + Cliente.innerHTML;
     doc.setFontSize(16);
     doc.addImage(imgData, 'JPEG', 80, 10, 40, 30)
-    doc.text(41, 40, '**** TIENDA DE ARTESANIA LA BENDICION ****')
+    doc.text(41, 40, '**** TIENDA ARTESANÍA FUENTE DE BENDICIÓN ****')
     doc.text(50, 50, 'artesaniafuentedebendicion@gmail.com')
    
     doc.text(110, 10, 'Reporte Generado por: ' + user_logeado)
@@ -853,7 +854,10 @@ function cancelar_factura() {
     localStorage.removeItem("detalle_factura")
     document.getElementById("nuevo_factura").style.display = "none"
     document.getElementById("facturas_sistema").style.display = "block"
+    document.getElementById("contenido_detalle").innerHTML = ""
 }
 
 obtener_pagos()
 cargar_facturas();
+
+

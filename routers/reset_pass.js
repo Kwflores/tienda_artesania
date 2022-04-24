@@ -305,6 +305,303 @@ app.post('/', (req, res) => {
 
 });
 
+
+
+app.post('/factura_digital', (req, res) => {
+    
+    try {
+        const { USUARIO, COD_USUARIO, COD_MODULO } = req.body;
+        const consulta = `call BUSCAR_USUARIOS('${USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+        conn.query(consulta, (error, data) => {
+            if (error) throw error;
+            if (data[0][0]) {
+                if (data[0][0].Usuario === USUARIO) {
+                    const consulta = `call OBTENER_PEDIDO_CLIENTE('${USUARIO}', ${COD_USUARIO},${COD_MODULO})`;
+                    conn.query(consulta, (error, results) => {
+                        if (results.length > 0) {
+                            console.log(results[0][0].COD_ENCABEZADO)
+                            const contenidohtml = `
+                            <!DOCTYPE html>
+                            <html xmlns="http://www.w3.org/1999/xhtml">
+                            <head>
+                              <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                              <meta name="viewport" content="width=device-width, initial-scale=1" />
+                              <title>Sunday Confirm Email</title>
+                              <!-- Designed by https://github.com/kaytcat -->
+                              <!-- Header image designed by Freepik.com -->
+                            
+                            
+                              <style type="text/css">
+                              /* Take care of image borders and formatting */
+                            
+                              img {
+                                max-width: 600px;
+                                outline: none;
+                                text-decoration: none;
+                                -ms-interpolation-mode: bicubic;
+                              }
+                            
+                              a img { border: none; }
+                              table { border-collapse: collapse !important; }
+                              #outlook a { padding:0; }
+                              .ReadMsgBody { width: 100%; }
+                              .ExternalClass {width:100%;}
+                              .backgroundTable {margin:0 auto; padding:0; width:100%;}
+                              table td {border-collapse: collapse;}
+                              .ExternalClass * {line-height: 115%;}
+                            
+                            
+                              /* General styling */
+                            
+                              td {
+                                font-family: Open Sans, Roboto, Helvetica Neue , Arial, sans-serif;
+                                color: #6f6f6f;
+                              }
+                            
+                              body {
+                                -webkit-font-smoothing:antialiased;
+                                -webkit-text-size-adjust:none;
+                                width: 100%;
+                                height: 100%;
+                                color: #6f6f6f;
+                                font-weight: 400;
+                                font-size: 18px;
+                                overflow-x: hidden;
+                              }
+                            
+                            
+                              h1 {
+                                margin: 10px 0;
+                              }
+                            
+                              a {
+                                text-decoration: none;
+                              }
+                            
+                              .force-full-width {
+                                width: 100% !important;
+                              }
+                            
+                              .force-width-80 {
+                                width: 80% !important;
+                              }
+                            
+                            
+                              .body-padding {
+                                padding: 0 75px;
+                              }
+                            
+                              .mobile-align {
+                                text-align: right;
+                              }
+                                  @media screen {
+                                     /*@import url(https://fonts.googleapis.com/css?family=Roboto);
+                                    /* Thanks Outlook 2013! */
+                                     {
+                                      font-family: 'Open Sans', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
+                                    }
+                                    .w280 {
+                                      width: 280px !important;
+                                    }
+                            
+                                  }
+                                /* Mobile styles */
+                                @media only screen and (max-width: 480px) {
+                            
+                                  table[class*="w320"] {
+                                    width: 320px !important;
+                                  }
+                            
+                                  td[class*="w320"] {
+                                    width: 280px !important;
+                                    padding-left: 20px !important;
+                                    padding-right: 20px !important;
+                                  }
+                            
+                                  img[class*="w320"] {
+                                    width: 111px !important;
+                                  }
+                            
+                                  td[class*="mobile-spacing"] {
+                                    padding-top: 0px !important;
+                                    padding-bottom: 0px !important;
+                                    padding-left: 30px !important;
+                                    padding-right: 30px !important;
+                                  }
+                            
+                                  *[class*="mobile-hide"] {
+                                    display: none !important;
+                                  }
+                            
+                                  *[class*="mobile-br"] {
+                                    font-size: 12px !important;
+                                  }
+                            
+                                  td[class*="mobile-w20"] {
+                                    width: 20px !important;
+                                  }
+                            
+                                  img[class*="mobile-w20"] {
+                                    width: 20px !important;
+                                  }
+                            
+                                  td[class*="mobile-center"] {
+                                    text-align: center !important;
+                                  }
+                            
+                                  table[class*="w100p"] {
+                                    width: 100% !important;
+                                  }
+                            
+                                  td[class*="activate-now"] {
+                                    padding-right: 0 !important;
+                                    padding-top: 20px !important;
+                                  }
+                            
+                                  td[class*="mobile-block"] {
+                                    display: block !important;
+                                  }
+                            
+                                  td[class*="mobile-align"] {
+                                    text-align: left !important;
+                                  }
+                            
+                                }
+                              </style>
+                            </head>
+                            <body  class="body" style="padding:0; margin:0; display:block; background:#eeebeb; -webkit-text-size-adjust:none;" bgcolor="#eeebeb">
+                            <table align="center" cellpadding="0" cellspacing="0" width="100%">
+                              <tr>
+                                <td align="center" valign="top" style="background-color:#EFF3FC" width="100%">
+                            
+                                <center>
+                            
+                                  <table cellspacing="0" cellpadding="0" width="600" class="w320">
+                                    <tr>
+                                      <td align="center" valign="top">
+                            
+                            
+                                      <table style="margin:0 auto;" cellspacing="0" cellpadding="30px" width="100%" >
+                                        <tr>
+                                          <td style="text-align: center;">
+                                          
+                                          </td>
+                                        </tr>
+                                      </table>
+                            
+                            
+                                      <table cellspacing="0" cellpadding="0" class="force-full-width" style="background-color: #3bcdb0;">
+                                        <tr>
+                                          <td style="background-color: #FFFFFF;">
+                              
+                                            <table cellspacing="0" cellpadding="0" width="100%">
+                                              <tr>
+                                                <td>
+                                                   
+                                                  <img src="https://www.multiplicalia.com/wp-content/uploads/2016/01/carrito.jpg" style="max-width:140px; display:block; margin:auto; padding-top:60px; padding-bottom:10px; ">
+                                                </td>
+                                              </tr>
+                                            </table>
+                                            
+                                            
+                                            <table cellspacing="0" cellpadding="0" class="force-full-width">
+                                              <tr>
+                                                <td style="font-size:36px; font-weight: 600; letter-spacing: -1px; color: #000000; text-align:center; opacity: 0.75; padding-top: 20px " class="mobile-spacing">
+                                               <!-- <div class="mobile-br">&nbsp;</div> -->
+                                                 Confirmación de Pedido
+                                                <br/>
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td style="font-size:16px; font-weight: 400; text-align:justify; padding: 0 75px; color: black" class="w320 mobile-spacing" >
+                            
+                                                  <p style="opacity: 0.7;">Estimado cliente:<b> ${USUARIO}</b>, <br><br><b>Gracias por Su compra!!!</b><br><br>
+                                                    Su numero de Factura es: <b>000${results[0][0].COD_ENCABEZADO}</b><br>
+                                                    Costo de Envios: <b>L. 100.00</b><br> 
+                                                    Total a pagar: <b> L. ${results[0][0].total}.00</b><br> 
+                                                    Dias de Entrega: <b>Lunes, Miercoles y Viernes</b>
+                                                    <br> 
+                                                    Lugares de Entrega: <b>Tegucigalpa y Ojojona</b> <br><br>Escribanos para confirmar dia, hora y lugar  <br> <br> 
+                                                  Atte.<br> TIENDA ARTESANÍA FUENTE DE BENDICIÓN</p>
+                                                                                        </td>
+                                              </tr>
+                                            </table>
+                                                       
+                                          </td>
+                                        </tr>
+                                      </table>
+                            
+                                      <table cellspacing="0" cellpadding="0" class="force-full-width" bgcolor="#ffffff" >
+                                        <tr>
+                                          <td style="background-color:#ffffff; padding-top: 0px;">
+                                          <br><br><br><br>
+                            
+                            
+                                           
+                            
+                            
+                                          
+                            
+                                          </td>
+                                        </tr>
+                                      </table>
+                            
+                            
+                                      </td>
+                                    </tr>
+                                  </table>
+                            
+                                </center>
+                            
+                            
+                            
+                            
+                                </td>
+                              </tr>
+                            </table>
+                            </body>
+                            </html>
+                              `;
+            
+                                res.json({ message: 'Factura enviada al Correo' });
+                                async function correo() {
+            
+                                    let transportador = nodemailer.createTransport({
+                                        service: 'gmail',
+                                        auth: {
+                                            user: 'artesaniafuentedebendicion@gmail.com',
+                                            pass: 'Matematicas1234'
+                                        }
+                                    });
+        
+            
+                                    let respuesta = await transportador.sendMail({
+                                        from: 'Artesania Fuente de Bendicion <artesaniafuentedebendicion@gmail.com>',
+                                        to: data[0][0].Correo,
+                                        subject: "CONFIRMACION DE COMPRA - ARTESANIA FUENTA DE BENDICION",
+                                        html: contenidohtml,
+                                    });
+            
+            
+                                    console.log("Correo enviado en texto html: %s", respuesta.messageId);
+            
+            
+                                }
+                                correo().catch(console.error)  
+                        }
+                    })
+                   
+
+
+                }
+            } 
+        })
+    } catch (error) {
+        res.send(error)
+
+    }
+
+});
  
 
 module.exports = app;

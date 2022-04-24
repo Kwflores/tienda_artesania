@@ -17,6 +17,7 @@ const RutaFacturacion = require("./routers/facturacion");
 const RutaCliente = require("./routers/clientes");
 const RutaReporte = require("./routers/reportes");
 const rutaimg = require('./routers/img');
+const ruta_copia_seguridad = require('./routers/backup');
 const validartoken = require("./Middleware/validar_token");
 const app = express();
 
@@ -56,6 +57,7 @@ app.post('/login', async (req, res) => {
                var clave = pass.toString('utf8');
                codigo = results[0][0].COD_USUARIO;
                rol = results[0][0].Rol;
+               nombre = results[0][0].Nombre;
                 if (results[0][0].Usuario ===NOM_USUARIO && clave ===CLAVE) {
                     const consulta = `call LOGIN('${NOM_USUARIO}','${CLAVE}',${COD_USUARIO},${COD_MODULO})`;
                     conn.query(consulta, (error, results) => {
@@ -66,6 +68,7 @@ app.post('/login', async (req, res) => {
                             //le enviamos al usuario un mensaje y el token, el cual sera utilizado para logearse
                             res.header('authorization', accesstoken).json({
                                 message: "Bienvenido: " + NOM_USUARIO,
+                                Nombre:  nombre,
                                 cod_usuario: codigo,
                                 token: accesstoken,
                                 rol:rol
@@ -106,10 +109,12 @@ app.use("/pedidos", validartoken, RutaFacturacion);
 app.use("/send-email",RutaPass)
 app.use("/clientes",RutaCliente)
 app.use("/img",rutaimg);
+app.use("/backup",validartoken,ruta_copia_seguridad);
 app.use("/reportes",validartoken,RutaReporte)
 app.listen(process.env.PUERTO, () => {
     console.log('Servidor corriendo con exito!');
 });
+
 
 
 

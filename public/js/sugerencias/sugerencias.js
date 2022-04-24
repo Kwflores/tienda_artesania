@@ -2,7 +2,71 @@ var api = "http://localhost:3000/"
 var id_user = localStorage.getItem("id_usuario");
 var token = localStorage.getItem("token");
 var user_logeado = localStorage.getItem("usuario");
- 
+
+
+$(document).ready(function () {
+    var tokens = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJDT0RfVVNVQVJJT1MiOjM1LCJOT01fVVNVQVJJTyI6IldQRVJFWiIsIkNMQVZFIjp7InR5cGUiOiJCdWZmZXIiLCJkYXRhIjpbNzIsMTExLDEwOCw5Nyw0NCw0OSw1MCw1MV19LCJDT0RfRVNUQURPIjoxLCJDT0RfUk9MIjoyfV0sImlhdCI6MTY1MDQ4NjcxOSwiZXhwIjoxNjU0MDg2NzE5fQ.j9JPGsmVi4mm8MF8aSsu5gg7B7EyoQhgpWdpaaLrKyI";
+    
+
+
+    $("#registro_sugerencia").click(function () {
+        tipo_asunto = $("#tipo_mensaje_contacto").val();
+        descripcion = $("#mensaje_contacto").val();
+        telefono = $("#telefono_contacto").val();
+        correo = $("#correo_contacto").val();
+        valido = document.getElementById('OKcorreo_contacto').textContent 
+     if(valido != ""){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '¡Favor introducir una dirección de correo valida.!',
+        })
+        return;
+    }
+        console.log(url)
+        if (tipo_asunto == "" || descripcion == "" || telefono == "" || correo == "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Debe completar todo los campos.!',
+
+            })
+            return;
+        }
+
+
+        var settings = {
+            "url": api + "contactos/nuevo",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json",
+                'Authorization': tokens
+            },
+            "data": JSON.stringify({ "TIP_ASUNTO":tipo_asunto, "USER_EMAIL":correo, "NUM_CEL":telefono, "DES_MENSAJE":descripcion, "COD_USUARIO": 2, "COD_MODULO":6 }),
+        };
+        $.ajax(settings).done(function (response) {
+              if (response.message) {
+
+                Swal.fire(
+                    'Gracias por contactarnos!',
+                    'Pronto nos comunicaremos con usted.!',
+                    'success'
+                )
+               $("#tipo_mensaje_contacto").val("");
+                $("#mensaje_contacto").val("");
+                $("#telefono_contacto").val("");
+                 $("#correo_contacto").val("");
+
+
+            }
+
+
+        });
+
+    });
+
+});
 
 function cargar_sugerencias() {
     $("#contenido_sugerencias").empty();
@@ -14,7 +78,7 @@ function cargar_sugerencias() {
             "Content-Type": "application/json",
             'Authorization': token
         },
-        "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 3 }),
+        "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 6 }),
     };
 
     $.ajax(settings).done(function (response) {
@@ -51,7 +115,7 @@ function cargar_sugerencias() {
                 //Botón para PDF
                 {
                     extend: 'pdf',
-                    title: 'TIENDA DE ARTESANIA LA BENDICION',
+                    title: 'TIENDA ARTESANÍA FUENTE DE BENDICIÓN',
                     filename: 'Reporte de Sugerencias del Sistema',
                     //orientation: 'landscape',//landscape give you more space
                     pageSize: 'A4',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))
