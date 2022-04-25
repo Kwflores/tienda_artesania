@@ -90,8 +90,8 @@ app.post("/nuevo", (req, res) => {
 //nueva facturacion de pedido 
 app.post("/nuevo_encabezado", (req, res) => {
     try {
-        const { COD_PERSONA, COD_USUARIO, DIRECCION, COD_MODULO } = req.body;
-        const consulta = `call 	NUEVO_ENCABEZADO('${COD_PERSONA}',${COD_USUARIO},'${DIRECCION}',${COD_MODULO})`;
+        const { COD_PERSONA, COD_USUARIO, DIRECCION, COD_MODULO,COS_ENVIO } = req.body;
+        const consulta = `call 	NUEVO_ENCABEZADO('${COD_PERSONA}',${COD_USUARIO},'${DIRECCION}',${COD_MODULO},${COS_ENVIO})`;
         conn.query(consulta, error => {
             if (error) throw error;
             const consulta = `call 	ULTIMO_REGISTRO()`;

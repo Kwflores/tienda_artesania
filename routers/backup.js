@@ -26,10 +26,10 @@ app.post('/', (req, res) => {
     mysqldump({
 
         connection: {
-            host: '212.1.208.51',
-            user: 'u603953716_Artesania',
-            password: 'Art35a41@_2022',
-            database: 'u603953716_artesania',
+            host: process.env.SERVER,
+            user: process.env.USER,
+            password: process.env.PASS,
+            database: process.env.DB,
         },
         dumpToFile: './public/respaldos/tienda_artesania'+FECHA+'.sql',
     });

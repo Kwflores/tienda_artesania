@@ -18,6 +18,7 @@ const RutaCliente = require("./routers/clientes");
 const RutaReporte = require("./routers/reportes");
 const rutaimg = require('./routers/img');
 const ruta_copia_seguridad = require('./routers/backup');
+const ruta_bitacora= require('./routers/bitacora');
 const validartoken = require("./Middleware/validar_token");
 const app = express();
 
@@ -111,6 +112,7 @@ app.use("/clientes",RutaCliente)
 app.use("/img",rutaimg);
 app.use("/backup",validartoken,ruta_copia_seguridad);
 app.use("/reportes",validartoken,RutaReporte)
+app.use("/bitacora",validartoken,ruta_bitacora)
 app.listen(process.env.PUERTO, () => {
     console.log('Servidor corriendo con exito!');
 });

@@ -159,7 +159,12 @@ $(document).ready(function () {
     $('#R_Rol_Nom').on('keyup', function(){
       $(this).val(validarTexto ($('#R_Rol_Nom').val()));
     });
-    
+    $('#Fcantidad').on('keyup', function(){
+      $(this).val(validarNUmeros($('#Fcantidad').val()));
+    });
+    $('#FEnvio').on('keyup', function(){
+      $(this).val(validarNUmeros($('#FEnvio').val()));
+    });
     $('#Aprecio').on('keyup', function(){
       $(this).val(validarNUmeros($('#Aprecio').val()));
     });

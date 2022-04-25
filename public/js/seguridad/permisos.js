@@ -652,6 +652,7 @@ function permisos_roles() {
                     document.getElementById("crear_restaurar").style.display = "none"
                     document.getElementById("ver_roles").style.display = "none"
                     document.getElementById("ver_permisos").style.display = "none"
+                    document.getElementById("ver_bitacora").style.display = "none"
 
 
                 }

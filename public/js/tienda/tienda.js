@@ -98,15 +98,15 @@ $(document).ready(function () {
                     }),
                 };
 
-
+  
 
                 $.ajax(settings).done(function (response) {
                     //   console.log(response)
-                   
+                    document.getElementById("detalle_total").innerHTML = ""
                     vaciarcarrito_cliente();
                 });
 
-
+ 
 
             });
         });
@@ -142,9 +142,9 @@ function mostrar_categorias_tienda() {
         })
         .then(function (data) {
 
-            console.log(data);
+          //  console.log(data);
             var contenido = document.getElementById("categorias");
-            console.log(contenido);
+          //  console.log(contenido);
             //var contenido_cliente = document.getElementById("lista_categorias_clientes");
 
             data[0].forEach(categoria => {
@@ -218,9 +218,9 @@ function mostrar_categorias_tienda_list() {
         })
         .then(function (data) {
 
-            console.log(data);
+            //console.log(data);
             var contenido = document.getElementById("categorias_listadas");
-            console.log(contenido);
+          //  console.log(contenido);
             //var contenido_cliente = document.getElementById("lista_categorias_clientes");
 
             data[0].forEach(categoria => {
@@ -588,7 +588,7 @@ function llenar_tabla_carrito_cliente() {
 
     cuerpo_cliente.innerHTML = "";
     var lista_productos_cliente = get_detalle_carrito();
-    console.log(lista_productos_cliente)
+    //console.log(lista_productos_cliente)
     lista_productos_cliente.forEach(
         producto => {
             console.log(producto)
@@ -606,7 +606,7 @@ function llenar_tabla_carrito_cliente() {
                 return;
             }
 
-            if (producto.s <= producto.q) {
+            if (producto.s < producto.q) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -709,7 +709,6 @@ function vaciarcarrito_cliente() {
     document.getElementById("detalle_carrito_total").innerHTML = " ";
     document.pago_cliente.submit();
 }
-
 
 
 function datos_cliente() {

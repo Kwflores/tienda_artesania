@@ -23,7 +23,7 @@ function cargar_pedidos() {
         $.each(response[0], function (key, val) {
             
            fecha =  moment(val.FEC_PEDIDO ).format('DD-MM-YYYY')
-            $("#contenido_pedidos").append("<tr><td>" + fecha+ "</td><td>" + val.SKU + "</td><td>" + val.NOM_PRODUCTO + "</td><td>" + val.CANT_PRODUCTO + "</td><td>" + val.PR_PRODUCTO + "</td><td>" + val.MON_PEDIDO + "</td><td>" + val.COS_ENVIO + "</td><td>" + val.TIP_PAGO + "</td><td>" + val.DESCRIPCION + "</td></tr>");
+            $("#contenido_pedidos").append("<tr><td>" + fecha+ "</td><td>" + val.SKU + "</td><td>" + val.NOM_PRODUCTO + "</td><td>" + val.CANT_PRODUCTO + "</td><td>" + val.PR_PRODUCTO + "</td><td>" + val.COS_ENVIO + "</td><td >" + val.MON_PEDIDO + "</td><td>" + val.TIP_PAGO + "</td><td>" + val.DESCRIPCION + "</td></tr>");
         });
         $('#table_pedidos').dataTable().fnDestroy();
         var table = $('#table_pedidos').DataTable({
