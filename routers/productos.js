@@ -46,8 +46,11 @@ app.post("/sku", (req, res) => {
         const consulta = `call 	BUSCAR_PRODUCTO_SKU('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO},${SKU})`;
         conn.query(consulta, (error, results) => {
             if (error) throw error;
-            if (results.length > 0) {
+            console.log(results.length > 0)
+            if (results[0].length > 0) {
                 res.json(results);
+            }else{
+                res.send("SKU inhabilitado")
             }
         })
     } catch (error) {

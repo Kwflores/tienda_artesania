@@ -215,31 +215,43 @@ function agregar_detalle(sku, nombre, descripcion, precio, cant_producto, stock,
     var arreglo_registros = get_detalle_factura();
     var cantidad = 1;
     var total = parseInt(precio) * parseInt(cant_producto);
-    var producto = {
-        code: sku,
-        nom_producto: nombre,
-        des_producto: descripcion,
-        p: precio,
-        q: parseInt(cantidad) + parseInt(cant_producto) - parseInt(1),
-        tt: total,
-        s: stock,
-        id_inventario: cod_inventario,
-        id_producto: cod_producto
-    }
+   
 
 
 
+    
     if (existe_sku(arreglo_registros, sku)) {
         arreglo_registros.forEach(
             carro => {
+                if (carro.s <= carro.q) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: '¡No se cuenta con la cantidad solicitada.!',
+                    })
+                    return;
+    
+                }
                 if (carro.code == sku) {
                     carro.q += 1;
                     carro.tt = carro.p * carro.q;
                 }
+                
 
             });
 
     } else {
+        var producto = {
+            code: sku,
+            nom_producto: nombre,
+            des_producto: descripcion,
+            p: precio,
+            q: parseInt(cantidad) + parseInt(cant_producto) - parseInt(1),
+            tt: total,
+            s: stock,
+            id_inventario: cod_inventario,
+            id_producto: cod_producto
+        }
         arreglo_registros.push(producto);
 
     }
@@ -548,7 +560,7 @@ function obtener_usuarios() {
 
 }
 function buscar_producto(sku) {
-
+ 
     var settings = {
         "url": api + "productos/sku",
         "method": "POST",
@@ -562,8 +574,15 @@ function buscar_producto(sku) {
 
     $.ajax(settings).done(function (response) {
 
-        //  console.log(response[0][0].COD_PRODUCTO)
-
+         console.log(response)
+        if(response == "SKU inhabilitado"){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡El producto se encuentra inahbilitado.!',
+            })
+            return;
+        }
         // console.log(response[0][0].SKU);
         $("#Fproducto").val(response[0][0].NOM_PRODUCTO)
         $("#Fstock").val(0 + response[0][0].STOCK)
@@ -590,6 +609,7 @@ function obtener_producto() {
         })
         return;
     }
+  
     var myHeader = new Headers({
         'Authorization': token
     });
@@ -616,6 +636,7 @@ function obtener_producto() {
                     boton = document.getElementById("btn_agregar")
                     boton.removeAttribute('disabled')
                 }
+               
                 document.getElementById("btn_agregar").style.display = "block"
 
 
@@ -679,6 +700,14 @@ function agregar() {
     Cod_producto = $("#FCOD_PRODUCTO").val()
     cod_inventario = document.getElementById("r_f_cod_inventario")
     sku = document.getElementById("sku_producto")
+    if(stock ==""||cantidad ==""|| producto ==""||detalle ==""||precio ==""||costo_envio ==""){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '¡Debe Ingresar un nuevo producto.!',
+        })
+        return;
+    }
     //  agregar_detalle(producto, detalle, precio, stock,costo_envio, Cod_producto, cod_inventario.innerHTML )
     boton = document.getElementById("registro_factura")
     boton.removeAttribute('disabled')
@@ -687,6 +716,11 @@ function agregar() {
     total_cliente_facturado();
     $("#Fcantidad").val("");
     $("#FSKU").val("");
+    $("#Fstock").val("")
+    $("#Fcantidad").val("")
+    $("#Fproducto").val("")
+    $("#Fdetalle").val("")
+    $("#Fprecio").val("")
 }
 
 

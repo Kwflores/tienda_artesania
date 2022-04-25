@@ -93,12 +93,11 @@ function logeado() {
         document.getElementById("mostra_reportes").style.display = "none";
         document.getElementById("actualizar_usuario").style.display = "none"
         document.getElementById("actualizar_pass_user").style.display = "none"
+         document.getElementById("Seguridad_bitacora").style.display = "block";
     }
     if (localStorage.getItem("Seguridad_bitacora") == "1") {
         document.getElementById("Seguridad_bitacora").style.display = "block";
-        document.getElementById("mostra_reportes").style.display = "none";
-        document.getElementById("actualizar_usuario").style.display = "none"
-        document.getElementById("actualizar_pass_user").style.display = "none"
+      
     }
     if (localStorage.getItem("tiendita") == "1") {
         document.getElementById("tiendita").style.display = "block";
@@ -161,7 +160,20 @@ function mostrar_perfil_cliente(){
     document.getElementById("lista_categorias_productos").style.display = "none";
     document.getElementById("detalle_producto").style.display = "none";
     document.getElementById("carrito_detalle_compra").style.display = "none";
-    
+    localStorage.removeItem("Seguridad_copia_respaldo");
+    localStorage.removeItem("sugerencias");
+    localStorage.removeItem("facturas_sistema")
+    localStorage.removeItem("pedidos_sistema")
+    localStorage.removeItem("inventario_sistema")
+    localStorage.removeItem("mostrar_roles")
+    localStorage.removeItem("mostrarr_proveedores")
+    localStorage.removeItem("mostrar_usuarios")
+    localStorage.removeItem("mostrar_categprias");
+    localStorage.removeItem("permisos_sys");
+    localStorage.removeItem("pedidos_sistema");
+    localStorage.removeItem("productos_sistema");
+    localStorage.removeItem("Seguridad_bitacora");
+
 }
 
 
@@ -214,7 +226,7 @@ function mostrar_dash() {
     document.getElementById("dash").style.display = "block"
     document.getElementById("tiendita").style.display = "none"
     document.getElementById("inicio_sesion").style.display = "none";
-    localStorage.removeItem("mostra_reportes");
+   //localStorage.removeItem("mostra_reportes"); 
 
 }
 

@@ -142,9 +142,9 @@ function mostrar_categorias_tienda() {
         })
         .then(function (data) {
 
-          //  console.log(data);
+            console.log(data);
             var contenido = document.getElementById("categorias");
-          //  console.log(contenido);
+            console.log(contenido);
             //var contenido_cliente = document.getElementById("lista_categorias_clientes");
 
             data[0].forEach(categoria => {
@@ -220,7 +220,7 @@ function mostrar_categorias_tienda_list() {
 
             //console.log(data);
             var contenido = document.getElementById("categorias_listadas");
-          //  console.log(contenido);
+            console.log(contenido);
             //var contenido_cliente = document.getElementById("lista_categorias_clientes");
 
             data[0].forEach(categoria => {
@@ -524,31 +524,42 @@ function agregar_carrito(sku, nombre, descripcion, precio, stock, cod_producto, 
     var arreglo_registros = get_detalle_carrito();
     var cantidad = 01;
     var total = precio;
-    var producto = {
-        code: sku,
-        nom_producto: nombre,
-        des_producto: descripcion,
-        p: precio,
-        q: cantidad,
-        tt: total,
-        s: stock,
-        id_inventario: cod_inventario,
-        id_producto: cod_producto
-    }
+  
 
 
 
     if (existe_sku(arreglo_registros, sku)) {
         arreglo_registros.forEach(
             carro => {
+                if (carro.s <= carro.q) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: '¡No se cuenta con la cantidad solicitada.!',
+                    })
+                    return;
+    
+                }
                 if (carro.code == sku) {
                     carro.q += 1;
                     carro.tt = carro.p * carro.q;
                 }
+                
 
             });
 
     } else {
+        var producto = {
+            code: sku,
+            nom_producto: nombre,
+            des_producto: descripcion,
+            p: precio,
+            q: cantidad,
+            tt: total,
+            s: stock,
+            id_inventario: cod_inventario,
+            id_producto: cod_producto
+        }
         arreglo_registros.push(producto);
 
     }
@@ -606,14 +617,7 @@ function llenar_tabla_carrito_cliente() {
                 return;
             }
 
-            if (producto.s < producto.q) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: '¡No se cuenta con la cantidad solicitada.!',
-                })
-
-            }
+           
             var fila_cliente = document.createElement("tr");
 
             var celda_sku_cliente = document.createElement("td");
