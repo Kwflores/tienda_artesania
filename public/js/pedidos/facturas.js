@@ -70,6 +70,11 @@ $(document).ready(function () {
                 $.ajax(settings).done(function (response) {
                     //   console.log(response)
                     // document.getElementById("detalle_total").innerHTML = ""
+                    Swal.fire(
+                        'Registro Completo!',
+                        'Se registro correctamente!',
+                        'success'
+                    )
                     vaciarcliente();
                     limpiar()
                     document.frm_categoria.submit();
