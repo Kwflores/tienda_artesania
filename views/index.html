@@ -110,18 +110,18 @@
                         <div class="col-lg-6 d-flex align-items-center justify-content-center justify-content-lg-end">
                             <div style="display: none;" id="bienvenido_usuario"
                                 class="col-lg-6 text-white-75 text-center text-lg-left py-3 py-lg-0">
-                                <small>Bienvenido: <a href="#" class="text-white font-weight-600"
-                                        id="usuario"> </a>
-                                        <a href="#"  onclick=" carrito_compra_logeado()"
-                                        class="btn btn-warning shadow-none rounded-0 mb-0" id="carrito_decompras"></a>  </small>
-                                          
-                                         
+                                <small>Bienvenido: <a href="#" class="text-white font-weight-600" id="usuario"> </a>
+
+
+
                             </div>
+                            <a href="#" onclick=" carrito_compra_logeado()"
+                                class="btn btn-warning shadow-none rounded-0 mb-0" id="carrito_decompras"></a> </small>
                             <a href="#" onclick="mostrarlogin()" class="btn btn-secondary shadow-none rounded-0 mb-0"
                                 id="iniciar_sesion">Iniciar Sesión</a>
-                                <a href="#" onclick="cerrar_sesion()" style="display: none;"
+                            <a href="#" onclick="cerrar_sesion()" style="display: none;"
                                 class="btn btn-secondary shadow-none rounded-0 mb-0" id="cerrar_sesion"><i
-                                    class="fas fa-sign-in-alt"></i>Cerrar Sesión</a>    
+                                    class="fas fa-sign-in-alt"></i>Cerrar Sesión</a>
                         </div>
 
                     </div>
@@ -148,15 +148,100 @@
                     <nav class="navik-menu menu-hover-3 menu-caret submenu-top-border submenu-scale">
                         <ul>
                             <li class="current-menu"><a href="/">INICIO</a></li>
-                            <li><a href="index.html">CATEGORIAS</a></li>
-                            <li><a href="index.html">PRODUCTOS</a></li>
-                            <li><a style="display: none;" id="mostrar_perfil_cliente" onclick="mostrar_perfil_cliente()" href="#"><i class='fas fa-user-cog'></i> PERFIL DE USUARIO</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#modalInfo">PREGUNTAS FRECUENTES</a></li>
+                            <li><a style="display: none;" id="mostrar_perfil_cliente" onclick="mostrar_perfil_cliente()"
+                                    href="#"><i class='fas fa-user-cog'></i> PERFIL DE USUARIO</a></li>
                         </ul>
                     </nav>
 
                 </div>
             </div>
 
+        </div>
+
+        <!-- Button -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content rounded-xl bg-transparent bg-image"
+                    data-img-src="/public/assets/images/upload/modal-info-bg.jpg">
+                    <div class="modal-body p-0">
+
+                        <button type="button" class="close close-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+
+                        <div class="px-4 px-md-5 py-5">
+                            <div class="px-lg-2 pt-2 pb-4 pt-md-4 pb-md-5">
+                                <div class="row">
+                                    <div class="col-lg-10 offset-lg-1">
+                                        <div class="px-lg-4 text-center">
+
+                                            <img class="my-3" src="/public/assets/svg/upload/pen-info.svg"
+                                                alt="Information">
+
+                                            <h2
+                                                class="section-title-4 title-light-2 text-center font-weight-700 py-2 mb-4">
+                                                Preguntas Frecuentes
+                                                <div class="title-divider-round"></div>
+                                            </h2>
+
+                                            <div class="py-1 text-white">
+                                                <p>HORARIOS DE DÍA Y HORA DE ENTREGA: Los días de entrega son los lunes,
+                                                    miércoles y viernes de 8am a 4 pm.</p>
+                                                <p>LUGARES DE ENTREGA: Tegucigalpa y Ojojona. <br>
+                                                    
+                                                </p>
+                                            </div>
+                                            <p class="text-white" style="text-align: justify;">
+                                                PAGOS: El cliente puede liquidar cualquier producto en su totalidad
+                                                    por medio de Dépositos bancarios, Pagos contra entrega y en
+                                                    Efectivo. <br>
+                                                    REEMBOLSOS: No hacemos reembolsos, cambios ni devoluciones.
+                                                    ENCARGOS AL POR MAYOR Y MENOR
+                                            </p>
+                                            
+                                            <form class="form-light-2 mt-4">
+                                                <a href="https://api.whatsapp.com/send?phone=32745962&text=Atenci%C3%B3n%20al%20cliente,%20estamos%20para%20servirte.%20"
+                                                    class="btn btn-lg btn-round btn-dark mx-2 mb-xl-0 ml-xl-0"><i
+                                                        class="fab fa-whatsapp"></i> Escríbenos !</a>
+                                                 
+                                            </form>
+                                            <div class="col-12">
+                                                <br>
+                                                <div class="py-1 text-white">
+                                                    <p>Encuéntranos en nuestra redes sociales:  </p>
+                                                    <center>
+                                                        <div class="align-items-center">
+                                                            <div class=" text-white text-center text-lg-center">
+                                                                <a href="https://www.facebook.com/Fuente-De-Bendicion-1453843338050183/?ti=as"
+                                                                    class="btn btn-round btn-lg btn-icon-only btn-outline-light mr-3 mb-0"><i
+                                                                        class="fab fa-facebook-f"></i></a>
+                                                                <a href="https://api.whatsapp.com/send?phone=32745962&text=Atenci%C3%B3n%20al%20cliente,%20estamos%20para%20servirte.%20"
+                                                                    class="btn btn-round btn-lg btn-icon-only btn-outline-light mr-3 mb-0"><i
+                                                                        class="fab fa-whatsapp"></i></a>
+                                                                <a href="https://instagram.com/artesania_fb?igshid=YmMyMTA2M2Y="
+                                                                    class="btn btn-round btn-lg btn-icon-only btn-outline-light mb-0"><i
+                                                                        class="fab fa-instagram"></i></a>
+                                                            </div>
+                                                     
+                             
+                                                    </div>
+                                                    </center>
+                                                </div>
+                                                
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
         <section id="perfil_usuario_cliente" style="display: none; ">
             <br><br><br><br><br>
@@ -174,8 +259,8 @@
                                         <div data-height="1px"></div>
 
                                         <div class="pb-2 mb-4">
-                                            <img src="../public/assets/images/upload/account-avatar.jpg"
-                                                alt="author" class="rounded-circle shadow">
+                                            <img src="../public/assets/images/upload/account-avatar.jpg" alt="author"
+                                                class="rounded-circle shadow">
                                         </div>
 
                                         <h5 class="font-weight-700 mb-0" id="usuario_sistema"> </h5>
@@ -187,9 +272,8 @@
                                     </div>
 
                                     <div class="text-center d-lg-none">
-                                        <button class="navbar-toggler collapsed" type="button"
-                                            data-toggle="collapse" data-target="#sidebarMenu"
-                                            aria-controls="sidebarMenu" aria-expanded="false"
+                                        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                                            data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
                                             aria-label="Toggle navigation">
                                             <i class="fas fa-bars fa-lg text-dark mt-4"></i>
                                         </button>
@@ -197,23 +281,20 @@
 
                                     <div id="sidebarMenu" class="d-lg-block collapse">
 
-                                        <h5
-                                            class="font-weight-700 px-4 px-md-5 px-lg-4 px-xl-5 pt-3 mt-4 mb-3">
+                                        <h5 class="font-weight-700 px-4 px-md-5 px-lg-4 px-xl-5 pt-3 mt-4 mb-3">
                                             Cuenta</h5>
 
                                         <ul class="list-group list-group-flush pt-0">
                                             <a href="#" onclick="perfil_user_cliente()"
                                                 class="list-group-item list-group-item-action active d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5">
-                                                <img src="../public/assets/svg/upload/account-user-info.svg"
-                                                    alt="icon" class="mr-2" data-width="16px"
-                                                    data-height="16px">
+                                                <img src="../public/assets/svg/upload/account-user-info.svg" alt="icon"
+                                                    class="mr-2" data-width="16px" data-height="16px">
                                                 <span>Información Personal</span>
                                             </a>
                                             <a href="#" onclick="mostrar_pass_perfil_cliente()"
                                                 class="list-group-item list-group-item-action  d-flex align-items-center px-4 px-md-5 px-lg-4 px-xl-5">
                                                 <img src="../public/assets/svg/upload/account-preferences.svg"
-                                                    alt="icon" class="mr-2" data-width="16px"
-                                                    data-height="16px">
+                                                    alt="icon" class="mr-2" data-width="16px" data-height="16px">
                                                 <span>Modificar Contraseña</span>
                                             </a>
 
@@ -239,18 +320,15 @@
                                         <div class="form-row">
 
                                             <div class="col-md-6">
-                                                <div
-                                                    class="input-group input-group-lg input-group-round mb-4 pr-md-2">
+                                                <div class="input-group input-group-lg input-group-round mb-4 pr-md-2">
                                                     <label class="text-uppercase">Nombre del
                                                         Usuario</label>
                                                     <div class="input-group-inner">
                                                         <div class="input-group-prepend">
-                                                            <span
-                                                                class="input-group-text input-group-icon"><i
+                                                            <span class="input-group-text input-group-icon"><i
                                                                     class="fas fa-user-circle"></i></span>
                                                         </div>
-                                                        <input type="text"
-                                                            class="form-control form-control-lg"
+                                                        <input type="text" class="form-control form-control-lg"
                                                             id="perfil_Cliente"
                                                             onkeyup="javascript:this.value=this.value.toUpperCase();"
                                                             maxlength="50">
@@ -260,21 +338,17 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <div
-                                                    class="input-group input-group-lg input-group-round mb-4 pl-md-2">
+                                                <div class="input-group input-group-lg input-group-round mb-4 pl-md-2">
                                                     <label class="text-uppercase">Correo</label>
                                                     <div class="input-group-inner">
                                                         <div class="input-group-prepend">
-                                                            <span
-                                                                class="input-group-text input-group-icon"><i
+                                                            <span class="input-group-text input-group-icon"><i
                                                                     class="fas fa-envelope-open-text"></i></span>
                                                         </div>
-                                                        <input type="email"
-                                                            class="form-control form-control-lg"
+                                                        <input type="email" class="form-control form-control-lg"
                                                             id="Perfil_Correo_cliente" maxlength="30"
                                                             onkeyup="javascript:this.value=this.value.toUpperCase();">
-                                                        <span style="color: brown;"
-                                                            id="P_CcorreoOK"></span>
+                                                        <span style="color: brown;" id="P_CcorreoOK"></span>
                                                         <div class="input-focus-bg"></div>
 
                                                     </div>
@@ -282,17 +356,14 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <div
-                                                    class="input-group input-group-lg input-group-round mb-4 pr-md-2">
+                                                <div class="input-group input-group-lg input-group-round mb-4 pr-md-2">
                                                     <label class="text-uppercase">Telefono</label>
                                                     <div class="input-group-inner">
                                                         <div class="input-group-prepend">
-                                                            <span
-                                                                class="input-group-text input-group-icon"><i
+                                                            <span class="input-group-text input-group-icon"><i
                                                                     class="fas fa-mobile-alt"></i></span>
                                                         </div>
-                                                        <input type="number"
-                                                            class="form-control form-control-lg"
+                                                        <input type="number" class="form-control form-control-lg"
                                                             id="Perfil_telefono_cliente" maxlength="8">
                                                         <div class="input-focus-bg"></div>
                                                     </div>
@@ -300,17 +371,14 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <div
-                                                    class="input-group input-group-lg input-group-round mb-4 pl-md-2">
+                                                <div class="input-group input-group-lg input-group-round mb-4 pl-md-2">
                                                     <label class="text-uppercase">Direccion</label>
                                                     <div class="input-group-inner">
                                                         <div class="input-group-prepend">
-                                                            <span
-                                                                class="input-group-text input-group-icon"><i
+                                                            <span class="input-group-text input-group-icon"><i
                                                                     class="fas fa-map-marker-alt"></i></span>
                                                         </div>
-                                                        <input type="text"
-                                                            class="form-control form-control-lg"
+                                                        <input type="text" class="form-control form-control-lg"
                                                             id="Perfil_Direccion_cliente"
                                                             onkeyup="javascript:this.value=this.value.toUpperCase();"
                                                             maxlength="100">
@@ -319,8 +387,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div
-                                                    class="input-group input-group-lg input-group-round mb-4 pr-md-2">
+                                                <div class="input-group input-group-lg input-group-round mb-4 pr-md-2">
                                                     <label for="text-uppercase">Tipo de IDE</label>
                                                     <div class="input-group-inner">
                                                         <div class="form-group col ">
@@ -342,18 +409,14 @@
                                             </div>
                                             <div class="col-md-6">
 
-                                                <div
-                                                    class="input-group input-group-lg input-group-round mb-4 pl-md-2">
-                                                    <label
-                                                        class="text-uppercase">Identificacion</label>
+                                                <div class="input-group input-group-lg input-group-round mb-4 pl-md-2">
+                                                    <label class="text-uppercase">Identificacion</label>
                                                     <div class="input-group-inner">
                                                         <div class="input-group-prepend">
-                                                            <span
-                                                                class="input-group-text input-group-icon"><i
+                                                            <span class="input-group-text input-group-icon"><i
                                                                     class="fas fa-map-marker-alt"></i></span>
                                                         </div>
-                                                        <input type="number"
-                                                            class="form-control form-control-lg"
+                                                        <input type="number" class="form-control form-control-lg"
                                                             id="Perfil_idenficacion_cliente" minlength="13"
                                                             maxlength="16">
                                                         <div class="input-focus-bg"></div>
@@ -369,8 +432,7 @@
 
                                         <div class="col-12">
                                             <div class="text-md-right">
-                                                <a href="#"
-                                                    class="btn btn-lg btn-round btn-primary ml-2"
+                                                <a href="#" class="btn btn-lg btn-round btn-primary ml-2"
                                                     onclick="actualizar_perfil_cliente()">Guardar
                                                     Cambios</a>
                                             </div>
@@ -381,8 +443,7 @@
 
                             </div>
 
-                            <div class="pb-3 mb-3" id="perfil_data_contraseña_cliente"
-                                style="display: none;">
+                            <div class="pb-3 mb-3" id="perfil_data_contraseña_cliente" style="display: none;">
                                 <div class="bg-white rounded-xl shadow-sm px-4 py-5 p-md-5">
 
                                     <h5 class="font-weight-700 section-title-4 text-left pb-2 mb-4">
@@ -395,20 +456,17 @@
 
                                             <div class="col-12">
 
-                                                <div
-                                                    class="input-group input-group-lg input-group-round mb-4">
+                                                <div class="input-group input-group-lg input-group-round mb-4">
                                                     <label class="text-uppercase">Contraseña
                                                         Actual</label>
                                                     <div id="clave_actual_cliente" style="display: none;">
                                                     </div>
                                                     <div class="input-group-inner">
                                                         <div class="input-group-prepend">
-                                                            <span
-                                                                class="input-group-text input-group-icon"><i
+                                                            <span class="input-group-text input-group-icon"><i
                                                                     class="fas fa-unlock-alt"></i></span>
                                                         </div>
-                                                        <input type="password"
-                                                            class="form-control form-control-lg"
+                                                        <input type="password" class="form-control form-control-lg"
                                                             id="contraseña_actual_cliente"
                                                             placeholder="Contraseña Actual">
                                                         <div class="input-focus-bg"></div>
@@ -417,18 +475,15 @@
                                             </div>
 
                                             <div class="col-12">
-                                                <div
-                                                    class="input-group input-group-lg input-group-round mb-4">
+                                                <div class="input-group input-group-lg input-group-round mb-4">
                                                     <label class="text-uppercase">Nueva
                                                         Contraseña</label>
                                                     <div class="input-group-inner">
                                                         <div class="input-group-prepend">
-                                                            <span
-                                                                class="input-group-text input-group-icon"><i
+                                                            <span class="input-group-text input-group-icon"><i
                                                                     class="fas fa-lock"></i></span>
                                                         </div>
-                                                        <input type="password"
-                                                            class="form-control form-control-lg"
+                                                        <input type="password" class="form-control form-control-lg"
                                                             id="nueva_contraseña_perfil_actual"
                                                             placeholder="Nueva Contraseña">
                                                         <span id="Apassstrengths"></span>
@@ -441,18 +496,15 @@
 
 
                                             <div class="col-12">
-                                                <div
-                                                    class="input-group input-group-lg input-group-round mb-4">
+                                                <div class="input-group input-group-lg input-group-round mb-4">
                                                     <label class="text-uppercase">Confirmar nueva
                                                         Contraseña</label>
                                                     <div class="input-group-inner">
                                                         <div class="input-group-prepend">
-                                                            <span
-                                                                class="input-group-text input-group-icon"><i
+                                                            <span class="input-group-text input-group-icon"><i
                                                                     class="fas fa-lock"></i></span>
                                                         </div>
-                                                        <input type="password"
-                                                            class="form-control form-control-lg"
+                                                        <input type="password" class="form-control form-control-lg"
                                                             id="confirmar_contraseña_perfil_perfil"
                                                             placeholder="Confirmar nueva Contraseña">
                                                         <div class="input-focus-bg"></div>
@@ -462,8 +514,7 @@
 
                                             <div class="col-12">
                                                 <div class="text-md-right">
-                                                    <a href="#"
-                                                        class="btn btn-lg btn-round btn-primary"
+                                                    <a href="#" class="btn btn-lg btn-round btn-primary"
                                                         onclick="actualizar_contraseña_perfil()">Actualizar
                                                         Contraseña</a>
                                                 </div>
@@ -480,8 +531,8 @@
                                     class="d-md-flex align-items-xl-center text-center text-md-left bg-white rounded-xl shadow-sm px-4 py-5 p-md-5">
 
                                     <div class="pr-md-3 mb-5 mb-md-0">
-                                        <img src="../public/assets/images/upload/avatar-upload.jpg"
-                                            alt="author" class="rounded-circle shadow">
+                                        <img src="../public/assets/images/upload/avatar-upload.jpg" alt="author"
+                                            class="rounded-circle shadow">
                                     </div>
 
                                     <div class="w-100 pl-md-3 mb-1">
@@ -490,8 +541,7 @@
 
                                         <div class="row align-items-center justify-content-between">
                                             <div class="col-xl-7 mb-4 mb-xl-0">
-                                                <a href="#"
-                                                    class="btn btn-lg btn-round btn-primary mr-2 mb-0">Upload
+                                                <a href="#" class="btn btn-lg btn-round btn-primary mr-2 mb-0">Upload
                                                     Photo</a>
                                                 <a href="#"
                                                     class="btn btn-lg btn-round btn-outline-primary mb-0">Delete</a>
@@ -522,7 +572,7 @@
                     <div class="col-12">
                         <div class="container">
                             <div class="row align-items-center mt-4 mb-5 mt-md-5 mt-lg-4 mb-lg-0">
-                                
+
                                 <div class="col-md-10 offset-md-1 col-lg-5 offset-lg-0 ">
                                     <div class="py-5 pl-lg-4 ml-lg-n4 overflow-hidden text-center text-lg-left">
                                         <h2 class="h5 font-weight-700 text-warning letter-spacing-sm mb-lg-0 add-animate"
@@ -530,11 +580,13 @@
                                         <h1 class="display-4  font-weight-800 text-white add-animate"
                                             data-animated="bounceInRight">FUENTE DE BENDICIÓN</h1>
                                         <div class="lead-sm font-weight-500 text-white pb-2 mb-5 add-animate"
-                                            data-animated="bounceInLeft">¡Tú mejor compra hasta la puerta de tu casa.!</div>
+                                            data-animated="bounceInLeft">¡Tú mejor compra hasta la puerta de tu casa.!
+                                        </div>
                                         <div class="add-animate" data-animated="bounceInRight">
-                                            <a href="https://api.whatsapp.com/send?phone=32745962&text=Atenci%C3%B3n%20al%20cliente,%20estamos%20para%20servirte.%20" class="btn btn-lg btn-round btn-dark mx-2 mb-xl-0 ml-xl-0"><i
+                                            <a href="https://api.whatsapp.com/send?phone=32745962&text=Atenci%C3%B3n%20al%20cliente,%20estamos%20para%20servirte.%20"
+                                                class="btn btn-lg btn-round btn-dark mx-2 mb-xl-0 ml-xl-0"><i
                                                     class="fab fa-whatsapp"></i>Haga su Cotización!</a>
-                                           
+
                                         </div>
                                     </div>
                                 </div>
@@ -560,7 +612,8 @@
                                     <a href="https://api.whatsapp.com/send?phone=32745962&text=Atenci%C3%B3n%20al%20cliente,%20estamos%20para%20servirte.%20"
                                         class="btn btn-round btn-lg btn-icon-only btn-outline-light mr-3 mb-0"><i
                                             class="fab fa-whatsapp"></i></a>
-                                    <a href="https://instagram.com/artesania_fb?igshid=YmMyMTA2M2Y=" class="btn btn-round btn-lg btn-icon-only btn-outline-light mb-0"><i
+                                    <a href="https://instagram.com/artesania_fb?igshid=YmMyMTA2M2Y="
+                                        class="btn btn-round btn-lg btn-icon-only btn-outline-light mb-0"><i
                                             class="fab fa-instagram"></i></a>
                                 </div>
                             </div>
@@ -572,12 +625,12 @@
                                         class="col-md-12 px-4 pr-md-0 pl-md-5 pb-5 py-md-4 text-center text-md-left d-md-flex align-items-center justify-content-between text-white bg-dark order-2 order-md-1">
                                         <div class="position-relative z-index-1 d-flex align-items-center justify-content-center mx-auto mt-n5 mb-3 my-md-0 mr-md-n5 order-md-2"
                                             data-width="2rem" data-height="2rem">
-                                           
+
                                         </div>
-                                         
+
                                     </div>
 
-                                    
+
 
                                 </div>
                             </div>
@@ -592,10 +645,10 @@
         <!-- Content -->
         <div class="main-content pb-0">
 
-           
+
 
             <!-- Products section -->
-            <div class="section bg-light" id="lista_categorias"  style="display: block;">
+            <div class="section bg-light" id="lista_categorias" style="display: block;">
                 <div class="container ">
                     <div class="row">
                         <div id="titulo_categoria" class="col">
@@ -605,16 +658,16 @@
                         </div>
                     </div>
 
-                    <div id="categorias" class="row" >
+                    <div id="categorias" class="row">
                     </div>
 
                     <div id="boton_todo_producto" class="row mb-3 py-5">
-                       
+
                     </div>
 
                 </div>
             </div>
-            <div id="lista_categorias_productos" style="display: none;"  class="col-md-12">
+            <div id="lista_categorias_productos" style="display: none;" class="col-md-12">
                 <div class="row">
                     <div id="titulo_categoria" class="col">
                         <h2 class="h1 section-title-3 text-center font-weight-800 mt-4 mb-2">
@@ -622,12 +675,13 @@
                         </h2>
                     </div>
                 </div>
-                <div id="categorias_listadas"  class="row" ></div>
-                <div  class="row mb-3 py-5"></div>
-             </div>
-            
+                <div id="categorias_listadas" class="row"></div>
+                <div class="row mb-3 py-5"></div>
+            </div>
+
             <div id="listado_productos" class="section bg-light" style="display: none;">
-                <h2 style="display: none;" id="titulo_producto" class="h1 section-title-3 text-center font-weight-800 mt-4 mb-2">
+                <h2 style="display: none;" id="titulo_producto"
+                    class="h1 section-title-3 text-center font-weight-800 mt-4 mb-2">
                     Productos por Categoria
                 </h2>
                 <div class="container">
@@ -714,19 +768,20 @@
                     <br><br>
 
                 </div>
-                 
+
             </div>
             <div id="carrito_detalle_compra" class="bg-white " style="display: none;">
                 <br>
                 <div class="col-md-12">
-                    <button type="button" onclick="continuar_comprando()" class="btn btn-lg btn-dark" style="float: right;"><i class="fas fa-shopping-cart"></i> Continuar Comprando</button>
-                    </div>
+                    <button type="button" onclick="continuar_comprando()" class="btn btn-lg btn-dark"
+                        style="float: right;"><i class="fas fa-shopping-cart"></i> Continuar Comprando</button>
+                </div>
                 <div id="stock_carrito" style="display: none;"></div>
                 <h2 class="h1 section-title-3 text-center font-weight-800 mt-4 mb-2">
                     Detalle de la Compra
                 </h2>
                 <br>
-               
+
                 <br>
 
                 <div class="container-fluid">
@@ -753,7 +808,8 @@
 
                             </table>
                             <button type="button" onclick="vaciarcarrito_cliente()"
-                                class="btn btn-lg btn-warning mx-2 mb-4"><i class="fas fa-shopping-cart"></i> Vaciar Carrito</button>
+                                class="btn btn-lg btn-warning mx-2 mb-4"><i class="fas fa-shopping-cart"></i> Vaciar
+                                Carrito</button>
                         </div>
                         <div class="col-md-3">
                             <div class="section bg-image">
@@ -767,23 +823,27 @@
                                                         <div
                                                             class="card card-price-table border-0 shadow-lg text-center rounded-xl">
                                                             <div class="card-body">
-                                                               
+
                                                                 <h5 class="card-price-title text-uppercase"><i
                                                                         class="fas fa-paper-plane"></i>Detalles de
                                                                     Compra</h5>
-                                                                    <h5 class="text-uppercase">Entregas Disponibles</h5>
-                                                                    <lable id="detalle_entrega">Tegucigalpa y Ojojona</label>
-                                                                        <lable id="detalle_entrega">Lunes, Miercoles y Viernes</label>
-                                                                <div>Costo de Envio: L.
-                                                                    <lable id="detalle_costo_envio">100.00</label></div>
-                                                                <div>Total a Pagar: L.
-                                                                    <lable id="detalle_carrito_total"> </label>
+                                                                <h5 class="text-uppercase">Entregas Disponibles</h5>
+                                                                <lable id="detalle_entrega">Tegucigalpa y
+                                                                    Ojojona</label>
+                                                                    <lable id="detalle_entrega">Lunes, Miercoles y
+                                                                        Viernes</label>
+                                                                        <div>Costo de Envio: L.
+                                                                            <lable id="detalle_costo_envio">
+                                                                                100.00</label>
+                                                                        </div>
+                                                                        <div>Total a Pagar: L.
+                                                                            <lable id="detalle_carrito_total"> </label>
 
-                                                                </div>
-                                                                <button  onclick="datos_cliente()"  
-                                                                class="btn btn-round btn-outline-primary btn-lg mb-2">Pagar</button>
-                                                                
-                                                                     </a>
+                                                                        </div>
+                                                                        <button onclick="datos_cliente()"
+                                                                            class="btn btn-round btn-outline-primary btn-lg mb-2">Pagar</button>
+
+                                                                        </a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -798,54 +858,56 @@
                             </div>
                         </div>
                         <div id="Datos_clientes" class="col-md-12" style="display: none;">
-                         <div  class="section bg-light" >
-                            <div id="cliente_cod" style="display: none;"></div> 
-                            <h2 class="h1 section-title-3 text-left font-weight-800 mt-4 mb-2">
-                                Datos Personales
-                            </h2>
-                            <form id="pago_cliente" class="bg-white shadow-lg px-4 py-5 p-md-5 mt-5 mt-md-0" >
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-3">
-                                            <label>Nombre Completo:</label>
-                                            <input type="text" class="form-control" disabled id="nombre_cliente"
-                                                placeholder="Nombre Completo" required maxlength="50">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="exampleFormControlInput1">Dirección de Entrega:</label>
-                                                <input type="text" class="form-control"  id="direccion_entrega_cliente" required
-                                                    maxlength="100" placeholder="Dirección">
+                            <div class="section bg-light">
+                                <div id="cliente_cod" style="display: none;"></div>
+                                <h2 class="h1 section-title-3 text-left font-weight-800 mt-4 mb-2">
+                                    Datos Personales
+                                </h2>
+                                <form id="pago_cliente" class="bg-white shadow-lg px-4 py-5 p-md-5 mt-5 mt-md-0">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-3">
+                                                <label>Nombre Completo:</label>
+                                                <input type="text" class="form-control" disabled id="nombre_cliente"
+                                                    placeholder="Nombre Completo" required maxlength="50">
                                             </div>
-                                        </div> <div class="col-md-3"></div>
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-6">
-                                            <label for="exampleFormControlSelect2">Forma de Pago:</label>
-                                            <select class="form-control" id="forma_pago_cliente">
-                                                <option value="">Seleccione Una Forma de Pagar</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-12">
-                                            <center>
-                                                <br><br>
-                                                <div>
-                                                    <button id="registrar_compra" type="button"
-                                                        class="btn btn-primary mb-2">Confirmar Pago</button>
-                                                    <button type="button" onclick="vaciarcarrito_cliente()" class="btn btn-danger mb-2"
-                                                         >Cancelar</button>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlInput1">Dirección de Entrega:</label>
+                                                    <input type="text" class="form-control"
+                                                        id="direccion_entrega_cliente" required maxlength="100"
+                                                        placeholder="Dirección">
                                                 </div>
-        
-                                            </center>
-                                        </div>
-                                       
-                                        
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-6">
+                                                <label for="exampleFormControlSelect2">Forma de Pago:</label>
+                                                <select class="form-control" id="forma_pago_cliente">
+                                                    <option value="">Seleccione Una Forma de Pagar</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-12">
+                                                <center>
+                                                    <br><br>
+                                                    <div>
+                                                        <button id="registrar_compra" type="button"
+                                                            class="btn btn-primary mb-2">Confirmar Pago</button>
+                                                        <button type="button" onclick="vaciarcarrito_cliente()"
+                                                            class="btn btn-danger mb-2">Cancelar</button>
+                                                    </div>
 
+                                                </center>
+                                            </div>
+
+
+
+                                        </div>
                                     </div>
-                                </div>
-                              </form>
-                         </div>
+                                </form>
+                            </div>
                         </div>
 
                     </div>
@@ -867,11 +929,13 @@
                                         <div class="card-img-overlay d-flex align-items-center px-4 py-5 p-md-5">
                                             <div class="w-100">
                                                 <div class="col-md-6 col-xl-12">
-                                    <img src="/public/img/image/IMAGENES PROYECTO/RECUERDOS/hojas.png" alt="image" class="w-100">
-                                </div>
-                                                <h2 class="font-weight-800 text-white line-height-sm mb-4 mb-lg-5"> Nos ajustamos a su presupuesto</h2>
-                                              
-                                
+                                                    <img src="/public/img/image/IMAGENES PROYECTO/RECUERDOS/hojas.png"
+                                                        alt="image" class="w-100">
+                                                </div>
+                                                <h2 class="font-weight-800 text-white line-height-sm mb-4 mb-lg-5"> Nos
+                                                    ajustamos a su presupuesto</h2>
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -885,7 +949,8 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-4 d-flex align-items-center p-5 bg-image"  data-img-src="/public/img/Pintar.png">
+                        <div class="col-xl-4 d-flex align-items-center p-5 bg-image"
+                            data-img-src="/public/img/Pintar.png">
                             <div class="w-100 text-center px-md-5 px-xl-2">
 
                                 <div class="d-none d-md-block d-xl-none" data-height="15vw"></div>
@@ -898,12 +963,13 @@
 
                             </div>
                         </div>
-                       
+
                         <div class="col-xl-4">
                             <div class="row no-gutters">
 
                                 <div class="col-md-6 col-xl-12">
-                                    <img src="/public/img/image/IMAGENES PROYECTO/MASETERAS/vaca.png" alt="image" class="w-100">
+                                    <img src="/public/img/image/IMAGENES PROYECTO/MASETERAS/vaca.png" alt="image"
+                                        class="w-100">
                                 </div>
 
                                 <div class="col-md-6 col-xl-12">
@@ -914,8 +980,10 @@
                                         <div class="card-img-overlay d-flex align-items-center px-4 py-5 p-md-5">
                                             <div class="w-100">
                                                 <br>
-                                                <h2 class="font-weight-800 text-white line-height-sm mb-4 mb-lg-5">La belleza esta en los detalles</h2>
-                                                    <img src="/public/img/image/IMAGENES PROYECTO/RECUERDOS/flores.png" alt="image" class="w-100">
+                                                <h2 class="font-weight-800 text-white line-height-sm mb-4 mb-lg-5">La
+                                                    belleza esta en los detalles</h2>
+                                                <img src="/public/img/image/IMAGENES PROYECTO/RECUERDOS/flores.png"
+                                                    alt="image" class="w-100">
 
                                             </div>
                                         </div>
@@ -928,7 +996,7 @@
                     </div>
                 </div>
             </div>
-   <!-- Overview section -->
+            <!-- Overview section -->
             <div id="seccion_informativa" class="section pb-5 py-5">
 
                 <div class="container">
@@ -945,7 +1013,8 @@
                                     </div>
                                     <div class="icon-info-text px-4 pt-3">
                                         <h4 class="font-weight-700 mb-3">Visitanos</h4>
-                                        <p class="mb-0"> Nos encontramos en ojojona FM, enfrente de la alcaldia municipal. </p>
+                                        <p class="mb-0"> Nos encontramos en ojojona FM, enfrente de la alcaldia
+                                            municipal. </p>
                                     </div>
                                 </a>
                             </div>
@@ -959,7 +1028,8 @@
                                     </div>
                                     <div class="icon-info-text px-4 pt-3">
                                         <h4 class="font-weight-700 mb-3">Envios</h4>
-                                        <p class="mb-0">Hacemos entregas hasta la puerta de tu casa en Ojojona y Tegucigalpa F.M. Los días Lunes, Miércoles y Viernes.</p>
+                                        <p class="mb-0">Hacemos entregas hasta la puerta de tu casa en Ojojona y
+                                            Tegucigalpa F.M. Los días Lunes, Miércoles y Viernes.</p>
                                     </div>
                                 </a>
                             </div>
@@ -984,11 +1054,11 @@
                                     </div>
                                     <div class="icon-info-text px-4 pt-3">
                                         <h4 class="font-weight-700 mb-3">Servicio</h4>
-                                        <p class="mb-0">Para ofrecerte un producto excelente, 
-                                            elegimos los mejores materiales, lo elaboramos, 
-                                            pulimos, horneamos, barnizamos y decoramos para 
+                                        <p class="mb-0">Para ofrecerte un producto excelente,
+                                            elegimos los mejores materiales, lo elaboramos,
+                                            pulimos, horneamos, barnizamos y decoramos para
                                             que encuentres exclusividad.
-                                          </p>
+                                        </p>
                                     </div>
                                 </a>
                             </div>
@@ -1002,7 +1072,8 @@
                                     </div>
                                     <div class="icon-info-text px-4 pt-3">
                                         <h4 class="font-weight-700 mb-3">Pagos</h4>
-                                        <p class="mb-0">Disponemos con metodos de pagos disponibles en Transferencias Bancarias y Pagos contra entrega de producto</p>
+                                        <p class="mb-0">Disponemos con metodos de pagos disponibles en Transferencias
+                                            Bancarias y Pagos contra entrega de producto</p>
                                     </div>
                                 </a>
                             </div>
@@ -1028,9 +1099,10 @@
                                         <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                                             <div class="text-center my-4">
                                                 <h2 class="h1 section-title-3 font-weight-800 text-center mb-4">
-                                                   Más Información - Contactanos</h2>
+                                                    Más Información - Contactanos</h2>
                                                 <div class="lead-sm pt-2">
-                                                   Tienes dudas o alguna sugerencia, necesitas cotizar nuestros productos, favor escribenos.!!!
+                                                    Tienes dudas o alguna sugerencia, necesitas cotizar nuestros
+                                                    productos, favor escribenos.!!!
                                                 </div>
                                             </div>
                                         </div>
@@ -1040,15 +1112,17 @@
                                         <div class="form-row">
                                             <div class="col-lg-4">
                                                 <div class="px-1 mb-4 mb-lg-0">
-                                                    <input class="form-control form-round form-control-lg" id="correo_contacto" type="email"
+                                                    <input class="form-control form-round form-control-lg"
+                                                        id="correo_contacto" type="email"
                                                         placeholder="Correo Electronico">
-                                                        <span style="color: brown;" id="OKcorreo_contacto"></span>
+                                                    <span style="color: brown;" id="OKcorreo_contacto"></span>
                                                 </div>
 
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="px-1 mb-4 mb-lg-0">
-                                                    <input class="form-control form-round form-control-lg" id="telefono_contacto"  type="number"
+                                                    <input class="form-control form-round form-control-lg"
+                                                        id="telefono_contacto" type="number"
                                                         placeholder="Número Telefonico">
                                                 </div>
                                             </div>
@@ -1060,22 +1134,23 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="px-1 mb-4 mb-lg-0">
-                                                    <select  class="form-control"  id="tipo_mensaje_contacto">
-                                                        <option  >Seleccion el Asunto de su Mensaje</option>
+                                                    <select class="form-control" id="tipo_mensaje_contacto">
+                                                        <option>Seleccion el Asunto de su Mensaje</option>
                                                         <option value="Cotización">Cotización</option>
                                                         <option value="Información">Información</option>
                                                         <option value="Sugerencia">Sugerencia</option>
-                                                      </select>
+                                                    </select>
                                                 </div>
                                                 <br>
                                             </div>
-                                            
+
                                             <div class="col-lg-12">
                                                 <div class="px-1 mb-4 mb-lg-0">
-                                                    <textarea class="form-control" maxlength="200" id="mensaje_contacto" placeholder="Descripcion del Mensaje" rows="3"></textarea>
+                                                    <textarea class="form-control" maxlength="200" id="mensaje_contacto"
+                                                        placeholder="Descripcion del Mensaje" rows="3"></textarea>
                                                 </div>
                                             </div>
- 
+
 
                                         </div>
                                     </form>
@@ -1093,7 +1168,7 @@
 
                         <div data-height="200px"></div>
 
-                       
+
 
                     </div>
                 </div>
@@ -1112,25 +1187,25 @@
 
                             <div data-height="1px"></div>
                             <center>
-                       
-                                <p><strong
-                                        class="text-white">Tienda de Artesanía la Bendición</strong>.</p>
-                                  
-                                            <small>Copyright @ <a href="#">Tienda te Artesanía la Bendición</a>. All Rights Reserved.</small>
-                                            <br> 
-                                  </center>
- 
+
+                                <p><strong class="text-white">Tienda de Artesanía la Bendición</strong>.</p>
+
+                                <small>Copyright @ <a href="#">Tienda te Artesanía la Bendición</a>. All Rights
+                                    Reserved.</small>
+                                <br>
+                            </center>
+
 
                         </div>
 
-                        
+
 
                     </div>
                 </div>
             </div>
 
-            
-             
+
+
 
         </div>
 
@@ -1160,12 +1235,12 @@
 
                     <div class="col-12 d-none d-lg-block">
                         <div class="px-3 py-4 p-xl-4">
-                            <a href="/"><img src="/public/img/Logo_artesania.png" alt="logo"
-                                    data-width="146px" data-height="150px"></a>
+                            <a href="/"><img src="/public/img/Logo_artesania.png" alt="logo" data-width="146px"
+                                    data-height="150px"></a>
                         </div>
                     </div>
 
-                     
+
 
                 </div>
             </div>
@@ -1178,8 +1253,8 @@
 
                             <div class="col-6 d-lg-none">
                                 <div class="px-3">
-                                    <a href="/"><img src="/public/img/Logo_artesania.ico" alt="logo"
-                                            data-width="146px" data-height="80px"></a>
+                                    <a href="/"><img src="/public/img/Logo_artesania.ico" alt="logo" data-width="146px"
+                                            data-height="80px"></a>
                                 </div>
                             </div>
 
@@ -1304,9 +1379,9 @@
                                                                 class="far fa-user"></i></span>
                                                     </div>
                                                     <input type="text" class="form-control form-control-lg"
-                                                    onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                                        onkeyup="javascript:this.value=this.value.toUpperCase();"
                                                         placeholder="Nombre" name="NOM_CLIENTE" id="NOM_CLIENTE">
-                                                        
+
                                                     <div class="input-focus-bg"></div>
                                                 </div>
                                             </div>
@@ -1636,15 +1711,18 @@
                                     class="fa  fa-chart-line"></i> Reportes</a></li>
                         <li><a href="#Seguridad" id="segurdidad"><i class="fa fa-cog"></i> Seguridad</a>
                             <ul>
-                                <li><a href="#Nuevo" id="Crear_respaldo" onclick=" mostrar_copia_Seguridad()"><i class="fa fa-hdd" aria-hidden="true"></i> Crear Backup</a>
+                                <li><a href="#Nuevo" id="Crear_respaldo" onclick=" mostrar_copia_Seguridad()"><i
+                                            class="fa fa-hdd" aria-hidden="true"></i> Crear Backup</a>
                                 </li>
-                                <li><a href="#Editar" id="crear_restaurar"><i class="fa fa-hdd" aria-hidden="true"></i> Restaurar Base de Datos</a></li>
+                                <li><a href="#Editar" id="crear_restaurar"><i class="fa fa-hdd" aria-hidden="true"></i>
+                                        Restaurar Base de Datos</a></li>
                                 <li><a href="#Roles" id="ver_roles" onclick="mostrar_roles()"><i class="fa fa-list"
                                             aria-hidden="true"></i> Roles</a></li>
                                 <li><a href="#Permisos" id="ver_permisos" onclick="mostrar_permisos()"><i
                                             class="fa fa-key" aria-hidden="true"></i> Permisos</a></li>
-                                <li><a href="#Bitacora" id="ver_bitacora" onclick="mostrar_bitacora()"><i class="fa fa-search"></i>
-                                     Bitácora</a></li>
+                                <li><a href="#Bitacora" id="ver_bitacora" onclick="mostrar_bitacora()"><i
+                                            class="fa fa-search"></i>
+                                        Bitácora</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -1674,7 +1752,7 @@
                                             <div class="col-md-6">
                                                 <label>Nombre Completo:</label>
                                                 <input type="text" class="form-control" id="Rnom_usuario" required
-                                                  onkeyup="javascript:this.value=this.value.toUpperCase();" 
+                                                    onkeyup="javascript:this.value=this.value.toUpperCase();"
                                                     maxlength="50" placeholder="Nombre Completo">
                                             </div>
                                             <div class="col-md-6">
@@ -2031,8 +2109,8 @@
                                                             <div data-height="1px"></div>
 
                                                             <div class="pb-2 mb-4">
-                                                                <img src="/public/img/avatar.png"
-                                                                    alt="author" class="rounded-circle shadow">
+                                                                <img src="/public/img/avatar.png" alt="author"
+                                                                    class="rounded-circle shadow">
                                                             </div>
 
                                                             <h5 class="font-weight-700 mb-0" id="usuario_sistema"> </h5>
@@ -2739,8 +2817,8 @@
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <label class="text-uppercase px-3">Imagen de la Categoría</label>
                                                 </div>
-                                                <input class="form-control" type="file" id="Aurl_img_categoria" name="img"
-                                                    onChange="actualiza_cat(this.files[0].name)">
+                                                <input class="form-control" type="file" id="Aurl_img_categoria"
+                                                    name="img" onChange="actualiza_cat(this.files[0].name)">
                                                 <input type="text" id="Am1" value="ruta" class="form-control"
                                                     style="display: none;">
                                             </div>
@@ -2806,8 +2884,8 @@
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <label class="text-uppercase px-3">Imagen de la Categoría</label>
                                                 </div>
-                                                <input class="form-control" type="file" id="url_img_categoria" name="img"
-                                                    onChange="actualiza(this.files[0].name)">
+                                                <input class="form-control" type="file" id="url_img_categoria"
+                                                    name="img" onChange="actualiza(this.files[0].name)">
                                                 <input type="text" id="m1" value="ruta" class="form-control"
                                                     style="display: none;">
                                             </div>
@@ -3261,9 +3339,9 @@
                                                 </div>
                                                 <div class="input-group-inner">
                                                     <input type="number" name="Rcentrada" id="Rcentrada" disabled
-                                                        class="form-control" placeholder="Entradas" required min="0" value="0"
-                                                        pattern="^[0-9]+" onpaste="return false;" ondrop="return false;"
-                                                        autocomplete="off">
+                                                        class="form-control" placeholder="Entradas" required min="0"
+                                                        value="0" pattern="^[0-9]+" onpaste="return false;"
+                                                        ondrop="return false;" autocomplete="off">
                                                     <div class=" input-focus-bg">
                                                     </div>
                                                 </div>
@@ -3278,7 +3356,7 @@
                                                 <div class="input-group-inner">
                                                     <input disabled type="number" name="Rsalida" id="Rsalida"
                                                         class="form-control" placeholder="Salidas" required
-                                                        maxlength="50"" value="0">
+                                                        maxlength="50"" value=" 0">
                                                     <div class=" input-focus-bg">
                                                     </div>
                                                 </div>
@@ -3714,8 +3792,8 @@
                     </section>
                     <section id="nuevo_factura" style="display: none; " class="rounded-ultra shadow px-4 py-5"
                         style="display: none; ">
-                        <div id="r_f_cod_inventario"></div>
-                        <div id="sku_producto"></div>
+                        <div id="r_f_cod_inventario" style="display: none; "></div>
+                        <div id="sku_producto" style="display: none; "></div>
 
                         <h1 class="h1 section-title-3 font-weight-700 text-left">Registro de Factura</h1>
                         <br>
@@ -3978,7 +4056,7 @@
 
                     </div>
                 </div>
-               
+
                 <div id="dato_11" class="col-md-2">
                     <div class="form-group">
                         <div class="d-flex w-100 justify-content-between">
@@ -4011,7 +4089,7 @@
                                 <th>Detalle</th>
                                 <th>Cantidad</th>
                                 <th>Precio</th>
-                                <th  style='display: none;'>Costo de Envio</th>
+                                <th style='display: none;'>Costo de Envio</th>
                                 <th>Sub Total</th>
                                 <th style="display: none;">Sub Total</th>
                                 <th style="display: none;">Sub Total</th>
@@ -4022,14 +4100,14 @@
 
                         </tbody>
                     </table>
-                <br><br>
+                    <br><br>
                 </div>
                 <div id="factura" class="container-fluid">
                     <table id="detalle_factura" class="table table-striped " style="width:100%">
                         <thead>
-                            <tr> 
-                                <th  style="display: none;">sku</th>
-                                <th  style="display: none;">Stock</th>
+                            <tr>
+                                <th style="display: none;">sku</th>
+                                <th style="display: none;">Stock</th>
                                 <th>Producto</th>
                                 <th>Detalle</th>
                                 <th>Cantidad</th>
@@ -4049,12 +4127,12 @@
                 <div class="col-md-7" id="nota" style="display: none;">
                     <h1>Nota: Total ya incluye el valor de envio</h1>
                 </div>
-                <div class="col-md-7" id="espacio"  >
-                    
+                <div class="col-md-7" id="espacio">
+
                 </div>
                 <div class="col-md-2">
                     <button onclick=" calcular_envio()" type="button" id="btn_envio"
-                    class="btn btn-success   mb-2">Agregar Costo de Envio</button>
+                        class="btn btn-success   mb-2">Agregar Costo de Envio</button>
                 </div>
                 <div id="dato_10" class="col-md-3">
                     <div class="form-group">
@@ -4153,7 +4231,8 @@
                     <div class="row">
                         <div class="col-md-5"></div>
                         <div class="col-md-2">
-                            <button type="button" id="refresh_bakup" onclick="backup()" class="btn btn-lg btn-success mx-2 mb-4">Generar Respaldo  Base de datos</button>
+                            <button type="button" id="refresh_bakup" onclick="backup()"
+                                class="btn btn-lg btn-success mx-2 mb-4">Generar Respaldo Base de datos</button>
                         </div>
                         <div class="col-md-5"></div>
 
@@ -4180,7 +4259,7 @@
             <div id="gestion_bitacora_Seguridad">
                 <section id="Seguridad_bitacora" style="display: none; ">
                     <h1 class="h1 section-title-3 font-weight-700 text-left">Bitácora del Sistema</h1>
- 
+
 
                     <div class="container-fluid">
                         <table id="table_bitacora" class="display" style="width:100%">
