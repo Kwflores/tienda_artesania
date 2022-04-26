@@ -857,15 +857,16 @@ function actualizar_perfil_cliente() {
    
     estado = document.getElementById("estado_perfil_cliente");
     persona = document.getElementById("persona_perfil_cliente");
-    valido = document.getElementById('P_CcorreoOK') 
-    if(valido != ""){
+    valido_correocliente = document.getElementById('P_CcorreoOK') 
+    if(valido_correocliente.innerHTML  != ""){
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: '¡Favor introducir una dirección de correo valida.!',
+            text: '¡Favor introducir una dirección de correo valido.!',
         })
         return;
     }
+
     if (nombre == "" || correo == "" || usuario == "" || telefono == ""
         || idenficacion == "" || no_identificacion == "" || direccion == ""
         || estado == "" || persona == "") {
