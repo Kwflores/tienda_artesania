@@ -298,14 +298,14 @@ function mostrar_registro() {
     document.getElementById("nueva_categoria").style.display = "none"
 }
 
-function mostrar_usuarios() {
+function mostrar_usuarios() {0
     localStorage.setItem("mostrar_usuarios", 1);
-
+    localStorage.removeItem("productos_sistema");
     localStorage.removeItem("mostrar_roles");
     localStorage.removeItem("permisos_sys");
     localStorage.removeItem("pedidos_sistema");
     document.getElementById("mostra_reportes").style.display = "none"
-
+    localStorage.removeItem("sugerencias");
     localStorage.removeItem("mostrarr_proveedores");
     document.getElementById("productos_sistema").style.display = "none"
     document.getElementById("pedidos_sistema").style.display = "none"
@@ -336,6 +336,7 @@ function mostrar_usuarios() {
 
 
 function mostrar_categorias() {
+    localStorage.removeItem("sugerencias");
     localStorage.setItem("mostrar_categprias", 1)
     localStorage.setItem("mostrar_moduloCategoria", 13)
     localStorage.removeItem("mostrar_modulo_usuario");
@@ -509,6 +510,7 @@ function mostrar_permisos() {
     document.getElementById("Seguridad_bitacora").style.display = "none"
     localStorage.removeItem("Seguridad_copia_respaldo");
     document.getElementById("Seguridad_copia_respaldo").style.display = "none"
+    localStorage.removeItem("sugerencias");
 }
 
 function registro_permisos() {
@@ -532,6 +534,7 @@ function registro_permisos() {
     document.getElementById("Seguridad_bitacora").style.display = "none"
     localStorage.setItegetElementByIdm("Seguridad_copia_respaldo");
     document.getElementById("Seguridad_copia_respaldo").style.display = "none"
+    localStorage.removeItem("sugerencias");
 }
 
 function mostrar_roles() {
@@ -575,6 +578,7 @@ function mostrar_roles() {
     document.getElementById("Seguridad_bitacora").style.display = "none"
     localStorage.setItegetElementByIdm("Seguridad_copia_respaldo");
     document.getElementById("Seguridad_copia_respaldo").style.display = "none"
+    localStorage.removeItem("sugerencias");
 }
 
 function mostrar_registro_rol() {
@@ -634,7 +638,7 @@ function mostrar_proveedores() {
     localStorage.removeItem("Seguridad_bitacora");
     document.getElementById("Seguridad_bitacora").style.display = "none"
     document.getElementById("nuevo_factura").style.display = "none"
-
+    localStorage.removeItem("sugerencias");
 }
 
 function mostrar_registro_proveedores() {
@@ -683,6 +687,7 @@ function mostrar_productos() {
     localStorage.removeItem("Seguridad_bitacora");
     document.getElementById("Seguridad_bitacora").style.display = "none"
     document.getElementById("nuevo_factura").style.display = "none"
+    localStorage.removeItem("sugerencias");
 }
 
 function mostrar_inventario() {
@@ -721,6 +726,7 @@ function mostrar_inventario() {
     localStorage.removeItem("Seguridad_bitacora");
     document.getElementById("Seguridad_bitacora").style.display = "none"
     document.getElementById("nuevo_factura").style.display = "none"
+    localStorage.removeItem("sugerencias");
 }
 
 function mostrar_registro_productos() {
@@ -767,7 +773,7 @@ function mostrar_pedidos() {
     localStorage.removeItem("Seguridad_bitacora");
     document.getElementById("Seguridad_bitacora").style.display = "none"
     document.getElementById("nuevo_factura").style.display = "none"
-
+    localStorage.removeItem("sugerencias");
 }
 
 function mostrar_facturas() {
@@ -805,7 +811,7 @@ function mostrar_facturas() {
     document.getElementById("actualizar_producto").style.display = "none"
     localStorage.removeItem("Seguridad_bitacora");
     document.getElementById("Seguridad_bitacora").style.display = "none"
- 
+    localStorage.removeItem("sugerencias");
  
 }
 

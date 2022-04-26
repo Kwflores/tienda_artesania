@@ -181,9 +181,10 @@ function cargar_usuarios() {
                                 width: 100,
                                 height: 100
                             }, {
-                                margin: [220, 15],
-                                text: 'Reporte de Usuarios',
-                                fontSize: 15
+                                margin: [115, 15],
+                                text: 'REPORTE DE USUARIOS ***** GENERADO POR: ' + user_logeado,
+                                alignment:'justify',
+                                fontSize: 12 
                             }]
                         });
                     }

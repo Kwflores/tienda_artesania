@@ -26,7 +26,7 @@ $(document).ready(function () {
                 "Content-Type": "application/json",
                 'Authorization': token
             },
-            "data": JSON.stringify({ "COD_PERSONA": cod_persona.innerHTML, "COD_USUARIO": id_user, "DIRECCION": direccion, "COD_MODULO": 8 }),
+            "data": JSON.stringify({ "COD_PERSONA": cod_persona.innerHTML, "COD_USUARIO": id_user, "DIRECCION": direccion, "COD_MODULO": 8, "COS_ENVIO": 100 }),
         };
 
         $.ajax(settings).done(function (response) {
@@ -102,8 +102,10 @@ $(document).ready(function () {
 
                 $.ajax(settings).done(function (response) {
                     //   console.log(response)
+                    document.getElementById("carrito_decompras").innerHTML = ""
                     document.getElementById("detalle_total").innerHTML = ""
                     vaciarcarrito_cliente();
+                    
                 });
 
  
