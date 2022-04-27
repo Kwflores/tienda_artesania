@@ -14,67 +14,67 @@ require('dotenv').config();
 
 //Conexion a la base de datos
 var conn = conexion.createConnection(
-    {
-        host: process.env.SERVER,
-        user: process.env.USER,
-        password: process.env.PASS,
-        database: process.env.DB,
-    }
+  {
+    host: process.env.SERVER,
+    user: process.env.USER,
+    password: process.env.PASS,
+    database: process.env.DB,
+  }
 );
 app.post('/token', (req, res) => {
-    try {
-        const { CLAVE } = req.body;
-        const consulta = `call OBTENER_TOKEN('${CLAVE}')`;
-        conn.query(consulta, (error, results) => {
-            if (error) throw error;
-            if (results.length > 0) {
-                res.json(results);
-            }
-        })
-    } catch (error) {
-        res.send("0")
-    }
-        
+  try {
+    const { CLAVE } = req.body;
+    const consulta = `call OBTENER_TOKEN('${CLAVE}')`;
+    conn.query(consulta, (error, results) => {
+      if (error) throw error;
+      if (results.length > 0) {
+        res.json(results);
+      }
+    })
+  } catch (error) {
+    res.send("0")
+  }
+
 });
 
 
 // Registro actualizar datos de usuarios
 app.put('/clave', (req, res) => {
-    try {
-        const { CLAVE, NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
-        const consulta = `call ACTUALIZAR_CLAVE('${CLAVE}','${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
-        conn.query(consulta, error => {
-            if (error) throw error;
-            res.json({Message:"Actualizacion de Clave por medio del nombre de usuario"});
-        });
-    } catch (error) {
-        res.send("0");
+  try {
+    const { CLAVE, NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
+    const consulta = `call ACTUALIZAR_CLAVE('${CLAVE}','${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+    conn.query(consulta, error => {
+      if (error) throw error;
+      res.json({ Message: "Actualizacion de Clave por medio del nombre de usuario" });
+    });
+  } catch (error) {
+    res.send("0");
 
-    }
+  }
 
 });
 
 app.post('/', (req, res) => {
 
-    try {
-        const { USUARIO, COD_USUARIO, COD_MODULO } = req.body;
-        const consulta = `call BUSCAR_USUARIOS('${USUARIO}',${COD_USUARIO},${COD_MODULO})`;
-        conn.query(consulta, (error, results) => {
-            if (error) throw error;
-            if (results[0][0]) {
-                if (results[0][0].Usuario === USUARIO) {
-                    var TOKEN = crypto.randomBytes(4).toString("hex");
-                    var USUARIO_ID = results[0][0].COD_USUARIO
-                    console.log(results[0][0]);
-                    var today = new Date();
-                    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-                    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                    var FECHA = date + ' ' + time;
-                    const consulta = `call 	CLAVE_TEMPORAL('${TOKEN}','${FECHA}','${USUARIO}',${USUARIO_ID},${COD_MODULO})`;
-                    conn.query(consulta, (error, results) => {
+  try {
+    const { USUARIO, COD_USUARIO, COD_MODULO } = req.body;
+    const consulta = `call BUSCAR_USUARIOS('${USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+    conn.query(consulta, (error, results) => {
+      if (error) throw error;
+      if (results[0][0]) {
+        if (results[0][0].Usuario === USUARIO) {
+          var TOKEN = crypto.randomBytes(4).toString("hex");
+          var USUARIO_ID = results[0][0].COD_USUARIO
+          console.log(results[0][0]);
+          var today = new Date();
+          var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+          var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+          var FECHA = date + ' ' + time;
+          const consulta = `call 	CLAVE_TEMPORAL('${TOKEN}','${FECHA}','${USUARIO}',${USUARIO_ID},${COD_MODULO})`;
+          conn.query(consulta, (error, results) => {
 
-                    })
-                    const contenidohtml = `
+          })
+          const contenidohtml = `
                     <html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
                     <head><META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW"><META NAME="referrer" CONTENT="no-referrer">
                     <!--[if gte mso 9]><xml>  <o:OfficeDocumentSettings>   <o:AllowPNG/>   <o:PixelsPerInch>96</o:PixelsPerInch>  </o:OfficeDocumentSettings> </xml><![endif]-->
@@ -267,60 +267,62 @@ app.post('/', (req, res) => {
                         
                          
                       `;
-    
-                        res.json({ message: 'Contraseña enviada al Correo' });
-                        async function correo() {
-    
-                            let transportador = nodemailer.createTransport({
-                                service: 'gmail',
-                                auth: {
-                                    user: 'artesaniafuentedebendicion@gmail.com',
-                                    pass: 'Matematicas1234'
-                                }
-                            });
 
-    
-                            let respuesta = await transportador.sendMail({
-                                from: 'Artesania Fuente de Bendicion <artesaniafuentedebendicion@gmail.com>',
-                                to: results[0][0].Correo,
-                                subject: "Recuperacion de Contraseña - ARTESANIA FUENTA DE BENDICION",
-                                html: contenidohtml,
-                            });
-    
-    
-                            console.log("Correo enviado en texto html: %s", respuesta.messageId);
-    
-    
-                        }
-                        correo().catch(console.error)
+          res.json({ message: 'Contraseña enviada al Correo' });
+          async function correo() {
 
-                }
-            }else {
-                res.send("0")
+            let transportador = nodemailer.createTransport({
+              host: 'smtp.gmail.com',
+              port: 465,
+              secure: true,
+              auth: {
+                  user: 'artesaniafuentedebendicion@gmail.com',
+                  pass: 'Matematicas1234'
+              }
+          });
+
+
+            let respuesta = await transportador.sendMail({
+              from: 'Artesania Fuente de Bendicion <artesaniafuentedebendicion@gmail.com>',
+              to: results[0][0].Correo,
+              subject: "Recuperacion de Contraseña - ARTESANIA FUENTA DE BENDICION",
+              html: contenidohtml,
+            });
+
+
+            console.log("Correo enviado en texto html: %s", respuesta.messageId);
+
+
+          }
+          correo().catch(console.error)
+
         }
-        })
-    } catch (error) {
+      } else {
         res.send("0")
-    }
+      }
+    })
+  } catch (error) {
+    res.send("0")
+  }
 
 });
 
 
 
 app.post('/factura_digital', (req, res) => {
-    
-    try {
-        const { USUARIO, COD_USUARIO, COD_MODULO } = req.body;
-        const consulta = `call BUSCAR_USUARIOS('${USUARIO}',${COD_USUARIO},${COD_MODULO})`;
-        conn.query(consulta, (error, data) => {
-            if (error) throw error;
-            if (data[0][0]) {
-                if (data[0][0].Usuario === USUARIO) {
-                    const consulta = `call OBTENER_PEDIDO_CLIENTE('${USUARIO}', ${COD_USUARIO},${COD_MODULO})`;
-                    conn.query(consulta, (error, results) => {
-                        if (results.length > 0) {
-                            console.log(results[0][0].COD_ENCABEZADO)
-                            const contenidohtml = `
+
+  try {
+    const { USUARIO, COD_USUARIO, COD_MODULO } = req.body;
+    const consulta = `call BUSCAR_USUARIOS('${USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+    conn.query(consulta, (error, data) => {
+      if (error) throw error;
+      if (data[0][0]) {
+        if (data[0][0].Usuario === USUARIO) {
+          const consulta = `call OBTENER_PEDIDO_CLIENTE('${USUARIO}', ${COD_USUARIO},${COD_MODULO})`;
+          conn.query(consulta, (error, results) => {
+            if (results.length > 0) {
+              console.log(results[0][0].COD_ENCABEZADO)
+              const contenidohtml = `
                             <!DOCTYPE html>
                             <html xmlns="http://www.w3.org/1999/xhtml">
                             <head>
@@ -562,47 +564,47 @@ app.post('/factura_digital', (req, res) => {
                             </body>
                             </html>
                               `;
-            
-                                res.json({ message: 'Factura enviada al Correo' });
-                                async function correo() {
-            
-                                    let transportador = nodemailer.createTransport({
-                                        service: 'gmail',
-                                        auth: {
-                                            user: 'artesaniafuentedebendicion@gmail.com',
-                                            pass: 'Matematicas1234'
-                                        }
-                                    });
-        
-            
-                                    let respuesta = await transportador.sendMail({
-                                        from: 'Artesania Fuente de Bendicion <artesaniafuentedebendicion@gmail.com>',
-                                        to: data[0][0].Correo,
-                                        subject: "CONFIRMACION DE COMPRA - ARTESANIA FUENTA DE BENDICION",
-                                        html: contenidohtml,
-                                    });
-            
-            
-                                    console.log("Correo enviado en texto html: %s", respuesta.messageId);
-            
-            
-                                }
-                                correo().catch(console.error)  
-                        }
-                    })
-                   
+
+              res.json({ message: 'Factura enviada al Correo' });
+              async function correo() {
+
+                let transportador = nodemailer.createTransport({
+                  service: 'gmail',
+                  auth: {
+                    user: 'artesaniafuentedebendicion@gmail.com',
+                    pass: 'Matematicas1234'
+                  }
+                });
 
 
-                }
-            } 
-        })
-    } catch (error) {
-        res.send(error)
+                let respuesta = await transportador.sendMail({
+                  from: 'Artesania Fuente de Bendicion <artesaniafuentedebendicion@gmail.com>',
+                  to: data[0][0].Correo,
+                  subject: "CONFIRMACION DE COMPRA - ARTESANIA FUENTA DE BENDICION",
+                  html: contenidohtml,
+                });
 
-    }
+
+                console.log("Correo enviado en texto html: %s", respuesta.messageId);
+
+
+              }
+              correo().catch(console.error)
+            }
+          })
+
+
+
+        }
+      }
+    })
+  } catch (error) {
+    res.send(error)
+
+  }
 
 });
- 
+
 
 module.exports = app;
 

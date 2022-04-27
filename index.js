@@ -33,6 +33,8 @@ var conn = conexion.createConnection(
         user: process.env.USER,
         password: process.env.PASS,
         database: process.env.DB,
+        port: "3306",
+        multipleStatements: true
     }
 );
 
@@ -92,7 +94,7 @@ app.post('/login', async (req, res) => {
 
 function generarAccessToken(user) {
     //se crea un token y por medio del sing enviamos un objeto de usuario
-    return jwt.sign({ user }, process.env.TOKEN_SECRET, { expiresIn: '60000m' })
+    return jwt.sign({ user }, process.env.TOKEN_SECRET)
 }
 
 

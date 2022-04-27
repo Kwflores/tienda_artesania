@@ -1,4 +1,4 @@
-var api = "http://localhost:3000/"
+var api = "http://31.220.108.62:3000/"
 var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJDT0RfVVNVQVJJT1MiOjM1LCJOT01fVVNVQVJJTyI6IldQRVJFWiIsIkNMQVZFIjp7InR5cGUiOiJCdWZmZXIiLCJkYXRhIjpbNzIsMTExLDEwOCw5Nyw0NCw0OSw1MCw1MV19LCJDT0RfRVNUQURPIjoxLCJDT0RfUk9MIjoyfV0sImlhdCI6MTY1MDQ4NjcxOSwiZXhwIjoxNjU0MDg2NzE5fQ.j9JPGsmVi4mm8MF8aSsu5gg7B7EyoQhgpWdpaaLrKyI";
 var user_logeado = 'INVITADO';
 $(document).ready(function () {

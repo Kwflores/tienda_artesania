@@ -12,7 +12,8 @@ app.post('/', (req, res) => {
         console.log(files)
         if(files.img.name){
             var pathTemp = files.img.path;
-            var pathNew = __dirname + "../../public/img/categorias/" + files.img.name;
+            var pathNew =  process.cwd() + "../../public/img/categorias/" + files.img.name;
+            console.log(pathNew)
             fs.rename(pathTemp, pathNew, function (err) {
                 if (err) throw err;
                 res.redirect('/')
@@ -24,6 +25,7 @@ app.post('/', (req, res) => {
          
     })
    
+
 });
 
 

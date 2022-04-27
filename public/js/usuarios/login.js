@@ -1,5 +1,5 @@
 //variables globales
-var api = "http://localhost:3000/"
+var api = "http://31.220.108.62:3000/"
 var id_user = localStorage.getItem("id_usuario");
 var token = localStorage.getItem("token");
 var user_logeado = localStorage.getItem("usuario");
