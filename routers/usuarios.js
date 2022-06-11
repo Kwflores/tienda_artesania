@@ -55,6 +55,7 @@ app.get("/buscar_usuario", (req, res) => {
     }
 });
 
+
 app.post("/buscar", (req, res) => {
     try {
         const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
@@ -79,7 +80,7 @@ app.post("/buscar", (req, res) => {
 app.post("/nuevo", (req, res) => {
     try {
         const { NOM_PERSONA, USER_EMAIL, NUM_CEL, NOM_USUARIO, CLAVE, NOM_IDENTIFICACION, COD_IDENTIFICACION, DIRECCION, COD_ROL,
-            COD_MODULO } = req.body;
+            COD_MODULO,COD_ESTADO} = req.body;
         var conteoExistencia = `call CONTEO_USUARIO('${NOM_USUARIO}','${USER_EMAIL}');`;
         conn.query(conteoExistencia, (error, results) => {
             if (error) throw error;
@@ -88,13 +89,16 @@ app.post("/nuevo", (req, res) => {
                     res.json({ Message: `El usuario ${NOM_USUARIO} ya existe, favor registra uno nuevo.!` });
                 }
                 else {
-                    const consulta = `call NUEVO_USUARIO('${NOM_PERSONA}','${USER_EMAIL}',${NUM_CEL},'${NOM_USUARIO}','${CLAVE}','${NOM_IDENTIFICACION}','${COD_IDENTIFICACION}','${DIRECCION}',${COD_ROL},${COD_MODULO})`;
+                    const consulta = `call NUEVO_USUARIO('${NOM_PERSONA}','${USER_EMAIL}',${NUM_CEL},'${NOM_USUARIO}','${CLAVE}','${NOM_IDENTIFICACION}','${COD_IDENTIFICACION}','${DIRECCION}',${COD_ROL},${COD_MODULO},${COD_ESTADO})`;
+
                     conn.query(consulta, (error, nuevo_usuario) => {
                         if (error) throw error;
                         if (nuevo_usuario.length > 0) {
                             res.json(nuevo_usuario[0]);
                         }
+                        
                     });
+
                 }
             }
         })

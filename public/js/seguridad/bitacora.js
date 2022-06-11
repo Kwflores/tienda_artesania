@@ -1,4 +1,4 @@
-var api = "http://31.220.108.62:3000/"
+var api = "http://localhost:3000/"
 var id_user = localStorage.getItem("id_usuario");
 var token = localStorage.getItem("token");
 var user_logeado = localStorage.getItem("usuario");
@@ -16,7 +16,7 @@ function cargar_bitacora() {
     };
 
     $.ajax(settings).done(function (response) {
-        console.log(response);
+     //   console.log(response);
 
         $.each(response[0], function (key, val) {
             

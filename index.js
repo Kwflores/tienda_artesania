@@ -55,15 +55,21 @@ app.post('/login', async (req, res) => {
         var conteoExistencia = `call BUSCAR_USUARIOS('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
         conn.query(conteoExistencia, (error, results) => {
             if (error) throw error;
+            console.log(results[0][0])
             if (results[0][0]) {
+
                pass = results[0][0].Clave
                var clave = pass.toString('utf8');
                codigo = results[0][0].COD_USUARIO;
                rol = results[0][0].Rol;
                nombre = results[0][0].Nombre;
+               console.log(clave) 
+               console.log(results[0][0].Usuario ===NOM_USUARIO && clave ===CLAVE)
                 if (results[0][0].Usuario ===NOM_USUARIO && clave ===CLAVE) {
+                                            
                     const consulta = `call LOGIN('${NOM_USUARIO}','${CLAVE}',${COD_USUARIO},${COD_MODULO})`;
                     conn.query(consulta, (error, results) => {
+                        
                         if (results.length > 0) {
                           
                             let user = results[0];
@@ -74,7 +80,8 @@ app.post('/login', async (req, res) => {
                                 Nombre:  nombre,
                                 cod_usuario: codigo,
                                 token: accesstoken,
-                                rol:rol
+                                rol:rol,
+                                dt:user
                             });
                         }
                     });
@@ -87,7 +94,7 @@ app.post('/login', async (req, res) => {
             }          
         });
     } catch (e) {
-        res.send("0");
+        res.send(e);
     }
 });
  
@@ -100,15 +107,19 @@ function generarAccessToken(user) {
 
 //Rutas
 app.use("/usuarios", validartoken, RutaUsuarios);
+app.use("/usuario",RutaUsuarios);
 app.use("/contactos", validartoken, RutaContacto);
 app.use("/roles", validartoken, RutaRoles);
 app.use("/permisos", validartoken, RutaPermiso);
 app.use("/modulos", validartoken, RutaModulo);
 app.use("/categorias", validartoken, RutaCategoria);
+app.use("/categorias_clientes", RutaCategoria);
 app.use("/productos", validartoken, RutaProductos);
+app.use("/productos_clientes",RutaProductos);
 app.use("/proveedores", validartoken, RutaProveedores);
-app.use("/pagos", validartoken, RutaPagos);
+app.use("/pagos",  RutaPagos);
 app.use("/pedidos", validartoken, RutaFacturacion);
+app.use("/pedidos_clientes", RutaFacturacion);
 app.use("/send-email",RutaPass)
 app.use("/clientes",RutaCliente)
 app.use("/img",rutaimg);

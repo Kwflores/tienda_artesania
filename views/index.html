@@ -94,41 +94,44 @@
                 </div>
             </div>
         </div>
-
+       
         <!-- Navigation menu -->
         <div class="navik-header header-shadow navik-mega-menu mega-menu-fullwidth">
 
-            <div class="bg-indigo">
+            <div class="bg-dark">
                 <div class="container">
                     <div class="row align-items-center">
 
-                        <div class="col-lg-6 text-white-75 text-center text-lg-left py-3 py-lg-0">
+                        <div class="col-lg-4 text-white-75 text-center text-lg-left py-3 py-lg-0">
                             <small>Tienda de Artesania <a href="#" class="text-white font-weight-600">la Bendición
                                 </a></small>
                         </div>
 
-                        <div class="col-lg-6 d-flex align-items-center justify-content-center justify-content-lg-end">
-                            <div style="display: none;" id="bienvenido_usuario"
-                                class="col-lg-6 text-white-75 text-center text-lg-left py-3 py-lg-0">
-                                <small>Bienvenido: <a href="#" class="text-white font-weight-600" id="usuario"> </a>
-
-
-
+                        <div class="col-lg-8 d-flex align-items-center justify-content-center justify-content-lg-end">
+                            <div  style="display: block;" id="hola_bienvenido" class="col-lg-6  text-lg-right py-3 py-lg-1">
+                                <a   href="#" onclick="mostrarlogin()" id="identificate" class="text-white font-weight-900">
+                                    <small >Hola, Identificate aqui!!</small> </a>
+                                    
                             </div>
                             <div style="display: none;" id="bienvenido_usuario"
-                            <a href="#" onclick=" carrito_compra_logeado()"
-                            class="btn btn-warning shadow-none rounded-0 mb-0" id="carrito_decompras"></a> </small></a>
-
-
-
+                                class="col-lg-6 text-white-75 text-lg-right py-3 py-lg-0">
+                                <small>Bienvenido: <a href="#" class="text-white font-weight-600" id="usuario"> </a>  </small> 
                             </div>
-                            <a href="#" onclick=" carrito_compra_logeado()"
-                                class="btn btn-warning shadow-none rounded-0 mb-0" id="carrito_decompras"></a> </small>
+                        
+                           <div id="btn_carrito1"  style="display: block;" >
+                            <a  href="#" onclick=" carrito_compra_logeado()"  class="btn btn-warning shadow-none rounded-0 mb-0"
+                            id="carrito_decompras"></a> </small>
+                           </div>
+                           <div id="btn_carrito2"  style="display: none;" >
+                            <a  href="#" onclick=" carrito_co_logeado()"  class="btn btn-warning shadow-none rounded-0 mb-0"
+                            id="carrito_decompras2"></a> </small>
+                           </div>
+                           
+                                
                             <a href="#" onclick="mostrarlogin()" class="btn btn-secondary shadow-none rounded-0 mb-0"
                                 id="iniciar_sesion">Iniciar Sesión</a>
-                            <a href="#" onclick="cerrar_sesion()" style="display: none;"
-                                class="btn btn-secondary shadow-none rounded-0 mb-0" id="cerrar_sesion"><i
-                                    class="fas fa-sign-in-alt"></i>Cerrar Sesión</a>
+                            <a href="#" onclick="cerrar_sesion()" style="display: none;" class="btn btn-secondary shadow-none rounded-0 mb-0"
+                                id="cerrar_sesion"><i class="fas fa-sign-in-alt"></i>Cerrar Sesión</a>
                         </div>
 
                     </div>
@@ -141,7 +144,7 @@
                     <!--Logo-->
                     <div class="logo" data-mobile-logo="/public/img/Logo_artesania.png"
                         data-sticky-logo="/public/img/Logo_artesania.png">
-                        <a href="/"><img src="/public/img/Logo_artesania.png" data-height="300" alt="logo" /></a>
+                        <a href="/"><img src="/public/img/Logo_artesania.png"  alt="logo" /></a>
                     </div>
 
                     <!-- Burger menu -->
@@ -155,6 +158,8 @@
                     <nav class="navik-menu menu-hover-3 menu-caret submenu-top-border submenu-scale">
                         <ul>
                             <li class="current-menu"><a href="/">INICIO</a></li>
+                            <li><a href="#lista_categorias" >CATEGORÍAS</a></li>
+                            <li><a href="#seccion_sucripcion" >CONTÁCTENOS</a></li>
                             <li><a href="#" data-toggle="modal" data-target="#modalInfo">PREGUNTAS FRECUENTES</a></li>
                             <li><a style="display: none;" id="mostrar_perfil_cliente" onclick="mostrar_perfil_cliente()"
                                     href="#"><i class='fas fa-user-cog'></i> PERFIL DE USUARIO</a></li>
@@ -570,7 +575,7 @@
             </div>
         </section>
         <!-- Hero banner -->
-        <div id="carrucel" class="bg-image" data-img-src="/public/assets/images/upload/section-hero-banner-04.jpg">
+        <!-- <div id="carrucel" class="bg-image" data-img-src="/public/assets/images/upload/section-hero-banner-04.jpg">
             <div class="container-fluid d-flex flex-column p-0">
                 <div class="row no-gutters  align-content-between">
 
@@ -645,14 +650,94 @@
 
                 </div>
             </div>
-        </div>
+        </div> -->
+        <div id="carrucel" class="banner-slides-wrapper arrow-nav-overflow" data-dots="true" data-nav="true">
 
+            <div class="banner-slides-container owl-carousel owl-theme owl-dot-light-1">
+        
+                <!-- Slide item -->
+                <div class="d-flex flex-column">
+                    <div class="page-header-block-height d-flex align-items-center bg-image" data-img-src="./public/img/carrucel/2.jpg">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8 offset-lg-2 text-center py-5">
+                                    <div class="px-md-5 px-lg-0 px-xl-5 py-5 overflow-hidden">
+                                        <h2 class="h3 font-weight-300 text-white add-animate slide-animate" data-animated="fadeInLeft">Your Success is Our Business</h2>
+                                        <h1 class="display-4 font-weight-800 text-white mb-3 add-animate slide-animate" data-animated="fadeInRight">Digital Marketing<br>Solutions & Services</h1>
+                                        <div class="lead-sm text-white-75 pb-2 pb-xl-3 mb-5 add-animate slide-animate" data-animated="fadeInLeft">Aenean sed mattis arcu in rhoncus risus duis pretium purus eget cursus molestie magna nunc pulvinar magna quis malesuada sapien erat mi nullam ornare dictum magna</div>
+                                        <div class="add-animate slide-animate" data-animated="fadeIn">
+                                            <a href="#" class="btn btn-lg btn-round btn-primary btn-gray-shadow mx-2">View our pricing</a>
+                                            <a href="#" class="btn btn-lg btn-round btn-secondary btn-gray-shadow mx-2">Get started now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Slide item -->
+                <div class="d-flex flex-column">
+                    <div class="page-header-block-height d-flex align-items-center bg-image" data-img-src="./public/img/carrucel/3.jpg"">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8 offset-lg-2 col-xl-6 offset-xl-6 text-center text-xl-left py-5">
+                                    <div class="px-md-5 pr-lg-0 pl-lg-3 ml-lg-n3 py-5 overflow-hidden">
+                                        <h2 class="h3 font-weight-300 text-white add-animate slide-animate" data-animated="fadeInLeft">Consulting & Investment</h2>
+                                        <h1 class="display-4 font-weight-800 text-white mb-3 add-animate slide-animate" data-animated="fadeInRight">Get Your Business<br>Right Up There</h1>
+                                        <div class="lead-sm text-white-75 pb-2 pb-xl-3 mb-5 add-animate slide-animate" data-animated="fadeInLeft">Fusce sem massa congue vitae neque in rhoncus viverra aliquam lacinia cosuere lobortis sit amet consequat dolor nulla eget velit vitae diam</div>
+                                        <div class="add-animate slide-animate" data-animated="fadeIn">
+                                            <a href="#" class="btn btn-lg btn-round btn-primary btn-gray-shadow mx-2 ml-xl-0">How can we help</a>
+                                            <a href="#" class="btn btn-lg btn-round btn-secondary btn-gray-shadow mx-2">Request a quote</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Slide item -->
+                <div class="d-flex flex-column">
+                    <div class="page-header-block-height d-flex align-items-center bg-image" data-img-src="./public/img/carrucel/_2.jpg"">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8 offset-lg-2 col-xl-6 offset-xl-1 text-center text-xl-left py-5">
+                                    <div class="px-md-5 pr-lg-0 pl-lg-3 ml-lg-n3 py-5 overflow-hidden">
+                                        <h2 class="h3 font-weight-300 text-white add-animate slide-animate" data-animated="fadeInLeft">Maximize Your Visibility</h2>
+                                        <h1 class="display-4 font-weight-800 text-white mb-3 add-animate slide-animate" data-animated="fadeInRight">We Provided Best<br>Digital Services</h1>
+                                        <div class="lead-sm text-white-75 pb-3 mb-5 add-animate slide-animate" data-animated="fadeInLeft">Donec eget est commodo suscipit est tempor blandit enim rhoncus tincidunt massa magna rhoncus et orci eget lacinia mattis arcu</div>
+                                        <div class="add-animate slide-animate" data-animated="fadeIn">
+                                            <a href="#" class="btn btn-lg btn-round btn-primary btn-gray-shadow mx-2 ml-xl-0">View our pricing</a>
+                                            <a href="#" class="btn btn-lg btn-round btn-secondary btn-gray-shadow mx-2">Get started now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        
+            <!-- Navigation -->
+            <div class="carousel-custom-nav carousel-nav-lg d-none d-lg-block">
+                <a class="carousel-control-prev" href="#" data-width="9%">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#" data-width="9%">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        
+        </div>
         <!-- Content -->
         <div class="main-content pb-0">
 
-
-
             <!-- Products section -->
+           
             <div class="section bg-light" id="lista_categorias" style="display: block;">
                 <div class="container ">
                     <div class="row">
@@ -774,6 +859,24 @@
 
                 </div>
 
+            </div>
+            <div id="inicia_sesion_cliente" style="display: none;">
+                <div  class="d-flex flex-column w-100" >
+                    <div class="page-title d-flex align-items-center bg-image py-5" data-img-src="public/assets/images/upload/page-title-bg-01.jpg">
+                        <div class="container page-title-container">
+                            <div class="row py-5">
+                                <div class="col text-center">
+                
+                                    <h1 class="display-3 font-weight-800 text-white mb-0">
+                                        Ya eres nuestro cliente, Inicia sesión aquí.!!
+                                    </h1>
+                                    <button type="button" onclick="mostrarlogin()"  class="btn btn-lg btn-light mx-2 mb-4">Iniciar Sesión</button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="carrito_detalle_compra" class="bg-white " style="display: none;">
                 <br>
@@ -1091,7 +1194,7 @@
 
             <div id="seccion_sucripcion">
                 <!-- Call to action section -->
-                <div class="section pt-5 bg-image" data-img-src="/public/img/pinwheels-6535595_1920.jpg">
+                <div class="section pt-5 bg-image" data-img-src="/public/img/carrucel/3.jpg">
                     <div class="container">
                         <div class="row mt-5 mt-md-0">
                             <div class="col">
@@ -1134,7 +1237,7 @@
                                             <div class="col-lg-4">
                                                 <div class="px-1 mb-4 mb-lg-0">
                                                     <button type="button" id="registro_sugerencia"
-                                                        class="btn btn-lg btn-round btn-block btn-indigo">Contactanos!</button>
+                                                        class="btn btn-lg btn-round btn-block btn-dark">Contactanos!</button>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
@@ -1165,18 +1268,12 @@
                             </div>
                         </div>
                     </div>
+                    <br><br><br><br>
                 </div>
+                
 
                 <!-- Brands section -->
-                <div class="section bg-indigo py-4 mt-up150">
-                    <div class="container">
-
-                        <div data-height="200px"></div>
-
-
-
-                    </div>
-                </div>
+              
             </div>
 
         </div>
@@ -1193,9 +1290,9 @@
                             <div data-height="1px"></div>
                             <center>
 
-                                <p><strong class="text-white">Tienda de Artesanía la Bendición</strong>.</p>
+                                <p><strong class="text-white">Tienda de Artesanía Fuente de Bendición</strong>.</p>
 
-                                <small>Copyright @ <a href="#">Tienda te Artesanía la Bendición</a>. All Rights
+                                <small>Copyright @ <a href="#">Tienda te Artesanía Fuente de Bendición</a>. All Rights
                                     Reserved.</small>
                                 <br>
                             </center>
@@ -1235,17 +1332,9 @@
         <div class="row min-vh-100">
 
             <div id="login_banner" class="col-lg-4 bg-image order-2 order-lg-1"
-                data-img-src="/public/img/pinwheels-6535595_1920.jpg">
-                <div class="row h-100 align-content-between">
-
-                    <div class="col-12 d-none d-lg-block">
-                        <div class="px-3 py-4 p-xl-4">
-                            <a href="/"><img src="/public/img/Logo_artesania.png" alt="logo" data-width="146px"
-                                    data-height="150px"></a>
-                        </div>
-                    </div>
-
-
+                data-img-src="/public/img/carrucel/login.jpeg">
+                <div class="row h-80 align-content-between">
+ 
 
                 </div>
             </div>
@@ -1281,8 +1370,8 @@
                                     <div class="p-lg-4 mb-4 mb-xl-5">
 
                                         <div class="mb-4 text-center">
-                                            <img src="/public/assets/svg/upload/login-03.svg" alt="Login"
-                                                data-width="64px" data-height="64px">
+                                            <img src="/public/img/Logo_artesania.png" alt="Login"
+                                                data-width="150px" data-height="150px">
                                         </div>
 
                                         <div class="pb-1"></div>
@@ -1305,7 +1394,7 @@
                                                     </div>
                                                     <input type="text" class="form-control form-control-lg"
                                                         placeholder="Usuario" name="NOM_USUARIO" id="NOM_USUARIO"
-                                                        onkeyup="javascript:this.value=this.value.toUpperCase();"
+                                                        onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="20"
                                                         required>
 
                                                     <div class="input-focus-bg"></div>
@@ -1338,7 +1427,7 @@
                                             <div data-height="5px"></div>
                                             <div id="inicio">
                                                 <button type="button"
-                                                    class="btn btn-lg btn-round btn-primary btn-block mb-0"><i
+                                                    class="btn btn-lg btn-round  btn-primary btn-block mb-0"><i
                                                         class="fas fa-sign-in-alt"></i>Iniciar Sesión</button>
                                             </div>
 
@@ -1544,7 +1633,24 @@
                                         </h3>
 
                                         <form>
+                                            <div id="contra_actual" class="input-group input-group-lg input-group-round mb-4">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <label class="text-uppercase px-3">Contraseña Actual</label>
+                                                </div>
+                                                <div class="input-group-inner">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text input-group-icon"><i
+                                                                class="far fa-eye-slash"
+                                                                onclick="mostrarContrasenapass_actual()"></i></span>
+                                                    </div>
+                                                    <input type="password" name="pass_actual" id="pass_actual" class="form-control"
+                                                        placeholder="Contraseña" required maxlength="8">
+                                                    <div class="input-focus-bg"></div>
+                                                    
 
+                                                </div>
+                                              
+                                            </div>
                                             <div class="input-group input-group-lg input-group-round mb-4">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <label class="text-uppercase px-3">Contraseña</label>
@@ -1678,13 +1784,12 @@
 
                 <nav class="navik-menu-fixed">
                     <ul>
-                        <li><a href="#Administrador" id="dash" onclick="mostra_reportes()"><i class="fa fa-dashboard"
+                        <li><a href="#Administrador" id="dash" onclick="mostrar_dash()"><i class="fa fa-dashboard"
                                     aria-hidden="true"></i> DASHBOARD</a>
 
                         </li>
 
-                        <li><a href="#GestionUsuarios" id="ver_usuarios" onclick=" mostrar_usuarios()"><i
-                                    class="fa fa-users" aria-hidden="true"></i> Usuarios</a>
+                       
 
                         </li>
                         <li><a href="#GestionCategorias" id="ver_categorias" onclick="mostrar_categorias()"><i
@@ -1716,6 +1821,8 @@
                                     class="fa  fa-chart-line"></i> Reportes</a></li>
                         <li><a href="#Seguridad" id="segurdidad"><i class="fa fa-cog"></i> Seguridad</a>
                             <ul>
+                                <li><a href="#GestionUsuarios" id="ver_usuarios" onclick=" mostrar_usuarios()"><i
+                                    class="fa fa-users" aria-hidden="true"></i> Usuarios</a>
                                 <li><a href="#Nuevo" id="Crear_respaldo" onclick=" mostrar_copia_Seguridad()"><i
                                             class="fa fa-hdd" aria-hidden="true"></i> Crear Backup</a>
                                 </li>
@@ -1877,6 +1984,7 @@
                             </section>
                             <section id="actualizar_usuario" class="rounded-ultra shadow px-4 py-5"
                                 style="display: none; ">
+                                <div id="id_usuario_modificar"></div>
                                 <h1 class="h1 section-title-3 font-weight-700 text-left">Editar Datos del Usuario</h1>
                                 <div id="id_usuario_sistema"></div>
                                 <input type="text" class="form-control" id="cod_persona" style="display: none;">
@@ -2724,6 +2832,94 @@
 
                                 </form>
                             </section>
+                        </div>
+                        <div id="gestion_categorias_dash">
+                            <section id="categorias_sistema_tienda" style="display: block; ">
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Categorías</h1>
+                                
+                                <div id="estado_categoria" style="display: none;"></div>
+                                <div class="container-fluid">
+                                    <table id="table_categoria_tienda" class="display" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Accion</th>
+                                                <th>Accion</th>
+                                                <th>Imagen</th>
+                                                <th>Nombre de la Categoría</th>
+                                                <th>Descripción</th>
+                                                <th  style="display: none; ">Estado</th>
+                                                <th style="display: none; ">id_estado</th>
+                                                <th style="display: none; ">id_estado</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="contenido_categorias_tienda">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </section>
+                            <br><br><br>
+                            <section id="productos_sistema"  >
+                                <h1 class="h1 section-title-3 font-weight-700 text-left">Productos</h1>
+                                <div row style="display: none;">
+                                    <div class="col-md-3">
+                                        <br>
+                                        <button type="button" class="btn btn-primary mb-2"
+                                            onclick=" mostrar_registro_categoria()"><i class="fa fa-user aria-hidden="
+                                                true"></i> Nuevo Producto</button>
+                                        <br><br>
+                                    </div>
+
+                                </div>
+                                <div id="alerta_proveedores" style="display: none; "
+                                    class="alert alert-warning alert-icon alert-dismissible fade show mb-5"
+                                    role="alert">
+                                    <i class="far fa-question-circle"></i>
+                                    <center>
+                                        <strong>Se Realizaron Cambios en la Informacion, favor dar click en Actualizar
+                                            Tabla, para ver los Cambios</strong> <br>
+                                        <button type="button" id="refresh_productos"
+                                            class="btn btn-lg btn-light mx-2 mb-4"> Actualizar Tabla </button>
+                                    </center>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true"></span>
+                                    </button>
+                                </div>
+
+
+                                <div id="estado_productos" style="display: none;"></div>
+                                <div class="container-fluid">
+                                    <table id="table_productos_dash" class="display" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th style='display: none;'>Editar</th>
+                                                <th style='display: none;'>Eliminar</th>
+                                                <th>Imagen</th>
+                                                <th>SKU</th>
+                                                <th>Producto</th>
+                                                <th>Descripción</th>
+                                                <th>Precio</th>
+                                                <th>Categoría</th>
+                                                <th>Proveedor</th>
+                                                <th  style="display: none; ">Estado</th>
+                                                <th style="display: none; ">id_producto</th>
+                                                <th style="display: none; ">id_proveedor</th>
+                                                <th style="display: none; ">id_categoria/th>
+                                                <th style="display: none; ">id_inventario</th>
+                                                <th style="display: none; ">id_inventario</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="contenido_productos_dash">
+
+                                        </tbody>
+                                    </table>
+                                    <br><br><br>
+                                </div>
+
+                            </section>
+                            
                         </div>
                         <div id="gestion_categorias">
                             <section id="categorias_sistema" style="display: none; ">
@@ -4412,7 +4608,8 @@
     <script src="/public/js/seguridad/roles.js"></script>
     <script src="/public/js/seguridad/permisos.js"></script>
     <script src="/public/js/seguridad/bitacora.js"></script>
-
+    <script src="/public/js/dash/dash.js"></script>
+  
     <script src="/public/js/seguridad/copia_seguridad.js"></script>
     <script src="/public/js/usuarios/login.js"></script>
 

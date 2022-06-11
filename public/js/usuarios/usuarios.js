@@ -1,4 +1,4 @@
-var api = "http://31.220.108.62:3000/"
+var api = "http://localhost:3000/"
 var id_user = localStorage.getItem("id_usuario");
 var token = localStorage.getItem("token");
 var user_logeado = localStorage.getItem("usuario");
@@ -22,7 +22,7 @@ $(document).ready(function () {
         rol = $("#rol").val();
         valido = document.getElementById("contraseñaOK").textContent
         correovalido = document.getElementById("UcorreoOK").textContent
-
+        console.log(rol)
 
         if (cliente == "" || correo == "" || usuario == "" || clave == "" || telefono == "" || idenficacion == "" || no_identificacion == "" || direccion == ""|| rol == "") {
             Swal.fire({
@@ -66,8 +66,9 @@ $(document).ready(function () {
                 "Content-Type": "application/json",
                 'Authorization': token
             },
-            "data": JSON.stringify({ "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": telefono, "NOM_USUARIO": usuario, "CLAVE": clave, "NOM_IDENTIFICACION": idenficacion, "COD_IDENTIFICACION": no_identificacion, "DIRECCION": direccion, "COD_ROL": rol, "COD_MODULO": 1 }),
+            "data": JSON.stringify({ "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": telefono, "NOM_USUARIO": usuario, "CLAVE": clave, "NOM_IDENTIFICACION": idenficacion, "COD_IDENTIFICACION": no_identificacion, "DIRECCION": direccion, "COD_ROL": rol, "COD_MODULO": 1 ,"COD_ESTADO":3}),
         };
+        
         $.ajax(settings).done(function (response) {
             if (response == 0) {
                 Swal.fire({
@@ -90,8 +91,10 @@ $(document).ready(function () {
                     'Se registro correctamente!',
                     'success'
                 )
+                                
                 cargar_usuarios()
                 limpiar();
+                document.frm_categoria.submit();
                 document.getElementById("nuevo_usuario").style.display = "none"
                 document.getElementById("usuarios").style.display = "block"
             }
@@ -143,7 +146,7 @@ function cargar_usuarios() {
 
             "buttons": [
                 { 
-                    text: '<button  id="Mostrar_registro_U" class="btn btn-primary"><i class="fa fa-user-plus"></i> Nuevo Usuario</button>',
+                    text: '<button  id="Mostrar_registro_U" class="btn btn-primary"><i class="fa fa-user-plus"></i> Nuevo</button>',
                     action: function (e, dt, node, config) {
                         mostrar_registro();
                     },
@@ -156,7 +159,7 @@ function cargar_usuarios() {
                     filename: 'Export_File',
 
                     //Aquí es donde generas el botón personalizado
-                    text: '<button class="btn btn-success"><i class="fas fa-file-excel"></i> Exportar a Excel </button>',
+                    text: '<button class="btn btn-success"><i class="fas fa-file-excel"></i>  Excel </button>',
                     exportOptions: {
                         columns: [1, 2, 3, 4, 5, 6, 7, 8]
                     }
@@ -168,7 +171,7 @@ function cargar_usuarios() {
                     filename: 'Reporte de Usuarios del Sistema',
                     //orientation: 'landscape',//landscape give you more space
                     pageSize: 'A3',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))
-                    text: '<button class="btn btn-danger"><i class="far fa-file-pdf"></i> Exportar a PDF </button>',
+                    text: '<button class="btn btn-danger"><i class="far fa-file-pdf"></i> PDF </button>',
                     exportOptions: {
                         columns: [1, 2, 3, 4, 5, 6, 7, 8]
                     },
@@ -213,6 +216,7 @@ function cargar_usuarios() {
                 direccion = $("#A_direccion").val(data[4]);
                 persona = $("#cod_persona").val(data[13]);
                 rol = $("#A_rol").val(data[11]);
+                document.getElementById("id_usuario_modificar").innerHTML = data[12]
 
 
                 estado = $("#A_estado").val(data[10]);
@@ -360,6 +364,7 @@ function actualizar_datos() {
     estado = $("#A_estado").val();
     persona = $("#cod_persona").val();
     correovalido = document.getElementById("AcorreoOK")
+    usuario = document.getElementById("id_usuario_modificar")  
     if (correovalido.innerHTML != "") {
         Swal.fire({
             icon: 'error',
@@ -387,7 +392,7 @@ function actualizar_datos() {
     var raw = JSON.stringify({
         "COD_PERSONA": persona, "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": telefono, "NOM_USUARIO": usuario,
         "NOM_IDENTIFICACION": idenficacion, "COD_IDENTIFICACION": no_identificacion,
-        "DIRECCION": direccion, "COD_ROL": rol, "COD_ESTADO": estado, "COD_USUARIO":id_user , "COD_MODULO": 9
+        "DIRECCION": direccion, "COD_ROL": rol, "COD_ESTADO": 1, "COD_USUARIO":usuario.innerHTML , "COD_MODULO": 9
     });
     var requestOptions = {
         method: 'PUT',
@@ -395,6 +400,7 @@ function actualizar_datos() {
         body: raw,
         redirect: 'follow'
     };
+        
     fetch(url_actualizar_usuarios, requestOptions)
         .then(response => response.text())
         .then(result => {
@@ -408,7 +414,6 @@ function actualizar_datos() {
                 document.getElementById("alerta_usuarios").style.display = "none"
                 cancelar()
                 cargar_usuarios()
-
 
             }
         })

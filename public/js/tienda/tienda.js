@@ -1,5 +1,5 @@
-var api = "http://31.220.108.62:3000/"
-var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJDT0RfVVNVQVJJT1MiOjM1LCJOT01fVVNVQVJJTyI6IldQRVJFWiIsIkNMQVZFIjp7InR5cGUiOiJCdWZmZXIiLCJkYXRhIjpbNzIsMTExLDEwOCw5Nyw0NCw0OSw1MCw1MV19LCJDT0RfRVNUQURPIjoxLCJDT0RfUk9MIjoyfV0sImlhdCI6MTY1MDQ4NjcxOSwiZXhwIjoxNjU0MDg2NzE5fQ.j9JPGsmVi4mm8MF8aSsu5gg7B7EyoQhgpWdpaaLrKyI";
+var api = "http://localhost:3000/"
+var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJDT0RfVVNVQVJJT1MiOjM1LCJOT01fVVNVQVJJTyI6IldQRVJFWiIsIkNMQVZFIjp7InR5cGUiOiJCdWZmZXIiLCJkYXRhIjpbNzIsMTExLDEwOCw5Nyw0NCw0OSw1MCw1MV19LCJDT0RfRVNUQURPIjoyLCJDT0RfUk9MIjoyfV0sImlhdCI6MTY1NDM5NTY5M30.kRPRvVVJMNskGMjnINGarMeMIkBYe3h_nVE6puFhWBI";
 var user_logeado = 'INVITADO';
 $(document).ready(function () {
     $("#registrar_compra").click(function () {
@@ -19,13 +19,10 @@ $(document).ready(function () {
             return;
         }
         var settings = {
-            "url": api + "pedidos/nuevo_encabezado",
+            "url": api + "pedidos_clientes/nuevo_encabezado",
             "method": "POST",
             "timeout": 0,
-            "headers": {
-                "Content-Type": "application/json",
-                'Authorization': token
-            },
+            
             "data": JSON.stringify({ "COD_PERSONA": cod_persona.innerHTML, "COD_USUARIO": id_user, "DIRECCION": direccion, "COD_MODULO": 8, "COS_ENVIO": 100 }),
         };
 
@@ -84,14 +81,10 @@ $(document).ready(function () {
                 stock_disponible = parseInt(stock) - parseInt(cantidad)
                 cod_pago = $("#forma_pago_cliente").val();
                 var settings = {
-                    "url": api + "pedidos/nuevo",
+                    "url": api + "pedidos_clientes/nuevo",
                     "method": "POST",
                     "timeout": 0,
-                    "headers": {
-                        "Content-Type": "application/json",
-                        'Authorization': token
-                    },
-
+                   
                     "data": JSON.stringify({
                         "CANT_PRODUCTO": cantidad, "PR_PRODUCTO": precio, "MON_PEDIDO": monto_envio, "COS_ENVIO": costo_envio, "COD_PRODUCTO": cod_producto, "COD_PAGO": cod_pago,
                         "COD_MODULO": 8, "COD_USUARIO": id_user, "COD_ENCABEZADO": encabezado, "COD_INVENTARIO": cod_inventario, "STOCK": stock_disponible
@@ -102,7 +95,9 @@ $(document).ready(function () {
 
                 $.ajax(settings).done(function (response) {
                     //   console.log(response)
-                    document.getElementById("carrito_decompras").innerHTML = ""
+                    document.getElementById("carrito_decompras").innerHTML = "0"
+                    document.getElementById("carrito_decompras2").innerHTML = "0"
+
                     document.getElementById("detalle_total").innerHTML = ""
                     vaciarcarrito_cliente();
                     
@@ -127,7 +122,7 @@ function mostrar_categorias_tienda() {
     var myHeader = new Headers({
         'Authorization': token
     });
-    url_actualizar_permisos = api + "categorias/activas";
+    url_actualizar_permisos = api + "categorias_clientes/activas";
     myHeader.append("Content-Type", "application/json",);
     var raw = JSON.stringify({
         "NOM_USUARIO": user_logeado, "COD_USUARIO": 2, "COD_MODULO": 2
@@ -144,9 +139,9 @@ function mostrar_categorias_tienda() {
         })
         .then(function (data) {
 
-            console.log(data);
+           // console.log(data);
             var contenido = document.getElementById("categorias");
-            console.log(contenido);
+           // console.log(contenido);
             //var contenido_cliente = document.getElementById("lista_categorias_clientes");
 
             data[0].forEach(categoria => {
@@ -161,7 +156,7 @@ function mostrar_categorias_tienda() {
                 var nombre = document.createElement("h5");
                 var a = document.createElement("a");
                 var br = document.createElement("br");
-                div_col.classList = "col-md-6 col-lg-3  py-3";
+                div_col.classList = "col-md-6 col-lg-3 py-1";
                 div_card.classList = "bg-white shadow mb-5 mb-lg-0";
                 div_Art.classList = "hover-item hover-flip-img";
                 imagen.classList = "img-fluid";
@@ -203,7 +198,7 @@ function mostrar_categorias_tienda_list() {
     var myHeader = new Headers({
         'Authorization': token
     });
-    url_actualizar_permisos = api + "categorias/activas";
+    url_actualizar_permisos = api + "categorias_clientes/activas";
     myHeader.append("Content-Type", "application/json",);
     var raw = JSON.stringify({
         "NOM_USUARIO": user_logeado, "COD_USUARIO": 2, "COD_MODULO": 2
@@ -222,7 +217,7 @@ function mostrar_categorias_tienda_list() {
 
             //console.log(data);
             var contenido = document.getElementById("categorias_listadas");
-            console.log(contenido);
+           // console.log(contenido);
             //var contenido_cliente = document.getElementById("lista_categorias_clientes");
 
             data[0].forEach(categoria => {
@@ -281,7 +276,7 @@ function categoria_producto(cod_categoria) {
     var myHeader = new Headers({
         'Authorization': tokens
     });
-    url_actualizar_permisos = api + "categorias/productos_categoria";
+    url_actualizar_permisos = api + "categorias_clientes/productos_categoria";
     myHeader.append("Content-Type", "application/json",);
     var raw = JSON.stringify({
         "COD_CATEGORIA": cod_categoria, "COD_USUARIO": 2, "COD_MODULO": 2
@@ -388,7 +383,7 @@ function detalle_producto(sku) {
     var myHeader = new Headers({
         'Authorization': tokens
     });
-    url_actualizar_permisos = api + "productos/sku";
+    url_actualizar_permisos = api + "productos_clientes/sku";
     myHeader.append("Content-Type", "application/json",);
     var raw = JSON.stringify({
         "NOM_USUARIO": user_logeado, "COD_USUARIO": 2, "COD_MODULO": 2, "SKU": sku
@@ -446,19 +441,41 @@ function detalle_producto(sku) {
 }
 
 function carrito_compra_logeado() {
- 
+   
     document.getElementById("carrucel").style.display = "none";
     document.getElementById("seccion_informativa").style.display = "none";
     document.getElementById("titulo_categoria").style.display = "none";
-
+    document.getElementById("inicia_sesion_cliente").style.display = "block"
     document.getElementById("seccion_productos_promo").style.display = "none";
     document.getElementById("categorias").style.display = "none";
     document.getElementById("boton_todo_producto").style.display = "none";
     document.getElementById("productos_categorias").style.display = "none";
     document.getElementById("lista_categorias_productos").style.display = "none";
     document.getElementById("carrito_detalle_compra").style.display = "block";
+    document.getElementById("listado_productos").style.display = "none";
+     
     llenar_tabla_carrito_cliente();
 }
+
+
+function carrito_co_logeado() {
+    document.getElementById("perfil_usuario_cliente").style.display = "none";
+    document.getElementById("carrucel").style.display = "none";
+    document.getElementById("seccion_informativa").style.display = "none";
+    document.getElementById("titulo_categoria").style.display = "none";
+    document.getElementById("inicia_sesion_cliente").style.display = "none"
+    document.getElementById("seccion_productos_promo").style.display = "none";
+    document.getElementById("categorias").style.display = "none";
+    document.getElementById("boton_todo_producto").style.display = "none";
+    document.getElementById("productos_categorias").style.display = "none";
+    document.getElementById("lista_categorias_productos").style.display = "none";
+    document.getElementById("carrito_detalle_compra").style.display = "block";
+    document.getElementById("listado_productos").style.display = "none";
+    continuar_comprando();
+     
+    llenar_tabla_carrito_cliente();
+}
+
 
 function get_detalle_carrito() {
     var lista_registros = [];
@@ -467,6 +484,8 @@ function get_detalle_carrito() {
         lista_registros = JSON.parse(lista_string);
     }
     document.getElementById("carrito_decompras").innerHTML = '<i class="fas fa-shopping-cart"></i>' + lista_registros.length
+    document.getElementById("carrito_decompras2").innerHTML = '<i class="fas fa-shopping-cart"></i>' + lista_registros.length
+    
     return lista_registros;
 }
 
@@ -727,11 +746,13 @@ function datos_cliente() {
     var myHeader = new Headers({
         'Authorization': token
     });
-    url_usuarios = api + "usuarios";
+    url_usuarios = api + "usuario";
     myHeader.append("Content-Type", "application/json",);
     var raw = JSON.stringify({
         "NOM_USUARIO": user_logeado, "COD_USUARIO": 2, "COD_MODULO": 9,
     });
+
+    
     var requestOptions = {
         method: 'POST',
         headers: myHeader,
@@ -787,7 +808,7 @@ function datos_cliente() {
 
 function perfil_cliente() {
     var usuario_logeado = localStorage.getItem("usuario");
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJDT0RfVVNVQVJJT1MiOjM1LCJOT01fVVNVQVJJTyI6IldQRVJFWiIsIkNMQVZFIjp7InR5cGUiOiJCdWZmZXIiLCJkYXRhIjpbNzIsMTExLDEwOCw5Nyw0NCw0OSw1MCw1MV19LCJDT0RfRVNUQURPIjoxLCJDT0RfUk9MIjoyfV0sImlhdCI6MTY1MDQ4NjcxOSwiZXhwIjoxNjU0MDg2NzE5fQ.j9JPGsmVi4mm8MF8aSsu5gg7B7EyoQhgpWdpaaLrKyI";
+    //var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJDT0RfVVNVQVJJT1MiOjM1LCJOT01fVVNVQVJJTyI6IldQRVJFWiIsIkNMQVZFIjp7InR5cGUiOiJCdWZmZXIiLCJkYXRhIjpbNzIsMTExLDEwOCw5Nyw0NCw0OSw1MCw1MV19LCJDT0RfRVNUQURPIjoxLCJDT0RfUk9MIjoyfV0sImlhdCI6MTY1MDQ4NjcxOSwiZXhwIjoxNjU0MDg2NzE5fQ.j9JPGsmVi4mm8MF8aSsu5gg7B7EyoQhgpWdpaaLrKyI";
     var user_logeado = 'INVITADO';
     nombre_cliente = localStorage.getItem("nombre_usuario")
 
@@ -998,7 +1019,7 @@ function actualizar_contraseña_perfil() {
 function continuar_comprando() {
     document.getElementById("listado_productos").style.display = "none";
     document.getElementById("lista_categorias_productos").style.display = "block";
-
+   
     document.getElementById("detalle_producto").style.display = "none";
     document.getElementById("productos_categorias").style.display = "block";
 }

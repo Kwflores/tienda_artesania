@@ -396,7 +396,14 @@ function mostrarContrasenapass_confi() {
         tipo.type = "password";
     }
 }
-
+function mostrarContrasenapass_actual() {
+  var tipo = document.getElementById("pass_actual");
+  if (tipo.type == "password") {
+      tipo.type = "text";
+  } else {
+      tipo.type = "password";
+  }
+}
 
  
 

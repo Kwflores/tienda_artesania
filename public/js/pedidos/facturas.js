@@ -1,4 +1,4 @@
-var api = "http://31.220.108.62:3000/"
+var api = "http://localhost:3000/"
 var id_user = localStorage.getItem("id_usuario");
 var token = localStorage.getItem("token");
 var user_logeado = localStorage.getItem("usuario");
@@ -733,7 +733,7 @@ function llenar_tabla_factura() {
     var cuerpo_cliente = document.getElementById("contenido_detalle");
     cuerpo_cliente.innerHTML = "";
     var lista_productos_cliente = get_detalle_factura();
-    console.log(lista_productos_cliente)
+   // console.log(lista_productos_cliente)
     lista_productos_cliente.forEach(
         producto => {
             // console.log(producto)

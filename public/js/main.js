@@ -104,7 +104,14 @@ function logeado() {
         document.getElementById("iniciar_sesion").style.display = "none"
         document.getElementById("cerrar_sesion").style.display = "block"
         document.getElementById("bienvenido_usuario").style.display = "block"
+        document.getElementById("hola_bienvenido").style.display = "none"
         document.getElementById("mostrar_perfil_cliente").style.display = "block"
+        document.getElementById("inicia_sesion_cliente").style.display = "none"
+    }
+    if (localStorage.getItem("carrito_logeado") == "1") {
+        document.getElementById("inicia_sesion_cliente").style.display = "none"
+        document.getElementById("btn_carrito1").style.display = "none"
+        document.getElementById("btn_carrito2").style.display = "block"
     }
     document.getElementById("usuario").innerHTML = user_logeado
 }
@@ -115,7 +122,9 @@ function cerrar_sesion() {
     localStorage.removeItem("usuario");
     localStorage.removeItem("token");
     localStorage.removeItem("rol");
-    localStorage.removeItem("tiendita");
+    localStorage.removeItem("rol");
+    localStorage.removeItem("carrito_logeado");
+    localStorage.removeItem("tiendita" );
     if (localStorage.getItem("logeado") == "0") {
         mostrarlogin()
         document.getElementById("bienvenido_usuario").style.display = "none"
@@ -151,7 +160,8 @@ function mostrar_perfil_cliente(){
     document.getElementById("carrucel").style.display = "none";
     document.getElementById("seccion_informativa").style.display = "none";
     document.getElementById("titulo_categoria").style.display = "none";
-
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("seccion_productos_promo").style.display = "none";
     document.getElementById("lista_categorias").style.display = "none";
     document.getElementById("boton_todo_producto").style.display = "none";
@@ -188,6 +198,7 @@ function cerrar_sesion_tiendita() {
     if (localStorage.getItem("logeado") == "0") {
         document.getElementById("tiendita").style.display = "block"
         document.getElementById("bienvenido_usuario").style.display = "none"
+
     } else {
         document.getElementById("perfil_data").style.display = "none"
         document.getElementById("perfil_data_contraseña").style.display = "none"
@@ -216,7 +227,8 @@ function mostrar_tienda() {
     document.getElementById("tiendita").style.display = "block"
     document.getElementById("inicio_sesion").style.display = "none";
     document.getElementById("dash").style.display = "none"
-
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
 
 }
 
@@ -226,6 +238,46 @@ function mostrar_dash() {
     document.getElementById("dash").style.display = "block"
     document.getElementById("tiendita").style.display = "none"
     document.getElementById("inicio_sesion").style.display = "none";
+    document.getElementById("gestion_categorias_dash").style.display="block"
+    document.getElementById("productos_sistema").style.display="block"
+    document.getElementById("gestion_reportes").style.display="none"
+    localStorage.removeItem("sugerencias");
+    localStorage.removeItem("facturas_sistema")
+    localStorage.removeItem("pedidos_sistema")
+    localStorage.removeItem("inventario_sistema")
+    localStorage.removeItem("mostrar_roles")
+    localStorage.removeItem("gestion_reportes")
+    localStorage.removeItem("mostrarr_proveedores")
+    localStorage.removeItem("mostrar_usuarios")
+    localStorage.removeItem("mostrar_categprias");
+ 
+    document.getElementById("gestion_reportes").style.display = "none"
+    document.getElementById("facturas_sistema").style.display = "none"
+    document.getElementById("pedidos_sistema").style.display = "none"
+    document.getElementById("inventario_sistema").style.display = "none"
+    document.getElementById("proveedores_sistema").style.display = "none"
+    document.getElementById("permisos").style.display = "none"
+    document.getElementById("usuarios").style.display = "none"
+    document.getElementById("roles_sistema").style.display = "none";
+    document.getElementById("categorias_sistema").style.display = "none"
+    document.getElementById("sugerencias").style.display = "none"
+    localStorage.removeItem("permisos_sys");
+    localStorage.removeItem("pedidos_sistema");
+    document.getElementById("perfil_usuario").style.display = "none"
+    localStorage.removeItem("Seguridad_copia_respaldo");
+    document.getElementById("Seguridad_copia_respaldo").style.display = "none"
+    document.getElementById("nuevo_usuario").style.display = "none"
+    document.getElementById("actualizar_usuario").style.display = "none"
+    document.getElementById("actualizar_pass_user").style.display = "none"
+    document.getElementById("actualizar_categorias").style.display = "none"
+    document.getElementById("nueva_categoria").style.display = "none"
+    document.getElementById("nuevo_proveedor").style.display = "none"
+    document.getElementById("actualizar_proveedor").style.display = "none"
+    document.getElementById("nuevo_producto").style.display = "none"
+    document.getElementById("actualizar_producto").style.display = "none"
+    localStorage.removeItem("Seguridad_bitacora");
+    document.getElementById("Seguridad_bitacora").style.display = "none"
+    document.getElementById("nuevo_factura").style.display = "none"
    //localStorage.removeItem("mostra_reportes"); 
 
 }
@@ -242,7 +294,8 @@ function mostrarregistro() {
     document.getElementById("pedidos_sistema").style.display = "none"
     document.getElementById("facturas_sistema").style.display = "none"
     document.getElementById("inventario_sistema").style.display = "none"
-
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
 
 }
 
@@ -296,6 +349,8 @@ function mostrar_registro() {
     document.getElementById("inventario_sistema").style.display = "none"
     document.getElementById("actualizar_categorias").style.display = "none"
     document.getElementById("nueva_categoria").style.display = "none"
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
 }
 
 function mostrar_usuarios() {0
@@ -306,6 +361,8 @@ function mostrar_usuarios() {0
     localStorage.removeItem("pedidos_sistema");
     document.getElementById("mostra_reportes").style.display = "none"
     localStorage.removeItem("sugerencias");
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     localStorage.removeItem("mostrarr_proveedores");
     document.getElementById("productos_sistema").style.display = "none"
     document.getElementById("pedidos_sistema").style.display = "none"
@@ -347,6 +404,8 @@ function mostrar_categorias() {
     localStorage.removeItem("mostrarr_proveedores");
     localStorage.removeItem("productos_sistema");
     localStorage.removeItem("facturas_sistema");
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("inventario_sistema").style.display = "none";
     localStorage.removeItem("inventario_sistema");
     document.getElementById("sugerencias").style.display = "none";
@@ -380,7 +439,8 @@ function mostrar_registro_categoria() {
     localStorage.removeItem("inventario_sistema");
     document.getElementById("sugerencias").style.display = "none"
     localStorage.removeItem("permisos_sys");
-
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("nueva_categoria").style.display = "block"
     document.getElementById("categorias_sistema").style.display = "none"
     document.getElementById("usuarios").style.display = "none"
@@ -401,6 +461,8 @@ function mostrar_perfl() {
     localStorage.removeItem("inventario_sistema");
     document.getElementById("sugerencias").style.display = "none"
     localStorage.removeItem("permisos_sys");
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("mostra_reportes").style.display = "none"
     localStorage.removeItem("mostra_reportes");
     document.getElementById("nuevo_usuario").style.display = "none"
@@ -428,11 +490,15 @@ function mostrar_perfl() {
 function perfil_user_cliente(){
     document.getElementById("data_perfil_cliente").style.display = "block"
     document.getElementById("perfil_data_contraseña_cliente").style.display = "none"
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
 } 
 
 function mostrar_pass_perfil_cliente(){
     document.getElementById("data_perfil_cliente").style.display = "none"
     document.getElementById("perfil_data_contraseña_cliente").style.display = "block"
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
 }
 
 function perfil_user() {
@@ -447,7 +513,8 @@ function perfil_user() {
     localStorage.removeItem("inventario_sistema");
     document.getElementById("sugerencias").style.display = "none"
     localStorage.removeItem("permisos_sys");
-
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("perfil_data").style.display = "block"
     document.getElementById("perfil_data_contraseña").style.display = "none"
     document.getElementById("permisos").style.display = "none"
@@ -469,7 +536,8 @@ function mostrar_pass_perfil() {
     localStorage.removeItem("inventario_sistema");
     document.getElementById("sugerencias").style.display = "none"
     localStorage.removeItem("permisos_sys");
-
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("perfil_data").style.display = "none"
     document.getElementById("perfil_data_contraseña").style.display = "block"
     document.getElementById("permisos").style.display = "none"
@@ -492,6 +560,8 @@ function mostrar_permisos() {
     localStorage.removeItem("Mostrar_Modulo_sugerencia");
     localStorage.removeItem("productos_sistema");
     localStorage.removeItem("pedidos_sistema");
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("perfil_usuario").style.display = "none"
     document.getElementById("sugerencias").style.display = "none"
     document.getElementById("permisos").style.display = "block"
@@ -520,6 +590,8 @@ function registro_permisos() {
     localStorage.removeItem("mostrar_categprias");
     localStorage.removeItem("mostrarr_proveedores");
     localStorage.removeItem("facturas_sistema")
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("proveedores_sistema").style.display = "none"
     document.getElementById("nuevo_permiso").style.display = "block"
     document.getElementById("permisos").style.display = "none"
@@ -546,6 +618,8 @@ function mostrar_roles() {
     localStorage.removeItem("facturas_sistema")
     localStorage.removeItem("Mostrar_Modulo_sugerencia");
     localStorage.removeItem("mostrarr_proveedores");
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("roles_sistema").style.display = "block";
     document.getElementById("usuarios").style.display = "none"
     document.getElementById("permisos").style.display = "none"
@@ -601,6 +675,8 @@ function mostrar_registro_rol() {
       localStorage.removeItem("Seguridad_bitacora");
     document.getElementById("Seguridad_bitacora").style.display = "none"
     document.getElementById("nuevo_factura").style.display = "none"
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
 }
 
 function mostrar_proveedores() {
@@ -639,13 +715,16 @@ function mostrar_proveedores() {
     document.getElementById("Seguridad_bitacora").style.display = "none"
     document.getElementById("nuevo_factura").style.display = "none"
     localStorage.removeItem("sugerencias");
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
 }
 
 function mostrar_registro_proveedores() {
     document.getElementById("facturas_sistema").style.display = "none"
     document.getElementById("inventario_sistema").style.display = "none"
     document.getElementById("sugerencias").style.display = "none"
-
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("nuevo_proveedor").style.display = "block"
     document.getElementById("proveedores_sistema").style.display = "none"
     document.getElementById("pedidos_sistema").style.display = "none"
@@ -688,6 +767,8 @@ function mostrar_productos() {
     document.getElementById("Seguridad_bitacora").style.display = "none"
     document.getElementById("nuevo_factura").style.display = "none"
     localStorage.removeItem("sugerencias");
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
 }
 
 function mostrar_inventario() {
@@ -727,12 +808,15 @@ function mostrar_inventario() {
     document.getElementById("Seguridad_bitacora").style.display = "none"
     document.getElementById("nuevo_factura").style.display = "none"
     localStorage.removeItem("sugerencias");
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
 }
 
 function mostrar_registro_productos() {
     document.getElementById("pedidos_sistema").style.display = "none"
     document.getElementById("inventario_sistema").style.display = "none"
-
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("nuevo_producto").style.display = "block"
     document.getElementById("productos_sistema").style.display = "none"
 }
@@ -774,6 +858,8 @@ function mostrar_pedidos() {
     document.getElementById("Seguridad_bitacora").style.display = "none"
     document.getElementById("nuevo_factura").style.display = "none"
     localStorage.removeItem("sugerencias");
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
 }
 
 function mostrar_facturas() {
@@ -812,6 +898,8 @@ function mostrar_facturas() {
     localStorage.removeItem("Seguridad_bitacora");
     document.getElementById("Seguridad_bitacora").style.display = "none"
     localStorage.removeItem("sugerencias");
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
  
 }
 
@@ -854,7 +942,8 @@ function mostrar_sugerencias() {
     localStorage.removeItem("Seguridad_bitacora");
     document.getElementById("Seguridad_bitacora").style.display = "none"
     document.getElementById("nuevo_factura").style.display = "none"
- 
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
 }
 
 function mostra_reportes() {
@@ -868,8 +957,14 @@ function mostra_reportes() {
     localStorage.removeItem("mostrar_usuarios")
     localStorage.removeItem("mostrar_categprias");
     localStorage.removeItem("productos_sistema");
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
+    document.getElementById("gestion_reportes").style.display = "block"
     document.getElementById("mostra_reportes").style.display = "block"
+
+    
     document.getElementById("facturas_sistema").style.display = "none"
+    document.getElementById("gestion_categorias_dash").style.display = "none"
     document.getElementById("pedidos_sistema").style.display = "none"
     document.getElementById("inventario_sistema").style.display = "none"
     document.getElementById("productos_sistema").style.display = "none"
@@ -914,6 +1009,8 @@ function mostrar_copia_Seguridad(){
     localStorage.removeItem("pedidos_sistema");
     localStorage.removeItem("mostra_reportes");
     localStorage.removeItem("productos_sistema");
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("facturas_sistema").style.display = "none"
     document.getElementById("pedidos_sistema").style.display = "none"
     document.getElementById("inventario_sistema").style.display = "none"
@@ -956,6 +1053,8 @@ function mostrar_bitacora(){
     localStorage.removeItem("pedidos_sistema");
     localStorage.removeItem("mostra_reportes");
     localStorage.removeItem("productos_sistema");
+    document.getElementById("gestion_categorias_dash").style.display="none"
+    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("facturas_sistema").style.display = "none"
     document.getElementById("pedidos_sistema").style.display = "none"
     document.getElementById("inventario_sistema").style.display = "none"

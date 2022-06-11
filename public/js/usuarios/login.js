@@ -1,5 +1,5 @@
 //variables globales
-var api = "http://31.220.108.62:3000/"
+var api = "http://localhost:3000/"
 var id_user = localStorage.getItem("id_usuario");
 var token = localStorage.getItem("token");
 var user_logeado = localStorage.getItem("usuario");
@@ -34,6 +34,8 @@ $(document).ready(function () {
                 return response.json();
             })
             .then(function (data) {
+               
+             
                 if (!data) {
 
                     url_tokens = api + "send-email/token";
@@ -52,7 +54,7 @@ $(document).ready(function () {
                             return response.json();
                         })
                         .then(function (data) {
-                            console.log(data[0].length)
+                        
                             if (data[0].length == 0) {
                                 Swal.fire({
                                     icon: 'error',
@@ -82,15 +84,17 @@ $(document).ready(function () {
                                             'success'
                                         )
 
-
-                                        localStorage.setItem('id_user', element.COD_USUARIO);
-                                        localStorage.setItem('usuario_reset_clave', username)
+                                         
+                                        localStorage.setItem('id_usuario', element.COD_USUARIO);
+                                        localStorage.setItem('usuario', username)
+                                        
                                         document.getElementById("clave").style.display = "block";
+                                        document.getElementById("contra_actual").style.display = "none";
                                         document.getElementById("login").style.display = "none";
                                         document.getElementById("registro").style.display = "none";
                                         document.getElementById("resetear-clave").style.display = "none";
-                                        password_login = $("#CLAVE").val();
-                                        password_login = ""
+                                        
+                                      
                                     }
                                     else {
                                         Swal.fire({
@@ -123,22 +127,55 @@ $(document).ready(function () {
 
                     if (rol_usuario == 'CLIENTE') {
                         localStorage.setItem('tiendita', 1)
+                        localStorage.setItem('carrito_logeado', 1)
                         localStorage.removeItem("logeado")
                         document.getElementById("inicio_sesion").style.display = "none"
                         document.getElementById("tiendita").style.display = "block"
+                        document.getElementById("inicia_sesion_cliente").style.display = "none"
+                        document.getElementById("btn_carrito1").style.display = "none"
+                        document.getElementById("btn_carrito2").style.display = "block"
                         document.getElementById("cerrar_sesion").style.display = "block"
                         document.getElementById("iniciar_sesion").style.display = "none"
+                        document.getElementById("hola_bienvenido").style.display = "none"
                         document.getElementById("bienvenido_usuario").style.display = "block"
+                        
                         $("#nombre_cliente").val( data.Nombre);
                         document.frm_categoria.submit();
-                        return;
+                       
                     }else{
+                        console.log(data.dt[0].COD_ESTADO)
+                        
+                        if ( data.dt[0].COD_ESTADO == 3 ) {
+                            Swal.fire(
+                                'Bienvenido',
+                                'Para ingresar al panel administrador, debe actualizar la contraseña proporcionada.',
+                                'success'
+                            )
+                            pass_actual = $("#pass_actual").val(password);
+
+                            document.getElementById("clave").style.display = "block";
+                            document.getElementById("login").style.display = "none";
+                            document.getElementById("registro").style.display = "none";
+                            document.getElementById("resetear-clave").style.display = "none";
+                            $("#CLAVE").val("");
+                            continuar_comprando()
+                            return
+                        }
+                        if ( data.dt[0].COD_ESTADO == 2 ) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Usuario se encuentra inactivo, favor comunicarse con el Administrador de sistema',
+                            })
+                            return                                                        
+                        }
+                        else{
                         localStorage.setItem('logeado', 1);
                         localStorage.removeItem("tiendita")
                         document.getElementById("dash").style.display = "block"
                         document.getElementById("tiendita").style.display = "none"
                         document.getElementById("inicio_sesion").style.display = "none";
-                      
+                        }
                     }
                     let timerInterval
                     Swal.fire({
@@ -291,8 +328,9 @@ $(document).ready(function () {
     $("#modificar-clave").click(function () {
         password = $("#pass").val();
         confi_password = $("#pass_conf").val();
-        var id_codigo_user = localStorage.getItem("id_user");
-        var user_reset = localStorage.getItem("usuario_reset_clave");
+        pass_actual = $("#pass_actual").val();
+        var id_codigo_user = localStorage.getItem("id_usuario");
+        var user_reset = localStorage.getItem("usuario");
 
         url_pass = api + "send-email/clave"
         var MyHeaders = new Headers({
@@ -307,7 +345,16 @@ $(document).ready(function () {
             redirect: 'follow'
         };
         valido = document.getElementById("campoOK").textContent
+        
 
+        if (pass_actual == password) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡La nueva contraseña no puede ser igual a la actual.!',
+            })
+            return;
+        }
         if (valido != "") {
             Swal.fire({
                 icon: 'error',
@@ -357,6 +404,8 @@ $(document).ready(function () {
         confi_clave = $("#conf_pass").val();
         telefono = "0";
         valido_correo = document.getElementById("emailOK").textContent
+        
+ 
 
         if (valido_correo != "") {
             Swal.fire({
@@ -385,6 +434,7 @@ $(document).ready(function () {
             })
             return;
         }
+        
         if (clave != confi_clave) {
             Swal.fire({
                 icon: 'error',
@@ -399,10 +449,14 @@ $(document).ready(function () {
             "method": "POST",
             "timeout": 0,
             "headers": {
+
                 "Content-Type": "application/json"
             },
-            "data": JSON.stringify({ "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": 0, "NOM_USUARIO": usuario, "CLAVE": clave, "NOM_IDENTIFICACION": "NULL", "COD_IDENTIFICACION": "NULL", "DIRECCION": "NULL", "COD_ROL": 4, "COD_MODULO": 1 }),
+            "data": JSON.stringify({ "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": 0, "NOM_USUARIO": usuario, "CLAVE": clave, "NOM_IDENTIFICACION": "NULL", "COD_IDENTIFICACION": "NULL", "DIRECCION": "NULL", "COD_ROL": 4, "COD_MODULO": 1, "COD_ESTADO": 3}),
         };
+        
+        
+                
         $.ajax(settings).done(function (response) {
             if (response == 0) {
                 Swal.fire({
