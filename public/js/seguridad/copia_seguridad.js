@@ -60,7 +60,7 @@ function backup() {
 
 
 function obtenercopias() {
-    $("#contenido_roles").empty();
+    $("#contenido_backups").empty();
     var settings = {
         "url": api + "backup/consultar",
         "method": "POST",

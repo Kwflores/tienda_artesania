@@ -83,13 +83,14 @@ $(document).ready(function () {
                                             'Favor Modificar Contraseña, y volver a Iniciar Sesión!',
                                             'success'
                                         )
-
+  
                                          
                                         localStorage.setItem('id_usuario', element.COD_USUARIO);
                                         localStorage.setItem('usuario', username)
+                                        $("#pass_actual").val(password);
                                         
                                         document.getElementById("clave").style.display = "block";
-                                        document.getElementById("contra_actual").style.display = "none";
+                                        document.getElementById("contra_actual").style.display = "block";
                                         document.getElementById("login").style.display = "none";
                                         document.getElementById("registro").style.display = "none";
                                         document.getElementById("resetear-clave").style.display = "none";
@@ -331,13 +332,13 @@ $(document).ready(function () {
         pass_actual = $("#pass_actual").val();
         var id_codigo_user = localStorage.getItem("id_usuario");
         var user_reset = localStorage.getItem("usuario");
-
+       // $("#pass_actual").val(password);
         url_pass = api + "send-email/clave"
         var MyHeaders = new Headers({
             'Authorization': token
         });
         MyHeaders.append("Content-Type", "application/json",);
-        raw = JSON.stringify({ "CLAVE": password, "USUARIO": user_reset, "COD_USUARIO": id_codigo_user, "COD_MODULO": 2, })
+        raw = JSON.stringify({ "CLAVE": password, "USUARIO": user_reset, "COD_USUARIO": id_codigo_user, "COD_MODULO": 2,"COD_ESTADO":1})
         var settings = {
             method: 'PUT',
             headers: MyHeaders,
@@ -353,6 +354,7 @@ $(document).ready(function () {
                 title: 'Oops...',
                 text: '¡La nueva contraseña no puede ser igual a la actual.!',
             })
+
             return;
         }
         if (valido != "") {

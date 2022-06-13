@@ -7,7 +7,37 @@ rol_usuario.innerHTML = rol_user;
 
 function logeado() {
     if (localStorage.getItem("logeado") == "1") {
-        mostrar_dash();
+     
+        document.getElementById("dash").style.display = "block"
+        document.getElementById("tiendita").style.display = "none"
+        document.getElementById("inicio_sesion").style.display = "none";
+        document.getElementById("gestion_categorias_dash").style.display="block"
+        document.getElementById("productos_sistema").style.display="block"
+        document.getElementById("gestion_reportes").style.display="none"
+        
+        document.getElementById("gestion_reportes").style.display = "none"
+        document.getElementById("facturas_sistema").style.display = "none"
+        document.getElementById("pedidos_sistema").style.display = "none"
+        document.getElementById("inventario_sistema").style.display = "none"
+        document.getElementById("proveedores_sistema").style.display = "none"
+        document.getElementById("permisos").style.display = "none"
+        document.getElementById("usuarios").style.display = "none"
+        document.getElementById("roles_sistema").style.display = "none";
+        document.getElementById("categorias_sistema").style.display = "none"
+        document.getElementById("sugerencias").style.display = "none"
+        document.getElementById("perfil_usuario").style.display = "none"
+        document.getElementById("Seguridad_copia_respaldo").style.display = "none"
+        document.getElementById("nuevo_usuario").style.display = "none"
+        document.getElementById("actualizar_usuario").style.display = "none"
+        document.getElementById("actualizar_pass_user").style.display = "none"
+        document.getElementById("actualizar_categorias").style.display = "none"
+        document.getElementById("nueva_categoria").style.display = "none"
+        document.getElementById("nuevo_proveedor").style.display = "none"
+        document.getElementById("actualizar_proveedor").style.display = "none"
+        document.getElementById("nuevo_producto").style.display = "none"
+        document.getElementById("actualizar_producto").style.display = "none"
+        document.getElementById("Seguridad_bitacora").style.display = "none"
+        document.getElementById("nuevo_factura").style.display = "none"
 
     } else {
         document.getElementById("perfil_data").style.display = "none"
@@ -33,6 +63,8 @@ function logeado() {
     if (localStorage.getItem("mostrar_usuarios") == "1") {
         document.getElementById("usuarios").style.display = "block";
         document.getElementById("mostra_reportes").style.display = "none";
+        document.getElementById("gestion_categorias_dash").style.display="none"
+        document.getElementById("productos_sistema").style.display="none"
 
     }
     if (localStorage.getItem("mostrarr_proveedores") == "1") {
@@ -122,7 +154,11 @@ function cerrar_sesion() {
     localStorage.removeItem("usuario");
     localStorage.removeItem("token");
     localStorage.removeItem("rol");
-    localStorage.removeItem("rol");
+    localStorage.removeItem("mostrar_login");
+    localStorage.removeItem("nombre_usuario");
+    localStorage.removeItem("mostrar_modulo_usuario");
+    localStorage.removeItem("mostrar_moduloCategoria");
+
     localStorage.removeItem("carrito_logeado");
     localStorage.removeItem("tiendita" );
     if (localStorage.getItem("logeado") == "0") {
@@ -233,6 +269,7 @@ function mostrar_tienda() {
 }
 
 function mostrar_dash() {
+    localStorage.setItem("dash_admin", 1);
     localStorage.removeItem("mostrar_login");
     localStorage.removeItem("tiendita");
     document.getElementById("dash").style.display = "block"
@@ -284,6 +321,7 @@ function mostrar_dash() {
 
 
 function mostrarregistro() {
+    localStorage.removeItem("dash_admin");
     document.getElementById("login").style.display = "none";
     document.getElementById("registro").style.display = "block";
     document.getElementById("resetear-clave").style.display = "none";
@@ -353,8 +391,9 @@ function mostrar_registro() {
     document.getElementById("productos_sistema").style.display="none"
 }
 
-function mostrar_usuarios() {0
+function mostrar_usuarios(){
     localStorage.setItem("mostrar_usuarios", 1);
+    localStorage.removeItem("dash_admin");
     localStorage.removeItem("productos_sistema");
     localStorage.removeItem("mostrar_roles");
     localStorage.removeItem("permisos_sys");
@@ -394,6 +433,7 @@ function mostrar_usuarios() {0
 
 function mostrar_categorias() {
     localStorage.removeItem("sugerencias");
+    localStorage.removeItem("dash_admin");
     localStorage.setItem("mostrar_categprias", 1)
     localStorage.setItem("mostrar_moduloCategoria", 13)
     localStorage.removeItem("mostrar_modulo_usuario");

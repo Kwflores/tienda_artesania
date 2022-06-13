@@ -41,18 +41,19 @@ app.post('/token', (req, res) => {
 // Registro actualizar datos de usuarios
 app.put('/clave', (req, res) => {
     try {
-        const { CLAVE, NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
-        const consulta = `call ACTUALIZAR_CLAVE('${CLAVE}','${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+        const { CLAVE, NOM_USUARIO, COD_USUARIO, COD_MODULO,COD_ESTADO} = req.body;
+        const consulta = `call ACTUALIZAR_CLAVE('${CLAVE}','${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO},${COD_ESTADO})`;
         conn.query(consulta, error => {
             if (error) throw error;
             res.json({Message:"Actualizacion de Clave por medio del nombre de usuario"});
         });
     } catch (error) {
-        res.send("0");
+      console.log(error)
+       // res.send("0");
 
     }
-
 });
+
 
 app.post('/', (req, res) => {
 

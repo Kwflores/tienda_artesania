@@ -581,7 +581,7 @@ function actualizar_contraseña_user() {
     });
     url_actualizar_usuarios = api + "usuarios/clave";
     myHeader.append("Content-Type", "application/json",);
-    var raw = JSON.stringify({ "CLAVE": clave, "NOM_USUARIO": usuario, "COD_USUARIO": codigo_user.innerHTML, "COD_MODULO": 9 });
+    var raw = JSON.stringify({ "CLAVE": clave, "NOM_USUARIO": usuario, "COD_USUARIO": codigo_user.innerHTML, "COD_MODULO": 9,"COD_ESTADO":3});
     var requestOptions = {
         method: 'PUT',
         headers: myHeader,
