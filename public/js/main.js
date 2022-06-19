@@ -7,14 +7,12 @@ rol_usuario.innerHTML = rol_user;
 
 function logeado() {
     if (localStorage.getItem("logeado") == "1") {
-     
         document.getElementById("dash").style.display = "block"
         document.getElementById("tiendita").style.display = "none"
         document.getElementById("inicio_sesion").style.display = "none";
         document.getElementById("gestion_categorias_dash").style.display="block"
         document.getElementById("productos_sistema").style.display="block"
         document.getElementById("gestion_reportes").style.display="none"
-        
         document.getElementById("gestion_reportes").style.display = "none"
         document.getElementById("facturas_sistema").style.display = "none"
         document.getElementById("pedidos_sistema").style.display = "none"
@@ -39,12 +37,7 @@ function logeado() {
         document.getElementById("Seguridad_bitacora").style.display = "none"
         document.getElementById("nuevo_factura").style.display = "none"
 
-    } else {
-        document.getElementById("perfil_data").style.display = "none"
-        document.getElementById("perfil_data_contraseña").style.display = "none"
-        document.getElementById("mostra_reportes").style.display = "none";
-
-    }
+    } 
 
     if (localStorage.getItem("mostrar_roles") == "1") {
         document.getElementById("roles_sistema").style.display = "block";
@@ -111,24 +104,17 @@ function logeado() {
 
     }
     if (localStorage.getItem("permisos_sys") == "1") {
-        document.getElementById("permisos").style.display = "block";
-        document.getElementById("mostra_reportes").style.display = "none";
-        document.getElementById("actualizar_usuario").style.display = "none"
-        document.getElementById("actualizar_pass_user").style.display = "none"
+        mostrar_permisos()
 
     }
     if (localStorage.getItem("mostra_reportes") == "1") {
-        document.getElementById("mostra_reportes").style.display = "block";
+        mostra_reportes();
     }
     if (localStorage.getItem("Seguridad_copia_respaldo") == "1") {
-        document.getElementById("Seguridad_copia_respaldo").style.display = "block";
-        document.getElementById("mostra_reportes").style.display = "none";
-        document.getElementById("actualizar_usuario").style.display = "none"
-        document.getElementById("actualizar_pass_user").style.display = "none"
-         document.getElementById("Seguridad_bitacora").style.display = "block";
+        mostrar_copia_Seguridad();
     }
     if (localStorage.getItem("Seguridad_bitacora") == "1") {
-        document.getElementById("Seguridad_bitacora").style.display = "block";
+        mostrar_bitacora();
       
     }
     if (localStorage.getItem("tiendita") == "1") {
@@ -144,6 +130,9 @@ function logeado() {
         document.getElementById("inicia_sesion_cliente").style.display = "none"
         document.getElementById("btn_carrito1").style.display = "none"
         document.getElementById("btn_carrito2").style.display = "block"
+    }
+    if (localStorage.getItem("dash_admin") == "1") {
+        mostrar_dash() 
     }
     document.getElementById("usuario").innerHTML = user_logeado
 }
@@ -190,6 +179,7 @@ function cerrar_sesion() {
         document.getElementById("perfil_data_contraseña").style.display = "none"
     }
 }
+
 function mostrar_perfil_cliente(){
     document.getElementById("perfil_usuario_cliente").style.display="block"
     
@@ -1049,6 +1039,8 @@ function mostrar_copia_Seguridad(){
     localStorage.removeItem("pedidos_sistema");
     localStorage.removeItem("mostra_reportes");
     localStorage.removeItem("productos_sistema");
+    localStorage.removeItem("Seguridad_bitacora");
+    localStorage.removeItem("dash_admin");
     document.getElementById("gestion_categorias_dash").style.display="none"
     document.getElementById("productos_sistema").style.display="none"
     document.getElementById("facturas_sistema").style.display = "none"
@@ -1072,14 +1064,12 @@ function mostrar_copia_Seguridad(){
     document.getElementById("actualizar_proveedor").style.display = "none"
     document.getElementById("nuevo_producto").style.display = "none"
     document.getElementById("actualizar_producto").style.display = "none"
-    localStorage.removeItem("Seguridad_bitacora");
-    document.getElementById("Seguridad_bitacora").style.display = "none"
+    document.getElementById("gestion_bitacora_Seguridad").style.display = "none"
     document.getElementById("nuevo_factura").style.display = "none"
 }
 
 function mostrar_bitacora(){
     localStorage.setItem("Seguridad_bitacora", 1);
-    document.getElementById("Seguridad_bitacora").style.display = "block"
     localStorage.removeItem("Seguridad_copia_respaldo");
     localStorage.removeItem("sugerencias");
     localStorage.removeItem("facturas_sistema")
@@ -1093,6 +1083,8 @@ function mostrar_bitacora(){
     localStorage.removeItem("pedidos_sistema");
     localStorage.removeItem("mostra_reportes");
     localStorage.removeItem("productos_sistema");
+    localStorage.removeItem("dash_admin");
+    document.getElementById("Seguridad_bitacora").style.display = "block"
     document.getElementById("gestion_categorias_dash").style.display="none"
     document.getElementById("productos_sistema").style.display="none"
     document.getElementById("facturas_sistema").style.display = "none"

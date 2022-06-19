@@ -34,8 +34,8 @@ $(document).ready(function () {
                 return response.json();
             })
             .then(function (data) {
-               
-             
+
+
                 if (!data) {
 
                     url_tokens = api + "send-email/token";
@@ -54,7 +54,7 @@ $(document).ready(function () {
                             return response.json();
                         })
                         .then(function (data) {
-                        
+
                             if (data[0].length == 0) {
                                 Swal.fire({
                                     icon: 'error',
@@ -83,19 +83,19 @@ $(document).ready(function () {
                                             'Favor Modificar Contraseña, y volver a Iniciar Sesión!',
                                             'success'
                                         )
-  
-                                         
+
+
                                         localStorage.setItem('id_usuario', element.COD_USUARIO);
                                         localStorage.setItem('usuario', username)
                                         $("#pass_actual").val(password);
-                                        
+
                                         document.getElementById("clave").style.display = "block";
                                         document.getElementById("contra_actual").style.display = "block";
                                         document.getElementById("login").style.display = "none";
                                         document.getElementById("registro").style.display = "none";
                                         document.getElementById("resetear-clave").style.display = "none";
-                                        
-                                      
+
+
                                     }
                                     else {
                                         Swal.fire({
@@ -117,7 +117,7 @@ $(document).ready(function () {
                 if (data != 0) {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('id_usuario', data.cod_usuario);
-                
+
                     localStorage.setItem('usuario', username);
                     localStorage.setItem('rol', data.rol);
                     localStorage.setItem('nombre_usuario', data.Nombre);
@@ -139,14 +139,38 @@ $(document).ready(function () {
                         document.getElementById("iniciar_sesion").style.display = "none"
                         document.getElementById("hola_bienvenido").style.display = "none"
                         document.getElementById("bienvenido_usuario").style.display = "block"
-                        
-                        $("#nombre_cliente").val( data.Nombre);
+
+                        $("#nombre_cliente").val(data.Nombre);
                         document.frm_categoria.submit();
-                       
-                    }else{
-                        console.log(data.dt[0].COD_ESTADO)
-                        
-                        if ( data.dt[0].COD_ESTADO == 3 ) {
+
+                    } else {
+                        console.log(data.dt[0].CLAVE)
+
+                        hoy = new Date()
+                        let dia = hoy.getDate();
+                        let mes = hoy.getMonth() + 1;
+                        let ano = hoy.getFullYear();
+                        dia = ('0' + dia).slice(-2);
+                        mes = ('0' + mes).slice(-2);
+                        fecha_actual = ano + '-' + mes + '-' + dia
+                        if (password && data.dt[0].FECHA_VENCIMIENTO <= fecha_actual) {
+                            Swal.fire(
+                                'Bienvenido',
+                                'Su contraseña vencio, para ingresar al panel adminstrador debe actualizarla.',
+                                'success'
+                            )
+                            pass_actual = $("#pass_actual").val(password);
+
+                            document.getElementById("clave").style.display = "block";
+                            document.getElementById("login").style.display = "none";
+                            document.getElementById("registro").style.display = "none";
+                            document.getElementById("resetear-clave").style.display = "none";
+                            $("#CLAVE").val("");
+
+                            return
+                        }
+
+                        if (data.dt[0].COD_ESTADO == 3) {
                             Swal.fire(
                                 'Bienvenido',
                                 'Para ingresar al panel administrador, debe actualizar la contraseña proporcionada.',
@@ -162,20 +186,20 @@ $(document).ready(function () {
                             continuar_comprando()
                             return
                         }
-                        if ( data.dt[0].COD_ESTADO == 2 ) {
+                        if (data.dt[0].COD_ESTADO == 2) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
                                 text: 'Usuario se encuentra inactivo, favor comunicarse con el Administrador de sistema',
                             })
-                            return                                                        
+                            return
                         }
-                        else{
-                        localStorage.setItem('logeado', 1);
-                        localStorage.removeItem("tiendita")
-                        document.getElementById("dash").style.display = "block"
-                        document.getElementById("tiendita").style.display = "none"
-                        document.getElementById("inicio_sesion").style.display = "none";
+                        else {
+                            localStorage.setItem('logeado', 1);
+                            localStorage.removeItem("tiendita")
+                            document.getElementById("dash").style.display = "block"
+                            document.getElementById("tiendita").style.display = "none"
+                            document.getElementById("inicio_sesion").style.display = "none";
                         }
                     }
                     let timerInterval
@@ -211,7 +235,7 @@ $(document).ready(function () {
 
                                 if (rol.COD_ROL == '4') {
                                     localStorage.setItem('rol_logeado', rol.NOM_ROL)
-                                    
+
                                 }
 
 
@@ -247,7 +271,7 @@ $(document).ready(function () {
                             data[0].forEach(user => {
                                 console.log(user);
                                 //localStorage.setItem("rol", user.Rol)
-                              
+
                                 if (user.Usuario != username) {
                                     existe = true;
                                 }
@@ -332,13 +356,35 @@ $(document).ready(function () {
         pass_actual = $("#pass_actual").val();
         var id_codigo_user = localStorage.getItem("id_usuario");
         var user_reset = localStorage.getItem("usuario");
-       // $("#pass_actual").val(password);
+        hoy = new Date()
+        let dia = hoy.getDate();
+        let mes = hoy.getMonth() + 1;
+        let ano = hoy.getFullYear();
+        dia = ('0' + dia).slice(-2);
+        mes = ('0' + mes).slice(-2);
+        fecha_actual = ano + '-' + mes + '-' + dia
+        // $("#pass_actual").val(password);
+        var TuFecha = new Date(fecha_actual);
+
+        //dias a sumar
+        var dias = parseInt(60);
+
+        //nueva fecha sumada
+        TuFecha.setDate(TuFecha.getDate() + dias);
+        //formato de salida para la fecha
+        resultado = TuFecha.getFullYear() + '-' + '0'+
+            (TuFecha.getMonth() + 1) + '-' + TuFecha.getDate();
+            console.log(resultado)
+        
+
+
+
         url_pass = api + "send-email/clave"
         var MyHeaders = new Headers({
             'Authorization': token
         });
         MyHeaders.append("Content-Type", "application/json",);
-        raw = JSON.stringify({ "CLAVE": password, "USUARIO": user_reset, "COD_USUARIO": id_codigo_user, "COD_MODULO": 2,"COD_ESTADO":1})
+        raw = JSON.stringify({ "CLAVE": password, "USUARIO": user_reset, "COD_USUARIO": id_codigo_user, "COD_MODULO": 2, "COD_ESTADO": 1, "FECHA_VENCIMIENTO": resultado })
         var settings = {
             method: 'PUT',
             headers: MyHeaders,
@@ -346,7 +392,7 @@ $(document).ready(function () {
             redirect: 'follow'
         };
         valido = document.getElementById("campoOK").textContent
-        
+
 
         if (pass_actual == password) {
             Swal.fire({
@@ -406,8 +452,13 @@ $(document).ready(function () {
         confi_clave = $("#conf_pass").val();
         telefono = "0";
         valido_correo = document.getElementById("emailOK").textContent
-        
- 
+        hoy = new Date()
+        let dia = hoy.getDate();
+        let mes = hoy.getMonth() + 1;
+        let ano = hoy.getFullYear();
+        dia = ('0' + dia).slice(-2);
+        mes = ('0' + mes).slice(-2);
+        fecha_actual = ano + '-' + mes + '-' + dia
 
         if (valido_correo != "") {
             Swal.fire({
@@ -436,7 +487,7 @@ $(document).ready(function () {
             })
             return;
         }
-        
+
         if (clave != confi_clave) {
             Swal.fire({
                 icon: 'error',
@@ -451,14 +502,14 @@ $(document).ready(function () {
             "method": "POST",
             "timeout": 0,
             "headers": {
-
+ 
                 "Content-Type": "application/json"
             },
-            "data": JSON.stringify({ "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": 0, "NOM_USUARIO": usuario, "CLAVE": clave, "NOM_IDENTIFICACION": "NULL", "COD_IDENTIFICACION": "NULL", "DIRECCION": "NULL", "COD_ROL": 4, "COD_MODULO": 1, "COD_ESTADO": 3}),
+            "data": JSON.stringify({ "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": 0, "NOM_USUARIO": usuario, "CLAVE": clave, "NOM_IDENTIFICACION": "NULL", "COD_IDENTIFICACION": "NULL", "DIRECCION": "NULL", "COD_ROL": 4, "COD_MODULO": 1, "COD_ESTADO": 3, "FECHA_VENCIMIENTO": fecha_actual }),
         };
-        
-        
-                
+
+
+
         $.ajax(settings).done(function (response) {
             if (response == 0) {
                 Swal.fire({

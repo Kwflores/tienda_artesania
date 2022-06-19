@@ -20,11 +20,13 @@ $(document).ready(function () {
         no_identificacion = $("#cod_identificacion").val();
         direccion = $("#direccion").val();
         rol = $("#rol").val();
+        fecha_vencimiento = $("#fecha_vencimiento").val();
         valido = document.getElementById("contraseñaOK").textContent
         correovalido = document.getElementById("UcorreoOK").textContent
-        console.log(rol)
+        //console.log(fecha_vencimiento)
+        
 
-        if (cliente == "" || correo == "" || usuario == "" || clave == "" || telefono == "" || idenficacion == "" || no_identificacion == "" || direccion == ""|| rol == "") {
+        if (cliente == "" || correo == "" || usuario == "" || clave == "" || telefono == "" || idenficacion == "" || no_identificacion == "" || direccion == ""|| rol == ""|| fecha_vencimiento == "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -66,7 +68,7 @@ $(document).ready(function () {
                 "Content-Type": "application/json",
                 'Authorization': token
             },
-            "data": JSON.stringify({ "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": telefono, "NOM_USUARIO": usuario, "CLAVE": clave, "NOM_IDENTIFICACION": idenficacion, "COD_IDENTIFICACION": no_identificacion, "DIRECCION": direccion, "COD_ROL": rol, "COD_MODULO": 1 ,"COD_ESTADO":3}),
+            "data": JSON.stringify({ "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": telefono, "NOM_USUARIO": usuario, "CLAVE": clave, "NOM_IDENTIFICACION": idenficacion, "COD_IDENTIFICACION": no_identificacion, "DIRECCION": direccion, "COD_ROL": rol, "COD_MODULO": 1 ,"COD_ESTADO":3, "FECHA_VENCIMIENTO":fecha_vencimiento}),
         };
         
         $.ajax(settings).done(function (response) {
@@ -122,16 +124,16 @@ function cargar_usuarios() {
 
 
         $.each(response[0], function (key, val) {
-
+           // console.log(response[0])
             var estado
             if (val.Estado == 1) {
                 estado = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input" id="estado_user' + val.COD_USUARIO + '" checked><label class="custom-control-label" for="estado_user' + val.COD_USUARIO + '"></label></div>'
             } else {
                 estado = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="estado_user' + val.COD_USUARIO + '"  ><label class="custom-control-label" for="estado_user' + val.COD_USUARIO + '"></label></div>'
             }
-
+            fecha = moment(val.FECHA_VENCIMIENTO).format('DD-MM-YYYY')
             editar = "<button id='mostrar_editar_usuario' type='input' class='editar btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Datos de Usuario'><i class='fas fa-pencil-alt' aria-hidden='true'></i> <button  id='mostrar_contrasena_usuario' type='input' class='contraseña btn btn-round btn-lg btn-icon-only btn-warning mx-2 mx-lg-3 mb-4' data-toggle='tooltip' data-placement='left' title='Cambiar Contraseña'><i class='fa fa-unlock-alt' aria-hidden='true'></i>"
-            $("#contenido_usuarios").append("<tr><td class='mostrar_editar_filas'>" + editar + "</td><td>" + val.Nombre + "</td><td>" + val.Correo + "</td><td>" + val.Telefono + "</td><td>" + val.DIRECCION + "</td><td>" + val.NOM_IDENTIFICACION + "</td><td>" + val.COD_IDENTIFICACION + "</td><td>" + val.Usuario + "</td><td>" + val.Rol + "</td><td>" + estado + "</td><td style='display: none; '>" + val.Estado + "</td><td style='display: none; '>" + val.Cod_Rol + "</td><td style='display: none; '>" + val.COD_USUARIO + "</td><td style='display: none; '>" + val.COD_PERSONA + "</td></tr>");
+            $("#contenido_usuarios").append("<tr><td class='mostrar_editar_filas'>" + editar + "</td><td>" + val.Nombre + "</td><td>" + val.Correo + "</td><td>" + val.Telefono + "</td><td>" + val.DIRECCION + "</td><td>" + val.NOM_IDENTIFICACION + "</td><td>" + val.COD_IDENTIFICACION + "</td><td>" + val.Usuario + "</td><td>" + val.Rol +"</td><td>" + fecha + "</td><td>" + estado + "</td><td style='display: none; '>" + val.Estado + "</td><td style='display: none; '>" + val.Cod_Rol + "</td><td style='display: none; '>" + val.COD_USUARIO + "</td><td style='display: none; '>" + val.COD_PERSONA + "</td></tr>");
         });
         $('#table_id').dataTable().fnDestroy();
         var table_usuarios = $('#table_id').DataTable({
@@ -217,6 +219,8 @@ function cargar_usuarios() {
                 persona = $("#cod_persona").val(data[13]);
                 rol = $("#A_rol").val(data[11]);
                 document.getElementById("id_usuario_modificar").innerHTML = data[12]
+                 
+                
 
 
                 estado = $("#A_estado").val(data[10]);
@@ -231,6 +235,7 @@ function cargar_usuarios() {
                 var data = table.row($(this).parents("tr")).data();
                 console.log(data);
                 $("#AP_Usuario").val(data[7]);
+                $("#a_fecha_vencimiento").val(data[9]);
                 document.getElementById("cod_user").innerHTML = data[12]
                 document.getElementById("actualizar_pass_user").style.display = "block"
                 document.getElementById("actualizar_usuario").style.display = "none"
@@ -557,6 +562,7 @@ function actualizar_contraseña_user() {
     clave = $("#A_pass").val();
     confi_clave = $("#A_pass_conf").val();
     codigo_user = document.getElementById("cod_user");
+    
 
     if (usuario == "" || clave == "") {
         Swal.fire({

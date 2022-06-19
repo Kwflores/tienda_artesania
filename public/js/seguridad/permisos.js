@@ -365,6 +365,7 @@ function cancerlar_permisos() {
 }
 obtener_Roles();
 obtener_modulos();
+
 function permisos_roles() {
     var myHeader = new Headers({
         'Authorization': token
