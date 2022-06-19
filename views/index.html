@@ -2633,6 +2633,21 @@
                                     </table>
                                 </div>
 
+                                <div class="container-fluid">
+                                    <table id="table_Permisos" class="display" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Rol</th>
+                                                <th style="display:none ;">codRol</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="container_contact">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </section>
                             <section id="nuevo_permiso" class="rounded-ultra shadow px-4 py-5" style="display: none; ">
                                 <h1 class="h1 section-title-3 font-weight-700 text-left">Permisos de Usuarios</h1>
@@ -2642,66 +2657,30 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label for="exampleFormControlSelect2">Rol de Usuario:</label>
-                                                <select class="form-control" id="roles">
-                                                    <option value="">Seleccione Un Rol</option>
-                                                </select>
+                                                <input type="text"
+                                                class="form-control form-control-lg" disabled id="rol_permiso" >
                                             </div>
-                                            <div class="col-md-6">
-                                                <label for="exampleFormControlSelect2">Modulos del Sistema:</label>
-                                                <select class="form-control" id="modulos">
-                                                    <option value="">Seleccione Un Modulo</option>
-                                                </select>
-                                            </div>
+                                            <div id="id_rol_permiso"></div>
+                                            
                                         </div>
                                         <br><br>
                                         <p>Seleccione los Permisos</p>
                                         <div class="container-fluid">
-                                            <table id="table_crear_permiso" class="display" style="width:100%">
+                                            <table id="table_permiso" class="display" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th>Leer</th>
+                                                        <th>Modulo</th>
+                                                        <th>Consultar</th>
+                                                        <th>Crear</th>
+                                                        <th>Modificar</th>
+                                                        <th>Eliminar</th>
                                                         <th>Crear</th>
                                                         <th>Modificar</th>
                                                         <th>Eliminar</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="container_permiso">
-                                                    <td>
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="leer_permiso" checked>
-                                                            <label class="custom-control-label"
-                                                                for="leer_permiso"></label>
-                                                            <div id="leer_id" style="display: none; "></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="crear_permiso" checked>
-                                                            <label class="custom-control-label"
-                                                                for="crear_permiso"></label>
-                                                            <div id="crear_id" style="display: none; "></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="modificar_permiso" checked>
-                                                            <label class="custom-control-label"
-                                                                for="modificar_permiso"></label>
-                                                            <div id="modificar_id" style="display: none; "></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="eliminar_permiso" checked>
-                                                            <label class="custom-control-label"
-                                                                for="eliminar_permiso"></label>
-                                                            <div id="eliminar_id" style="display: none; "></div>
-                                                        </div>
-                                                    </td>
+                                                <tbody id="container_modulo">
+                                                    
 
                                                 </tbody>
                                             </table>
@@ -2712,7 +2691,7 @@
                                     <center>
                                         <div>
                                             <button id="registro_permiso" type="button"
-                                                class="btn btn-primary mb-2">Guardar Datos</button>
+                                                class="btn btn-primary mb-2">Guardar</button>
                                             <button type="button" class="btn btn-danger mb-2"
                                                 onclick="cancerlar_permisos()">Cancelar</button>
                                         </div>
@@ -2895,7 +2874,7 @@
 
                             </section>
                             <br><br><br>
-                            <section id="productos_sistema"  >
+                            <section id="productos_sistema_dash"  >
                                 <h1 class="h1 section-title-3 font-weight-700 text-left">Productos</h1>
                                 <div row style="display: none;">
                                     <div class="col-md-3">
