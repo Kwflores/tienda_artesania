@@ -20,6 +20,7 @@ var conn = conexion.createConnection(
 app.post("/", (req, res) => {
   try {
     const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
+      
     const consulta = `call 	OBTENER_MODULOS('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
     conn.query(consulta, (error, results) => {
         if (error) throw error;
@@ -40,6 +41,24 @@ app.post("/", (req, res) => {
   }
 
 });
+
+app.get("/roles", (req, res) => {
+    try {
+      const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
+     
+      const consulta = `call OBTENER_ROLES('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+      conn.query(consulta, (error, results) => {
+          if (error) throw error;
+          if (results.length > 0) {
+              res.json(results);
+              
+          }  
+      })
+    } catch (error) {
+      res.send("0")
+    }
+  
+  });
 
 
 //nuevo Modulo

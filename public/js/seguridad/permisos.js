@@ -25,270 +25,55 @@ $(document).ready(function () {
         eliminar = $("#eliminar_permiso");
         modulo = $("#modulos").val();
         rol = $("#roles").val();
-        if (modulo == "" || rol == "") {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: '¡Debe completar todo los campos.!',
+        lista_permiso = get_detalle_permiso();
+        lista_permiso.forEach(element => {
+            rol = $("#rol_permiso").val()
+            permiso_nombre = rol
 
-            })
-            return;
-        }
-        console.log(leer.is(":checked"))
-        if (leer.is(":checked")) {
-            leer_id = 1
-            document.getElementById("leer_id").innerHTML = leer_id
-        } else {
-            leer_id = 0
-            document.getElementById("leer_id").innerHTML = leer_id
-        }
-        if (crear.is(":checked")) {
-            crear_id = 1
-            document.getElementById("crear_id").innerHTML = crear_id
-        } else {
-            crear_id = 0
-            document.getElementById("crear_id").innerHTML = crear_id
-        }
-        if (modificar.is(":checked")) {
-            modificar_id = 1
-            document.getElementById("modificar_id").innerHTML = modificar_id
-        } else {
-            modificar_id = 0
-            document.getElementById("modificar_id").innerHTML = modificar_id
-        }
-        if (eliminar.is(":checked")) {
-            eliminar_id = 1
-            document.getElementById("eliminar_id").innerHTML = eliminar_id
-        } else {
-            eliminar_id = 0
-            document.getElementById("eliminar_id").innerHTML = eliminar_id
-        }
+            var settings = {
+                "url": api + "permisos/nuevo",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/json",
+                    'Authorization': token
+                },
+                "data": JSON.stringify({ "CREAR": element.c, "LEER": element.l, "EDITAR": element.m, "BORRAR": element.e, "COD_ROL": element.c_r, "COD_MODULO": element.c_m, "NOM_PERMISO": permiso_nombre }),
+            };
 
-        id_leer = document.getElementById("leer_id");
-        id_crear = document.getElementById("crear_id");
-        id_modificar = document.getElementById("modificar_id");
-        id_eliminar = document.getElementById("eliminar_id");
-        console.log(id_leer, id_crear, id_modificar, id_eliminar)
-        var settings = {
-            "url": api + "permisos/nuevo",
-            "method": "POST",
-            "timeout": 0,
-            "headers": {
-                "Content-Type": "application/json",
-                'Authorization': token
-            },
-            "data": JSON.stringify({ "CREAR": id_crear.innerHTML, "LEER": id_leer.innerHTML, "EDITAR": id_modificar.innerHTML, "BORRAR": id_eliminar.innerHTML, "COD_ROL": rol, "COD_MODULO": modulo }),
-        };
-        $.ajax(settings).done(function (response) {
+            $.ajax(settings).done(function (response) {
 
-            if (response.message) {
 
-                Swal.fire(
-                    'Registro Completo!',
-                    'Se registro correctamente!',
-                    'success'
-                )
-                id_crear.innerHTML = "";
-                id_leer.innerHTML = "";
-                id_modificar.innerHTML = "";
-                id_eliminar.innerHTML = "";
-                modulo = "";
-                rol = "";
-                $('#table_Permiso').dataTable().fnDestroy();
-                cargar_permisos();
-                document.getElementById("permisos").style.display = "block"
-                document.getElementById("nuevo_permiso").style.display = "none"
-            }
+                if (response.message) {
 
-        });
+
+                    Swal.fire(
+                        'Registro Completo!',
+                        'Se registro correctamente!',
+                        'success'
+                    )
+
+
+                    localStorage.removeItem("lista_permiso");
+              
+                    document.frm_categoria.submit();
+                    document.getElementById("permisos").style.display = "block"
+                    document.getElementById("nuevo_permiso").style.display = "none"
+
+
+                }
+
+            });
+        })
 
     });
 
 
 });
 
-function cargar_permisos() {
-    $("#container_contacts").empty();
-    var settings = {
-        "url": api + "permisos",
-        "method": "POST",
-        "timeout": 0,
-        "headers": {
-            "Content-Type": "application/json",
-            'Authorization': token
-        },
-        "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 11 }),
-    };
-
-    $.ajax(settings).done(function (response) {
-        // console.log(response);
-
-        $.each(response[0], function (key, val) {
-            var leer
-            if (val.LEER == 1) {
-                leer = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input" id="leer' + val.COD_PERMISOS + '" checked><label class="custom-control-label" for="leer' + val.COD_PERMISOS + '"></label></div>'
 
 
 
-            } else {
-                leer = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="leer' + val.COD_PERMISOS + '"  ><label class="custom-control-label" for="leer' + val.COD_PERMISOS + '"></label></div>'
-
-
-
-            }
-
-            var crear
-            var modulo_productos = 1
-            if (val.CREAR == 1) {
-                crear = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input" id="crear' + val.COD_PERMISOS + '" checked><label class="custom-control-label" for="crear' + val.COD_PERMISOS + '"></label></div>'
-
-            } else {
-                crear = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input" id="crear' + val.COD_PERMISOS + '"" ><label class="custom-control-label" for="crear' + val.COD_PERMISOS + '"></label></div>'
-
-            }
-
-            var modificar
-            if (val.MODIFICAR == 1) {
-                modificar = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input"id="modificar' + val.COD_PERMISOS + '" checked><label class="custom-control-label" for="modificar' + val.COD_PERMISOS + '"></label></div>'
-
-            } else {
-                modificar = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="modificar' + val.COD_PERMISOS + '"  ><label class="custom-control-label" for="modificar' + val.COD_PERMISOS + '"></label></div>'
-
-            }
-
-            var eliminar
-            if (val.ELIMINAR == 1) {
-                eliminar = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input"id="eliminar' + val.COD_PERMISOS + '"  checked><label class="custom-control-label" for="eliminar' + val.COD_PERMISOS + '"></label></div>'
-
-            } else {
-                eliminar = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="eliminar' + val.COD_PERMISOS + '" ><label class="custom-control-label" for="eliminar' + val.COD_PERMISOS + '"></label></div>'
-
-            }
-            $("#container_contacts").append("<tr><td>" + leer + "</td><td>" + crear + "</td><td>" + modificar + "</td><td>" + eliminar + "</td><td>" + val.NOM_MODULO + "</td><td>" + val.NOM_ROL + "</td><td style='display: none; '>" + val.COD_PERMISOS + "</td><td style='display: none; '>" + val.COD_ROL + "</td><td style='display: none; '>" + val.COD_MODULO + "</td></tr>");
-        });
-        $('#table_Permiso').dataTable().fnDestroy();
-        var table = $('#table_Permiso').DataTable({
-            "bLengthChange": false,
-            "pageLength": 5,
-            "bInfo": false,
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-            },
-
-        });
-        $('.dataTables_filter input').attr("placeholder", "Buscar datos en la tabla")
-        $('#table_Permiso tbody').on('click', 'tr', function () {
-            var data = table.row(this).data();
-            id_permiso_leer = document.getElementById("leer" + data[6])
-            id_permiso_crear = document.getElementById("crear" + data[6])
-            id_permiso_modificar = document.getElementById("modificar" + data[6])
-            id_permiso_eliminar = document.getElementById("eliminar" + data[6])
-            ld_permiso = data[6];
-            ld_rol = data[7];
-            ld_modulo = data[8];
-            document.getElementById("id_permiso").innerHTML = ld_permiso;
-            document.getElementById("id_modulo").innerHTML = ld_modulo;
-            document.getElementById("id_rol").innerHTML = ld_rol;
-            console.log(data);
-
-            if (id_permiso_leer.checked) {
-                leer = 1
-                document.getElementById("leer").innerHTML = leer
-                console.log(leer);
-
-            }
-            else {
-                leer = 0
-                document.getElementById("leer").innerHTML = leer
-                console.log(leer);
-
-            }
-
-            if (id_permiso_crear.checked) {
-                crear = 1
-                document.getElementById("crear").innerHTML = crear;
-                console.log(leer);
-
-            }
-            else {
-                crear = 0
-                document.getElementById("crear").innerHTML = crear;
-                console.log(leer);
-
-            }
-
-            if (id_permiso_modificar.checked) {
-                modificar = 1
-                document.getElementById("modificar").innerHTML = modificar;
-                console.log(leer);
-
-            }
-            else {
-                modificar = 0
-                document.getElementById("modificar").innerHTML = modificar;
-                console.log(leer);
-
-            }
-
-            if (id_permiso_eliminar.checked) {
-                eliminar = 1
-                document.getElementById("eliminar").innerHTML = eliminar;
-                console.log(leer);
-
-            }
-            else {
-                eliminar = 0
-                document.getElementById("eliminar").innerHTML = eliminar;
-                console.log(leer);
-
-            }
-            editar_permiso();
-        });
-
-
-
-    });
-
-
-}
-
-
-function editar_permiso() {
-    leer = document.getElementById("leer");
-    crear = document.getElementById("crear");
-    modificar = document.getElementById("modificar");
-    cod_eliminar = document.getElementById("eliminar");
-    id_permiso = document.getElementById("id_permiso");
-    id_modulo = document.getElementById("id_modulo");
-    id_rol = document.getElementById("id_rol");
-
-    var myHeader = new Headers({
-        'Authorization': token
-    });
-    url_actualizar_permisos = api + "permisos/actualizar";
-    myHeader.append("Content-Type", "application/json",);
-    var raw = JSON.stringify({
-        "CREAR": crear.innerHTML, "LEER": leer.innerHTML, "EDITAR": modificar.innerHTML, "BORRAR": cod_eliminar.innerHTML, "COD_ROL": id_rol.innerHTML, "COD_MODULO": id_modulo.innerHTML, "COD_PERMISO": id_permiso.innerHTML, "COD_USUARIO": id_user, "NOM_USUARIO": user_logeado, "_CODMODULO": 11
-    });
-    var requestOptions = {
-        method: 'PUT',
-        headers: myHeader,
-        body: raw,
-        redirect: 'follow'
-    };
-    fetch(url_actualizar_permisos, requestOptions)
-        .then(response => response.text())
-        .then(result => {
-            document.getElementById("roles_sistema").style.display = "none";
-        })
-        .catch(error => console.log('error', error));
-
-
-}
-
-function nuevo_permiso() {
-
-}
 function obtener_Roles() {
     var roles_usuarios = document.getElementById("roles");
     var id_user = localStorage.getItem("id_usuario");
@@ -323,48 +108,448 @@ function obtener_Roles() {
         });
 
 }
+
+
 function obtener_modulos() {
-    var roles_usuarios = document.getElementById("modulos");
-    var id_user = localStorage.getItem("id_usuario");
-    var token = localStorage.getItem("token");
+    $("#container_modulo").empty();
+    var settings = {
+        "url": api + "modulos",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            'Authorization': token
+        },
+        "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9, }),
+    };
+
+    $.ajax(settings).done(function (response) {
+        
+        $.each(response[0], function (key, val) {
+            leer = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input" id="leer' + val.COD_MODULO + '" disabled checked><label class="custom-control-label" for="leer' + val.COD_MODULO + '"></label></div>'
+            crear = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input" id="crear' + val.COD_MODULO + '" disabled checked><label class="custom-control-label" for="crear' + val.COD_MODULO + '"></label></div>'
+            editar = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input"id="modificar' + val.COD_MODULO + '" disabled checked><label class="custom-control-label" for="modificar' + val.COD_MODULO + '"></label></div>'
+            eliminar = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input"id="eliminar' + val.COD_MODULO + '" disabled  checked><label class="custom-control-label" for="eliminar' + val.COD_MODULO + '"></label></div>'
+
+            $("#container_modulo").append("<tr><td>" + val.NOM_MODULO + "</td><td>" + leer + "</td><td>" +
+                crear + "</td><td>" + editar + "</td><td>" + eliminar + "</td><td  style='display:none ;'>" + val.COD_MODULO + "</td></tr>");
+        });
+        $('#table_permiso').dataTable().fnDestroy();
+        var table = $('#table_permiso').DataTable({
+            "bLengthChange": false,
+            "pageLength": 25,
+            "bInfo": false,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            },
+
+        });
+        $('.dataTables_filter input').attr("placeholder", "Buscar datos en la tabla")
+        $('#table_permiso tbody').on('click', 'tr', function () {
+            var data = table.row(this).data();
+            console.log(data)
+            id_permiso_leer = document.getElementById("leer" + data[5])
+            id_permiso_crear = document.getElementById("crear" + data[5])
+            id_permiso_modificar = document.getElementById("modificar" + data[5])
+            id_permiso_eliminar = document.getElementById("eliminar" + data[5])
+            ld_modulo = data[5];
+            cod_rol = document.getElementById("id_rol_permiso").innerHTML;
+            console.log(data);
+            document.getElementById("leer" + data[5]).disabled = false;
+            document.getElementById("crear" + data[5]).disabled = false;
+            document.getElementById("modificar" + data[5]).disabled = false;
+            document.getElementById("eliminar" + data[5]).disabled = false;
+
+
+            if (id_permiso_leer.checked) {
+                leer = 1
+                document.getElementById("leer").innerHTML = leer
+                console.log(leer);
+
+            }
+            else {
+                leer = 0
+                document.getElementById("leer").innerHTML = leer
+                console.log(leer);
+
+            }
+
+            if (id_permiso_crear.checked) {
+                crear = 1
+                document.getElementById("crear").innerHTML = crear;
+                console.log(crear);
+
+            }
+            else {
+                crear = 0
+                document.getElementById("crear").innerHTML = crear;
+                console.log(crear);
+
+            }
+
+            if (id_permiso_modificar.checked) {
+                modificar = 1
+                document.getElementById("modificar").innerHTML = modificar;
+                console.log(modificar);
+
+            }
+            else {
+                modificar = 0
+                document.getElementById("modificar").innerHTML = modificar;
+                console.log(modificar);
+
+            }
+
+            if (id_permiso_eliminar.checked) {
+                eliminar = 1
+                document.getElementById("eliminar").innerHTML = eliminar;
+                console.log(eliminar);
+
+            }
+            else {
+                eliminar = 0
+                document.getElementById("eliminar").innerHTML = eliminar;
+                console.log(eliminar);
+
+            }
+            rol = $("#rol_permiso").val();
+            id_modulo = data[5]
+
+            if (data[0] == "REPORTES" && data[0] == "PROVEEDORES" && data[0] == "PRODUCTOS" &&
+                data[0] == "PEDIDO" && data[0] == "OPINIONES" && data[0] == "INVENTARIO" && data[0] == "FACTURACION" &&
+                data[0] == "CATEGORIAS" || data[0] == "SEGURIDAD") {
+                document.getElementById("registro_permiso").disabled = false;
+            }
+
+
+
+            nom_permiso = rol + cod_rol + id_modulo
+            agregar_detalle(crear, leer, modificar, eliminar, cod_rol, ld_modulo)
+         
+        });
+
+    })
+
+}
+
+function get_detalle_permiso() {
+    var lista_permiso = [];
+    var lista_string = localStorage.getItem("lista_permiso");
+    if (lista_string) {
+        lista_permiso = JSON.parse(lista_string);
+    }
+
+    return lista_permiso;
+}
+
+function existe_sku(el_arreglo, cod_modulo) {
+    var existe = false;
+    el_arreglo.forEach(
+        prod => {
+            if (prod.c_m == cod_modulo) {
+                existe = true;
+                return existe;
+            }
+        }
+    );
+
+    return existe;
+}
+
+function agregar_detalle(crear, leer, modificar, eliminar, cod_rol, cod_modulo) {
+    var lista_permiso = get_detalle_permiso();
+    var permiso = {
+        c: crear,
+        l: leer,
+        m: modificar,
+        e: eliminar,
+        c_r: cod_rol,
+        c_m: cod_modulo,
+
+    }
+    if (existe_sku(lista_permiso, cod_modulo)) {
+        lista_permiso.forEach(
+            carro => {
+                if (carro.c_m == cod_modulo) {
+                    carro.c = crear;
+                    carro.l = leer;
+                    carro.m = modificar;
+                    carro.e = eliminar;
+                }
+
+            });
+
+    } else {
+        lista_permiso.push(permiso);
+
+    }
+
+
+    localStorage.setItem("lista_permiso", JSON.stringify(lista_permiso));
+}
+
+get_detalle_permiso();
+
+
+
+function cargar_modulos_permisos() {
+    $("#container_contact").empty();
+    var settings = {
+        "url": api + "permisos",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            'Authorization': token
+        },
+        "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9, }),
+    };
+   
+
+        var settings = {
+            "url": api + "roles",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json",
+                'Authorization': token
+            },
+            "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9, }),
+        };
+
+        $.ajax(settings).done(function (response) {
+            $.each(response[0], function (key, val) {
+                editar = "<button onclick='editar_permisos()'  id='editar" + val.COD_ROL + "' type='input' class='editar btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Registrar Permisos'><i class='fa fa-key' aria-hidden='true'></i>"
+                agregar = "<button onclick='registro_permisos()' id='agregar" + val.COD_ROL + "' type='input' class='editar btn btn-round btn-lg btn-icon-only btn-primary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Permisos'><i class='fa fa-plus-circle' aria-hidden='true'></i>"
+                $("#container_contact").append("<tr><td>" + val.NOM_ROL + "</td><td  style='display:none ;'>" + val.COD_ROL + "</td><td>" + agregar + editar + "</td></tr>");
+                $.ajax(settings).done(function (response_permisos) {
+                    $.each(response_permisos[0], function (key, valor) {
+                        existe = valor.NOM_ROL
+                        if (existe != val.NOM_ROL ) {
+                            document.getElementById("editar" + valor.COD_ROL).style.display = "block"
+                            document.getElementById("agregar" + valor.COD_ROL).style.display = 'none'
+                        }
+                        else {
+                            document.getElementById("editar" + valor.COD_ROL).style.display = 'none'
+                            document.getElementById("agregar" + valor.COD_ROL).style.display = "block"
+                        }
+                    });
+                });
+
+            });
+           
+            $('#table_Permisos').dataTable().fnDestroy();
+            var table = $('#table_Permisos').DataTable({
+                "bLengthChange": false,
+                "pageLength": 25,
+                "bInfo": false,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+                },
+
+            });
+            $('.dataTables_filter input').attr("placeholder", "Buscar datos en la tabla")
+            obtener_data("#table_Permisos tbody", table);
+            function obtener_data(tbody, table) {
+                $(tbody).on("click", "button.editar", function () {
+                    var data = table.row($(this).parents("tr")).data();
+                    $("#rol_permiso").val(data[0])
+                    document.getElementById('id_rol_permiso').innerHTML = data[1]
+                    cargar_permisos(data[0]);
+                })
+
+            }
+          
+            
+
+
+        });
+      
+
+    
+
+
+}
+
+function editar_permisos(){
+    document.getElementById('permisos').style.display = 'none'
+    document.getElementById('editar_permisos').style.display = 'block'
+    
+}
+
+
+function cargar_permisos(ROL) {
+    $("#container_pendientes").empty();
+    var settings = {
+        "url": api + "permisos/roles",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            'Authorization': token
+        },
+        "data": JSON.stringify({ "ROL": ROL }),
+    };
+
+    $.ajax(settings).done(function (response) {
+        $.each(response[0], function (key, val) {
+            if (val.LEER == 1) {
+                leer = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input" id="idleer' + val.COD_PERMISOS + '" checked><label class="custom-control-label" for="idleer' + val.COD_PERMISOS + '"></label></div>'
+            } else {
+                leer = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="idleer' + val.COD_PERMISOS + '"  ><label class="custom-control-label" for="idleer' + val.COD_PERMISOS + '"></label></div>'
+            }
+            if (val.CREAR == 1) {
+                crear = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input" id="idcrear' + val.COD_PERMISOS + '" checked><label class="custom-control-label" for="idcrear' + val.COD_PERMISOS + '"></label></div>'
+            } else {
+                crear = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input" id="idcrear' + val.COD_PERMISOS + '"" ><label class="custom-control-label" for="idcrear' + val.COD_PERMISOS + '"></label></div>'
+            }
+            if (val.MODIFICAR == 1) {
+                modificar = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input"id="idmodificar' + val.COD_PERMISOS + '" checked><label class="custom-control-label" for="idmodificar' + val.COD_PERMISOS + '"></label></div>'
+            } else {
+                modificar = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="modificar' + val.COD_PERMISOS + '"  ><label class="custom-control-label" for="idmodificar' + val.COD_PERMISOS + '"></label></div>'
+            }
+            var eliminar
+            if (val.ELIMINAR == 1) {
+                eliminar = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input"id="ideliminar' + val.COD_PERMISOS + '"  checked><label class="custom-control-label" for="ideliminar' + val.COD_PERMISOS + '"></label></div>'
+
+            } else {
+                eliminar = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="ideliminar' + val.COD_PERMISOS + '" ><label class="custom-control-label" for="ideliminar' + val.COD_PERMISOS + '"></label></div>'
+            }
+            $("#container_pendientes").append("<tr><td>" + val.NOM_MODULO + "</td><td>" + leer + "</td><td>" + crear + "</td><td>" + modificar + "</td><td>" + eliminar + "</td><td style='display: none; '>" + val.COD_PERMISOS + "</td><td style='display: none; '>" + val.COD_ROL + "</td><td style='display: none; '>" + val.COD_MODULO + "</td></tr>");
+        });
+        $('#table_Editar_Permiso').dataTable().fnDestroy();
+        var table = $('#table_Editar_Permiso').DataTable({
+            "bLengthChange": false,
+            "pageLength": 25,
+            "bInfo": false,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+            },
+
+        });
+        $('.dataTables_filter input').attr("placeholder", "Buscar datos en la tabla")
+        $('#table_Editar_Permiso tbody').on('click', 'tr', function () {
+            var data = table.row(this).data();
+            id_permiso_leer = document.getElementById("idleer" + data[5])
+            id_permiso_crear = document.getElementById("idcrear" + data[5])
+            id_permiso_modificar = document.getElementById("idmodificar" + data[5])
+            id_permiso_eliminar = document.getElementById("ideliminar" + data[5])
+            ld_permiso = data[5];
+            ld_rol = data[6];
+            ld_modulo = data[7];
+            document.getElementById("id_permiso").innerHTML = ld_permiso;
+            document.getElementById("id_modulo").innerHTML = ld_modulo;
+            document.getElementById("id_rol").innerHTML = ld_rol;
+            
+            if (id_permiso_leer.checked) {
+                leer = 1
+                document.getElementById("leer").innerHTML = leer
+              
+            }
+            else {
+                leer = 0
+                document.getElementById("leer").innerHTML = leer
+            
+            }
+
+            if (id_permiso_crear.checked) {
+                crear = 1
+                document.getElementById("crear").innerHTML = crear;
+             
+            }
+            else {
+                crear = 0
+                document.getElementById("crear").innerHTML = crear;
+            
+            }
+
+            if (id_permiso_modificar.checked) {
+                modificar = 1
+                document.getElementById("modificar").innerHTML = modificar;
+               
+
+            }
+            else {
+                modificar = 0
+                document.getElementById("modificar").innerHTML = modificar;
+          
+            }
+
+            if (id_permiso_eliminar.checked) {
+                eliminar = 1
+                document.getElementById("eliminar").innerHTML = eliminar;
+           
+
+            }
+            else {
+                eliminar = 0
+                document.getElementById("eliminar").innerHTML = eliminar;
+            
+
+             }
+            editar_permiso();
+        });
+
+
+
+    });
+
+
+}
+
+function editar_permiso() {
+    leer = document.getElementById("leer");
+    crear = document.getElementById("crear");
+    modificar = document.getElementById("modificar");
+    cod_eliminar = document.getElementById("eliminar");
+    id_permiso = document.getElementById("id_permiso");
+    id_modulo = document.getElementById("id_modulo");
+    id_rol = document.getElementById("id_rol");
+
     var myHeader = new Headers({
         'Authorization': token
     });
-    url_modulos = api + "modulos";
+    url_actualizar_permisos = api + "permisos/actualizar";
     myHeader.append("Content-Type", "application/json",);
-    var raw = JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9, });
+    var raw = JSON.stringify({
+        "CREAR": crear.innerHTML, "LEER": leer.innerHTML, "EDITAR": modificar.innerHTML, "BORRAR": cod_eliminar.innerHTML, "COD_ROL": id_rol.innerHTML, "COD_MODULO": id_modulo.innerHTML, "COD_PERMISO": id_permiso.innerHTML, "COD_USUARIO": id_user, "NOM_USUARIO": user_logeado, "_CODMODULO": 11
+    });
     var requestOptions = {
-        method: 'POST',
+        method: 'PUT',
         headers: myHeader,
         body: raw,
         redirect: 'follow'
     };
-    fetch(url_modulos, requestOptions)
-        .then(function (response) {
-            return response.json();
+    fetch(url_actualizar_permisos, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            document.getElementById("roles_sistema").style.display = "none";
         })
-        .then(function (data) {
-            //  console.log(data)
-            data[0].forEach(modulo => {
-                var opcion = document.createElement("option");
-                opcion.value = modulo.COD_MODULO;
-                opcion.innerHTML = modulo.NOM_MODULO;
-                roles_usuarios.appendChild(opcion);
-            });
-        })
-        .catch(function (err) {
-            console.log(err);
-        });
+        .catch(error => console.log('error', error));
+
 
 }
-
+cargar_modulos_permisos()
 
 function cancerlar_permisos() {
+
+    document.frm_categoria.submit();
+    localStorage.removeItem("lista_permiso");
+
     document.getElementById("permisos").style.display = "block"
     document.getElementById("nuevo_permiso").style.display = "none"
 }
-obtener_Roles();
+
+
+function regresar() {
+
+    document.getElementById("permisos").style.display = "block"
+    document.getElementById("editar_permisos").style.display = "none"
+}
+//obtener_Roles();
 obtener_modulos();
+
+ 
 
 function permisos_roles() {
     var myHeader = new Headers({
@@ -384,7 +569,7 @@ function permisos_roles() {
             return response.json();
         })
         .then(function (data) {
-           // console.log(data)
+            // console.log(data)
             data[0].forEach(rol => {
                 //console.log(rol.LEER)
 
@@ -413,7 +598,7 @@ function permisos_roles() {
                             "dom": 'Blfrtip',
 
                             "buttons": [
-                                
+
 
                                 {
                                     //Botón para Excel
@@ -469,15 +654,9 @@ function permisos_roles() {
                     });
                 }
 
-                if (rol.CREAR == 1 && rol.COD_MODULO == 10) {
-                    document.getElementById("Mostrar_registro_U").style.display = "block"
-                }
+             
 
-                if (rol.CREAR == 0 && rol.COD_MODULO == 10) {
-                    document.getElementById("Mostrar_registro_U").style.display = "none"
-                }
 
-                
 
                 //modulo_categoria
                 if (rol.LEER == 1 && rol.COD_MODULO == 13) {
@@ -518,14 +697,7 @@ function permisos_roles() {
                 } if (rol.LEER == 0 && rol.COD_MODULO == 1) {
                     document.getElementById("ver_productos").style.display = "none"
                 }
-                if (rol.CREAR == 1 && rol.COD_MODULO == 1) {
-                    document.getElementById("Mostrar_registro_P").style.display = "block"
-
-
-                } if (rol.CREAR == 0 && rol.COD_MODULO == 1) {
-                    document.getElementById("Mostrar_registro_P").style.display = "none"
-
-                }
+              
                 if (rol.MODIFICAR == 1 && rol.COD_MODULO == 1) {
                     document.getElementById("Mostrar_productos_editar").style.display = "block"
 
@@ -543,14 +715,14 @@ function permisos_roles() {
 
                 }
                 //modulo inventario 
-                 if (rol.LEER == 1 && rol.COD_MODULO == 3) {
+                if (rol.LEER == 1 && rol.COD_MODULO == 3) {
                     document.getElementById("ver_inventarios").style.display = "block"
 
                 } if (rol.LEER == 0 && rol.COD_MODULO == 3) {
                     document.getElementById("ver_inventarios").style.display = "none"
 
                 }
-                if (rol.MODIFICAR == 1 &&  rol.COD_MODULO == 3) {
+                if (rol.MODIFICAR == 1 && rol.COD_MODULO == 3) {
                     document.getElementById("mostrar_movimiento_productos").style.display = "block"
 
                 }
@@ -558,7 +730,7 @@ function permisos_roles() {
                     document.getElementById("mostrar_movimiento_productos").style.display = "none"
 
                 }
-                
+
                 //proveedores
 
                 if (rol.LEER == 1 && rol.COD_MODULO == 4) {
@@ -592,7 +764,7 @@ function permisos_roles() {
 
                 }
 
-                 //pedidos
+                //pedidos
 
                 if (rol.LEER == 1 && rol.COD_MODULO == 5) {
                     document.getElementById("ver_pedidos").style.display = "block"
@@ -625,16 +797,16 @@ function permisos_roles() {
                     document.getElementById("Mostrar_registro_editar_facturas").style.display = "none"
 
                 }
-                 //sugerencias
-                 if (rol.LEER == 1 && rol.COD_MODULO == 6) {
+                //sugerencias
+                if (rol.LEER == 1 && rol.COD_MODULO == 6) {
                     document.getElementById("ver_Opiniones").style.display = "block"
 
                 } if (rol.LEER == 0 && rol.COD_MODULO == 6) {
                     document.getElementById("ver_Opiniones").style.display = "none"
 
                 }
-                   //Reportes
-                   if (rol.LEER == 1 && rol.COD_MODULO == 7) {
+                //Reportes
+                if (rol.LEER == 1 && rol.COD_MODULO == 7) {
                     document.getElementById("reportes").style.display = "block"
 
                 } if (rol.LEER == 0 && rol.COD_MODULO == 7) {
@@ -642,11 +814,11 @@ function permisos_roles() {
 
                 }
 
-                   //Segurida
-                   if (rol.LEER == 1 && rol.COD_MODULO == 11) {
+                //Segurida
+                if (rol.LEER == 1 && rol.COD_MODULO == 11) {
                     document.getElementById("segurdidad").style.display = "block"
 
-                    
+
                 } if (rol.LEER == 0 && rol.COD_MODULO == 11) {
                     document.getElementById("segurdidad").style.display = "none"
                     document.getElementById("Crear_respaldo").style.display = "none"
@@ -654,6 +826,7 @@ function permisos_roles() {
                     document.getElementById("ver_roles").style.display = "none"
                     document.getElementById("ver_permisos").style.display = "none"
                     document.getElementById("ver_bitacora").style.display = "none"
+                    document.getElementById("Mostrar_registro_U").style.display = "none"
 
 
                 }
@@ -676,6 +849,6 @@ function permisos_roles() {
 
 }
 
-cargar_permisos()
+ 
 //permisos_roles()
 setTimeout("permisos_roles();", 1000);

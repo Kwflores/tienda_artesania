@@ -620,10 +620,8 @@ function llenar_tabla_carrito_cliente() {
 
     cuerpo_cliente.innerHTML = "";
     var lista_productos_cliente = get_detalle_carrito();
-    //console.log(lista_productos_cliente)
     lista_productos_cliente.forEach(
         producto => {
-            console.log(producto)
             if (producto.q == 0) {
                 let idPersonaDelete = producto.code;
 
@@ -634,7 +632,6 @@ function llenar_tabla_carrito_cliente() {
                 localStorage.setItem("detalle_carrito", JSON.stringify(lista_productos_cliente));
                 llenar_tabla_carrito_cliente();
                 total_cliente_carrito_cliente()
-                console.log(lista_productos_cliente);
                 return;
             }
 

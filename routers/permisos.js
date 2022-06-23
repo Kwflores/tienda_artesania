@@ -39,6 +39,52 @@ app.post("/", (req, res) => {
 });
 
 
+
+
+app.post("/buscar_permiso", (req, res) => {
+    const { NOM_PERMISO } = req.body;
+    try {
+        const permiso =  `call 	CONTEO_PERMISO('${NOM_PERMISO}')`;
+        conn.query(permiso,(error, results) => {
+            if (error) throw error;
+            if (results.length > 0) {
+                if (results[0][0].NOM_PERMISO > 0) {
+                    res.json({ Message: `${NOM_PERMISO}` });
+                }
+                else {
+                    
+        
+                }
+            }
+        
+             
+        });
+    } catch (error) {
+        console.log(error);
+        res.send("0");
+    }
+  
+});
+
+app.post("/pendientes", (req, res) => {
+    try {
+      const { NOM_PERMISO, COD_ROL } = req.body;
+      const consulta = `call 	OBTENER_PERMISOS_PENDIENTES('${NOM_PERMISO}',${COD_ROL} )`;
+      conn.query(consulta, (error, results) => {
+          if (error) throw error;
+          if (results.length > 0) {
+              res.json(results);
+          }  
+      })
+    } catch (error) {
+        console.log(error);
+        res.send("0");
+    }
+  
+});
+
+
+    
 app.post("/roles", (req, res) => {
     try {
       const {ROL } = req.body;
@@ -66,16 +112,17 @@ app.post("/roles", (req, res) => {
 //nuevo Permiso
 app.post("/nuevo", (req, res) => {
     try {
-        const { CREAR,LEER, EDITAR,BORRAR,COD_ROL, COD_MODULO  } = req.body;
-        const consulta = `call 	NUEVO_PERMISO(${CREAR},${LEER},${EDITAR},${BORRAR},${COD_ROL},${COD_MODULO})`;
-        conn.query(consulta, error => {
-            if (error) throw error;
-            res.json({
-                message : "Permisos asignado Con Exito",
-                estado: "ok"
-            })
-             
-        });
+        const { CREAR,LEER, EDITAR,BORRAR,COD_ROL, COD_MODULO,NOM_PERMISO  } = req.body;
+        const consulta = `call 	NUEVO_PERMISO(${CREAR},${LEER},${EDITAR},${BORRAR},${COD_ROL},${COD_MODULO},'${NOM_PERMISO}')`;
+                    conn.query(consulta, error => {
+                        if (error) throw error;
+                        res.json({
+                            message : "Permisos asignado Con Exito",
+                            estado: "ok"
+                        })
+                    });
+       
+       
     } catch (error) {
         console.log(error);
         res.json({
@@ -99,6 +146,7 @@ app.post("/nuevo", (req, res) => {
 app.put('/actualizar', (req, res) => {
     try {
         const { CREAR,LEER, EDITAR,BORRAR,COD_ROL, COD_MODULO,COD_PERMISO,COD_USUARIO,NOM_USUARIO,_CODMODULO } = req.body;
+       
         const consulta = `call ACTUALIZAR_PERMISO(${CREAR},${LEER},${EDITAR},${BORRAR},${COD_ROL},${COD_MODULO},${COD_PERMISO},${COD_USUARIO},'${NOM_USUARIO}',${_CODMODULO})`;
     
         conn.query(consulta, error => {
