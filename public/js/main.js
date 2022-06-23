@@ -49,8 +49,7 @@ function logeado() {
 
     }
     if (localStorage.getItem("mostrar_categprias") == "1") {
-        document.getElementById("categorias_sistema").style.display = "block";
-        document.getElementById("mostra_reportes").style.display = "none";
+        mostrar_categorias();
 
     }
     if (localStorage.getItem("mostrar_usuarios") == "1") {
@@ -299,7 +298,7 @@ function mostrar_dash() {
     localStorage.removeItem("Seguridad_bitacora");
     document.getElementById("Seguridad_bitacora").style.display = "none"
     document.getElementById("nuevo_factura").style.display = "none"
-   //localStorage.removeItem("mostra_reportes"); 
+  
 
 }
 
@@ -765,6 +764,7 @@ function mostrar_productos() {
     localStorage.removeItem("inventario_sistema");
     localStorage.removeItem("permisos_sys");
     localStorage.removeItem("pedidos_sistema");
+    localStorage.removeItem("dash_admin");
     document.getElementById("perfil_usuario").style.display = "none"
     document.getElementById("nuevo_usuario").style.display = "none"
     document.getElementById("nuevo_proveedor").style.display = "none"

@@ -16,8 +16,8 @@ var conn = conexion.createConnection(
 // Obenter todo los roles 
 app.get("/", (req, res) => {
   try {
-    const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
-    const consulta = `call OBTENER_ROLES('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+  
+    const consulta = `call OBTENER_ROLES()`;
     conn.query(consulta, (error, results) => {
         if (error) throw error;
         if (results.length > 0) {
@@ -31,10 +31,27 @@ app.get("/", (req, res) => {
 
 });
 
+// Obenter todo los roles 
+app.post("/rol", (req, res) => {
+    try {
+      
+      const consulta = `call OBTENER_ROL( )`;
+      conn.query(consulta, (error, results) => {
+          if (error) throw error;
+          if (results.length > 0) {
+              res.json(results);
+              
+          }  
+      })
+    } catch (error) {
+      res.send("0")
+    }
+  
+  });
+
 app.post("/", (req, res) => {
     try {
-      const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
-      const consulta = `call OBTENER_ROLES('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+      const consulta = `call OBTENER_ROLES()`;
       conn.query(consulta, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {

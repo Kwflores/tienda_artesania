@@ -117,7 +117,7 @@ function cargar_usuarios() {
             "Content-Type": "application/json",
             'Authorization': token
         },
-        "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9, }),
+        
     };
 
     $.ajax(settings).done(function (response) {
@@ -219,6 +219,7 @@ function cargar_usuarios() {
                 persona = $("#cod_persona").val(data[13]);
                 rol = $("#A_rol").val(data[11]);
                 document.getElementById("id_usuario_modificar").innerHTML = data[12]
+                
                  
                 
 
@@ -315,7 +316,7 @@ function mostrar_data_perfil() {
     url_usuario = api + "usuarios/buscar";
     myHeader.append("Content-Type", "application/json",);
 
-    var raw = JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9, });
+    var raw = JSON.stringify({ "NOM_USUARIO": user_logeado});
     var requestOptions = {
         method: 'POST',
         headers: myHeader,
@@ -650,11 +651,10 @@ function obtener_Roles() {
     });
     url_roles = api + "roles";
     myHeader.append("Content-Type", "application/json",);
-    var raw = JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9, });
+    var raw = JSON.stringify({ });
     var requestOptions = {
         method: 'POST',
         headers: myHeader,
-        body: raw,
         redirect: 'follow'
     };
     fetch(url_roles, requestOptions)
@@ -675,6 +675,7 @@ function obtener_Roles() {
         });
 
 }
+
 function obtener_Roles_A() {
     var roles_usuarios = document.getElementById("A_rol");
     var id_user = localStorage.getItem("id_usuario");
@@ -684,11 +685,10 @@ function obtener_Roles_A() {
     });
     url_roles = api + "roles";
     myHeader.append("Content-Type", "application/json",);
-    var raw = JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9, });
+    var raw = JSON.stringify({ });
     var requestOptions = {
         method: 'POST',
         headers: myHeader,
-        body: raw,
         redirect: 'follow'
     };
     fetch(url_roles, requestOptions)
@@ -696,7 +696,7 @@ function obtener_Roles_A() {
             return response.json();
         })
         .then(function (data) {
-            //console.log(data)
+            //  console.log(data)
             data[0].forEach(rol => {
                 var opcion = document.createElement("option");
                 opcion.value = rol.COD_ROL;
@@ -707,7 +707,6 @@ function obtener_Roles_A() {
         .catch(function (err) {
             console.log(err);
         });
-
 }
 
 let refresh = document.getElementById('refresh');

@@ -18,8 +18,7 @@ var conn = conexion.createConnection(
 // Obenter todo los usuarios 
 app.post("/", (req, res) => {
     try {
-        const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
-        const consulta = `call OBTENER_USUARIOS('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+        const consulta = `call OBTENER_USUARIOS()`;
         conn.query(consulta, (error, results) => {
             if (error) throw error;
             if (results.length > 0) {
@@ -40,8 +39,8 @@ app.post("/", (req, res) => {
 // Obenter  usuario por nombre
 app.get("/buscar_usuario", (req, res) => {
     try {
-        const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
-        const consulta = `call BUSCAR_USUARIOS('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+        const { NOM_USUARIO } = req.body;
+        const consulta = `call BUSCAR_USUARIOS('${NOM_USUARIO}')`;
         conn.query(consulta, (error, results) => {
             if (error) throw error;
             if (results.length > 0) {
@@ -58,8 +57,8 @@ app.get("/buscar_usuario", (req, res) => {
 
 app.post("/buscar", (req, res) => {
     try {
-        const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
-        const consulta = `call BUSCAR_USUARIOS('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+        const { NOM_USUARIO } = req.body;
+        const consulta = `call BUSCAR_USUARIOS('${NOM_USUARIO}')`;
         conn.query(consulta, (error, results) => {
             if (error) throw error;
             if (results.length > 0) {

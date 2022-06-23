@@ -88,7 +88,7 @@ app.post("/pendientes", (req, res) => {
 app.post("/roles", (req, res) => {
     try {
       const {ROL } = req.body;
-      const consulta = `call 	OBTENER_PERMISOS_ROLES('${ROL}' )`;
+      const consulta = `call 	OBTENER_PERMISOS_ROLES('${ROL}')`;
       conn.query(consulta, (error, results) => {
           if (error) throw error;
           if (results.length > 0) {

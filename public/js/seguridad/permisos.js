@@ -307,14 +307,14 @@ function cargar_modulos_permisos() {
    
 
         var settings = {
-            "url": api + "roles",
+            "url": api + "roles/rol",
             "method": "POST",
             "timeout": 0,
             "headers": {
                 "Content-Type": "application/json",
                 'Authorization': token
             },
-            "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9, }),
+            
         };
 
         $.ajax(settings).done(function (response) {
