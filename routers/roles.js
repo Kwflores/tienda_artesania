@@ -111,15 +111,27 @@ app.post("/nuevo", (req, res) => {
 app.put('/actualizar', (req, res) => {
     try {
         const { NOM_ROL,NOM_USUARIO,COD_ESTADO,COD_USUARIO, COD_MODULO,COD_ROL } = req.body;
-        const consulta = `call 	ACTUALIZAR_ROLES('${NOM_ROL}','${NOM_USUARIO}',${COD_ESTADO},${COD_USUARIO},${COD_MODULO},${COD_ROL})`;
-    
-        conn.query(consulta, error => {
+        var conteoExistencia = `call CONTEO_ROL('${NOM_ROL}');`;
+        conn.query(conteoExistencia, (error, results) => {
             if (error) throw error;
-            res.json({
-                message : "Actualización se realizo Con Exito",
-                Rol: NOM_ROL
-            })
-        }); 
+            if (results.length > 0) {
+                if (results[0][0].numero_rol > 0) {
+                    res.json({rol_existe: "El Rol: ${NOM_ROL} ya existe, favor registra uno nuevo.!"});
+                }
+                else {
+                    const consulta = `call 	ACTUALIZAR_ROLES('${NOM_ROL}','${NOM_USUARIO}',${COD_ESTADO},${COD_USUARIO},${COD_MODULO},${COD_ROL})`;
+    
+                    conn.query(consulta, error => {
+                        if (error) throw error;
+                        res.json({
+                            message : "Actualización se realizo Con Exito",
+                            Rol: NOM_ROL
+                        })
+                    });
+                }
+            }   
+        })
+         
     } catch (error) {
         console.log(error);
         res.json({

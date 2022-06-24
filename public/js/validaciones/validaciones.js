@@ -159,6 +159,9 @@ $(document).ready(function () {
     $('#R_Rol_Nom').on('keyup', function(){
       $(this).val(validarTexto ($('#R_Rol_Nom').val()));
     });
+    $('#Anom_rol').on('keyup', function(){
+      $(this).val(validarTexto ($('#Anom_rol').val()));
+    });
     $('#Fcantidad').on('keyup', function(){
       $(this).val(validarNUmeros($('#Fcantidad').val()));
     });

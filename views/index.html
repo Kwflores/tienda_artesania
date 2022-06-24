@@ -2745,20 +2745,7 @@
                                     </div>
 
                                 </div>
-                                <div id="alerta" style="display: none; "
-                                    class="alert alert-warning alert-icon alert-dismissible fade show mb-5"
-                                    role="alert">
-                                    <i class="far fa-question-circle"></i>
-                                    <center>
-                                        <strong>Se Realizaron Cambios en la Informacion, favor dar click en Actualizar
-                                            Tabla, para ver los Cambios</strong> <br>
-                                        <button type="button" id="refresh_roles" class="btn btn-lg btn-light mx-2 mb-4">
-                                            Actualizar Tabla </button>
-                                    </center>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true"></span>
-                                    </button>
-                                </div>
+                              
                                 <div class="container-fluid">
                                     <table id="table_rol" class="display" style="width:100%">
                                         <thead>
@@ -2784,6 +2771,7 @@
                                 class="rounded-ultra shadow px-4 py-5" style="display: none; ">
                                 <h1 class="h1 section-title-3 font-weight-700 text-left">Editar Nombre de Rol</h1>
                                 <div id="id_rol" style="display: none; "></div>
+                                <div id="Arol" style="display: none; "></div>
                                 <div id="id_estado" style="display: none; "></div>
                                 <div id="id_boton" style="display: none; "></div>
                                 <br>
@@ -2798,8 +2786,8 @@
                                                 </div>
                                                 <div class="input-group-inner">
                                                     <input type="text" name="Anom_rol" id="Anom_rol"
-                                                        class="form-control" placeholder="Nombre Rol" required
-                                                        maxlength="50">
+                                                        class="form-control" placeholder="Nombre Rol" onkeyup="javascript:this.value=this.value.toUpperCase();" required
+                                                        maxlength="13">
                                                     <div class="input-focus-bg"></div>
                                                 </div>
 
@@ -2838,7 +2826,7 @@
                                                     <input type="text" name="Anom_rol" id="R_Rol_Nom"
                                                         class="form-control" placeholder="Nombre Rol"
                                                         onkeyup="javascript:this.value=this.value.toUpperCase();"
-                                                        required maxlength="50">
+                                                        required maxlength="13">
                                                     <div class="input-focus-bg"></div>
                                                 </div>
 
@@ -3088,7 +3076,7 @@
                                                     <input type="text" name="Anom_rol" id="Nom_categoria"
                                                         class="form-control" placeholder="Nombre Categoría"
                                                         onkeyup="javascript:this.value=this.value.toUpperCase();"
-                                                        required maxlength="50">
+                                                        required maxlength="13">
                                                     <div class="input-focus-bg"></div>
                                                 </div>
 
@@ -4637,10 +4625,8 @@
     <script src="/public/js/sugerencias/sugerencias.js"></script>
     <script src="/public/js/validaciones/validaciones.js"></script>
     <script src="/public/js/seguridad/roles.js"></script>
-   
     <script src="/public/js/seguridad/bitacora.js"></script>
     <script src="/public/js/dash/dash.js"></script>
-  
     <script src="/public/js/seguridad/copia_seguridad.js"></script>
     <script src="/public/js/usuarios/login.js"></script>
     <script src="/public/js/seguridad/permisos.js"></script>

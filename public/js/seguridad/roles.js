@@ -66,7 +66,7 @@ $(document).ready(function () {
 function cargar_roles_sys() {
     $("#contenido_roles").empty();
     var settings = {
-        "url": api + "roles",
+        "url": api + "roles/rol",
         "method": "POST",
         "timeout": 0,
         "headers": {
@@ -123,6 +123,8 @@ function cargar_roles_sys() {
 
             document.getElementById("id_rol").innerHTML = id_rol
             document.getElementById("id_estado").innerHTML = estado
+            document.getElementById("Arol").innerHTML = nom_rol
+            $("#Anom_rol").val(nom_rol); 
             actualizar_permiso_estado(nom_rol, estado, id_rol);
             
 
@@ -143,7 +145,9 @@ function mostrar_formu_actualizar() {
 function actualizar_rol() {
     id_rol = document.getElementById("id_rol");
     id_estado = document.getElementById("id_estado");
+  
     nombre_rol = $("#Anom_rol").val(); 
+    
     if (nombre_rol == "" ) {
         Swal.fire({
             icon: 'error',
@@ -170,6 +174,16 @@ function actualizar_rol() {
     fetch(url_actualizar_permisos, requestOptions)
         .then(response => response.text())
         .then(result => {
+            console.log(result)
+            if (result=='{"rol_existe":"El Rol: ${NOM_ROL} ya existe, favor registra uno nuevo.!"}') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '¡El Rol ingresado ya existe, favor ingresar uno nuevo.!',
+
+                })
+                return
+            }
             if (result) {
 
                 Swal.fire(
@@ -177,6 +191,7 @@ function actualizar_rol() {
                     'Los datos se modificaron correctamente!',
                     'success'
                 )
+                document.frm_categoria.submit();
                 id_rol.innerHTML = "";
                 id_estado.innerHTML = "";
                 nombre_rol = "";
@@ -222,6 +237,7 @@ function actualizar_permiso_estado(rol, estado, id_rol) {
 function cancelar_rol() {
     document.getElementById("actualizar_roles").style.display = "none"
     document.getElementById("roles_sistema").style.display = "block"
+   
 }
 
 function cargar_data(){
@@ -233,17 +249,13 @@ function cargar_data(){
 }
 
 function cancelar_registro(){
+    $("#R_Rol_Nom").val("");
     document.getElementById("actualizar_roles").style.display = "none"
     document.getElementById("roles_sistema").style.display = "block"
     document.getElementById("Nuevo_rol").style.display = "none"
 }
 
 
-let refresh_roles = document.getElementById('refresh_roles');
-refresh_roles.addEventListener('click', _ => {
-            location.reload();
-            document.getElementById("roles_sistema").style.display = "block"
-})
 
 
 

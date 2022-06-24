@@ -306,7 +306,7 @@ function cargar_modulos_permisos() {
     };
    
 
-        var settings = {
+        var setting = {
             "url": api + "roles/rol",
             "method": "POST",
             "timeout": 0,
@@ -317,12 +317,13 @@ function cargar_modulos_permisos() {
             
         };
 
-        $.ajax(settings).done(function (response) {
+        $.ajax(setting).done(function (response) {
             $.each(response[0], function (key, val) {
-                editar = "<button onclick='editar_permisos()'  id='editar" + val.COD_ROL + "' type='input' class='editar btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Registrar Permisos'><i class='fa fa-key' aria-hidden='true'></i>"
-                agregar = "<button onclick='registro_permisos()' id='agregar" + val.COD_ROL + "' type='input' class='editar btn btn-round btn-lg btn-icon-only btn-primary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Permisos'><i class='fa fa-plus-circle' aria-hidden='true'></i>"
+                editar = "<button onclick='editar_permisos()' style='display:none ;' id='editar" + val.COD_ROL + "' type='input' class='editar btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Permisos'><i class='fa fa-key' aria-hidden='true'></i>"
+                agregar = "<button onclick='registro_permisos()' id='agregar" + val.COD_ROL + "' type='input' class='editar btn btn-round btn-lg btn-icon-only btn-primary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Registro Permisos'><i class='fa fa-plus-circle' aria-hidden='true'></i>"
                 $("#container_contact").append("<tr><td>" + val.NOM_ROL + "</td><td  style='display:none ;'>" + val.COD_ROL + "</td><td>" + agregar + editar + "</td></tr>");
                 $.ajax(settings).done(function (response_permisos) {
+                  
                     $.each(response_permisos[0], function (key, valor) {
                         existe = valor.NOM_ROL
                         if (existe != val.NOM_ROL ) {
@@ -406,7 +407,7 @@ function cargar_permisos(ROL) {
             if (val.MODIFICAR == 1) {
                 modificar = '<div class=" custom-control custom-switch"><input type="checkbox" class=" custom-control-input"id="idmodificar' + val.COD_PERMISOS + '" checked><label class="custom-control-label" for="idmodificar' + val.COD_PERMISOS + '"></label></div>'
             } else {
-                modificar = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="modificar' + val.COD_PERMISOS + '"  ><label class="custom-control-label" for="idmodificar' + val.COD_PERMISOS + '"></label></div>'
+                modificar = '<div class="estado custom-control custom-switch"><input type="checkbox" class="estado custom-control-input"id="idmodificar' + val.COD_PERMISOS + '"  ><label class="custom-control-label" for="idmodificar' + val.COD_PERMISOS + '"></label></div>'
             }
             var eliminar
             if (val.ELIMINAR == 1) {
