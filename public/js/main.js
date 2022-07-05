@@ -11,7 +11,7 @@ function logeado() {
         document.getElementById("tiendita").style.display = "none"
         document.getElementById("inicio_sesion").style.display = "none";
         document.getElementById("gestion_categorias_dash").style.display="block"
-        document.getElementById("productos_sistema").style.display="block"
+        document.getElementById("productos_sistema").style.display="none"
         document.getElementById("gestion_reportes").style.display="none"
         document.getElementById("gestion_reportes").style.display = "none"
         document.getElementById("facturas_sistema").style.display = "none"
@@ -269,7 +269,6 @@ function mostrar_dash() {
     localStorage.removeItem("mostrarr_proveedores")
     localStorage.removeItem("mostrar_usuarios")
     localStorage.removeItem("mostrar_categprias");
-    document.getElementById("productos_sistema").style.display="none"
     document.getElementById("gestion_reportes").style.display = "none"
     document.getElementById("facturas_sistema").style.display = "none"
     document.getElementById("pedidos_sistema").style.display = "none"
@@ -297,7 +296,7 @@ function mostrar_dash() {
     localStorage.removeItem("Seguridad_bitacora");
     document.getElementById("Seguridad_bitacora").style.display = "none"
     document.getElementById("nuevo_factura").style.display = "none"
-  
+    document.getElementById("productos_sistema").style.display = "none"
 
 }
 

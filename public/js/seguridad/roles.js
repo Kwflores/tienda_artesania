@@ -73,11 +73,12 @@ function cargar_roles_sys() {
             "Content-Type": "application/json",
             'Authorization': token
         },
-        "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 11 }),
+        
+
     };
 
     $.ajax(settings).done(function (response) { 
-       // console.log(response);
+        console.log(response);
 
         $.each(response[0], function (key, val) {
             var estado
@@ -125,14 +126,15 @@ function cargar_roles_sys() {
             document.getElementById("id_estado").innerHTML = estado
             document.getElementById("Arol").innerHTML = nom_rol
             $("#Anom_rol").val(nom_rol); 
-            actualizar_permiso_estado(nom_rol, estado, id_rol);
-            
-
+            actualizar_permiso_estado(estado, data[4]);
         });
+
+      
 
 
 
     });
+
 
 
 }
@@ -211,15 +213,16 @@ function actualizar_rol() {
 
 }
 
-function actualizar_permiso_estado(rol, estado, id_rol) {
+
+function actualizar_permiso_estado(estado, id_rol) {
     var myHeader = new Headers({
         'Authorization': token
     });
-    url_actualizar_permisos = api + "roles/actualizar";
+    url_actualizar_permisos = api + "roles/actualizarEstado";
     myHeader.append("Content-Type", "application/json",);
     var raw = JSON.stringify({
-        "NOM_ROL": rol, "NOM_USUARIO": user_logeado, "COD_ESTADO": estado, "COD_USUARIO": id_user, "COD_MODULO": 11, "COD_ROL": id_rol
-    });
+        "COD_ESTADO": estado,"COD_ROL": id_rol
+    });    
     var requestOptions = {
         method: 'PUT',
         headers: myHeader,
@@ -229,10 +232,12 @@ function actualizar_permiso_estado(rol, estado, id_rol) {
     fetch(url_actualizar_permisos, requestOptions)
         .then(response => response.text())
         .then(result => {
+          
 
         })
         .catch(error => console.log('error', error));
 }
+
 
 function cancelar_rol() {
     document.getElementById("actualizar_roles").style.display = "none"

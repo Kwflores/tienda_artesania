@@ -22,7 +22,7 @@ $(document).ready(function () {
         url_login = api + "login"
         var MyHeaders = new Headers();
         MyHeaders.append("Content-Type", "application/json",);
-        raw = JSON.stringify({ "NOM_USUARIO": username, "CLAVE": password, "COD_USUARIO": 1, "COD_MODULO": 9, })
+        raw = JSON.stringify({ "NOM_USUARIO": username, "CLAVE": password,"COD_USUARIO": id_user , "COD_MODULO":9})
         var settings = {
             method: 'POST',
             headers: MyHeaders,
@@ -34,8 +34,6 @@ $(document).ready(function () {
                 return response.json();
             })
             .then(function (data) {
-
-
                 if (!data) {
 
                     url_tokens = api + "send-email/token";

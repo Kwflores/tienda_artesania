@@ -574,7 +574,7 @@ function buscar_producto(sku) {
             "Content-Type": "application/json",
             'Authorization': token
         },
-        "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 3, "SKU": sku }),
+        "data": JSON.stringify({  "SKU": sku }),
     };
 
     $.ajax(settings).done(function (response) {
@@ -695,7 +695,7 @@ function obtener_pagos() {
 
 }
 
-function agregar() {
+function agregar(){
     stock = $("#Fstock").val()
     cantidad = $("#Fcantidad").val()
     producto = $("#Fproducto").val()

@@ -105,8 +105,6 @@ app.post("/nuevo", (req, res) => {
    
 });
 
-
-
 // Registro actualizar datos del rol
 app.put('/actualizar', (req, res) => {
     try {
@@ -131,6 +129,36 @@ app.put('/actualizar', (req, res) => {
                 }
             }   
         })
+         
+    } catch (error) {
+        console.log(error);
+        res.json({
+            message : "Verificar los parametros solicitados",
+            parametros_solicitados: {
+                "NOM_ROL":"",
+                "NOM_USUARIO":"",
+                "COD_ESTADO":"",
+                "COD_USUARIO":"",
+                "COD_MODULO":"",
+                "COD_ROL":""
+            }
+        });
+    }
+    
+});
+
+app.put('/actualizarEstado', (req, res) => {
+    try {
+        const {COD_ESTADO,COD_ROL } = req.body;
+        const consulta = `call 	ACTUALIZAR_ESTADO_ROLES( ${COD_ESTADO}, ${COD_ROL})`;
+    
+        conn.query(consulta, error => {
+            if (error) throw error;
+            res.json({
+                message : "Actualización se realizo Con Exito",
+             
+            })
+        });
          
     } catch (error) {
         console.log(error);

@@ -43,7 +43,7 @@ function cargar_bitacora() {
                     filename: 'Export_File',
 
                     //Aquí es donde generas el botón personalizado
-                    text: '<button class="btn btn-success"><i class="fas fa-file-excel"></i> Exportar a Excel </button>',
+                    text: '<button class="btn btn-success"><i class="fas fa-file-excel"></i> Excel </button>',
                     exportOptions: {
                         columns: [1, 2, 3, 4,5,6,7,8]
                     }
@@ -55,7 +55,7 @@ function cargar_bitacora() {
                     filename: 'Reporte de Bitácora del Sistema',
                     //orientation: 'landscape',//landscape give you more space
                     pageSize: 'A4',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))
-                    text: '<button class="btn btn-danger"><i class="far fa-file-pdf"></i> Exportar a PDF </button>',
+                    text: '<button class="btn btn-danger"><i class="far fa-file-pdf"></i> PDF </button>',
                     exportOptions: {
                         columns:[1, 2, 3, 4,5,6,7,8]
                     },

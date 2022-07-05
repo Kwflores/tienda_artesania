@@ -385,9 +385,7 @@ function detalle_producto(sku) {
     });
     url_actualizar_permisos = api + "productos_clientes/sku";
     myHeader.append("Content-Type", "application/json",);
-    var raw = JSON.stringify({
-        "NOM_USUARIO": user_logeado, "COD_USUARIO": 2, "COD_MODULO": 2, "SKU": sku
-    });
+    var raw = JSON.stringify({ "SKU": sku });
     var requestOptions = {
         method: 'POST',
         headers: myHeader,
@@ -526,6 +524,8 @@ function q_carrito_cliente(sku, nombre, descripcion, precio, stok, codi_producto
     llenar_tabla_carrito_cliente();
     total_cliente_carrito_cliente();
 }
+
+
 //funcion que muestra si existe el sku
 function existe_sku(el_arreglo, el_sku) {
     var existe = false;
@@ -533,7 +533,9 @@ function existe_sku(el_arreglo, el_sku) {
         prod => {
             if (prod.code == el_sku) {
                 existe = true;
+                console.log('exite')
                 return existe;
+                
             }
         }
     );
@@ -545,11 +547,9 @@ function agregar_carrito(sku, nombre, descripcion, precio, stock, cod_producto, 
     var arreglo_registros = get_detalle_carrito();
     var cantidad = 01;
     var total = precio;
-  
-
-
-
+ 
     if (existe_sku(arreglo_registros, sku)) {
+        console.log("esta en el if")
         arreglo_registros.forEach(
             carro => {
                 if (carro.s <= carro.q) {
@@ -570,6 +570,8 @@ function agregar_carrito(sku, nombre, descripcion, precio, stock, cod_producto, 
             });
 
     } else {
+        console.log("esta en el else")
+
         var producto = {
             code: sku,
             nom_producto: nombre,
@@ -585,7 +587,6 @@ function agregar_carrito(sku, nombre, descripcion, precio, stock, cod_producto, 
 
     }
     localStorage.setItem("detalle_carrito", JSON.stringify(arreglo_registros));
-    //localStorage.setItem("mostrar_carrito", 1)
     document.getElementById("carrito_detalle_compra").style.display = 'block'
     llenar_tabla_carrito_cliente();
     total_cliente_carrito_cliente();
