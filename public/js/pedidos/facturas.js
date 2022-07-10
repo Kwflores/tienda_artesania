@@ -574,9 +574,10 @@ function buscar_producto(sku) {
             "Content-Type": "application/json",
             'Authorization': token
         },
-        "data": JSON.stringify({  "SKU": sku }),
+        "data": JSON.stringify({   "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9,"SKU": sku }),
     };
 
+    
     $.ajax(settings).done(function (response) {
 
         console.log(response)

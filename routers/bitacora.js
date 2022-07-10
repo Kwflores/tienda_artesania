@@ -27,4 +27,22 @@ app.post("/", (req, res) => {
 
 });
 
+
+app.post("/nuevo", (req, res) => {
+    try {
+        const {COD_USUARIO, COD_MODULO, CAMPO,REGISTRO,VALOR_ORIGINAL,VALOR_ACTUAL} = req.body;
+        const consulta = `call NUEVO_BITACORA('${COD_USUARIO}','${COD_MODULO}','${CAMPO}','${REGISTRO}','${VALOR_ORIGINAL}','${VALOR_ACTUAL}')`;
+        conn.query(consulta, (error) => {
+            if (error)  throw error;
+                res.json({
+                    BITACORA: 'OK'
+                })
+         
+
+        });
+
+    } catch (error) {
+        res.send("0")
+    }
+});
 module.exports = app;

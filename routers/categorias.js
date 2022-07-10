@@ -78,7 +78,7 @@ app.post("/nuevo", (req, res) => {
                     res.json({categoria:`La categoria: ${NOM_CATEGORIA} ya existe, favor registra una nueva.!`});
                 }
                 else {
-                    const consulta = `call NUEVA_CATEGORIA('${NOM_CATEGORIA}','${DES_CATEGORIA}','${URL_IMG}',1,${COD_MODULO},${COD_USUARIO})`;
+                    const consulta = `call NUEVA_CATEGORIA('${NOM_CATEGORIA}','${DES_CATEGORIA}','${URL_IMG}',1)`;
                     conn.query(consulta, (error) => {
                         if (error)  throw error;
                        

@@ -18,6 +18,7 @@ $(document).ready(function () {
     });
 
 
+
     $("#registro_permiso").click(function () {
         leer = $("#leer_permiso");
         crear = $("#crear_permiso");
@@ -231,66 +232,7 @@ function obtener_modulos() {
     })
 
 }
-
-function get_detalle_permiso() {
-    var lista_permiso = [];
-    var lista_string = localStorage.getItem("lista_permiso");
-    if (lista_string) {
-        lista_permiso = JSON.parse(lista_string);
-    }
-
-    return lista_permiso;
-}
-
-function existe_sku(el_arreglo, cod_modulo) {
-    var existe = false;
-    el_arreglo.forEach(
-        prod => {
-            if (prod.c_m == cod_modulo) {
-                existe = true;
-                return existe;
-            }
-        }
-    );
-
-    return existe;
-}
-
-function agregar_detalle(crear, leer, modificar, eliminar, cod_rol, cod_modulo) {
-    var lista_permiso = get_detalle_permiso();
-    var permiso = {
-        c: crear,
-        l: leer,
-        m: modificar,
-        e: eliminar,
-        c_r: cod_rol,
-        c_m: cod_modulo,
-
-    }
-    if (existe_sku(lista_permiso, cod_modulo)) {
-        lista_permiso.forEach(
-            carro => {
-                if (carro.c_m == cod_modulo) {
-                    carro.c = crear;
-                    carro.l = leer;
-                    carro.m = modificar;
-                    carro.e = eliminar;
-                }
-
-            });
-
-    } else {
-        lista_permiso.push(permiso);
-
-    }
-
-
-    localStorage.setItem("lista_permiso", JSON.stringify(lista_permiso));
-}
-
-get_detalle_permiso();
-
-
+ 
 
 function cargar_modulos_permisos() {
     $("#container_contact").empty();
@@ -304,8 +246,6 @@ function cargar_modulos_permisos() {
         },
         "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 9, }),
     };
-   
-
         var setting = {
             "url": api + "roles/rol",
             "method": "POST",

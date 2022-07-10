@@ -1690,6 +1690,7 @@
                                                     <div class="input-focus-bg"></div>
                                                 </div>
                                             </div>
+                                            
 
                                             <div id="modificar-clave">
                                                 <button type="button"
@@ -1805,36 +1806,48 @@
                                             class="fa fa-cube" aria-hidden="true"></i> Inventario</a></li>
                             </ul>
                         </li>
-                        <li id="ver_gestion_pedidos"><a href="#GestionPedidos" id="ver_GESTION_pedidos"><i class="fa fa-tasks"
-                                    aria-hidden="true"></i>
-                                Pedidos</a>
-                            <ul>
-                                <li><a href="#Pedidos" id="ver_pedidos" onclick="mostrar_pedidos()"><i
-                                            class="fa fa-tasks" aria-hidden="true"></i> Pedidos</a></li>
-                                <li><a href="#Facturas" id="ver_facturas" onclick=" mostrar_facturas()"><i
-                                            class="fa fa-file" aria-hidden="true"></i> Facturar</a></li>
-                            </ul>
-                        </li>
+                       
                         <li><a href="#Opiniones" id="ver_Opiniones" onclick="mostrar_sugerencias()"><i
                                     class="fas fa-smile" aria-hidden="true"></i> Opiniones</a></li>
+                        <li id="ver_gestion_pedidos"><a href="#GestionPedidos" id="ver_GESTION_pedidos"><i class="fa fa-tasks"
+                                        aria-hidden="true"></i>
+                                    Pedidos</a>
+                                <ul>
+                                    <li><a href="#Pedidos" id="ver_pedidos" onclick="mostrar_pedidos()"><i
+                                                class="fa fa-tasks" aria-hidden="true"></i> Pedidos</a></li>
+                                    <li><a href="#Facturas" id="ver_facturas" onclick=" mostrar_facturas()"><i
+                                                class="fa fa-file" aria-hidden="true"></i> Facturar</a></li>
+                                </ul>
+                        </li>           
                         <li><a href="#Reportes" id="reportes" onclick="mostra_reportes()"><i
                                     class="fa  fa-chart-line"></i> Reportes</a></li>
                         <li  id="segurdidad"><a href="#Seguridad"><i class="fa fa-cog"></i> Seguridad</a>
                             <ul>
+                                <li><a href="#Bitacora" id="ver_bitacora" onclick="mostrar_bitacora()"><i
+                                    class="fa fa-search"></i>
+                                Bitácora</a>
+                                </li>
+                                <li><a href="#Nuevo" id="Crear_respaldo" onclick=" mostrar_copia_Seguridad()"><i
+                                    class="fa fa-hdd" aria-hidden="true"></i> Crear Backup</a>
+                                 </li>
+                                 <li><a href="#Parametros" id="ver_modulos" onclick="mostrar_modulos()"><i
+                                    class="fa fa-cog"></i>
+                                Modulos </a></li>
+                                 <li><a href="#Parametros" id="ver_parametros" onclick="mostrar_parametros()"><i
+                                    class="fa fa-search"></i>
+                                Parametros</a></li>
+                                <li><a href="#Permisos" id="ver_permisos" onclick="mostrar_permisos()"><i
+                                    class="fa fa-key" aria-hidden="true"></i> Permisos</a></li>
                                 <li><a href="#GestionUsuarios" id="ver_usuarios" onclick=" mostrar_usuarios()"><i
                                     class="fa fa-users" aria-hidden="true"></i> Usuarios</a>
-                                <li><a href="#Nuevo" id="Crear_respaldo" onclick=" mostrar_copia_Seguridad()"><i
-                                            class="fa fa-hdd" aria-hidden="true"></i> Crear Backup</a>
-                                </li>
+                               
                                 <li><a href="#Editar" style="display: none;" id="crear_restaurar"><i class="fa fa-hdd" aria-hidden="true"></i>
                                         Restaurar Base de Datos</a></li>
                                 <li><a href="#Roles" id="ver_roles" onclick="mostrar_roles()"><i class="fa fa-list"
                                             aria-hidden="true"></i> Roles</a></li>
-                                <li><a href="#Permisos" id="ver_permisos" onclick="mostrar_permisos()"><i
-                                            class="fa fa-key" aria-hidden="true"></i> Permisos</a></li>
-                                <li><a href="#Bitacora" id="ver_bitacora" onclick="mostrar_bitacora()"><i
-                                            class="fa fa-search"></i>
-                                        Bitácora</a></li>
+                                
+                               
+                                        
                             </ul>
                         </li>
                     </ul>
@@ -2091,6 +2104,16 @@
 
                                 </form>
 
+                                <div style="display: none; " id="dato_cliente"></div>
+                                <div style="display: none; " id="dato_correo"></div>
+                                <div style="display: none; " id="dato_usuario"></div>
+                                <div style="display: none; " id="dato_telefono"></div>
+                                <div style="display: none; " id="dato_idenficacion"></div>
+                                <div style="display: none; " id="dato_no_identificacion"></div>
+                                <div style="display: none; " id="dato_direccion"></div>
+                                <div style="display: none; " id="dato_rol"></div>
+
+
                             </section>
                             <section id="actualizar_pass_user" class="rounded-ultra shadow px-4 py-5"
                                 style="display: none; ">
@@ -2226,7 +2249,7 @@
                                                 <th>Nombre Usuario</th>
                                                 <th>Rol</th>
                                                
-                                                <th style="display: block;">Fecha Vencimiento Contraseña</th>
+                                                <th style="display: none;">Fecha Vencimiento Contraseña</th>
                                                 <th>Estado</th>
                                                 <th style="display: none;">CRol</th>
                                                 <th style="display: none;">CEstado</th>
@@ -4486,10 +4509,14 @@
                             <thead>
                                 <tr>
                                     <th>Fecha</th>
-                                    <th>Accion</th>
-                                    <th>Descripción</th>
                                     <th>Usuario</th>
+                                    <th>Accion</th>
                                     <th>Modulo</th>
+                                    <th>Campo</th>
+                                    <th>Registro</th>
+                                    <th>Valor Original</th>
+                                    <th>Valor Actual</th>
+
                                 </tr>
                             </thead>
                             <tbody id="contenido_bitacora">
@@ -4500,6 +4527,106 @@
                     <br><br><br>
 
                 </section>
+            </div>
+            <div id="gestion_parametros">
+                <section id="Seguridad_parametros" style="display: none; ">
+                    <h1 class="h1 section-title-3 font-weight-700 text-left">Parametros del Sistema</h1>
+
+
+                    <div class="container-fluid">
+                        <table id="table_parametro" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Parametro</th>
+                                    <th>Valor</th>
+                                    <th>Accion</th>
+                                    <th style="display: none; ">id</th>
+                                     
+
+                                </tr>
+                            </thead>
+                            <tbody id="contenido_parametro">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <br><br><br>
+
+                </section>
+                <section id="actualizar_parametros" style="display: none; "
+                class="rounded-ultra shadow px-4 py-5" style="display: none; ">
+                <h1 class="h1 section-title-3 font-weight-700 text-left">Editar Parametro</h1>
+                <div id="id_parametro" style="display: none; "></div>
+                <div id="valor_original" style="display: none; "></div>
+                <br>
+
+
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <label class="text-uppercase px-3">Nombre Parametro</label>
+                                </div>
+                                <div class="input-group-inner">
+                                    <input type="text" name="Aparametro" id="Aparametro"
+                                        class="form-control" disabled placeholder="Parametro" onkeyup="javascript:this.value=this.value.toUpperCase();" required
+                                        maxlength="13">
+                                    <div class="input-focus-bg"></div>
+                                </div>
+                                <br>
+                                <div class="d-flex w-100 justify-content-between">
+                                    <label class="text-uppercase px-3">Valor</label>
+                                </div>
+                                <div class="input-group-inner">
+                                    <input type="text" name="AValor" id="AValor"
+                                        class="form-control" placeholder="Valor" onkeyup="javascript:this.value=this.value.toUpperCase();" required
+                                        maxlength="13">
+                                    <div class="input-focus-bg"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <center>
+                        <br><br>
+                        <div>
+                            <button type="button" class="btn btn-primary mb-2"
+                                onclick="actualizar_parametro(); ">Guardar</button>
+                            <button type="button" class="btn btn-danger mb-2"
+                                onclick=" cancelar_parametro()">Cancelar</button>
+                        </div>
+
+                    </center>
+
+
+
+
+                </form>
+            </section>
+            </div>
+            <div id="gestion_modulos">
+                <section id="Seguridad_modulos" style="display: none; ">
+                    <h1 class="h1 section-title-3 font-weight-700 text-left">Modulos del Sistema</h1>
+
+
+                    <div class="container-fluid">
+                        <table id="table_modulo" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contenido_modulo">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <br><br><br>
+
+                </section>
+            
             </div>
             <div id="gestion_reportes">
                 <section id="mostra_reportes" style="display: block; ">
@@ -4627,6 +4754,7 @@
     <script src="/public/js/validaciones/validaciones.js"></script>
     <script src="/public/js/seguridad/roles.js"></script>
     <script src="/public/js/seguridad/bitacora.js"></script>
+    <script src="/public/js/seguridad/parametros.js"></script>
     <script src="/public/js/dash/dash.js"></script>
     <script src="/public/js/seguridad/copia_seguridad.js"></script>
     <script src="/public/js/usuarios/login.js"></script>

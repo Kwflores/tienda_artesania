@@ -8,6 +8,7 @@ $(document).ready(function () {
     $("#inicio").click(function () {
         username = $("#NOM_USUARIO").val();
         password = $("#CLAVE").val();
+         
         if (username == "" || password == "") {
             Swal.fire({
                 icon: 'error',
@@ -18,11 +19,10 @@ $(document).ready(function () {
         }
         var existe = false;
 
-
         url_login = api + "login"
         var MyHeaders = new Headers();
         MyHeaders.append("Content-Type", "application/json",);
-        raw = JSON.stringify({ "NOM_USUARIO": username, "CLAVE": password,"COD_USUARIO": id_user , "COD_MODULO":9})
+        raw = JSON.stringify({ "NOM_USUARIO": username, "CLAVE": password,"COD_USUARIO": 2 , "COD_MODULO":9})
         var settings = {
             method: 'POST',
             headers: MyHeaders,
@@ -52,13 +52,12 @@ $(document).ready(function () {
                             return response.json();
                         })
                         .then(function (data) {
-
+                                         
+ 
                             if (data[0].length == 0) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: '¡Usuario o Contraseña incorrecto.!',
-                                })
+                                valida()
+                            
+                                  
                             } else {
                                 hoy = new Date()
                                 let dia = hoy.getDate();
@@ -107,6 +106,7 @@ $(document).ready(function () {
 
                                 });
                             }
+                            
 
 
                         })
@@ -293,6 +293,87 @@ $(document).ready(function () {
 
             })
     });
+
+    let contador = 1;
+function valida(){
+    var settings = {
+        "url": api + "parametro/intentos",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            'Authorization': token
+        },
+       // "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 3 }),
+    };
+
+    
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+
+        $.each(response[0], function (key, val) {
+            regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$%*&\-\_])[A-Za-z\d$@$%*&\-\_]{8,16}$/;
+
+            if (regex.test(username)) {
+               console.log("válido") ;
+    
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '¡Usuario o Contraseña incorrecto.!',
+                })
+                console.log(`Intento: ${contador}`);
+                if(contador == val.valor){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: '¡Intentos agotados, usuario bloqueado favor contacte al administrador.!',
+                    })
+                    bloquear_usuario();
+                    console.log(`funciono: ${contador}`);
+                    return
+                }
+                contador++;
+            }
+        });
+       
+
+
+    });
+        
+
+            
+
+}
+function bloquear_usuario() {
+    usuario =  $("#NOM_USUARIO").val();
+    var tipo = 1
+    if (tipo == "1") {
+        var myHeader = new Headers({
+            'Authorization': token
+        });
+        url_ususari_estado = api + "usuario/usuario_bloqueado";
+        myHeader.append("Content-Type", "application/json",);
+
+        var raw = JSON.stringify({ "NOM_USUARIO": usuario});
+        var requestOptions = {
+            method: 'PUT',
+            headers: myHeader,
+            body: raw,
+            redirect: 'follow'
+        };
+        fetch(url_ususari_estado, requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                if (result) {
+
+                }
+            })
+            .catch(error => console.log('error', error));
+    }
+}
+
     //envia una contrasena temporal via correo al usuario
     $("#reset-pass").click(function () {
         user = $("#USUARIO").val();
@@ -345,7 +426,6 @@ $(document).ready(function () {
         }
 
 
-
     });
     //actualiza la nueva contrasena del usuario
     $("#modificar-clave").click(function () {
@@ -361,84 +441,106 @@ $(document).ready(function () {
         dia = ('0' + dia).slice(-2);
         mes = ('0' + mes).slice(-2);
         fecha_actual = ano + '-' + mes + '-' + dia
+        
         // $("#pass_actual").val(password);
         var TuFecha = new Date(fecha_actual);
-
-        //dias a sumar
-        var dias = parseInt(60);
-
-        //nueva fecha sumada
-        TuFecha.setDate(TuFecha.getDate() + dias);
-        //formato de salida para la fecha
-        resultado = TuFecha.getFullYear() + '-' + '0'+
-            (TuFecha.getMonth() + 1) + '-' + TuFecha.getDate();
-            console.log(resultado)
-        
-
-
-
-        url_pass = api + "send-email/clave"
-        var MyHeaders = new Headers({
-            'Authorization': token
-        });
-        MyHeaders.append("Content-Type", "application/json",);
-        raw = JSON.stringify({ "CLAVE": password, "USUARIO": user_reset, "COD_USUARIO": id_codigo_user, "COD_MODULO": 2, "COD_ESTADO": 1, "FECHA_VENCIMIENTO": resultado })
         var settings = {
-            method: 'PUT',
-            headers: MyHeaders,
-            body: raw,
-            redirect: 'follow'
+            "url": api + "parametro/fecha_vencimiento",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json",
+                'Authorization': token
+            },
+           // "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 3 }),
         };
-        valido = document.getElementById("campoOK").textContent
+    
+        
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+    
+            $.each(response[0], function (key, val) {
+                console.log(val.valor)
+                var dias = parseInt(val.valor);
 
-
-        if (pass_actual == password) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: '¡La nueva contraseña no puede ser igual a la actual.!',
-            })
-
-            return;
-        }
-        if (valido != "") {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: '¡Debe Proporcionar una contraseña valida.!',
-            })
-            return;
-        }
-        if (password == confi_password) {
-            fetch(url_pass, settings)
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (data) {
-
-                    if (data) {
-                        Swal.fire(
-                            'Contraseña Actualizada!',
-                            'favor iniciar sesión de nuevo.!',
-                            'success'
-                        )
-                    }
-
-                    document.getElementById("clave").style.display = "none";
-                    document.getElementById("login").style.display = "block";
-                    document.getElementById("registro").style.display = "none";
-                    document.getElementById("resetear-clave").style.display = "none";
-                })
-                .catch(function (err) {
-                    console.log(err);
+                //nueva fecha sumada
+                TuFecha.setDate(TuFecha.getDate() + dias);
+                //formato de salida para la fecha
+                resultado = TuFecha.getFullYear() + '-' + '0'+
+                    (TuFecha.getMonth() + 1) + '-' + TuFecha.getDate();
+                    console.log(resultado)
+                      
+        
+        
+                url_pass = api + "send-email/clave"
+                var MyHeaders = new Headers({
+                    'Authorization': token
                 });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: '¡La Contraseña no Coinciden o no es Valida.!',
-            })
-        }
+                MyHeaders.append("Content-Type", "application/json",);
+                raw = JSON.stringify({ "CLAVE": password, "USUARIO": user_reset, "COD_USUARIO": id_codigo_user, "COD_MODULO": 2, "COD_ESTADO": 1, "FECHA_VENCIMIENTO": resultado })
+                var settings = {
+                    method: 'PUT',
+                    headers: MyHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                };
+                valido = document.getElementById("campoOK").textContent
+        
+        
+                if (pass_actual == password) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: '¡La nueva contraseña no puede ser igual a la actual.!',
+                    })
+        
+                    return;
+                }
+                if (valido != "") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: '¡Debe Proporcionar una contraseña valida.!',
+                    })
+                    return;
+                }
+                if (password == confi_password) {
+                    fetch(url_pass, settings)
+                        .then(function (response) {
+                            return response.json();
+                        })
+                        .then(function (data) {
+        
+                            if (data) {
+                                Swal.fire(
+                                    'Contraseña Actualizada!',
+                                    'favor iniciar sesión de nuevo.!',
+                                    'success'
+                                )
+                            }
+        
+                            document.getElementById("clave").style.display = "none";
+                            document.getElementById("login").style.display = "block";
+                            document.getElementById("registro").style.display = "none";
+                            document.getElementById("resetear-clave").style.display = "none";
+                        })
+                        .catch(function (err) {
+                            console.log(err);
+                        });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: '¡La Contraseña no Coinciden o no es Valida.!',
+                    })
+                }
+            });
+           
+    
+    
+        });
+        //dias a sumar
+       
 
     });
     //registro de clientes 

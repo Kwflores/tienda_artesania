@@ -54,11 +54,10 @@ $(document).ready(function () {
                     'Se registro correctamente!',
                     'success'
                 )
-                document.frm_categoria.submit();
+             
                 categoria = "";
                 descripcion = "";
                 url = "";
-                document.frm_categoria.submit()
                 $('#table_categoria').dataTable().fnDestroy();
                 cargar_categorias_sys();
                 document.getElementById("categorias_sistema").style.display = "block"

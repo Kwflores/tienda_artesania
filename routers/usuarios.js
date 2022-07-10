@@ -79,7 +79,7 @@ app.post("/buscar", (req, res) => {
 app.post("/nuevo", (req, res) => {
     try {
         const { NOM_PERSONA, USER_EMAIL, NUM_CEL, NOM_USUARIO, CLAVE, NOM_IDENTIFICACION, COD_IDENTIFICACION, DIRECCION, COD_ROL,
-            COD_MODULO,COD_ESTADO,FECHA_VENCIMIENTO} = req.body;
+            COD_MODULO,COD_ESTADO,FECHA_VENCIMIENTO,CAMPO,COD_USUARIO} = req.body;
         var conteoExistencia = `call CONTEO_USUARIO('${NOM_USUARIO}','${USER_EMAIL}');`;
         conn.query(conteoExistencia, (error, results) => {
             if (error) throw error;
@@ -88,7 +88,7 @@ app.post("/nuevo", (req, res) => {
                     res.json({ Message: `El usuario ${NOM_USUARIO} ya existe, favor registra uno nuevo.!` });
                 }
                 else {
-                    const consulta = `call NUEVO_USUARIO('${NOM_PERSONA}','${USER_EMAIL}',${NUM_CEL},'${NOM_USUARIO}','${CLAVE}','${NOM_IDENTIFICACION}','${COD_IDENTIFICACION}','${DIRECCION}',${COD_ROL},${COD_MODULO},${COD_ESTADO},'${FECHA_VENCIMIENTO}')`;
+                    const consulta = `call NUEVO_USUARIO('${NOM_PERSONA}','${USER_EMAIL}',${NUM_CEL},'${NOM_USUARIO}','${CLAVE}','${NOM_IDENTIFICACION}','${COD_IDENTIFICACION}','${DIRECCION}',${COD_ROL},${COD_MODULO},${COD_ESTADO},'${FECHA_VENCIMIENTO}','${CAMPO}','${COD_USUARIO}')`;
                     conn.query(consulta, (error, nuevo_usuario) => {
                         if (error) throw error;
                         if (nuevo_usuario.length > 0) {
@@ -106,12 +106,15 @@ app.post("/nuevo", (req, res) => {
 
 });
 
+
+
 // Registro actualizar datos de usuarios
 app.put('/actualizar', (req, res) => {
     try {
-        const { COD_PERSONA, NOM_PERSONA, USER_EMAIL, NUM_CEL, NOM_USUARIO, NOM_IDENTIFICACION, COD_IDENTIFICACION, DIRECCION, COD_ROL,COD_ESTADO,
-           COD_USUARIO, COD_MODULO } = req.body;
-        const consulta = `call 	ACTUALIZAR_USUARIO(${COD_PERSONA},'${NOM_PERSONA}','${USER_EMAIL}',${NUM_CEL},'${NOM_USUARIO}','${NOM_IDENTIFICACION}','${COD_IDENTIFICACION}','${DIRECCION}',${COD_ROL},${COD_ESTADO},${COD_USUARIO},${COD_MODULO})`;
+        const { COD_PERSONA, NOM_PERSONA, USER_EMAIL, NUM_CEL, NOM_IDENTIFICACION, COD_IDENTIFICACION, DIRECCION, COD_ROL,COD_ESTADO,
+           COD_USUARIO } = req.body;
+        const consulta = `call 	ACTUALIZAR_USUARIO(${COD_PERSONA},'${NOM_PERSONA}','${USER_EMAIL}',${NUM_CEL},'${NOM_IDENTIFICACION}','${COD_IDENTIFICACION}',
+        '${DIRECCION}',${COD_ROL},${COD_ESTADO},'${COD_USUARIO}' )`;
 
         conn.query(consulta, error => {
             if (error) throw error;
@@ -123,13 +126,29 @@ app.put('/actualizar', (req, res) => {
 
 });
 
+app.put("/usuario_bloqueado", (req, res) => {
+    try {
+        const {NOM_USUARIO} = req.body;
+            const consulta = `call BLOQUEAR_ESTADO_USUARIO( '${NOM_USUARIO}' )`;
+            conn.query(consulta, error => {
+                if (error) throw error;
+                res.send("bloqueado");
+            });
+       
+    } catch (error) {
+        res.send("0")
+    }
+
+});
+
+
 app.put("/usuario_estado", (req, res) => {
     try {
-        const {COD_ESTADO, COD_USUARIO, COD_MODULO } = req.body;
+        const {COD_ESTADO, COD_USUARIO, COD_MODULO, REGISTRO,COD_USUARIOS} = req.body;
         console.log(COD_ESTADO)
         if (COD_ESTADO == 1) {
             INACTIVO=2
-            const consulta = `call ACTUALIZAR_ESTADO_USUARIO(${INACTIVO},${COD_USUARIO},${COD_MODULO})`;
+            const consulta = `call ACTUALIZAR_ESTADO_USUARIO(${INACTIVO},${COD_USUARIO},${COD_MODULO},'ESTADO DE USUARIO',${REGISTRO},'ACTIVO','INACTIVO',${COD_USUARIOS})`;
             conn.query(consulta, error => {
                 if (error) throw error;
                 res.send("Inactivo");
@@ -139,7 +158,7 @@ app.put("/usuario_estado", (req, res) => {
         }
         else {
             ACTIVO= 1
-            const consulta = `call ACTUALIZAR_ESTADO_USUARIO(${ACTIVO},${COD_USUARIO},${COD_MODULO})`;
+            const consulta = `call ACTUALIZAR_ESTADO_USUARIO(${ACTIVO},${COD_USUARIO},${COD_MODULO},'ESTADO DE USUARIO',${REGISTRO},'INACTIVO','ACTIVO',${COD_USUARIOS})`;
             conn.query(consulta, error => {
                 if (error) throw error;
                 res.send("Activo");
@@ -204,8 +223,8 @@ app.put('/actualizar_pregunta', (req, res) => {
 // Registro actualizar datos de usuarios
 app.put('/clave', (req, res) => {
     try {
-        const { CLAVE, NOM_USUARIO, COD_USUARIO, COD_MODULO,COD_ESTADO} = req.body;
-        const consulta = `call ACTUALIZAR_CLAVE('${CLAVE}','${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO},${COD_ESTADO})`;
+        const { CLAVE, NOM_USUARIO, COD_USUARIO, COD_MODULO,COD_ESTADO,FECHA_VENCIMIENTO} = req.body;
+        const consulta = `call ACTUALIZAR_CLAVE('${CLAVE}','${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO},${COD_ESTADO},'${FECHA_VENCIMIENTO}')`;
         conn.query(consulta, error => {
             if (error) throw error;
             res.json({Message:"Actualizacion de Clave por medio del nombre de usuario"});

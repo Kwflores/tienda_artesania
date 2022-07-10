@@ -24,7 +24,7 @@ $(document).ready(function () {
         valido = document.getElementById("contraseñaOK").textContent
         correovalido = document.getElementById("UcorreoOK").textContent
         //console.log(fecha_vencimiento)
-        
+        data = ("Nombre Completo:"+cliente+" Correo:"+correo+" Usuario:"+usuario+" Telefono:"+telefono+" Indentificacion:"+idenficacion+" No. de Identificacion:"+no_identificacion+" Direccion:"+direccion+" Rol:"+rol)
 
         if (cliente == "" || correo == "" || usuario == "" || clave == "" || telefono == "" || idenficacion == "" || no_identificacion == "" || direccion == ""|| rol == ""|| fecha_vencimiento == "") {
             Swal.fire({
@@ -68,7 +68,7 @@ $(document).ready(function () {
                 "Content-Type": "application/json",
                 'Authorization': token
             },
-            "data": JSON.stringify({ "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": telefono, "NOM_USUARIO": usuario, "CLAVE": clave, "NOM_IDENTIFICACION": idenficacion, "COD_IDENTIFICACION": no_identificacion, "DIRECCION": direccion, "COD_ROL": rol, "COD_MODULO": 1 ,"COD_ESTADO":3, "FECHA_VENCIMIENTO":fecha_vencimiento}),
+            "data": JSON.stringify({ "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": telefono, "NOM_USUARIO": usuario, "CLAVE": clave, "NOM_IDENTIFICACION": idenficacion, "COD_IDENTIFICACION": no_identificacion, "DIRECCION": direccion, "COD_ROL": rol, "COD_MODULO": 10 ,"COD_ESTADO":3, "FECHA_VENCIMIENTO":fecha_vencimiento,"CAMPO":data,"COD_USUARIO":id_user}),
         };
         
         $.ajax(settings).done(function (response) {
@@ -133,7 +133,7 @@ function cargar_usuarios() {
             }
             fecha = moment(val.FECHA_VENCIMIENTO).format('DD-MM-YYYY')
             editar = "<button id='mostrar_editar_usuario' type='input' class='editar btn btn-round btn-lg btn-icon-only btn-secondary mx-2 mx-lg-3 mb-4'  data-toggle='tooltip' data-placement='left' title='Editar Datos de Usuario'><i class='fas fa-pencil-alt' aria-hidden='true'></i> <button  id='mostrar_contrasena_usuario' type='input' class='contraseña btn btn-round btn-lg btn-icon-only btn-warning mx-2 mx-lg-3 mb-4' data-toggle='tooltip' data-placement='left' title='Cambiar Contraseña'><i class='fa fa-unlock-alt' aria-hidden='true'></i>"
-            $("#contenido_usuarios").append("<tr><td class='mostrar_editar_filas'>" + editar + "</td><td>" + val.Nombre + "</td><td>" + val.Correo + "</td><td>" + val.Telefono + "</td><td>" + val.DIRECCION + "</td><td>" + val.NOM_IDENTIFICACION + "</td><td>" + val.COD_IDENTIFICACION + "</td><td>" + val.Usuario + "</td><td>" + val.Rol +"</td><td>" + estado + "</td><td style='display: none; '>" + val.Estado + "</td><td style='display: none; '>" + val.Cod_Rol + "</td><td style='display: none; '>" + val.COD_USUARIO + "</td><td style='display: none; '>" + val.COD_PERSONA + "</td><td style='display: block; '>" + fecha + "</td></tr>");
+            $("#contenido_usuarios").append("<tr><td class='mostrar_editar_filas'>" + editar + "</td><td>" + val.Nombre + "</td><td>" + val.Correo + "</td><td>" + val.Telefono + "</td><td>" + val.DIRECCION + "</td><td>" + val.NOM_IDENTIFICACION + "</td><td>" + val.COD_IDENTIFICACION + "</td><td>" + val.Usuario + "</td><td>" + val.Rol +"</td><td>" + estado + "</td><td style='display: none; '>" + val.Estado + "</td><td style='display: none; '>" + val.Cod_Rol + "</td><td style='display: none; '>" + val.COD_USUARIO + "</td><td style='display: none; '>" + val.COD_PERSONA + "</td><td style='display: none; '>" + fecha + "</td></tr>");
         });
         $('#table_id').dataTable().fnDestroy();
         var table_usuarios = $('#table_id').DataTable({
@@ -218,6 +218,16 @@ function cargar_usuarios() {
                 direccion = $("#A_direccion").val(data[4]);
                 persona = $("#cod_persona").val(data[13]);
                 rol = $("#A_rol").val(data[11]);
+                $("#a_fecha_vencimiento").val(data[14]);
+
+                document.getElementById("dato_cliente").innerHTML =data[1];
+                document.getElementById("dato_correo").innerHTML =data[2];
+                document.getElementById("dato_usuario").innerHTML =data[7];
+                document.getElementById("dato_telefono").innerHTML =data[3];
+                document.getElementById("dato_idenficacion").innerHTML =data[5];
+                document.getElementById("dato_no_identificacion").innerHTML =data[6];
+                document.getElementById("dato_direccion").innerHTML =data[4];
+                document.getElementById("dato_rol").innerHTML =data[11];
            
                 document.getElementById("id_usuario_modificar").innerHTML = data[12]
                 
@@ -290,7 +300,7 @@ function editar_estado_usuario(estado, id_usuario) {
         url_ususari_estado = api + "usuarios/usuario_estado";
         myHeader.append("Content-Type", "application/json",);
 
-        var raw = JSON.stringify({ "COD_ESTADO": estado, "COD_USUARIO": id_usuario, "COD_MODULO": 10, });
+        var raw = JSON.stringify({ "COD_ESTADO": estado, "COD_USUARIO": id_usuario, "COD_MODULO": 10,"REGISTRO":id_usuario,"COD_USUARIOS": id_user});
         var requestOptions = {
             method: 'PUT',
             headers: myHeader,
@@ -359,6 +369,96 @@ function mostrar_data_perfil() {
 
 mostrar_data_perfil();
 obtener_Roles();
+
+function get_detalle_bitacora() {
+    var lista_registros = [];
+    var lista_string = localStorage.getItem("detalle_bitacora");
+    if (lista_string) {
+        lista_registros = JSON.parse(lista_string);
+    }
+    return lista_registros;
+}
+
+function agregar_bitacora(campo,  valor_origial,valor_actual) {
+    var arreglo_registros = get_detalle_bitacora();
+    var bitacora = {
+        c: campo,
+        va: valor_actual,
+        vo: valor_origial,
+        
+    }
+    arreglo_registros.push(bitacora);
+ 
+    localStorage.setItem("detalle_bitacora", JSON.stringify(arreglo_registros));
+   
+}
+function data_actualizar(){
+    cliente = $("#A_nom_usuario").val();
+    correo = $("#A_email").val();
+    usuario = $("#A_Usuario").val();
+    telefono = $("#A_telefono").val();
+    idenficacion = $("#A_identificacion").val();
+    no_identificacion = $("#A_cod_identificacion").val();
+    direccion = $("#A_direccion").val();
+    rol = $("#A_rol").val();
+    estado = $("#A_estado").val();
+    persona = $("#cod_persona").val();
+    correovalido = document.getElementById("AcorreoOK")
+    usuario = document.getElementById("id_usuario_modificar") 
+    
+    //datos actuales 
+    cliente_Actual = document.getElementById("dato_cliente") ;
+    correo_Actual = document.getElementById("dato_correo");
+    usuario_Actual =document.getElementById("dato_usuario");
+    telefono_Actual = document.getElementById("dato_telefono");
+    identificacion_Actual = document.getElementById("dato_idenficacion");
+    no_id_Actual =  document.getElementById("dato_no_identificacion");
+    direccion_Actual =document.getElementById("dato_direccion") ;
+    rol_Actual = document.getElementById("dato_rol");
+    $("#A_nom_usuario").change(function(){
+        if ( $("#A_nom_usuario").val() != cliente_Actual.innerHTML ) {
+          agregar_bitacora('Campo: Nombre del Usuario', cliente_Actual.innerHTML, cliente.val())
+         
+          console.log('VALOR ACTUAL'+ cliente.val());
+          console.log('VALOR ORIGINAL'+ cliente_Actual.innerHTML);
+        }
+    });
+    $("#A_email").change(function(){
+        if ( $("#A_email").val() != correo_Actual.innerHTML ) {
+            agregar_bitacora('Campo: correo del Usuario', correo_Actual.innerHTML, correo.val())
+        }
+    });
+    $("#A_telefono").change(function(){
+        if ( $("#A_telefono").val() != telefono_Actual.innerHTML ) {
+            agregar_bitacora('Campo: telefono del Usuario', telefono_Actual.innerHTML, telefono.val())
+        }
+    });
+    $("#A_identificacion").change(function(){
+        if ( $("#A_identificacion").val() != identificacion_Actual.innerHTML ) {
+            agregar_bitacora('Campo: Tipo de idenficacion del Usuario', identificacion_Actual.innerHTML, idenficacion.val())
+        }
+    });
+    $("#A_cod_identificacion").change(function(){
+        if ( $("#A_cod_identificacion").val() != no_id_Actual.innerHTML ) {
+            agregar_bitacora('Campo: idenficacion del Usuario', no_id_Actual.innerHTML, no_identificacion.val())
+        }
+    });
+    $("#A_direccion").change(function(){
+        if ( $("#A_direccion").val() != direccion_Actual.innerHTML ) {
+            agregar_bitacora('Campo: direccion del Usuario', direccion_Actual.innerHTML, direccion.val())
+        }
+    });
+    $("#A_rol").change(function(){
+        if ( $("#A_rol").val() != rol_Actual.innerHTML ) {
+            agregar_bitacora('Campo: rol del Usuario', rol_Actual.innerHTML, rol.val())
+        }
+    });
+  
+
+}
+
+data_actualizar()
+
 function actualizar_datos() {
     cliente = $("#A_nom_usuario").val();
     correo = $("#A_email").val();
@@ -371,7 +471,11 @@ function actualizar_datos() {
     estado = $("#A_estado").val();
     persona = $("#cod_persona").val();
     correovalido = document.getElementById("AcorreoOK")
-    usuario = document.getElementById("id_usuario_modificar")  
+    usuario = document.getElementById("id_usuario_modificar") 
+    detallebitacora= get_detalle_bitacora()
+    
+    
+   
     if (correovalido.innerHTML != "") {
         Swal.fire({
             icon: 'error',
@@ -391,23 +495,62 @@ function actualizar_datos() {
         })
         return;
     }
+    
     var myHeader = new Headers({
         'Authorization': token
     });
+    detallebitacora.forEach(element => {
+        console.log(element.c)
+        campo = element.c,
+        valor_actual = element.va
+        valor_origial = element.vo
+ 
+        var settings = {
+            "url": api + "bitacora/nuevo",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json",
+                'Authorization': token
+            },
+
+            "data": JSON.stringify({
+                "COD_USUARIO": id_user, "COD_MODULO":10, "CAMPO": campo,"REGISTRO": persona,"VALOR_ORIGINAL":valor_origial,"VALOR_ACTUAL":valor_actual
+            }),
+        };
+
+ 
+        $.ajax(settings).done(function (response) {
+            localStorage.removeItem("detalle_bitacora");
+        });
+     
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeader,
+            body: raw,
+            redirect: 'follow'
+        };
+            
+     
+    })
+ 
+
+  
+        
     url_actualizar_usuarios = api + "usuarios/actualizar";
     myHeader.append("Content-Type", "application/json",);
     var raw = JSON.stringify({
-        "COD_PERSONA": persona, "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": telefono, "NOM_USUARIO": usuario,
-        "NOM_IDENTIFICACION": idenficacion, "COD_IDENTIFICACION": no_identificacion,
-        "DIRECCION": direccion, "COD_ROL": rol, "COD_ESTADO": 1, "COD_USUARIO":usuario.innerHTML , "COD_MODULO": 9
+        "COD_PERSONA": persona, "NOM_PERSONA": cliente, "USER_EMAIL": correo, "NUM_CEL": telefono, "NOM_USUARIO": id_user,"NOM_IDENTIFICACION": idenficacion, "COD_IDENTIFICACION": no_identificacion, "DIRECCION": direccion, "COD_ROL": rol, "COD_ESTADO": 1, "COD_USUARIO":usuario.innerHTML , "COD_MODULO": 10,"CAMPO":direccion ,"REGISTRO":persona,"VALOR_ORIGINAL":direccion,"VALOR_ACTUAL":direccion 
     });
+
     var requestOptions = {
         method: 'PUT',
         headers: myHeader,
         body: raw,
         redirect: 'follow'
     };
-        
+     
     fetch(url_actualizar_usuarios, requestOptions)
         .then(response => response.text())
         .then(result => {
@@ -425,6 +568,8 @@ function actualizar_datos() {
             }
         })
         .catch(error => console.log('error', error));
+
+      
 
 
 }
@@ -489,7 +634,7 @@ function actualizar_contraseña_perfil() {
 
     usuario = document.getElementById("usuario_sistema");
     pass_actual = document.getElementById("clave_actual");
-
+    fecha = $("#a_fecha_vencimiento").val();
     verificar_clave = $("#contraseña_actual").val();
     clave_nueva = $("#nueva_contraseña_perfil").val();
     confi_clave = $("#confirmar_contraseña_perfil").val();
@@ -526,7 +671,7 @@ function actualizar_contraseña_perfil() {
     });
     url_actualizar_usuarios = api + "usuarios/clave";
     myHeader.append("Content-Type", "application/json",);
-    var raw = JSON.stringify({ "CLAVE": clave_nueva, "NOM_USUARIO": usuario.innerHTML, "COD_USUARIO": id_user, "COD_MODULO": 9 });
+    var raw = JSON.stringify({ "CLAVE": clave_nueva, "NOM_USUARIO": usuario.innerHTML, "COD_USUARIO": id_user, "COD_MODULO": 9,'FECHA_VENCIMIENTO':fecha });
     var requestOptions = {
         method: 'PUT',
         headers: myHeader,
@@ -565,7 +710,7 @@ function actualizar_contraseña_user() {
     confi_clave = $("#A_pass_conf").val();
     codigo_user = document.getElementById("cod_user");
     
-
+    fecha = $("#a_fecha_vencimiento").val();
     if (usuario == "" || clave == "") {
         Swal.fire({
             icon: 'error',
@@ -575,6 +720,9 @@ function actualizar_contraseña_user() {
         })
         return;
     }
+    
+
+
 
     if (clave != confi_clave) {
         Swal.fire({
@@ -589,7 +737,7 @@ function actualizar_contraseña_user() {
     });
     url_actualizar_usuarios = api + "usuarios/clave";
     myHeader.append("Content-Type", "application/json",);
-    var raw = JSON.stringify({ "CLAVE": clave, "NOM_USUARIO": usuario, "COD_USUARIO": codigo_user.innerHTML, "COD_MODULO": 9,"COD_ESTADO":3});
+    var raw = JSON.stringify({ "CLAVE": clave, "NOM_USUARIO": usuario, "COD_USUARIO": codigo_user.innerHTML, "COD_MODULO": 9,"COD_ESTADO":3,'FECHA_VENCIMIENTO':fecha});
     var requestOptions = {
         method: 'PUT',
         headers: myHeader,

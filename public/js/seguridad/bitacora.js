@@ -3,6 +3,9 @@ var id_user = localStorage.getItem("id_usuario");
 var token = localStorage.getItem("token");
 var user_logeado = localStorage.getItem("usuario");
 
+
+
+
 function cargar_bitacora() {
     var settings = {
         "url": api + "bitacora",
@@ -16,12 +19,12 @@ function cargar_bitacora() {
     };
 
     $.ajax(settings).done(function (response) {
-     //   console.log(response);
+        console.log(response);
 
         $.each(response[0], function (key, val) {
             
            fecha =  moment(val.FEC_ACCION ).format('DD-MM-YYYY')
-            $("#contenido_bitacora").append("<tr><td>" + fecha+ "</td><td>" + val.TIP_ACCION + "</td><td>" + val.DES_ACCION + "</td><td>" + val.NOM_USUARIO + "</td><td>" + val.NOM_MODULO + "</td></tr>");
+            $("#contenido_bitacora").append("<tr><td>" + fecha+ "</td><td>" + val.NOM_USUARIO + "</td><td>" + val.TIP_ACCION + "</td><td>" + val.NOM_MODULO + "</td><td>" + val.CAMPO + "</td><td>" + val.REGISTRO + "</td><td>" + val.VALOR_ORIGINAL + "</td><td>" + val.VALOR_ACTUAL  + "</td></tr>");
         });
         var table = $('#table_bitacora').DataTable({
             "bLengthChange": false,

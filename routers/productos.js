@@ -42,8 +42,8 @@ app.post("/", (req, res) => {
 
 app.post("/sku", (req, res) => {
     try {
-        const { SKU } = req.body;
-        const consulta = `call 	BUSCAR_PRODUCTO_SKU(${SKU})`;
+        const { NOM_USUARIO, COD_USUARIO, COD_MODULO, SKU } = req.body;
+        const consulta = `call 	BUSCAR_PRODUCTO_SKU('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO},${SKU})`;
         conn.query(consulta, (error, results) => {
             if (error) throw error;
             console.log(results.length > 0)

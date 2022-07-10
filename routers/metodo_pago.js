@@ -16,7 +16,7 @@ var conn = conexion.createConnection(
 // Obenter todo los registros de metodos de pago 
 app.post("/", (req, res) => {
     const { NOM_USUARIO, COD_USUARIO, COD_MODULO } = req.body;
-    const consulta = `call 	OBTENER_METODO_PAGOS('${NOM_USUARIO}',${COD_USUARIO},${COD_MODULO})`;
+    const consulta = `call 	OBTENER_METODO_PAGOS()`;
     conn.query(consulta, (error, results) => {
         if (error) throw error;
         if (results.length > 0) {
