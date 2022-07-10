@@ -441,7 +441,7 @@ function bloquear_usuario() {
         dia = ('0' + dia).slice(-2);
         mes = ('0' + mes).slice(-2);
         fecha_actual = ano + '-' + mes + '-' + dia
-        
+
         // $("#pass_actual").val(password);
         var TuFecha = new Date(fecha_actual);
         var settings = {
@@ -653,4 +653,6 @@ function bloquear_usuario() {
 
 
 });
+
+
 

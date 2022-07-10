@@ -332,7 +332,7 @@ function cargar_facturas() {
                 //Botón para PDF
                 {
                     extend: 'pdf',
-                    title: 'TIENDA ARTESANÍA FUENTE DE BENDICIÓN',
+                    title: empresa,
                     filename: 'Reporte de Factura',
                     //orientation: 'landscape',//landscape give you more space
                     pageSize: 'A4',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))

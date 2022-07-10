@@ -73,7 +73,7 @@ function cargar_inventario_sys() {
                 //Botón para PDF
                 {
                     extend: 'pdf',
-                    title: 'TIENDA ARTESANÍA FUENTE DE BENDICIÓN',
+                    title: empresa,
                    
                     filename: 'Reporte de Inventario ',
                     //orientation: 'landscape',//landscape give you more space

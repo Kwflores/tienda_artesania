@@ -39,6 +39,19 @@ app.post("/fecha_vencimiento", (req, res) => {
     })
 
 });
+
+app.post("/empresa", (req, res) => {
+    const consulta = `call 	OBTENER_PARAMETRO_empresa()`;
+    conn.query(consulta, (error, results) => {
+        if (error) throw error;
+        if (results.length > 0) {
+            res.json(results);
+        } else {
+            res.send("0")
+        }
+    })
+
+});
 app.post("/intentos", (req, res) => {
     const consulta = `call 	OBTENER_PARAMETRO_intento()`;
     conn.query(consulta, (error, results) => {

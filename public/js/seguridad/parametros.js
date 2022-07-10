@@ -50,7 +50,7 @@ function cargar_modulo() {
                 //Botón para PDF
                 {
                     extend: 'pdf',
-                    title: 'TIENDA ARTESANÍA FUENTE DE BENDICIÓN',
+                    title: empresa,
                     filename: 'Reporte de Modulos del Sistema',
                     //orientation: 'landscape',//landscape give you more space
                     pageSize: 'A4',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))
@@ -88,6 +88,38 @@ function cargar_modulo() {
 
 }
 
+function obtener_empresa(){
+    var settings = {
+        "url": api + "parametro/empresa",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            'Authorization': token
+        },
+       // "data": JSON.stringify({ "NOM_USUARIO": user_logeado, "COD_USUARIO": id_user, "COD_MODULO": 3 }),
+    };
+
+    
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+
+        $.each(response[0], function (key, val) {
+            console.log(val.valor)
+            localStorage.setItem('Empresa', val.valor)
+        });
+       
+
+
+    });
+    
+        
+
+            
+
+}
+
+obtener_empresa()
 
 function cargar_parametros() {
     var settings = {
@@ -137,7 +169,7 @@ function cargar_parametros() {
                 //Botón para PDF
                 {
                     extend: 'pdf',
-                    title: 'TIENDA ARTESANÍA FUENTE DE BENDICIÓN',
+                    title: empresa,
                     filename: 'Reporte de Parametros del Sistema',
                     //orientation: 'landscape',//landscape give you more space
                     pageSize: 'A4',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))
@@ -178,7 +210,7 @@ function cargar_parametros() {
 
 
     });
-    
+
 
 
 }

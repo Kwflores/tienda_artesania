@@ -2,7 +2,9 @@ var api = "http://localhost:3000/"
 var id_user = localStorage.getItem("id_usuario");
 var token = localStorage.getItem("token");
 var user_logeado = localStorage.getItem("usuario");
-
+empresa = localStorage.getItem("Empresa");
+document.getElementById('titulo_tiendita').innerHTML = empresa
+document.getElementById('titulo_2').innerHTML = empresa
 
 $(document).ready(function () {
     $("#table_id").change(function () {
@@ -169,7 +171,7 @@ function cargar_usuarios() {
                 //Botón para PDF
                 {
                     extend: 'pdf',
-                    title: 'TIENDA ARTESANÍA FUENTE DE BENDICIÓN',
+                    title: empresa,
                     filename: 'Reporte de Usuarios del Sistema',
                     //orientation: 'landscape',//landscape give you more space
                     pageSize: 'A3',//A0 is the largest A5 smallest(A0,A1,A2,A3,legal,A4,A5,letter))
@@ -720,7 +722,7 @@ function actualizar_contraseña_user() {
         })
         return;
     }
-    
+
 
 
 
